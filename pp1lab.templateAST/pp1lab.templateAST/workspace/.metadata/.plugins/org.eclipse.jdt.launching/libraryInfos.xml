@@ -19,6 +19,25 @@
 <entry path="C:\Program Files\Java\jdk1.8.0_112\jre\lib\endorsed"/>
 </endorsedDirs>
 </libraryInfo>
+<libraryInfo home="C:\Program Files\Java\jre1.8.0_281" version="1.8.0_281">
+<bootpath>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\resources.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\rt.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\sunrsasign.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\jsse.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\jce.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\charsets.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\jfr.jar"/>
+<entry path="C:\Program Files\Java\jre1.8.0_281\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\ext"/>
+<entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Program Files\Java\jre1.8.0_281\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
 <libraryInfo home="C:\Program Files (x86)\Java\jre7" version="1.7.0_07">
 <bootpath>
 <entry path="C:\Program Files (x86)\Java\jre7\lib\resources.jar"/>

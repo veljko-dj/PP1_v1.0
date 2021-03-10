@@ -54,10 +54,20 @@ scan with {:
 :}
 
 
-terminal PROG, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA, PRINT, RETURN, PLUS, EQUAL, VOID;
-terminal Integer NUMBER ;
-terminal String IDENT ;
-terminal IF, ELSE;
+				// poredjano po redu iz pdfa mikrojava_20_21
+								// kljucne reci:
+terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
+terminal PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, CASE;
+								// Vrste tokena:
+terminal String IDENT;
+terminal Integer NUMBER_CONST;
+terminal Char CHAR_CONST;
+terminal Boolean  BOOL_CONST;
+								// Operatori:
+terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
+terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal LBRACE, RBRACE, QMARK, DOTS;
+ 
 
 nonterminal MethodDeclList MethodDeclList;
 nonterminal VarDecl VarDecl;
@@ -147,7 +157,7 @@ Expr ::= (AddExpr) Expr:te Addop:A1 Term:t {: RESULT=new AddExpr(te, A1, t); RES
 Term ::= (Term) Factor:t {: RESULT=new Term(t); RESULT.setLine(tleft); :} 
 ;
 
-Factor ::= (Const) NUMBER:N1 {: RESULT=new Const(N1); RESULT.setLine(N1left); :}
+Factor ::= (Const) NUMBER_CONST:N1 {: RESULT=new Const(N1); RESULT.setLine(N1left); :}
 			|
 		   (Var) Designator:d {: RESULT=new Var(d); RESULT.setLine(dleft); :}
 		    |

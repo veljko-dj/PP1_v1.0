@@ -54,10 +54,20 @@ scan with {:
 :}
 
 
-terminal PROG, LBRACE, RBRACE, SEMI, LPAREN, RPAREN, COMMA, PRINT, RETURN, PLUS, EQUAL, VOID;
-terminal Integer NUMBER ;
-terminal String IDENT ;
-terminal IF, ELSE;
+				// poredjano po redu iz pdfa mikrojava_20_21
+								// kljucne reci:
+terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
+terminal PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, CASE;
+								// Vrste tokena:
+terminal String IDENT;
+terminal Integer NUMBER_CONST;
+terminal Char CHAR_CONST;
+terminal Boolean  BOOL_CONST;
+								// Operatori:
+terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
+terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal LBRACE, RBRACE, QMARK, DOTS;
+ 
 
 nonterminal MethodDeclList, VarDecl;
 nonterminal FormalParamList, FormalParamDecl, FormPars, ActualPars, ActualParamList; 
@@ -139,7 +149,7 @@ Expr ::= (AddExpr) Expr:te Addop Term:t
 Term ::= (Term) Factor:t 
 ;
 
-Factor ::= (Const) NUMBER
+Factor ::= (Const) NUMBER_CONST
 			|
 		   (Var) Designator:d
 		    |

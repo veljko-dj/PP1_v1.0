@@ -53,6 +53,7 @@ scan with {:
 	return s;
 :}
 
+
 				// poredjano po redu iz pdfa mikrojava_20_21
 								// kljucne reci:
 terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
@@ -64,7 +65,7 @@ terminal Char CHAR_CONST;
 terminal Boolean  BOOL_CONST;
 								// Operatori:
 terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
-terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 								//Dodati neterminali
@@ -81,25 +82,62 @@ nonterminal Unmatched, Matched;
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
 
-
-
-
-Program ::= (Program) PROG ProgName:p VarDeclList LBRACE MethodDeclList RBRACE 
+Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE 
 ;
 
 ProgName ::= (ProgName) IDENT:pName 
 ;
+								  
+ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList ConstDecl
+						| (ConstVarClassDeclList_Var) ConstVarClassDeclList VarDecl
+						| (ConstVarClassDeclList_Class) ConstVarClassDeclList ClassDecl
+						| (ConstVarClassDeclList_No) /* epsilon */
+						;
+ 
+ConstDecl ::= (ConstDeclaration) CONST Type ConstDeclList SEMI;
 
-VarDeclList ::= (VarDeclarations) VarDeclList VarDecl  
-				|
-				(NoVarDecl)/* epsilon */ 
+ConstDeclList :: = 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
+				| 	(ConstDeclList_single)	ConstDeclOne
+				;	
+		
+							// U primeru u diplomskom radu stoji val 
+ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:nName ASSIGN NUMBER_CONST:val
+				|	(ConstDeclOneElementChar) IDENT:cName ASSIGN CHAR_CONST:val
+				| 	(ConstDeclOneElementBool) IDENT:bName ASSIGN BOOL_CONST:val
 				;
 				
-VarDecl ::= (VarDecl) Type:varType IDENT:varName SEMI 
-;
+
+			 
+VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI ;
+
+VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
+			|	(VarDecListOneElement) VarDeclOne;
+
+
+							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
+							// Kako primetih, ovo error nije nigde definisano opet, tako da je 
+							// nesto implicitno			
+VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
+			|	(VarDeclOneSquare) IDENT:nameVarOneS LSQUARE RSQUARE
+			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest",eVar); :}
 
 Type ::= (Type) IDENT:typeName 
 ;
+
+ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl RBRACE 
+			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodList RBRACE RBRACE      ?????METHODLIST????
+			;
+
+Extends ::= (ExtendClass) EXTENDS Type:extendType;
+									// Ovo je malo dvosmisleno ali valjda nece praviti problem
+									// Ako bude problema, ili skloni epsilon ili skloni ovaj One
+									// Jer ako imas dva VarDecl, to moze biti i prvo i drugo 
+									// i prvo vise puta pa trece
+ManyVarDecl ::= (ManyVarDeclaration) ManyVarDecl VarDecl
+			|	(ManyVarDeclOne) VarDecl
+			|	(ManyVarDeclNo) /* epsilon */
+								
+
 
 MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
 					|

@@ -68,7 +68,12 @@ terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
 terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
-
+								//Dodati neterminali
+nonterminal ConstDecl, ClassDecl, DesignatorStatement;
+nonterminal ActPars, Condition, CondTerm, CondFact;
+nonterminal Assignop, Relop, Mulop;
+								// Ovi dole su vec postojali u sablon fajlu
+								
 nonterminal MethodDeclList, VarDecl;
 nonterminal FormalParamList, FormalParamDecl, FormPars, ActualPars, ActualParamList; 
 nonterminal StatementList, Statement, Addop;
@@ -77,16 +82,40 @@ nonterminal Unmatched, Matched;
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
 
-Program ::= (Program) PROG ProgName:p VarDeclList LBRACE MethodDeclList RBRACE 
+Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE 
 ;
 
 ProgName ::= (ProgName) IDENT:pName 
 ;
+								// Ako dobro skontah u onom diplomskom radu onda ovo u () je ime ujedno 
+								// i dodatni opis samog programa u tom slucaju, pa ga zato stavljam proizvoljno
+
+ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList ConstDecl
+						| (ConstVarClassDeclList_Var) ConstVarClassDeclList VarDecl
+						| (ConstVarClassDeclList_Class) ConstVarClassDeclList ClassDecl
+						| (ConstVarClassDeclList_No) /* epsilon */
+						;
+ 
+ConstDecl ::= (ConstDeclaration) CONST Type ConstDeclList SEMI;
+
+ConstDeclList :: = 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
+				| 	(ConstDeclList_single)	ConstDeclOne
+				;	
+		
+		
+							// Ovo val predpostavljam da je vrednost. U primeru 
+							// u diplomskom radu stoji val 
+ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:nName ASSIGN NUMBER_CONST:val
+				|	(ConstDeclOneElementChar) IDENT:cName ASSIGN CHAR_CONST:val
+				| 	(ConstDeclOneElementBool) IDENT:bName ASSIGN BOOL_CONST:val
+				;
+			 
 
 VarDeclList ::= (VarDeclarations) VarDeclList VarDecl  
 				|
 				(NoVarDecl)/* epsilon */ 
 				;
+				
 				
 VarDecl ::= (VarDecl) Type:varType IDENT:varName SEMI 
 ;

@@ -53,7 +53,6 @@ scan with {:
 	return s;
 :}
 
-
 				// poredjano po redu iz pdfa mikrojava_20_21
 								// kljucne reci:
 terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
@@ -65,10 +64,22 @@ terminal Char CHAR_CONST;
 terminal Boolean  BOOL_CONST;
 								// Operatori:
 terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
-terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
-
+								//Dodati neterminali
+nonterminal ConstDecl ConstDecl;
+nonterminal ClassDecl ClassDecl;
+nonterminal DesignatorStatement DesignatorStatement;
+nonterminal ActPars ActPars;
+nonterminal Condition Condition;
+nonterminal CondTerm CondTerm;
+nonterminal CondFact CondFact;
+nonterminal Assignop Assignop;
+nonterminal Relop Relop;
+nonterminal Mulop Mulop;
+								// Ovi dole su vec postojali u sablon fajlu
+								
 nonterminal MethodDeclList MethodDeclList;
 nonterminal VarDecl VarDecl;
 nonterminal FormalParamList FormalParamList;
@@ -84,6 +95,9 @@ nonterminal Matched Matched;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+
+
+
 
 Program ::= (Program) PROG ProgName:p VarDeclList:V1 LBRACE MethodDeclList:M2 RBRACE {: RESULT=new Program(p, V1, M2); RESULT.setLine(pleft); :} 
 ;

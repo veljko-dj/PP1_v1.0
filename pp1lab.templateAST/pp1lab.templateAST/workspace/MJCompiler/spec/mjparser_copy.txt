@@ -125,7 +125,7 @@ Type ::= (Type) IDENT:typeName
 ;
 
 ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl RBRACE 
-			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodList RBRACE RBRACE      ?????METHODLIST????
+			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodDeclList RBRACE RBRACE      ?????METHODLIST????
 			;
 
 Extends ::= (ExtendClass) EXTENDS Type:extendType;
@@ -139,26 +139,27 @@ ManyVarDecl ::= (ManyVarDeclaration) ManyVarDecl VarDecl
 								
 
 
+									 
 MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
 					|
-					(NoMethodDecl)/* epsilon */
+					(NoMethodDecl) /* epsilon */
 					;
 
-MethodDecl ::= (MethodDecl) MethodTypeName
-			   LPAREN FormPars RPAREN VarDeclList LBRACE StatementList RBRACE 
-			   ;
+MethodDecl ::= (MethodDeclaration) MethodTypeName LPAREN FormPars RPAREN ManyVarDecl LBRACE StatementList RBRACE     ;   ???STATEMENT???
 
-MethodTypeName ::= (MethodTypeName) Type:retType IDENT:methName
-;
+MethodTypeName ::=  (MethodTypeName) Type:retType IDENT:methName
+				|	(MethodTypeNameVoid VOID IDENT:methNameVoid ;
 
-FormPars ::= (FormParams) FormalParamList | (NoFormParam) /* epsilon */ ;
+FormPars ::=  (FormParams) FormalParamList 
+			| (NoFormParam) /* epsilon */ ;
 
 FormalParamList ::= (FormalParamDecls) FormalParamList COMMA FormalParamDecl
 					|
 					(SingleFormalParamDecl) FormalParamDecl
 					;
 					
-FormalParamDecl ::= (FormalParamDecl) Type IDENT ;
+FormalParamDecl ::= (FormalParamDecl) Type:paramType IDENT:paramName 
+				|	(FormalParamDeclArray) Type:paramType IDENT:paramNameArray LSQUARE RSQUARE;
 
 StatementList ::= (Statements) StatementList Statement 
 					|
@@ -211,7 +212,21 @@ ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 					(ActualParam) Expr
 					;
 
-Designator ::= (Designator) IDENT:name
+Designator ::= (DesignatorOne) IDENT:destName
 ;
 
-Addop ::= (Addop) PLUS ;
+Assignop ::= ASSIGN;
+
+Relop ::= (RelopEqual) EQUAL
+		| (RelopNotEqual) NEQUAL
+		| (RelopGreater) GT
+		| (RelopGreaterEqual) GE
+		| (RelopLower) LT
+		| (RelopLowerEqual) LE ;
+
+Addop ::= (AddopPlus) PLUS 
+		| (AddopMinus) MINUS;
+
+Mulop ::= (MulopMul) MUL 
+		| (MulopDiv) DIV
+		| (MulopMod) MOD;

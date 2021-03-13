@@ -188,9 +188,13 @@ Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI
 			  ;
 			  
 
+DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
+					|	(DStatementParen) Designator LPAREN ActPars RPAREN
+					| 	(DStatementInc) Designator INC
+					|	(DStatementDec) Designator DEC;
 
 
-ActualPars ::= (Actuals) ActualParamList 
+ActPars ::= (Actuals) ActualParamList 
 				| 
 			   (NoActuals) /* epsilon */ 
 			   ;

@@ -26,3 +26,5 @@ MERGE!!!!
 kada radis merge, pametnije je da ga radis iz grane u kojoj radis kod, sa mainom
 Na taj nacin ce ti ostati normalan projekat. Neces morati da kopiras .metadata iz 
 sablonskog projekta pa da se jebavas
+
+Sad ovde pisem onako, da bih nesto izmenio 

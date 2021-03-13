@@ -195,12 +195,6 @@ Expr ::= (AddExpr) Expr:te Addop Term:t
 Term ::= (Term) Factor:t 
 ;
 
-Factor ::= (Const) NUMBER_CONST
-			|
-		   (Var) Designator:d
-		    |
-		   (FuncCall) Designator:func LPAREN ActualPars RPAREN
-		   ;
 
 ActualPars ::= (Actuals) ActualParamList 
 				| 
@@ -212,8 +206,22 @@ ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 					(ActualParam) Expr
 					;
 
-Designator ::= (DesignatorOne) IDENT:destName
-;
+
+Factor ::= 	(FactVar) Designator:desName
+		|	(FuncCall) Designator:funcName LPAREN ActualPars RPAREN
+		|  	(FactBool) BOOL_CONST
+		|	(FactChar) CHAR_CONST
+		|	(FactNum) NUMBER_CONST
+		|	(FactNew) NEW Type
+		| 	(FactNewArray) NEW Type LSQUARE Expr RSQAURE
+		| 	(FactExpr) LPAREN Expr RPAREN;		;
+
+Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr;
+
+IdentOrExpr ::= (DesignExprOne) DOT IDENT
+			|	(DesignIdent) IdentOrExpr DOT IDENT 
+			| 	(DesignExprOne) LSQUARE Expr RSQUARE
+			| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE
 
 Assignop ::= ASSIGN;
 

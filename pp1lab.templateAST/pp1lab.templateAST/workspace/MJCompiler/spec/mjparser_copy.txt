@@ -187,13 +187,7 @@ Matched ::= (Assignment) Designator:dest EQUAL Expr:e SEMI
 			  (ProcCall) Designator:func LPAREN ActualPars RPAREN SEMI
 			  ;
 			  
-Expr ::= (AddExpr) Expr:te Addop Term:t
-		 |
-		 (TermExpr) Term:t
-		 ;
 
-Term ::= (Term) Factor:t 
-;
 
 
 ActualPars ::= (Actuals) ActualParamList 
@@ -203,9 +197,38 @@ ActualPars ::= (Actuals) ActualParamList
 			   
 ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 					|
-					(ActualParam) Expr
+					(ActualParamEnd) Expr
 					;
+					 
+Condition ::= (Conditions) CondTermList;
 
+CondTermList ::=(CondTermListMulti) 	CondTermList OR CondTerm
+			|	(CondTermListEnd)	CondTerm;
+					 
+CondTerm ::= (CondTerms) CondFactList;
+
+
+CondFactList ::= (CondFactMulti) CondFactList AND CondFact
+			 | 
+			 (CondFactEnd) CondFact;
+
+CondFact ::= 	(CondFactOne) 	Expr 
+			|	(CondFactRelop)	Expr Relop Expr;
+
+Expr ::= 	(SignleTermInExpr) OneMinus Term
+		|	(MultiTermInExpr) OneMinus Term TermsInExpr
+	//	| 	Condition QMARK Expr DOTS Expr
+		| 	(ExprCondFact) CondFact QMARK Expr DOTS Expr;
+		
+OneMinus ::= 	(Minus) 	MINUS
+			|	(NoMinus) 	/* epsilon */;
+
+TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term 
+			|	(NoTermsInExpr) /* epsilon */;
+
+Term ::= 	(TermOne) Factor:t
+		| 	(TermMore) Term Mulop Factor:t
+;
 
 Factor ::= 	(FactVar) Designator:desName
 		|	(FuncCall) Designator:funcName LPAREN ActualPars RPAREN

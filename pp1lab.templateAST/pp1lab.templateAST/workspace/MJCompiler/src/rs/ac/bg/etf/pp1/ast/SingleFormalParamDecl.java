@@ -1,9 +1,9 @@
 // generated with ast extension for cup
 // version 0.8
-// 17/11/2017 14:22:56
+// 15/2/2021 0:36:40
 
 
-package rs.ac.bg.etf.pp1.ast;
+package src.rs.ac.bg.etf.pp1.ast;
 
 public class SingleFormalParamDecl extends FormalParamList {
 

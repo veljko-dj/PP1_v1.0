@@ -65,7 +65,7 @@ terminal Char CHAR_CONST;
 terminal Boolean  BOOL_CONST;
 								// Operatori:
 terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
-terminal ASSiGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 								//Dodati neterminali
@@ -75,12 +75,17 @@ nonterminal Assignop, Relop, Mulop;
 								// Ovi dole su vec postojali u sablon fajlu
 								
 nonterminal MethodDeclList, VarDecl;
-nonterminal FormalParamList, FormalParamDecl, FormPars, ActualPars, ActualParamList; 
+nonterminal FormalParamList, FormalParamDecl, FormPars, ActualParamList; 
 nonterminal StatementList, Statement, Addop;
-nonterminal Unmatched, Matched;
+nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
+nonterminal Extends, ManyVarDecl, CaseList, ReturnExpr, PrintValue;
+nonterminal OneMinus, TermsInExpr, IdentOrExpr;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+// nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
+// nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+
+nonterminal Program, ProgName, Designator, MethodDecl, MethodTypeName; 
+nonterminal Type, Term, Expr, Factor, VarDeclList; 
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE 
 ;
@@ -96,7 +101,7 @@ ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList Co
  
 ConstDecl ::= (ConstDeclaration) CONST Type ConstDeclList SEMI;
 
-ConstDeclList :: = 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
+ConstDeclList ::= 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
 				| 	(ConstDeclList_single)	ConstDeclOne
 				;	
 		
@@ -119,8 +124,7 @@ VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 							// nesto implicitno			
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE
-			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: "+ tleft ,eVar); :}
-
+			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: "+ tleft ,eVar); :};
 Type ::= (Type) IDENT:typeName 
 ;
 
@@ -135,7 +139,7 @@ Extends ::= (ExtendClass) EXTENDS Type:extendType;
 									// i prvo vise puta pa trece
 ManyVarDecl ::= (ManyVarDeclaration) ManyVarDecl VarDecl
 	//		|	(ManyVarDeclOne) VarDecl
-			|	(ManyVarDeclNo) /* epsilon */
+			|	(ManyVarDeclNo) /* epsilon */;
 								
 
 
@@ -154,17 +158,14 @@ FormPars ::=  (FormParams) FormalParamList
 			| (NoFormParam) /* epsilon */ ;
 
 FormalParamList ::= (FormalParamDecls) FormalParamList COMMA FormalParamDecl
-					|
-					(SingleFormalParamDecl) FormalParamDecl
-					;
+					|(SingleFormalParamDecl) FormalParamDecl;
 					
 FormalParamDecl ::= (FormalParamDecl) Type:paramType IDENT:paramName 
 				|	(FormalParamDeclArray) Type:paramType IDENT:paramNameArray LSQUARE RSQUARE;
 
 StatementList ::= (Statements) StatementList Statement 
 					|
-				  (NoStmt) /* epsilon */
-				  ;
+				  (NoStmt) /* epsilon */ ;
 /*
 Statement ::= (MatchedStmt) Matched | (UnmachedStmt) Unmatched ;
 
@@ -219,8 +220,7 @@ DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr
 
 ActPars ::= (Actuals) ActualParamList 
 				| 
-			   (NoActuals) /* epsilon */ 
-			   ;
+			   (NoActuals) /* epsilon */ ;
 			   
 ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 					|
@@ -229,9 +229,7 @@ ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 			
 Condition ::=(ConditionMulti) 	Condition OR CondTerm
 			|	(ConditionEnd)	CondTerm;
-					 
-CondTerm ::= (CondTerms) CondFactList;
-
+		
 
 CondTerm ::= (CondTermMulti) CondTerm AND CondFact
 			 | 
@@ -240,8 +238,8 @@ CondTerm ::= (CondTermMulti) CondTerm AND CondFact
 CondFact ::= 	(CondFactOne) 	Expr 
 			|	(CondFactRelop)	Expr Relop Expr;
 
-Expr ::= //	(SignleTermInExpr) OneMinus Term
-	 /* | */	(MultiTermInExpr) OneMinus Term TermsInExpr
+Expr ::= //	(SignleTermInExpr) OneMinus Term |
+			(MultiTermInExpr) OneMinus Term TermsInExpr
 	//	| 	Condition QMARK Expr DOTS Expr
 		| 	(ExprCondFact) CondFact QMARK Expr DOTS Expr;
 		
@@ -252,8 +250,7 @@ TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term
 			|	(NoTermsInExpr) /* epsilon */;
 
 Term ::= 	(TermOne) Factor:t
-		| 	(TermMore) Term Mulop Factor:t
-;
+		| 	(TermMore) Term Mulop Factor:t ;
 
 Factor ::= 	(FactVar) Designator:designName
 		|	(FuncCall) Designator:funcName LPAREN ActPars RPAREN
@@ -262,7 +259,7 @@ Factor ::= 	(FactVar) Designator:designName
 		|  	(FactBool) BOOL_CONST
 		|	(FactNew) NEW Type
 		| 	(FactNewArray) NEW Type LSQUARE Expr RSQAURE
-		| 	(FactExpr) LPAREN Expr RPAREN;		;
+		| 	(FactExpr) LPAREN Expr RPAREN;	
 
 Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr;
 

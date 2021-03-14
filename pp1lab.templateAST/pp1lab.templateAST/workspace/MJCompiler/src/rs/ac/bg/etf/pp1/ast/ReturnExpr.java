@@ -1,12 +1,14 @@
 // generated with ast extension for cup
 // version 0.8
-// 17/11/2017 14:22:56
+// 15/2/2021 0:36:40
 
 
-package rs.ac.bg.etf.pp1.ast;
+package src.rs.ac.bg.etf.pp1.ast;
 
-public class ReturnExpr extends Matched {
+public class ReturnExpr implements SyntaxNode {
 
+    private SyntaxNode parent;
+    private int line;
     private Expr Expr;
 
     public ReturnExpr (Expr Expr) {
@@ -20,6 +22,22 @@ public class ReturnExpr extends Matched {
 
     public void setExpr(Expr Expr) {
         this.Expr=Expr;
+    }
+
+    public SyntaxNode getParent() {
+        return parent;
+    }
+
+    public void setParent(SyntaxNode parent) {
+        this.parent=parent;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line=line;
     }
 
     public void accept(Visitor visitor) {

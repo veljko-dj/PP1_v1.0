@@ -1,31 +1,31 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 12:18:5
+// 15/2/2021 13:48:59
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class CondFactRelop extends CondFact {
 
-    private Expr Expr;
+    private ExprManjiProstiji ExprManjiProstiji;
     private Relop Relop;
-    private Expr Expr1;
+    private ExprManjiProstiji ExprManjiProstiji1;
 
-    public CondFactRelop (Expr Expr, Relop Relop, Expr Expr1) {
-        this.Expr=Expr;
-        if(Expr!=null) Expr.setParent(this);
+    public CondFactRelop (ExprManjiProstiji ExprManjiProstiji, Relop Relop, ExprManjiProstiji ExprManjiProstiji1) {
+        this.ExprManjiProstiji=ExprManjiProstiji;
+        if(ExprManjiProstiji!=null) ExprManjiProstiji.setParent(this);
         this.Relop=Relop;
         if(Relop!=null) Relop.setParent(this);
-        this.Expr1=Expr1;
-        if(Expr1!=null) Expr1.setParent(this);
+        this.ExprManjiProstiji1=ExprManjiProstiji1;
+        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.setParent(this);
     }
 
-    public Expr getExpr() {
-        return Expr;
+    public ExprManjiProstiji getExprManjiProstiji() {
+        return ExprManjiProstiji;
     }
 
-    public void setExpr(Expr Expr) {
-        this.Expr=Expr;
+    public void setExprManjiProstiji(ExprManjiProstiji ExprManjiProstiji) {
+        this.ExprManjiProstiji=ExprManjiProstiji;
     }
 
     public Relop getRelop() {
@@ -36,12 +36,12 @@ public class CondFactRelop extends CondFact {
         this.Relop=Relop;
     }
 
-    public Expr getExpr1() {
-        return Expr1;
+    public ExprManjiProstiji getExprManjiProstiji1() {
+        return ExprManjiProstiji1;
     }
 
-    public void setExpr1(Expr Expr1) {
-        this.Expr1=Expr1;
+    public void setExprManjiProstiji1(ExprManjiProstiji ExprManjiProstiji1) {
+        this.ExprManjiProstiji1=ExprManjiProstiji1;
     }
 
     public void accept(Visitor visitor) {
@@ -49,22 +49,22 @@ public class CondFactRelop extends CondFact {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Expr!=null) Expr.accept(visitor);
+        if(ExprManjiProstiji!=null) ExprManjiProstiji.accept(visitor);
         if(Relop!=null) Relop.accept(visitor);
-        if(Expr1!=null) Expr1.accept(visitor);
+        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Expr!=null) Expr.traverseTopDown(visitor);
+        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseTopDown(visitor);
         if(Relop!=null) Relop.traverseTopDown(visitor);
-        if(Expr1!=null) Expr1.traverseTopDown(visitor);
+        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Expr!=null) Expr.traverseBottomUp(visitor);
+        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseBottomUp(visitor);
         if(Relop!=null) Relop.traverseBottomUp(visitor);
-        if(Expr1!=null) Expr1.traverseBottomUp(visitor);
+        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -73,8 +73,8 @@ public class CondFactRelop extends CondFact {
         buffer.append(tab);
         buffer.append("CondFactRelop(\n");
 
-        if(Expr!=null)
-            buffer.append(Expr.toString("  "+tab));
+        if(ExprManjiProstiji!=null)
+            buffer.append(ExprManjiProstiji.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
@@ -85,8 +85,8 @@ public class CondFactRelop extends CondFact {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Expr1!=null)
-            buffer.append(Expr1.toString("  "+tab));
+        if(ExprManjiProstiji1!=null)
+            buffer.append(ExprManjiProstiji1.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

@@ -92,7 +92,7 @@ import java_cup.runtime.Symbol;
 [0-9]+  										{ return new_symbol(sym.NUMBER_CONST, new Integer (yytext())); }
 "true" | "false" | "True" | "False" 			{ return new_symbol(sym.BOOL_CONST, yytext()); }
 ([a-z]|[A-Z])[a-z|A-Z|0-9|_]* 					{ return new_symbol(sym.IDENT, yytext()); }
-"'"."'"											{ return new_symbol(sym.CHAR_CONST, yytext()); }
+"'"."'"											{ return new_symbol(sym.CHAR_CONST, yytext().charAt(1)); }
 
 . { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); }
 

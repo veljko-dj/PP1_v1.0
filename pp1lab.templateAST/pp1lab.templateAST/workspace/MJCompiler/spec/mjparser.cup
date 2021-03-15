@@ -130,7 +130,8 @@ ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDe
 			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodDeclList RBRACE RBRACE  
 			 ;
 
-Extends ::= (ExtendClass) EXTENDS Type:extendType ;
+Extends ::= (ExtendClass) EXTENDS Type:extendType
+			| /* epsilon */ ;
 									// Ovo je malo dvosmisleno ali valjda nece praviti problem
 									// Ako bude problema, ili skloni epsilon ili skloni ovaj One
 									// Jer ako imas dva VarDecl, to moze biti i prvo i drugo 
@@ -179,9 +180,9 @@ Statement ::= (MatchedStmt) Matched
 		   (UnmatchedStmt) Unmatched
 		   ; 
 
-Unmatched ::= (UnmatchedIf) IF LPAREN Expr RPAREN Statement
+Unmatched ::= (UnmatchedIf) IF LPAREN Condition RPAREN Statement
 		 	|
-		 	(UnmatchedIfElse) IF LPAREN Expr RPAREN Matched ELSE Unmatched
+		 	(UnmatchedIfElse) IF LPAREN Condition RPAREN Matched ELSE Unmatched
 		 	;
 Matched ::= 	(StatDesign) DesignatorStatement SEMI
 	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 
@@ -233,8 +234,8 @@ CondTerm ::= (CondTermMulti) CondTerm AND CondFact
 			 | 
 			 (CondTermEnd) CondFact ;
 
-CondFact ::= 	(CondFactOne) 	Expr 
-			|	(CondFactRelop)	Expr Relop Expr ;
+CondFact ::= 	(CondFactOne) 	ExprManjiProstiji 
+			|	(CondFactRelop)	ExprManjiProstiji Relop ExprManjiProstiji ;
 			
 
 				// Setio sam se da je Ziza slao mejl i nova gramatika je ovakva:
@@ -244,7 +245,7 @@ CondFact ::= 	(CondFactOne) 	Expr
 				// Expr1 =  ["-"] Expr1 { Addop Term }.
 
 
-Expr ::=  	(Expr0) ExprManjiProstiji QMARK ExprManjiProstiji DOTS ExprManjiProstiji
+Expr ::=  	(Expr0) Condition QMARK ExprManjiProstiji DOTS ExprManjiProstiji
 		| 	(Expr1) ExprManjiProstiji  ;
 		
 		

@@ -165,7 +165,8 @@ ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends:E1 LBRACE ManyVa
 			| (ClassDeclMethod) CLASS IDENT:className Extends:E1 LBRACE ManyVarDecl:M2 LBRACE MethodDeclList:M3 RBRACE RBRACE {: RESULT=new ClassDeclMethod(className, E1, M2, M3); RESULT.setLine(classNameleft); :}  
 			 ;
 
-Extends ::= (ExtendClass) EXTENDS Type:extendType {: RESULT=new ExtendClass(extendType); RESULT.setLine(extendTypeleft); :} ;
+Extends ::= (ExtendClass) EXTENDS Type:extendType {: RESULT=new ExtendClass(extendType); RESULT.setLine(extendTypeleft); :}
+			| {: RESULT=new ExtendsDerived1(); :} /* epsilon */ ;
 									// Ovo je malo dvosmisleno ali valjda nece praviti problem
 									// Ako bude problema, ili skloni epsilon ili skloni ovaj One
 									// Jer ako imas dva VarDecl, to moze biti i prvo i drugo 
@@ -214,9 +215,9 @@ Statement ::= (MatchedStmt) Matched:M1 {: RESULT=new MatchedStmt(M1); RESULT.set
 		   (UnmatchedStmt) Unmatched:U1 {: RESULT=new UnmatchedStmt(U1); RESULT.setLine(U1left); :}
 		   ; 
 
-Unmatched ::= (UnmatchedIf) IF LPAREN Expr:E1 RPAREN Statement:S2 {: RESULT=new UnmatchedIf(E1, S2); RESULT.setLine(E1left); :}
+Unmatched ::= (UnmatchedIf) IF LPAREN Condition:C1 RPAREN Statement:S2 {: RESULT=new UnmatchedIf(C1, S2); RESULT.setLine(C1left); :}
 		 	|
-		 	(UnmatchedIfElse) IF LPAREN Expr:E1 RPAREN Matched:M2 ELSE Unmatched:U3 {: RESULT=new UnmatchedIfElse(E1, M2, U3); RESULT.setLine(E1left); :}
+		 	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN Matched:M2 ELSE Unmatched:U3 {: RESULT=new UnmatchedIfElse(C1, M2, U3); RESULT.setLine(C1left); :}
 		 	;
 Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D1); RESULT.setLine(D1left); :}
 	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 
@@ -268,8 +269,8 @@ CondTerm ::= (CondTermMulti) CondTerm:C1 AND CondFact:C2 {: RESULT=new CondTermM
 			 | 
 			 (CondTermEnd) CondFact:C1 {: RESULT=new CondTermEnd(C1); RESULT.setLine(C1left); :} ;
 
-CondFact ::= 	(CondFactOne) 	Expr:E1 {: RESULT=new CondFactOne(E1); RESULT.setLine(E1left); :} 
-			|	(CondFactRelop)	Expr:E1 Relop:R2 Expr:E3 {: RESULT=new CondFactRelop(E1, R2, E3); RESULT.setLine(E1left); :} ;
+CondFact ::= 	(CondFactOne) 	ExprManjiProstiji:E1 {: RESULT=new CondFactOne(E1); RESULT.setLine(E1left); :} 
+			|	(CondFactRelop)	ExprManjiProstiji:E1 Relop:R2 ExprManjiProstiji:E3 {: RESULT=new CondFactRelop(E1, R2, E3); RESULT.setLine(E1left); :} ;
 			
 
 				// Setio sam se da je Ziza slao mejl i nova gramatika je ovakva:
@@ -279,7 +280,7 @@ CondFact ::= 	(CondFactOne) 	Expr:E1 {: RESULT=new CondFactOne(E1); RESULT.setLi
 				// Expr1 =  ["-"] Expr1 { Addop Term }.
 
 
-Expr ::=  	(Expr0) ExprManjiProstiji:E1 QMARK ExprManjiProstiji:E2 DOTS ExprManjiProstiji:E3 {: RESULT=new Expr0(E1, E2, E3); RESULT.setLine(E1left); :}
+Expr ::=  	(Expr0) Condition:C1 QMARK ExprManjiProstiji:E2 DOTS ExprManjiProstiji:E3 {: RESULT=new Expr0(C1, E2, E3); RESULT.setLine(C1left); :}
 		| 	(Expr1) ExprManjiProstiji:E1 {: RESULT=new Expr1(E1); RESULT.setLine(E1left); :}  ;
 		
 		

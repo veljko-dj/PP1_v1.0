@@ -1,24 +1,23 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
 public class FactChar extends Factor {
 
-    private Char C1;
+    private Character C1;
 
-    public FactChar (Char C1) {
+    public FactChar (Character C1) {
         this.C1=C1;
-        if(C1!=null) C1.setParent(this);
     }
 
-    public Char getC1() {
+    public Character getC1() {
         return C1;
     }
 
-    public void setC1(Char C1) {
+    public void setC1(Character C1) {
         this.C1=C1;
     }
 
@@ -27,16 +26,13 @@ public class FactChar extends Factor {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(C1!=null) C1.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(C1!=null) C1.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(C1!=null) C1.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -45,10 +41,7 @@ public class FactChar extends Factor {
         buffer.append(tab);
         buffer.append("FactChar(\n");
 
-        if(C1!=null)
-            buffer.append(C1.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
+        buffer.append(" "+tab+C1);
         buffer.append("\n");
 
         buffer.append(tab);

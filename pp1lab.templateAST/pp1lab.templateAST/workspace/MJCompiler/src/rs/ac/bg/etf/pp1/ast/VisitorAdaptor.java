@@ -1,37 +1,47 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
 public abstract class VisitorAdaptor implements Visitor { 
 
+    public void visit(Unmatched Unmatched) { }
     public void visit(MethodDecl MethodDecl) { }
     public void visit(Mulop Mulop) { }
+    public void visit(Matched Matched) { }
     public void visit(Relop Relop) { }
     public void visit(Assignop Assignop) { }
+    public void visit(FormalParamDecl FormalParamDecl) { }
     public void visit(StatementList StatementList) { }
     public void visit(Extends Extends) { }
     public void visit(Addop Addop) { }
+    public void visit(TermsInExpr TermsInExpr) { }
     public void visit(Factor Factor) { }
     public void visit(CondTerm CondTerm) { }
     public void visit(Designator Designator) { }
     public void visit(Term Term) { }
+    public void visit(RetType RetType) { }
     public void visit(Condition Condition) { }
     public void visit(OneMinus OneMinus) { }
+    public void visit(ExprManjiProstiji ExprManjiProstiji) { }
+    public void visit(CaseList CaseList) { }
     public void visit(ConstDeclList ConstDeclList) { }
     public void visit(VarDeclOne VarDeclOne) { }
     public void visit(ActualParamList ActualParamList) { }
     public void visit(VarDeclList VarDeclList) { }
     public void visit(FormalParamList FormalParamList) { }
     public void visit(Expr Expr) { }
+    public void visit(Stagod Stagod) { }
     public void visit(ActPars ActPars) { }
     public void visit(ConstVarClassDeclList ConstVarClassDeclList) { }
+    public void visit(Epsilon Epsilon) { }
     public void visit(DesignatorStatement DesignatorStatement) { }
     public void visit(Statement Statement) { }
     public void visit(VarDecl VarDecl) { }
     public void visit(IdentOrExpr IdentOrExpr) { }
+    public void visit(Array Array) { }
     public void visit(ClassDecl ClassDecl) { }
     public void visit(ConstDecl ConstDecl) { }
     public void visit(CondFact CondFact) { }
@@ -39,6 +49,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(MethodDeclList MethodDeclList) { }
     public void visit(FormPars FormPars) { }
     public void visit(ManyVarDecl ManyVarDecl) { }
+    public void visit(EpsilonDerived1 EpsilonDerived1) { visit(); }
     public void visit(MulopMod MulopMod) { visit(); }
     public void visit(MulopDiv MulopDiv) { visit(); }
     public void visit(MulopMul MulopMul) { visit(); }
@@ -54,7 +65,8 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(DesignExpr DesignExpr) { visit(); }
     public void visit(DesignExprOne DesignExprOne) { visit(); }
     public void visit(DesignIdent DesignIdent) { visit(); }
-    public void visit(DesignExprOne DesignExprOne) { visit(); }
+    public void visit(DesignIdentOne DesignIdentOne) { visit(); }
+    public void visit(DesignatorJustOne DesignatorJustOne) { visit(); }
     public void visit(DesignatorOne DesignatorOne) { visit(); }
     public void visit(FactExpr FactExpr) { visit(); }
     public void visit(FactNewArray FactNewArray) { visit(); }
@@ -64,15 +76,13 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(FactNum FactNum) { visit(); }
     public void visit(FuncCall FuncCall) { visit(); }
     public void visit(FactVar FactVar) { visit(); }
-    public void visit(TermMore TermMore) { visit(); }
     public void visit(TermOne TermOne) { visit(); }
-    public void visit(NoTermsInExpr NoTermsInExpr) { visit(); }
-    public void visit(TermsInExpr TermsInExpr) { visit(); }
-    public void visit(NoMinus NoMinus) { visit(); }
-    public void visit(Minus Minus) { visit(); }
-    public void visit(ExprManjiProstiji ExprManjiProstiji) { visit(); }
-    public void visit(ExprCondFact ExprCondFact) { visit(); }
-    public void visit(ExprDerived1 ExprDerived1) { visit(); }
+    public void visit(TermMore TermMore) { visit(); }
+    public void visit(ExprTermMinus ExprTermMinus) { visit(); }
+    public void visit(ExprTerm ExprTerm) { visit(); }
+    public void visit(ExprTermList ExprTermList) { visit(); }
+    public void visit(Expr1 Expr1) { visit(); }
+    public void visit(Expr0 Expr0) { visit(); }
     public void visit(CondFactRelop CondFactRelop) { visit(); }
     public void visit(CondFactOne CondFactOne) { visit(); }
     public void visit(CondTermEnd CondTermEnd) { visit(); }
@@ -87,11 +97,13 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(DStatementInc DStatementInc) { visit(); }
     public void visit(DStatementParen DStatementParen) { visit(); }
     public void visit(DStatementAssign DStatementAssign) { visit(); }
-    public void visit(PrintNoValue PrintNoValue) { visit(); }
     public void visit(PrintValue PrintValue) { visit(); }
-    public void visit(ReturnNo ReturnNo) { visit(); }
-    public void visit(ReturnExpr ReturnExpr) { visit(); }
+    public void visit(StagodDerived1 StagodDerived1) { visit(); }
+    public void visit(CaseListNoElem CaseListNoElem) { visit(); }
+    public void visit(CaseListt CaseListt) { visit(); }
+    public void visit(StatPrint2 StatPrint2) { visit(); }
     public void visit(StatPrint StatPrint) { visit(); }
+    public void visit(StatReturn2 StatReturn2) { visit(); }
     public void visit(StatReturn StatReturn) { visit(); }
     public void visit(StatCase StatCase) { visit(); }
     public void visit(StatStat StatStat) { visit(); }
@@ -99,20 +111,22 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(StatContinue StatContinue) { visit(); }
     public void visit(StatBreak StatBreak) { visit(); }
     public void visit(StatWhile StatWhile) { visit(); }
-    public void visit(StatIfElse StatIfElse) { visit(); }
-    public void visit(StatIf StatIf) { visit(); }
     public void visit(StatDesign StatDesign) { visit(); }
-    public void visit(CaseListNoElem CaseListNoElem) { visit(); }
-    public void visit(CaseList CaseList) { visit(); }
+    public void visit(UnmatchedIfElse UnmatchedIfElse) { visit(); }
+    public void visit(UnmatchedIf UnmatchedIf) { visit(); }
+    public void visit(UnmatchedStmt UnmatchedStmt) { visit(); }
+    public void visit(MatchedStmt MatchedStmt) { visit(); }
     public void visit(NoStmt NoStmt) { visit(); }
     public void visit(Statements Statements) { visit(); }
+    public void visit(ArrayDerived2 ArrayDerived2) { visit(); }
+    public void visit(ArrayDerived1 ArrayDerived1) { visit(); }
     public void visit(FormalParamDeclArray FormalParamDeclArray) { visit(); }
-    public void visit(FormalParamDecl FormalParamDecl) { visit(); }
     public void visit(SingleFormalParamDecl SingleFormalParamDecl) { visit(); }
     public void visit(FormalParamDecls FormalParamDecls) { visit(); }
     public void visit(NoFormParam NoFormParam) { visit(); }
     public void visit(FormParams FormParams) { visit(); }
-    public void visit(MethodTypeNameVoid MethodTypeNameVoid) { visit(); }
+    public void visit(RetVoid1 RetVoid1) { visit(); }
+    public void visit(RetType1 RetType1) { visit(); }
     public void visit(MethodTypeName MethodTypeName) { visit(); }
     public void visit(MethodDeclaration MethodDeclaration) { visit(); }
     public void visit(NoMethodDecl NoMethodDecl) { visit(); }

@@ -1,19 +1,22 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
 public class FormalParamDeclArray extends FormalParamDecl {
 
     private Type Type;
-    private String paramNameArray;
+    private String paramNameArry;
+    private Array Array;
 
-    public FormalParamDeclArray (Type Type, String paramNameArray) {
+    public FormalParamDeclArray (Type Type, String paramNameArry, Array Array) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.paramNameArray=paramNameArray;
+        this.paramNameArry=paramNameArry;
+        this.Array=Array;
+        if(Array!=null) Array.setParent(this);
     }
 
     public Type getType() {
@@ -24,12 +27,20 @@ public class FormalParamDeclArray extends FormalParamDecl {
         this.Type=Type;
     }
 
-    public String getParamNameArray() {
-        return paramNameArray;
+    public String getParamNameArry() {
+        return paramNameArry;
     }
 
-    public void setParamNameArray(String paramNameArray) {
-        this.paramNameArray=paramNameArray;
+    public void setParamNameArry(String paramNameArry) {
+        this.paramNameArry=paramNameArry;
+    }
+
+    public Array getArray() {
+        return Array;
+    }
+
+    public void setArray(Array Array) {
+        this.Array=Array;
     }
 
     public void accept(Visitor visitor) {
@@ -38,15 +49,18 @@ public class FormalParamDeclArray extends FormalParamDecl {
 
     public void childrenAccept(Visitor visitor) {
         if(Type!=null) Type.accept(visitor);
+        if(Array!=null) Array.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Type!=null) Type.traverseTopDown(visitor);
+        if(Array!=null) Array.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Type!=null) Type.traverseBottomUp(visitor);
+        if(Array!=null) Array.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -61,7 +75,13 @@ public class FormalParamDeclArray extends FormalParamDecl {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+paramNameArray);
+        buffer.append(" "+tab+paramNameArry);
+        buffer.append("\n");
+
+        if(Array!=null)
+            buffer.append(Array.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
         buffer.append("\n");
 
         buffer.append(tab);

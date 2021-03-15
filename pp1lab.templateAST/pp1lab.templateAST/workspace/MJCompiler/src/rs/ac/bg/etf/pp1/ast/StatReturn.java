@@ -1,25 +1,25 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
-public class StatReturn extends Statement {
+public class StatReturn extends Matched {
 
-    private ReturnExpr ReturnExpr;
+    private Expr Expr;
 
-    public StatReturn (ReturnExpr ReturnExpr) {
-        this.ReturnExpr=ReturnExpr;
-        if(ReturnExpr!=null) ReturnExpr.setParent(this);
+    public StatReturn (Expr Expr) {
+        this.Expr=Expr;
+        if(Expr!=null) Expr.setParent(this);
     }
 
-    public ReturnExpr getReturnExpr() {
-        return ReturnExpr;
+    public Expr getExpr() {
+        return Expr;
     }
 
-    public void setReturnExpr(ReturnExpr ReturnExpr) {
-        this.ReturnExpr=ReturnExpr;
+    public void setExpr(Expr Expr) {
+        this.Expr=Expr;
     }
 
     public void accept(Visitor visitor) {
@@ -27,16 +27,16 @@ public class StatReturn extends Statement {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(ReturnExpr!=null) ReturnExpr.accept(visitor);
+        if(Expr!=null) Expr.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(ReturnExpr!=null) ReturnExpr.traverseTopDown(visitor);
+        if(Expr!=null) Expr.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(ReturnExpr!=null) ReturnExpr.traverseBottomUp(visitor);
+        if(Expr!=null) Expr.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -45,8 +45,8 @@ public class StatReturn extends Statement {
         buffer.append(tab);
         buffer.append("StatReturn(\n");
 
-        if(ReturnExpr!=null)
-            buffer.append(ReturnExpr.toString("  "+tab));
+        if(Expr!=null)
+            buffer.append(Expr.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

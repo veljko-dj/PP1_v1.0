@@ -1,0 +1,15 @@
+INFO  12:24:42,374 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  12:24:42,429 - #2 program
+INFO  12:24:42,429 - #20 p
+INFO  12:24:42,429 - #7 const
+INFO  12:24:42,434 - #20 int
+INFO  12:24:42,434 - #20 size
+INFO  12:24:42,434 - #37 =
+INFO  12:24:42,434 - #21 10
+INFO  12:24:42,434 - #40 ;
+INFO  12:24:42,439 - #4 class
+INFO  12:24:42,439 - #20 Table
+INFO  12:24:42,439 - #47 {
+ERROR 12:24:42,439 - 
+Sintaksna greska na liniji 4
+ERROR 12:24:42,439 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 4

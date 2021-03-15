@@ -1,19 +1,18 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclOneElementChar extends ConstDeclOne {
 
     private String cName;
-    private Char val;
+    private Character val;
 
-    public ConstDeclOneElementChar (String cName, Char val) {
+    public ConstDeclOneElementChar (String cName, Character val) {
         this.cName=cName;
         this.val=val;
-        if(val!=null) val.setParent(this);
     }
 
     public String getCName() {
@@ -24,11 +23,11 @@ public class ConstDeclOneElementChar extends ConstDeclOne {
         this.cName=cName;
     }
 
-    public Char getVal() {
+    public Character getVal() {
         return val;
     }
 
-    public void setVal(Char val) {
+    public void setVal(Character val) {
         this.val=val;
     }
 
@@ -37,16 +36,13 @@ public class ConstDeclOneElementChar extends ConstDeclOne {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(val!=null) val.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(val!=null) val.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(val!=null) val.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -58,10 +54,7 @@ public class ConstDeclOneElementChar extends ConstDeclOne {
         buffer.append(" "+tab+cName);
         buffer.append("\n");
 
-        if(val!=null)
-            buffer.append(val.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
+        buffer.append(" "+tab+val);
         buffer.append("\n");
 
         buffer.append(tab);

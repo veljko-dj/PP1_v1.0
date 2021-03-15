@@ -61,8 +61,8 @@ terminal PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, CASE;
 								// Vrste tokena:
 terminal String IDENT;
 terminal Integer NUMBER_CONST;
-terminal Char CHAR_CONST;
-terminal Boolean  BOOL_CONST;
+terminal Character CHAR_CONST;
+terminal String  BOOL_CONST;		// Primetimo da ne postoji Boolean i da je Char a ne Character
 								// Operatori:
 terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
 terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
@@ -78,11 +78,10 @@ nonterminal MethodDeclList, VarDecl;
 nonterminal FormalParamList, FormalParamDecl, FormPars, ActualParamList; 
 nonterminal StatementList, Statement, Addop;
 nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
-nonterminal Extends, ManyVarDecl, CaseList, ReturnExpr, PrintValue;
-nonterminal OneMinus, TermsInExpr, IdentOrExpr, ExprManjiProstiji;
+nonterminal Extends, ManyVarDecl, CaseList, PrintValue;
+nonterminal OneMinus, TermsInExpr, IdentOrExpr;
+nonterminal ExprManjiProstiji, Unmatched, Matched, Epsilon, Array, RetType, Stagod;
 
-// nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
-// nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
 
 nonterminal Program, ProgName, Designator, MethodDecl, MethodTypeName; 
 nonterminal Type, Term, Expr, Factor, VarDeclList; 
@@ -96,7 +95,7 @@ ProgName ::= (ProgName) IDENT:pName
 ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList ConstDecl
 						| (ConstVarClassDeclList_Var) ConstVarClassDeclList VarDecl
 						| (ConstVarClassDeclList_Class) ConstVarClassDeclList ClassDecl
-						| (ConstVarClassDeclList_No) /* epsilon */ ;
+						| (ConstVarClassDeclList_No) Epsilon ;
  
 ConstDecl ::= (ConstDeclaration) CONST Type ConstDeclList SEMI ;
 
@@ -123,7 +122,7 @@ VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 							// nesto implicitno			
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE
-			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: "+ tleft ,eVar) ; :}  ;
+			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: " ,eVar) ; :}  ;
 Type ::= (Type) IDENT:typeName 
  ;
 
@@ -138,54 +137,77 @@ Extends ::= (ExtendClass) EXTENDS Type:extendType ;
 									// i prvo vise puta pa trece
 ManyVarDecl ::= (ManyVarDeclaration) ManyVarDecl VarDecl
 	//		|	(ManyVarDeclOne) VarDecl
-			|	(ManyVarDeclNo) /* epsilon */ ;
+			|	(ManyVarDeclNo) Epsilon ;
 		
 									 
 MethodDeclList ::= (MethodDeclarations) MethodDeclList MethodDecl
 					|
-					(NoMethodDecl) /* epsilon */
+					(NoMethodDecl) Epsilon
 					;
 
 MethodDecl ::= (MethodDeclaration) MethodTypeName LPAREN FormPars RPAREN ManyVarDecl LBRACE StatementList RBRACE ;   
 
-MethodTypeName ::=  (MethodTypeName) Type:retType IDENT:methName
-				|	(MethodTypeNameVoid) VOID IDENT:methNameVoid  ;
+MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName ;
+			
+										
+RetType ::= (RetType1) Type:typeRet 
+		|	(RetVoid1) VOID:voidRet ;
+		
 
 FormPars ::=  (FormParams) FormalParamList 
-			| (NoFormParam) /* epsilon */ ;
+			| (NoFormParam) Epsilon ;
 
 FormalParamList ::= (FormalParamDecls) FormalParamList COMMA FormalParamDecl
 					|(SingleFormalParamDecl) FormalParamDecl ;
 					
-FormalParamDecl ::= (FormalParamDecl) Type:paramType IDENT:paramName 
-				|	(FormalParamDeclArray) Type:paramType IDENT:paramNameArray LSQUARE RSQUARE ;
+FormalParamDecl ::= // (FormalParamDecl) Type:paramType IDENT:paramName |
+				 (FormalParamDeclArray) Type:paramType IDENT:paramNameArry  Array;
+				 			// Ovde je bacalo gresku neku u .java fajlu da ne moze da nadje parent
+				 			// bla bla bla i kao lek za to sam ubacio ovaj Array
+				
+Array ::= LSQUARE RSQUARE | Epsilon;
 
 StatementList ::= (Statements) StatementList Statement
 					|
-				  (NoStmt) /* epsilon */ ;
+				  (NoStmt) Epsilon ;
 
-CaseList ::= 	(CaseList) CaseList CASE NUMBER_CONST DOTS StatementList
-		| 		(CaseListNoElem) /* epsilon */ ;
+
 		
 
-Statement ::= 	(StatDesign) DesignatorStatement SEMI
-			|	(StatIf)	IF LPAREN Condition RPAREN Statement 
-			|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 
+Statement ::= (MatchedStmt) Matched
+		   |
+		   (UnmatchedStmt) Unmatched
+		   ; 
+
+Unmatched ::= (UnmatchedIf) IF LPAREN Expr RPAREN Statement
+		 	|
+		 	(UnmatchedIfElse) IF LPAREN Expr RPAREN Matched ELSE Unmatched
+		 	;
+Matched ::= 	(StatDesign) DesignatorStatement SEMI
+	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 
+	//		|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 
 			|	(StatWhile) DO Statement WHILE LPAREN Condition RPAREN SEMI
 			|	(StatBreak) BREAK SEMI 
 			|	(StatContinue) CONTINUE SEMI
 			| 	(StatRead) READ LPAREN Designator RPAREN SEMI
 			|	(StatStat) LBRACE StatementList RBRACE
 			|	(StatCase) SWITCH LPAREN Expr RPAREN LBRACE CaseList RBRACE
-			|	(StatReturn)	RETURN ReturnExpr SEMI
-			|	(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+			|	(StatReturn)	RETURN Expr SEMI
+									// i ovde je razdvojeno kao i za printvalue
+			|	(StatReturn2)	RETURN  SEMI
+			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
+			|	(StatPrint2) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+							
+							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+		
+CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
+			| 	(CaseListNoElem) /* epsilon */ ;	
 			
+Stagod ::= NUMBER_CONST ;
+
 			
-ReturnExpr ::=	(ReturnExpr) Expr 
-			|	(ReturnNo) /* epsilon */ ;
-			
-PrintValue ::=	(PrintValue) COMMA NUMBER_CONST
-			| 	(PrintNoValue) /* epsilon */ ;
+PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST ;
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
@@ -196,7 +218,7 @@ DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr
 
 ActPars ::= (Actuals) ActualParamList 
 				| 
-			   (NoActuals) /* epsilon */  ;
+			   (NoActuals) Epsilon  ;
 			   
 ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 					|
@@ -212,27 +234,39 @@ CondTerm ::= (CondTermMulti) CondTerm AND CondFact
 			 (CondTermEnd) CondFact ;
 
 CondFact ::= 	(CondFactOne) 	Expr 
-			|	(CondFactRelop)	ExprManjiProstiji Relop ExprManjiProstiji ;
+			|	(CondFactRelop)	Expr Relop Expr ;
 			
-				// Uproscavanje jezika malo kako meni odgovara.
-				// Negde ExprManjiProstiji, negde sve okej, isproveraaj ovo lepo
 
-Expr ::=  
-			ExprManjiProstiji
-	 
-		| 	(ExprCondFact) CondFact QMARK ExprManjiProstiji DOTS ExprManjiProstiji ;
+				// Setio sam se da je Ziza slao mejl i nova gramatika je ovakva:
+				// Ali neka tebi tvoja:
+				//
+				// Expr = Expr1 "?" Expr1 ":" Expr1 | Expr1.
+				// Expr1 =  ["-"] Expr1 { Addop Term }.
+
+
+Expr ::=  	(Expr0) ExprManjiProstiji QMARK ExprManjiProstiji DOTS ExprManjiProstiji
+		| 	(Expr1) ExprManjiProstiji  ;
 		
 		
-ExprManjiProstiji ::= (ExprManjiProstiji) OneMinus Term TermsInExpr ;
+			//ExprManjiProstiji ::= (ExprManjiProstiji)  TermsInExpr
+			//					| (ExprManjiProstijiMinus) MINUS TermsInExpr ;
+								//Jedva sam dosao do ove kombinacije koja radi. Greska bila u .java
+								// ideja pronadjena na netu, na nekom gitu
+					
+ExprManjiProstiji ::= 	(ExprTermList) ExprManjiProstiji Addop Term 
+					|	(ExprTerm) Term 
+					|	(ExprTermMinus) MINUS Term ;
 
-OneMinus ::= 	(Minus) 	MINUS
-			|	(NoMinus) 	/* epsilon */ ;
-
-TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term
-			|	(NoTermsInExpr) /* epsilon */ ;
-
-Term ::= 	(TermOne) Factor:t
-		| 	(TermMore) Term Mulop Factor:t  ;
+			/*
+			OneMinus ::= 	(Minus) 	MINUS
+						|	(NoMinus) 	Epsilon ;
+			
+			TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term 
+						|	(TermsInExprNo) Term
+						;
+			*/
+Term ::= 	(TermMore) Term Mulop Factor:t  
+		|	(TermOne) Factor:t ;
 
 Factor ::= 	(FactVar) Designator:designName
 		|	(FuncCall) Designator:funcName LPAREN ActPars RPAREN
@@ -243,12 +277,14 @@ Factor ::= 	(FactVar) Designator:designName
 		| 	(FactNewArray) NEW Type LSQUARE Expr RSQUARE
 		| 	(FactExpr) LPAREN Expr RPAREN ;	
 
-Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr ;
+Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr
+			| 	(DesignatorJustOne) IDENT:destNameOne ;
 
-IdentOrExpr ::= (DesignExprOne) DOT IDENT
+IdentOrExpr ::= (DesignIdentOne) DOT IDENT
 			|	(DesignIdent) IdentOrExpr DOT IDENT 
 			| 	(DesignExprOne) LSQUARE Expr RSQUARE
 			| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE ;
+
 
 Assignop ::= ASSIGN ;
 
@@ -265,3 +301,5 @@ Addop ::= (AddopPlus) PLUS
 Mulop ::= (MulopMul) MUL 
 		| (MulopDiv) DIV
 		| (MulopMod) MOD ;
+		
+		Epsilon ::= /* epsilon */;

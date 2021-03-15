@@ -1,49 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
-public class CaseList implements SyntaxNode {
+public abstract class CaseList implements SyntaxNode {
 
     private SyntaxNode parent;
+
     private int line;
-    private CaseList CaseList;
-    private Integer N2;
-    private StatementList StatementList;
-
-    public CaseList (CaseList CaseList, Integer N2, StatementList StatementList) {
-        this.CaseList=CaseList;
-        if(CaseList!=null) CaseList.setParent(this);
-        this.N2=N2;
-        this.StatementList=StatementList;
-        if(StatementList!=null) StatementList.setParent(this);
-    }
-
-    public CaseList getCaseList() {
-        return CaseList;
-    }
-
-    public void setCaseList(CaseList CaseList) {
-        this.CaseList=CaseList;
-    }
-
-    public Integer getN2() {
-        return N2;
-    }
-
-    public void setN2(Integer N2) {
-        this.N2=N2;
-    }
-
-    public StatementList getStatementList() {
-        return StatementList;
-    }
-
-    public void setStatementList(StatementList StatementList) {
-        this.StatementList=StatementList;
-    }
 
     public SyntaxNode getParent() {
         return parent;
@@ -61,49 +27,11 @@ public class CaseList implements SyntaxNode {
         this.line=line;
     }
 
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
-    }
+    public abstract void accept(Visitor visitor);
+    public abstract void childrenAccept(Visitor visitor);
+    public abstract void traverseTopDown(Visitor visitor);
+    public abstract void traverseBottomUp(Visitor visitor);
 
-    public void childrenAccept(Visitor visitor) {
-        if(CaseList!=null) CaseList.accept(visitor);
-        if(StatementList!=null) StatementList.accept(visitor);
-    }
-
-    public void traverseTopDown(Visitor visitor) {
-        accept(visitor);
-        if(CaseList!=null) CaseList.traverseTopDown(visitor);
-        if(StatementList!=null) StatementList.traverseTopDown(visitor);
-    }
-
-    public void traverseBottomUp(Visitor visitor) {
-        if(CaseList!=null) CaseList.traverseBottomUp(visitor);
-        if(StatementList!=null) StatementList.traverseBottomUp(visitor);
-        accept(visitor);
-    }
-
-    public String toString(String tab) {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(tab);
-        buffer.append("CaseList(\n");
-
-        if(CaseList!=null)
-            buffer.append(CaseList.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
-
-        buffer.append(" "+tab+N2);
-        buffer.append("\n");
-
-        if(StatementList!=null)
-            buffer.append(StatementList.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
-
-        buffer.append(tab);
-        buffer.append(") [CaseList]");
-        return buffer.toString();
-    }
+    public String toString() { return toString(""); }
+    public abstract String toString(String tab);
 }

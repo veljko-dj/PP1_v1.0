@@ -1,20 +1,17 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 0:36:40
+// 15/2/2021 12:18:5
 
 
-package src.rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1.ast;
 
-public class StatPrint extends Statement {
+public class StatPrint extends Matched {
 
     private Expr Expr;
-    private PrintValue PrintValue;
 
-    public StatPrint (Expr Expr, PrintValue PrintValue) {
+    public StatPrint (Expr Expr) {
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
-        this.PrintValue=PrintValue;
-        if(PrintValue!=null) PrintValue.setParent(this);
     }
 
     public Expr getExpr() {
@@ -25,32 +22,21 @@ public class StatPrint extends Statement {
         this.Expr=Expr;
     }
 
-    public PrintValue getPrintValue() {
-        return PrintValue;
-    }
-
-    public void setPrintValue(PrintValue PrintValue) {
-        this.PrintValue=PrintValue;
-    }
-
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
     public void childrenAccept(Visitor visitor) {
         if(Expr!=null) Expr.accept(visitor);
-        if(PrintValue!=null) PrintValue.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Expr!=null) Expr.traverseTopDown(visitor);
-        if(PrintValue!=null) PrintValue.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Expr!=null) Expr.traverseBottomUp(visitor);
-        if(PrintValue!=null) PrintValue.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -61,12 +47,6 @@ public class StatPrint extends Statement {
 
         if(Expr!=null)
             buffer.append(Expr.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
-
-        if(PrintValue!=null)
-            buffer.append(PrintValue.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

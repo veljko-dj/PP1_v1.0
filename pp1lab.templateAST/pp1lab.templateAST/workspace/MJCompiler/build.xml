@@ -12,9 +12,7 @@
 		<delete>
 			<fileset dir="spec">
 				<exclude name="mjlexer.flex"/>
-				<exclude name="mjlexer_copy.flex"/>
 				<exclude name="mjparser.cup"/>
-				<exclude name="mjparser_copy.txt"/>
 			</fileset>
 		</delete>
 	</target>

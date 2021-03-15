@@ -118,13 +118,17 @@ VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
-							// Kako primetih, ovo error nije nigde definisano opet, tako da je 
-							// nesto implicitno			
+							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
+							// A kako rece onaj batica na snimku, uparuje sve do ;
+							// Analizirajuci onu gresku sa Expr kontam da ce on svakako napraviti 
+							// default klasu error i uparivace sve
+							// Ovo ne resava od problema int 13s, s1,s3; Vec to jeste greska fatalna, 
+							// A ovo nije int s1, 13s, s3;
+								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE
-			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: " ,eVar) ; :}  ;
-Type ::= (Type) IDENT:typeName 
- ;
+			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , null);  :}	;
+Type ::= (Type) IDENT:typeName  ;
 
 ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl RBRACE 
 			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodDeclList RBRACE RBRACE  
@@ -197,7 +201,9 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
-			|	(StatPrint2) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+			|	(StatPrint2) PRINT LPAREN Expr PrintValue RPAREN SEMI 
+			|   (StatErrAssignment) Designator EQUAL error:gr SEMI
+			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
 							
 							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
 							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
@@ -214,7 +220,9 @@ PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST ;
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
-					|	(DStatementDec) Designator DEC ;
+					|	(DStatementDec) Designator DEC 
+					|	(DStatementAssignError)	error SEMI:errAssign
+						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
 
 
 ActPars ::= (Actuals) ActualParamList 

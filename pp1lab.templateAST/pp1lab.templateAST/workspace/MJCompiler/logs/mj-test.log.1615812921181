@@ -1,0 +1,1530 @@
+INFO  13:54:25,495 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  13:54:25,560 - #2 program
+INFO  13:54:25,560 - #20 Pro
+INFO  13:54:25,560 - #7 const
+INFO  13:54:25,560 - #20 int
+INFO  13:54:25,560 - #20 size
+INFO  13:54:25,565 - #37 =
+INFO  13:54:25,565 - #21 10
+INFO  13:54:25,565 - #40 ;
+INFO  13:54:25,565 - #20 int
+INFO  13:54:25,565 - #20 k1313
+INFO  13:54:25,565 - #37 =
+ERROR 13:54:25,565 - 
+Sintaksna greska na liniji 4
+INFO  13:54:25,565 - #21 3
+INFO  13:54:25,565 - #40 ;
+INFO  13:54:25,565 - #4 class
+INFO  13:54:25,565 - #20 Table
+INFO  13:54:25,565 - #47 {
+ERROR 13:54:25,565 - Syntax error, skip rest, linija: 
+INFO  13:54:25,570 - #20 int
+INFO  13:54:25,570 - #20 pos
+INFO  13:54:25,570 - #45 [
+INFO  13:54:25,570 - #46 ]
+INFO  13:54:25,570 - #41 ,
+INFO  13:54:25,570 - #20 neg
+INFO  13:54:25,570 - #45 [
+INFO  13:54:25,570 - #46 ]
+INFO  13:54:25,570 - #40 ;
+INFO  13:54:25,570 - #47 {
+INFO  13:54:25,570 - #16 void
+INFO  13:54:25,570 - #20 putp
+INFO  13:54:25,570 - #43 (
+INFO  13:54:25,575 - #20 int
+INFO  13:54:25,575 - #20 a
+INFO  13:54:25,575 - #41 ,
+INFO  13:54:25,575 - #20 int
+INFO  13:54:25,575 - #20 idx
+INFO  13:54:25,575 - #44 )
+INFO  13:54:25,575 - #47 {
+INFO  13:54:25,575 - #20 this
+INFO  13:54:25,575 - #42 .
+INFO  13:54:25,575 - #20 pos
+INFO  13:54:25,575 - #45 [
+INFO  13:54:25,575 - #20 idx
+INFO  13:54:25,575 - #46 ]
+INFO  13:54:25,580 - #37 =
+INFO  13:54:25,580 - #20 a
+INFO  13:54:25,580 - #40 ;
+INFO  13:54:25,580 - #48 }
+INFO  13:54:25,580 - #16 void
+INFO  13:54:25,580 - #20 putn
+INFO  13:54:25,580 - #43 (
+INFO  13:54:25,580 - #20 int
+INFO  13:54:25,580 - #20 a
+INFO  13:54:25,580 - #41 ,
+INFO  13:54:25,580 - #20 int
+INFO  13:54:25,580 - #20 idx
+INFO  13:54:25,580 - #44 )
+INFO  13:54:25,580 - #47 {
+INFO  13:54:25,580 - #20 this
+INFO  13:54:25,580 - #42 .
+INFO  13:54:25,580 - #20 neg
+INFO  13:54:25,585 - #45 [
+INFO  13:54:25,585 - #20 idx
+INFO  13:54:25,585 - #46 ]
+INFO  13:54:25,585 - #37 =
+INFO  13:54:25,585 - #20 a
+INFO  13:54:25,585 - #40 ;
+INFO  13:54:25,585 - #48 }
+INFO  13:54:25,585 - #20 int
+INFO  13:54:25,585 - #20 getp
+INFO  13:54:25,585 - #43 (
+INFO  13:54:25,585 - #20 int
+INFO  13:54:25,585 - #20 idx
+INFO  13:54:25,585 - #44 )
+INFO  13:54:25,585 - #47 {
+INFO  13:54:25,585 - #15 return
+INFO  13:54:25,585 - #20 pos
+INFO  13:54:25,585 - #45 [
+INFO  13:54:25,585 - #20 idx
+INFO  13:54:25,585 - #46 ]
+INFO  13:54:25,585 - #40 ;
+INFO  13:54:25,585 - #48 }
+INFO  13:54:25,585 - #20 int
+INFO  13:54:25,585 - #20 getn
+INFO  13:54:25,585 - #43 (
+INFO  13:54:25,585 - #20 int
+INFO  13:54:25,585 - #20 idx
+INFO  13:54:25,585 - #44 )
+INFO  13:54:25,585 - #47 {
+INFO  13:54:25,585 - #15 return
+INFO  13:54:25,585 - #20 neg
+INFO  13:54:25,585 - #45 [
+INFO  13:54:25,590 - #20 idx
+INFO  13:54:25,590 - #46 ]
+INFO  13:54:25,590 - #40 ;
+INFO  13:54:25,590 - #48 }
+INFO  13:54:25,590 - #48 }
+INFO  13:54:25,590 - #48 }
+INFO  13:54:25,590 - #20 Table
+INFO  13:54:25,590 - #20 val
+INFO  13:54:25,590 - #40 ;
+INFO  13:54:25,590 - #47 {
+INFO  13:54:25,590 - #16 void
+INFO  13:54:25,590 - #20 f
+INFO  13:54:25,590 - #43 (
+INFO  13:54:25,590 - #20 char
+INFO  13:54:25,590 - #20 ch
+INFO  13:54:25,590 - #41 ,
+INFO  13:54:25,590 - #20 int
+INFO  13:54:25,590 - #20 a
+INFO  13:54:25,590 - #41 ,
+INFO  13:54:25,590 - #20 int
+INFO  13:54:25,590 - #20 arg
+INFO  13:54:25,590 - #44 )
+INFO  13:54:25,590 - #20 int
+INFO  13:54:25,590 - #20 x
+INFO  13:54:25,590 - #40 ;
+INFO  13:54:25,590 - #47 {
+INFO  13:54:25,590 - #20 x
+INFO  13:54:25,595 - #37 =
+INFO  13:54:25,595 - #20 arg
+INFO  13:54:25,595 - #40 ;
+INFO  13:54:25,595 - #48 }
+INFO  13:54:25,595 - #16 void
+INFO  13:54:25,595 - #20 main
+INFO  13:54:25,595 - #43 (
+INFO  13:54:25,595 - #44 )
+INFO  13:54:25,595 - #20 int
+INFO  13:54:25,595 - #20 x
+INFO  13:54:25,595 - #41 ,
+INFO  13:54:25,595 - #20 i
+INFO  13:54:25,595 - #40 ;
+INFO  13:54:25,600 - #20 char
+INFO  13:54:25,600 - #20 c
+INFO  13:54:25,600 - #40 ;
+INFO  13:54:25,600 - #47 {
+INFO  13:54:25,600 - #20 val
+INFO  13:54:25,600 - #37 =
+INFO  13:54:25,600 - #12 new
+INFO  13:54:25,600 - #20 Table
+INFO  13:54:25,600 - #40 ;
+INFO  13:54:25,600 - #20 val
+INFO  13:54:25,600 - #42 .
+INFO  13:54:25,600 - #20 pos
+INFO  13:54:25,600 - #37 =
+INFO  13:54:25,600 - #12 new
+INFO  13:54:25,600 - #20 int
+INFO  13:54:25,600 - #45 [
+INFO  13:54:25,600 - #20 size
+INFO  13:54:25,600 - #46 ]
+INFO  13:54:25,600 - #40 ;
+INFO  13:54:25,600 - #20 val
+INFO  13:54:25,600 - #42 .
+INFO  13:54:25,600 - #20 neg
+INFO  13:54:25,600 - #37 =
+INFO  13:54:25,600 - #12 new
+INFO  13:54:25,600 - #20 int
+INFO  13:54:25,600 - #45 [
+INFO  13:54:25,600 - #20 size
+INFO  13:54:25,600 - #46 ]
+INFO  13:54:25,600 - #40 ;
+INFO  13:54:25,600 - #20 i
+INFO  13:54:25,600 - #37 =
+INFO  13:54:25,600 - #21 0
+INFO  13:54:25,600 - #40 ;
+INFO  13:54:25,600 - #10 do
+INFO  13:54:25,600 - #47 {
+INFO  13:54:25,600 - #20 val
+INFO  13:54:25,600 - #42 .
+INFO  13:54:25,600 - #20 putp
+INFO  13:54:25,605 - #43 (
+INFO  13:54:25,605 - #21 0
+INFO  13:54:25,605 - #41 ,
+INFO  13:54:25,605 - #20 i
+INFO  13:54:25,605 - #44 )
+INFO  13:54:25,605 - #40 ;
+INFO  13:54:25,605 - #20 val
+INFO  13:54:25,605 - #42 .
+INFO  13:54:25,605 - #20 putn
+INFO  13:54:25,605 - #43 (
+INFO  13:54:25,605 - #21 0
+INFO  13:54:25,605 - #41 ,
+INFO  13:54:25,605 - #20 i
+INFO  13:54:25,605 - #44 )
+INFO  13:54:25,605 - #40 ;
+INFO  13:54:25,605 - #20 i
+INFO  13:54:25,605 - #38 ++
+INFO  13:54:25,605 - #40 ;
+INFO  13:54:25,610 - #48 }
+INFO  13:54:25,610 - #11 while
+INFO  13:54:25,610 - #43 (
+INFO  13:54:25,610 - #20 i
+INFO  13:54:25,610 - #33 <
+INFO  13:54:25,610 - #20 size
+INFO  13:54:25,610 - #44 )
+INFO  13:54:25,610 - #40 ;
+INFO  13:54:25,610 - #20 f
+INFO  13:54:25,610 - #43 (
+INFO  13:54:25,610 - #20 c
+INFO  13:54:25,610 - #41 ,
+INFO  13:54:25,610 - #20 x
+INFO  13:54:25,610 - #41 ,
+INFO  13:54:25,610 - #20 i
+INFO  13:54:25,610 - #44 )
+INFO  13:54:25,610 - #40 ;
+INFO  13:54:25,610 - #14 read
+INFO  13:54:25,610 - #43 (
+INFO  13:54:25,610 - #20 x
+INFO  13:54:25,610 - #44 )
+INFO  13:54:25,610 - #40 ;
+INFO  13:54:25,610 - #10 do
+INFO  13:54:25,610 - #47 {
+INFO  13:54:25,610 - #8 if
+INFO  13:54:25,615 - #43 (
+INFO  13:54:25,615 - #20 x
+INFO  13:54:25,615 - #34 <=
+INFO  13:54:25,615 - #21 0
+INFO  13:54:25,615 - #44 )
+INFO  13:54:25,615 - #3 break
+INFO  13:54:25,615 - #40 ;
+INFO  13:54:25,615 - #8 if
+INFO  13:54:25,615 - #43 (
+INFO  13:54:25,615 - #21 0
+INFO  13:54:25,615 - #34 <=
+INFO  13:54:25,615 - #20 x
+INFO  13:54:25,615 - #35 &&
+INFO  13:54:25,615 - #20 x
+INFO  13:54:25,615 - #33 <
+INFO  13:54:25,615 - #20 size
+INFO  13:54:25,615 - #44 )
+INFO  13:54:25,615 - #47 {
+INFO  13:54:25,615 - #20 val
+INFO  13:54:25,615 - #42 .
+INFO  13:54:25,615 - #20 putp
+INFO  13:54:25,615 - #43 (
+INFO  13:54:25,615 - #20 val
+INFO  13:54:25,615 - #42 .
+INFO  13:54:25,615 - #20 getp
+INFO  13:54:25,615 - #43 (
+INFO  13:54:25,615 - #20 x
+INFO  13:54:25,615 - #44 )
+INFO  13:54:25,615 - #24 +
+INFO  13:54:25,615 - #21 1
+INFO  13:54:25,615 - #44 )
+INFO  13:54:25,615 - #40 ;
+INFO  13:54:25,620 - #48 }
+INFO  13:54:25,620 - #6 else
+INFO  13:54:25,620 - #8 if
+INFO  13:54:25,620 - #43 (
+INFO  13:54:25,620 - #20 size
+INFO  13:54:25,620 - #33 <
+INFO  13:54:25,620 - #20 x
+INFO  13:54:25,620 - #35 &&
+INFO  13:54:25,620 - #20 x
+INFO  13:54:25,620 - #33 <
+INFO  13:54:25,620 - #21 0
+INFO  13:54:25,620 - #44 )
+INFO  13:54:25,620 - #47 {
+INFO  13:54:25,620 - #20 val
+INFO  13:54:25,620 - #42 .
+INFO  13:54:25,620 - #20 putn
+INFO  13:54:25,620 - #43 (
+INFO  13:54:25,620 - #20 val
+INFO  13:54:25,620 - #42 .
+INFO  13:54:25,620 - #20 getn
+INFO  13:54:25,620 - #43 (
+INFO  13:54:25,620 - #20 x
+INFO  13:54:25,620 - #44 )
+INFO  13:54:25,620 - #24 +
+INFO  13:54:25,620 - #21 1
+INFO  13:54:25,620 - #44 )
+INFO  13:54:25,620 - #40 ;
+INFO  13:54:25,620 - #48 }
+INFO  13:54:25,620 - #14 read
+INFO  13:54:25,625 - #43 (
+INFO  13:54:25,625 - #20 x
+INFO  13:54:25,625 - #44 )
+INFO  13:54:25,625 - #40 ;
+INFO  13:54:25,625 - #48 }
+INFO  13:54:25,625 - #11 while
+INFO  13:54:25,625 - #43 (
+INFO  13:54:25,625 - #23 true
+INFO  13:54:25,625 - #44 )
+INFO  13:54:25,625 - #40 ;
+INFO  13:54:25,625 - #13 print
+INFO  13:54:25,625 - #43 (
+INFO  13:54:25,625 - #25 -
+INFO  13:54:25,625 - #21 3
+INFO  13:54:25,625 - #24 +
+INFO  13:54:25,625 - #21 5
+INFO  13:54:25,625 - #44 )
+INFO  13:54:25,625 - #40 ;
+INFO  13:54:25,625 - #13 print
+INFO  13:54:25,625 - #43 (
+INFO  13:54:25,625 - #22 v
+INFO  13:54:25,625 - #44 )
+INFO  13:54:25,625 - #40 ;
+INFO  13:54:25,625 - #13 print
+INFO  13:54:25,625 - #43 (
+INFO  13:54:25,625 - #20 x
+INFO  13:54:25,625 - #33 <
+INFO  13:54:25,625 - #21 0
+INFO  13:54:25,625 - #49 ?
+INFO  13:54:25,625 - #22 -
+INFO  13:54:25,625 - #50 :
+INFO  13:54:25,625 - #22 +
+INFO  13:54:25,625 - #44 )
+INFO  13:54:25,630 - #40 ;
+INFO  13:54:25,630 - #48 }
+INFO  13:54:25,630 - #48 }
+INFO  13:54:25,635 - Program(
+  ProgName(
+   Pro
+  ) [ProgName]
+  ConstVarClassDeclList_Var(
+    ConstVarClassDeclList_Class(
+      ConstVarClassDeclList_Var(
+        ConstVarClassDeclList_Const(
+          ConstVarClassDeclList_No(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [ConstVarClassDeclList_No]
+          ConstDeclaration(
+            Type(
+             int
+            ) [Type]
+            ConstDeclList_single(
+              ConstDeclOneElementNumber(
+               size
+               10
+              ) [ConstDeclOneElementNumber]
+            ) [ConstDeclList_single]
+          ) [ConstDeclaration]
+        ) [ConstVarClassDeclList_Const]
+        VarDeclaration(
+          Type(
+           int
+          ) [Type]
+          VarDecListOneElement(
+            VarDeclERROR(
+            ) [VarDeclERROR]
+          ) [VarDecListOneElement]
+        ) [VarDeclaration]
+      ) [ConstVarClassDeclList_Var]
+      ClassDeclMethod(
+       Table
+        ExtendsDerived1(
+        ) [ExtendsDerived1]
+        ManyVarDeclaration(
+          ManyVarDeclNo(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [ManyVarDeclNo]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDeclarations(
+              VarDecListOneElement(
+                VarDeclOneSquare(
+                 pos
+                ) [VarDeclOneSquare]
+              ) [VarDecListOneElement]
+              VarDeclOneSquare(
+               neg
+              ) [VarDeclOneSquare]
+            ) [VarDeclarations]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        MethodDeclarations(
+          MethodDeclarations(
+            MethodDeclarations(
+              MethodDeclarations(
+                NoMethodDecl(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [NoMethodDecl]
+                MethodDeclaration(
+                  MethodTypeName(
+                    RetVoid1(
+                    ) [RetVoid1]
+                   putp
+                  ) [MethodTypeName]
+                  FormParams(
+                    FormalParamDecls(
+                      SingleFormalParamDecl(
+                        FormalParamDeclArray(
+                          Type(
+                           int
+                          ) [Type]
+                         a
+                          ArrayDerived2(
+                            EpsilonDerived1(
+                            ) [EpsilonDerived1]
+                          ) [ArrayDerived2]
+                        ) [FormalParamDeclArray]
+                      ) [SingleFormalParamDecl]
+                      FormalParamDeclArray(
+                        Type(
+                         int
+                        ) [Type]
+                       idx
+                        ArrayDerived2(
+                          EpsilonDerived1(
+                          ) [EpsilonDerived1]
+                        ) [ArrayDerived2]
+                      ) [FormalParamDeclArray]
+                    ) [FormalParamDecls]
+                  ) [FormParams]
+                  ManyVarDeclNo(
+                    EpsilonDerived1(
+                    ) [EpsilonDerived1]
+                  ) [ManyVarDeclNo]
+                  Statements(
+                    NoStmt(
+                      EpsilonDerived1(
+                      ) [EpsilonDerived1]
+                    ) [NoStmt]
+                    MatchedStmt(
+                      StatDesign(
+                        DStatementAssign(
+                          DesignatorOne(
+                           this
+                            DesignExpr(
+                              DesignIdentOne(
+                               pos
+                              ) [DesignIdentOne]
+                              Expr1(
+                                ExprTerm(
+                                  TermOne(
+                                    FactVar(
+                                      DesignatorJustOne(
+                                       idx
+                                      ) [DesignatorJustOne]
+                                    ) [FactVar]
+                                  ) [TermOne]
+                                ) [ExprTerm]
+                              ) [Expr1]
+                            ) [DesignExpr]
+                          ) [DesignatorOne]
+                          AssignopDerived1(
+                          ) [AssignopDerived1]
+                          Expr1(
+                            ExprTerm(
+                              TermOne(
+                                FactVar(
+                                  DesignatorJustOne(
+                                   a
+                                  ) [DesignatorJustOne]
+                                ) [FactVar]
+                              ) [TermOne]
+                            ) [ExprTerm]
+                          ) [Expr1]
+                        ) [DStatementAssign]
+                      ) [StatDesign]
+                    ) [MatchedStmt]
+                  ) [Statements]
+                ) [MethodDeclaration]
+              ) [MethodDeclarations]
+              MethodDeclaration(
+                MethodTypeName(
+                  RetVoid1(
+                  ) [RetVoid1]
+                 putn
+                ) [MethodTypeName]
+                FormParams(
+                  FormalParamDecls(
+                    SingleFormalParamDecl(
+                      FormalParamDeclArray(
+                        Type(
+                         int
+                        ) [Type]
+                       a
+                        ArrayDerived2(
+                          EpsilonDerived1(
+                          ) [EpsilonDerived1]
+                        ) [ArrayDerived2]
+                      ) [FormalParamDeclArray]
+                    ) [SingleFormalParamDecl]
+                    FormalParamDeclArray(
+                      Type(
+                       int
+                      ) [Type]
+                     idx
+                      ArrayDerived2(
+                        EpsilonDerived1(
+                        ) [EpsilonDerived1]
+                      ) [ArrayDerived2]
+                    ) [FormalParamDeclArray]
+                  ) [FormalParamDecls]
+                ) [FormParams]
+                ManyVarDeclNo(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [ManyVarDeclNo]
+                Statements(
+                  NoStmt(
+                    EpsilonDerived1(
+                    ) [EpsilonDerived1]
+                  ) [NoStmt]
+                  MatchedStmt(
+                    StatDesign(
+                      DStatementAssign(
+                        DesignatorOne(
+                         this
+                          DesignExpr(
+                            DesignIdentOne(
+                             neg
+                            ) [DesignIdentOne]
+                            Expr1(
+                              ExprTerm(
+                                TermOne(
+                                  FactVar(
+                                    DesignatorJustOne(
+                                     idx
+                                    ) [DesignatorJustOne]
+                                  ) [FactVar]
+                                ) [TermOne]
+                              ) [ExprTerm]
+                            ) [Expr1]
+                          ) [DesignExpr]
+                        ) [DesignatorOne]
+                        AssignopDerived1(
+                        ) [AssignopDerived1]
+                        Expr1(
+                          ExprTerm(
+                            TermOne(
+                              FactVar(
+                                DesignatorJustOne(
+                                 a
+                                ) [DesignatorJustOne]
+                              ) [FactVar]
+                            ) [TermOne]
+                          ) [ExprTerm]
+                        ) [Expr1]
+                      ) [DStatementAssign]
+                    ) [StatDesign]
+                  ) [MatchedStmt]
+                ) [Statements]
+              ) [MethodDeclaration]
+            ) [MethodDeclarations]
+            MethodDeclaration(
+              MethodTypeName(
+                RetType1(
+                  Type(
+                   int
+                  ) [Type]
+                ) [RetType1]
+               getp
+              ) [MethodTypeName]
+              FormParams(
+                SingleFormalParamDecl(
+                  FormalParamDeclArray(
+                    Type(
+                     int
+                    ) [Type]
+                   idx
+                    ArrayDerived2(
+                      EpsilonDerived1(
+                      ) [EpsilonDerived1]
+                    ) [ArrayDerived2]
+                  ) [FormalParamDeclArray]
+                ) [SingleFormalParamDecl]
+              ) [FormParams]
+              ManyVarDeclNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ManyVarDeclNo]
+              Statements(
+                NoStmt(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [NoStmt]
+                MatchedStmt(
+                  StatReturn(
+                    Expr1(
+                      ExprTerm(
+                        TermOne(
+                          FactVar(
+                            DesignatorOne(
+                             pos
+                              DesignExprOne(
+                                Expr1(
+                                  ExprTerm(
+                                    TermOne(
+                                      FactVar(
+                                        DesignatorJustOne(
+                                         idx
+                                        ) [DesignatorJustOne]
+                                      ) [FactVar]
+                                    ) [TermOne]
+                                  ) [ExprTerm]
+                                ) [Expr1]
+                              ) [DesignExprOne]
+                            ) [DesignatorOne]
+                          ) [FactVar]
+                        ) [TermOne]
+                      ) [ExprTerm]
+                    ) [Expr1]
+                  ) [StatReturn]
+                ) [MatchedStmt]
+              ) [Statements]
+            ) [MethodDeclaration]
+          ) [MethodDeclarations]
+          MethodDeclaration(
+            MethodTypeName(
+              RetType1(
+                Type(
+                 int
+                ) [Type]
+              ) [RetType1]
+             getn
+            ) [MethodTypeName]
+            FormParams(
+              SingleFormalParamDecl(
+                FormalParamDeclArray(
+                  Type(
+                   int
+                  ) [Type]
+                 idx
+                  ArrayDerived2(
+                    EpsilonDerived1(
+                    ) [EpsilonDerived1]
+                  ) [ArrayDerived2]
+                ) [FormalParamDeclArray]
+              ) [SingleFormalParamDecl]
+            ) [FormParams]
+            ManyVarDeclNo(
+              EpsilonDerived1(
+              ) [EpsilonDerived1]
+            ) [ManyVarDeclNo]
+            Statements(
+              NoStmt(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [NoStmt]
+              MatchedStmt(
+                StatReturn(
+                  Expr1(
+                    ExprTerm(
+                      TermOne(
+                        FactVar(
+                          DesignatorOne(
+                           neg
+                            DesignExprOne(
+                              Expr1(
+                                ExprTerm(
+                                  TermOne(
+                                    FactVar(
+                                      DesignatorJustOne(
+                                       idx
+                                      ) [DesignatorJustOne]
+                                    ) [FactVar]
+                                  ) [TermOne]
+                                ) [ExprTerm]
+                              ) [Expr1]
+                            ) [DesignExprOne]
+                          ) [DesignatorOne]
+                        ) [FactVar]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [Expr1]
+                ) [StatReturn]
+              ) [MatchedStmt]
+            ) [Statements]
+          ) [MethodDeclaration]
+        ) [MethodDeclarations]
+      ) [ClassDeclMethod]
+    ) [ConstVarClassDeclList_Class]
+    VarDeclaration(
+      Type(
+       Table
+      ) [Type]
+      VarDecListOneElement(
+        VarDeclOneNoSquare(
+         val
+        ) [VarDeclOneNoSquare]
+      ) [VarDecListOneElement]
+    ) [VarDeclaration]
+  ) [ConstVarClassDeclList_Var]
+  MethodDeclarations(
+    MethodDeclarations(
+      NoMethodDecl(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoMethodDecl]
+      MethodDeclaration(
+        MethodTypeName(
+          RetVoid1(
+          ) [RetVoid1]
+         f
+        ) [MethodTypeName]
+        FormParams(
+          FormalParamDecls(
+            FormalParamDecls(
+              SingleFormalParamDecl(
+                FormalParamDeclArray(
+                  Type(
+                   char
+                  ) [Type]
+                 ch
+                  ArrayDerived2(
+                    EpsilonDerived1(
+                    ) [EpsilonDerived1]
+                  ) [ArrayDerived2]
+                ) [FormalParamDeclArray]
+              ) [SingleFormalParamDecl]
+              FormalParamDeclArray(
+                Type(
+                 int
+                ) [Type]
+               a
+                ArrayDerived2(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [ArrayDerived2]
+              ) [FormalParamDeclArray]
+            ) [FormalParamDecls]
+            FormalParamDeclArray(
+              Type(
+               int
+              ) [Type]
+             arg
+              ArrayDerived2(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ArrayDerived2]
+            ) [FormalParamDeclArray]
+          ) [FormalParamDecls]
+        ) [FormParams]
+        ManyVarDeclaration(
+          ManyVarDeclNo(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [ManyVarDeclNo]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDecListOneElement(
+              VarDeclOneNoSquare(
+               x
+              ) [VarDeclOneNoSquare]
+            ) [VarDecListOneElement]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        Statements(
+          NoStmt(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [NoStmt]
+          MatchedStmt(
+            StatDesign(
+              DStatementAssign(
+                DesignatorJustOne(
+                 x
+                ) [DesignatorJustOne]
+                AssignopDerived1(
+                ) [AssignopDerived1]
+                Expr1(
+                  ExprTerm(
+                    TermOne(
+                      FactVar(
+                        DesignatorJustOne(
+                         arg
+                        ) [DesignatorJustOne]
+                      ) [FactVar]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [Expr1]
+              ) [DStatementAssign]
+            ) [StatDesign]
+          ) [MatchedStmt]
+        ) [Statements]
+      ) [MethodDeclaration]
+    ) [MethodDeclarations]
+    MethodDeclaration(
+      MethodTypeName(
+        RetVoid1(
+        ) [RetVoid1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclaration(
+        ManyVarDeclaration(
+          ManyVarDeclNo(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [ManyVarDeclNo]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDeclarations(
+              VarDecListOneElement(
+                VarDeclOneNoSquare(
+                 x
+                ) [VarDeclOneNoSquare]
+              ) [VarDecListOneElement]
+              VarDeclOneNoSquare(
+               i
+              ) [VarDeclOneNoSquare]
+            ) [VarDeclarations]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        VarDeclaration(
+          Type(
+           char
+          ) [Type]
+          VarDecListOneElement(
+            VarDeclOneNoSquare(
+             c
+            ) [VarDeclOneNoSquare]
+          ) [VarDecListOneElement]
+        ) [VarDeclaration]
+      ) [ManyVarDeclaration]
+      Statements(
+        Statements(
+          Statements(
+            Statements(
+              Statements(
+                Statements(
+                  Statements(
+                    Statements(
+                      Statements(
+                        Statements(
+                          Statements(
+                            NoStmt(
+                              EpsilonDerived1(
+                              ) [EpsilonDerived1]
+                            ) [NoStmt]
+                            MatchedStmt(
+                              StatDesign(
+                                DStatementAssign(
+                                  DesignatorJustOne(
+                                   val
+                                  ) [DesignatorJustOne]
+                                  AssignopDerived1(
+                                  ) [AssignopDerived1]
+                                  Expr1(
+                                    ExprTerm(
+                                      TermOne(
+                                        FactNew(
+                                          Type(
+                                           Table
+                                          ) [Type]
+                                        ) [FactNew]
+                                      ) [TermOne]
+                                    ) [ExprTerm]
+                                  ) [Expr1]
+                                ) [DStatementAssign]
+                              ) [StatDesign]
+                            ) [MatchedStmt]
+                          ) [Statements]
+                          MatchedStmt(
+                            StatDesign(
+                              DStatementAssign(
+                                DesignatorOne(
+                                 val
+                                  DesignIdentOne(
+                                   pos
+                                  ) [DesignIdentOne]
+                                ) [DesignatorOne]
+                                AssignopDerived1(
+                                ) [AssignopDerived1]
+                                Expr1(
+                                  ExprTerm(
+                                    TermOne(
+                                      FactNewArray(
+                                        Type(
+                                         int
+                                        ) [Type]
+                                        Expr1(
+                                          ExprTerm(
+                                            TermOne(
+                                              FactVar(
+                                                DesignatorJustOne(
+                                                 size
+                                                ) [DesignatorJustOne]
+                                              ) [FactVar]
+                                            ) [TermOne]
+                                          ) [ExprTerm]
+                                        ) [Expr1]
+                                      ) [FactNewArray]
+                                    ) [TermOne]
+                                  ) [ExprTerm]
+                                ) [Expr1]
+                              ) [DStatementAssign]
+                            ) [StatDesign]
+                          ) [MatchedStmt]
+                        ) [Statements]
+                        MatchedStmt(
+                          StatDesign(
+                            DStatementAssign(
+                              DesignatorOne(
+                               val
+                                DesignIdentOne(
+                                 neg
+                                ) [DesignIdentOne]
+                              ) [DesignatorOne]
+                              AssignopDerived1(
+                              ) [AssignopDerived1]
+                              Expr1(
+                                ExprTerm(
+                                  TermOne(
+                                    FactNewArray(
+                                      Type(
+                                       int
+                                      ) [Type]
+                                      Expr1(
+                                        ExprTerm(
+                                          TermOne(
+                                            FactVar(
+                                              DesignatorJustOne(
+                                               size
+                                              ) [DesignatorJustOne]
+                                            ) [FactVar]
+                                          ) [TermOne]
+                                        ) [ExprTerm]
+                                      ) [Expr1]
+                                    ) [FactNewArray]
+                                  ) [TermOne]
+                                ) [ExprTerm]
+                              ) [Expr1]
+                            ) [DStatementAssign]
+                          ) [StatDesign]
+                        ) [MatchedStmt]
+                      ) [Statements]
+                      MatchedStmt(
+                        StatDesign(
+                          DStatementAssign(
+                            DesignatorJustOne(
+                             i
+                            ) [DesignatorJustOne]
+                            AssignopDerived1(
+                            ) [AssignopDerived1]
+                            Expr1(
+                              ExprTerm(
+                                TermOne(
+                                  FactNum(
+                                   0
+                                  ) [FactNum]
+                                ) [TermOne]
+                              ) [ExprTerm]
+                            ) [Expr1]
+                          ) [DStatementAssign]
+                        ) [StatDesign]
+                      ) [MatchedStmt]
+                    ) [Statements]
+                    MatchedStmt(
+                      StatWhile(
+                        MatchedStmt(
+                          StatStat(
+                            Statements(
+                              Statements(
+                                Statements(
+                                  NoStmt(
+                                    EpsilonDerived1(
+                                    ) [EpsilonDerived1]
+                                  ) [NoStmt]
+                                  MatchedStmt(
+                                    StatDesign(
+                                      DStatementParen(
+                                        DesignatorOne(
+                                         val
+                                          DesignIdentOne(
+                                           putp
+                                          ) [DesignIdentOne]
+                                        ) [DesignatorOne]
+                                        Actuals(
+                                          ActualParams(
+                                            ActualParamEnd(
+                                              Expr1(
+                                                ExprTerm(
+                                                  TermOne(
+                                                    FactNum(
+                                                     0
+                                                    ) [FactNum]
+                                                  ) [TermOne]
+                                                ) [ExprTerm]
+                                              ) [Expr1]
+                                            ) [ActualParamEnd]
+                                            Expr1(
+                                              ExprTerm(
+                                                TermOne(
+                                                  FactVar(
+                                                    DesignatorJustOne(
+                                                     i
+                                                    ) [DesignatorJustOne]
+                                                  ) [FactVar]
+                                                ) [TermOne]
+                                              ) [ExprTerm]
+                                            ) [Expr1]
+                                          ) [ActualParams]
+                                        ) [Actuals]
+                                      ) [DStatementParen]
+                                    ) [StatDesign]
+                                  ) [MatchedStmt]
+                                ) [Statements]
+                                MatchedStmt(
+                                  StatDesign(
+                                    DStatementParen(
+                                      DesignatorOne(
+                                       val
+                                        DesignIdentOne(
+                                         putn
+                                        ) [DesignIdentOne]
+                                      ) [DesignatorOne]
+                                      Actuals(
+                                        ActualParams(
+                                          ActualParamEnd(
+                                            Expr1(
+                                              ExprTerm(
+                                                TermOne(
+                                                  FactNum(
+                                                   0
+                                                  ) [FactNum]
+                                                ) [TermOne]
+                                              ) [ExprTerm]
+                                            ) [Expr1]
+                                          ) [ActualParamEnd]
+                                          Expr1(
+                                            ExprTerm(
+                                              TermOne(
+                                                FactVar(
+                                                  DesignatorJustOne(
+                                                   i
+                                                  ) [DesignatorJustOne]
+                                                ) [FactVar]
+                                              ) [TermOne]
+                                            ) [ExprTerm]
+                                          ) [Expr1]
+                                        ) [ActualParams]
+                                      ) [Actuals]
+                                    ) [DStatementParen]
+                                  ) [StatDesign]
+                                ) [MatchedStmt]
+                              ) [Statements]
+                              MatchedStmt(
+                                StatDesign(
+                                  DStatementInc(
+                                    DesignatorJustOne(
+                                     i
+                                    ) [DesignatorJustOne]
+                                  ) [DStatementInc]
+                                ) [StatDesign]
+                              ) [MatchedStmt]
+                            ) [Statements]
+                          ) [StatStat]
+                        ) [MatchedStmt]
+                        ConditionEnd(
+                          CondTermEnd(
+                            CondFactRelop(
+                              ExprTerm(
+                                TermOne(
+                                  FactVar(
+                                    DesignatorJustOne(
+                                     i
+                                    ) [DesignatorJustOne]
+                                  ) [FactVar]
+                                ) [TermOne]
+                              ) [ExprTerm]
+                              RelopLower(
+                              ) [RelopLower]
+                              ExprTerm(
+                                TermOne(
+                                  FactVar(
+                                    DesignatorJustOne(
+                                     size
+                                    ) [DesignatorJustOne]
+                                  ) [FactVar]
+                                ) [TermOne]
+                              ) [ExprTerm]
+                            ) [CondFactRelop]
+                          ) [CondTermEnd]
+                        ) [ConditionEnd]
+                      ) [StatWhile]
+                    ) [MatchedStmt]
+                  ) [Statements]
+                  MatchedStmt(
+                    StatDesign(
+                      DStatementParen(
+                        DesignatorJustOne(
+                         f
+                        ) [DesignatorJustOne]
+                        Actuals(
+                          ActualParams(
+                            ActualParams(
+                              ActualParamEnd(
+                                Expr1(
+                                  ExprTerm(
+                                    TermOne(
+                                      FactVar(
+                                        DesignatorJustOne(
+                                         c
+                                        ) [DesignatorJustOne]
+                                      ) [FactVar]
+                                    ) [TermOne]
+                                  ) [ExprTerm]
+                                ) [Expr1]
+                              ) [ActualParamEnd]
+                              Expr1(
+                                ExprTerm(
+                                  TermOne(
+                                    FactVar(
+                                      DesignatorJustOne(
+                                       x
+                                      ) [DesignatorJustOne]
+                                    ) [FactVar]
+                                  ) [TermOne]
+                                ) [ExprTerm]
+                              ) [Expr1]
+                            ) [ActualParams]
+                            Expr1(
+                              ExprTerm(
+                                TermOne(
+                                  FactVar(
+                                    DesignatorJustOne(
+                                     i
+                                    ) [DesignatorJustOne]
+                                  ) [FactVar]
+                                ) [TermOne]
+                              ) [ExprTerm]
+                            ) [Expr1]
+                          ) [ActualParams]
+                        ) [Actuals]
+                      ) [DStatementParen]
+                    ) [StatDesign]
+                  ) [MatchedStmt]
+                ) [Statements]
+                MatchedStmt(
+                  StatRead(
+                    DesignatorJustOne(
+                     x
+                    ) [DesignatorJustOne]
+                  ) [StatRead]
+                ) [MatchedStmt]
+              ) [Statements]
+              MatchedStmt(
+                StatWhile(
+                  MatchedStmt(
+                    StatStat(
+                      Statements(
+                        Statements(
+                          Statements(
+                            NoStmt(
+                              EpsilonDerived1(
+                              ) [EpsilonDerived1]
+                            ) [NoStmt]
+                            UnmatchedStmt(
+                              UnmatchedIf(
+                                ConditionEnd(
+                                  CondTermEnd(
+                                    CondFactRelop(
+                                      ExprTerm(
+                                        TermOne(
+                                          FactVar(
+                                            DesignatorJustOne(
+                                             x
+                                            ) [DesignatorJustOne]
+                                          ) [FactVar]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                      RelopLowerEqual(
+                                      ) [RelopLowerEqual]
+                                      ExprTerm(
+                                        TermOne(
+                                          FactNum(
+                                           0
+                                          ) [FactNum]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                    ) [CondFactRelop]
+                                  ) [CondTermEnd]
+                                ) [ConditionEnd]
+                                MatchedStmt(
+                                  StatBreak(
+                                  ) [StatBreak]
+                                ) [MatchedStmt]
+                              ) [UnmatchedIf]
+                            ) [UnmatchedStmt]
+                          ) [Statements]
+                          UnmatchedStmt(
+                            UnmatchedIfElse(
+                              ConditionEnd(
+                                CondTermMulti(
+                                  CondTermEnd(
+                                    CondFactRelop(
+                                      ExprTerm(
+                                        TermOne(
+                                          FactNum(
+                                           0
+                                          ) [FactNum]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                      RelopLowerEqual(
+                                      ) [RelopLowerEqual]
+                                      ExprTerm(
+                                        TermOne(
+                                          FactVar(
+                                            DesignatorJustOne(
+                                             x
+                                            ) [DesignatorJustOne]
+                                          ) [FactVar]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                    ) [CondFactRelop]
+                                  ) [CondTermEnd]
+                                  CondFactRelop(
+                                    ExprTerm(
+                                      TermOne(
+                                        FactVar(
+                                          DesignatorJustOne(
+                                           x
+                                          ) [DesignatorJustOne]
+                                        ) [FactVar]
+                                      ) [TermOne]
+                                    ) [ExprTerm]
+                                    RelopLower(
+                                    ) [RelopLower]
+                                    ExprTerm(
+                                      TermOne(
+                                        FactVar(
+                                          DesignatorJustOne(
+                                           size
+                                          ) [DesignatorJustOne]
+                                        ) [FactVar]
+                                      ) [TermOne]
+                                    ) [ExprTerm]
+                                  ) [CondFactRelop]
+                                ) [CondTermMulti]
+                              ) [ConditionEnd]
+                              StatStat(
+                                Statements(
+                                  NoStmt(
+                                    EpsilonDerived1(
+                                    ) [EpsilonDerived1]
+                                  ) [NoStmt]
+                                  MatchedStmt(
+                                    StatDesign(
+                                      DStatementParen(
+                                        DesignatorOne(
+                                         val
+                                          DesignIdentOne(
+                                           putp
+                                          ) [DesignIdentOne]
+                                        ) [DesignatorOne]
+                                        Actuals(
+                                          ActualParamEnd(
+                                            Expr1(
+                                              ExprTermList(
+                                                ExprTerm(
+                                                  TermOne(
+                                                    FuncCall(
+                                                      DesignatorOne(
+                                                       val
+                                                        DesignIdentOne(
+                                                         getp
+                                                        ) [DesignIdentOne]
+                                                      ) [DesignatorOne]
+                                                      Actuals(
+                                                        ActualParamEnd(
+                                                          Expr1(
+                                                            ExprTerm(
+                                                              TermOne(
+                                                                FactVar(
+                                                                  DesignatorJustOne(
+                                                                   x
+                                                                  ) [DesignatorJustOne]
+                                                                ) [FactVar]
+                                                              ) [TermOne]
+                                                            ) [ExprTerm]
+                                                          ) [Expr1]
+                                                        ) [ActualParamEnd]
+                                                      ) [Actuals]
+                                                    ) [FuncCall]
+                                                  ) [TermOne]
+                                                ) [ExprTerm]
+                                                AddopPlus(
+                                                ) [AddopPlus]
+                                                TermOne(
+                                                  FactNum(
+                                                   1
+                                                  ) [FactNum]
+                                                ) [TermOne]
+                                              ) [ExprTermList]
+                                            ) [Expr1]
+                                          ) [ActualParamEnd]
+                                        ) [Actuals]
+                                      ) [DStatementParen]
+                                    ) [StatDesign]
+                                  ) [MatchedStmt]
+                                ) [Statements]
+                              ) [StatStat]
+                              UnmatchedIf(
+                                ConditionEnd(
+                                  CondTermMulti(
+                                    CondTermEnd(
+                                      CondFactRelop(
+                                        ExprTerm(
+                                          TermOne(
+                                            FactVar(
+                                              DesignatorJustOne(
+                                               size
+                                              ) [DesignatorJustOne]
+                                            ) [FactVar]
+                                          ) [TermOne]
+                                        ) [ExprTerm]
+                                        RelopLower(
+                                        ) [RelopLower]
+                                        ExprTerm(
+                                          TermOne(
+                                            FactVar(
+                                              DesignatorJustOne(
+                                               x
+                                              ) [DesignatorJustOne]
+                                            ) [FactVar]
+                                          ) [TermOne]
+                                        ) [ExprTerm]
+                                      ) [CondFactRelop]
+                                    ) [CondTermEnd]
+                                    CondFactRelop(
+                                      ExprTerm(
+                                        TermOne(
+                                          FactVar(
+                                            DesignatorJustOne(
+                                             x
+                                            ) [DesignatorJustOne]
+                                          ) [FactVar]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                      RelopLower(
+                                      ) [RelopLower]
+                                      ExprTerm(
+                                        TermOne(
+                                          FactNum(
+                                           0
+                                          ) [FactNum]
+                                        ) [TermOne]
+                                      ) [ExprTerm]
+                                    ) [CondFactRelop]
+                                  ) [CondTermMulti]
+                                ) [ConditionEnd]
+                                MatchedStmt(
+                                  StatStat(
+                                    Statements(
+                                      NoStmt(
+                                        EpsilonDerived1(
+                                        ) [EpsilonDerived1]
+                                      ) [NoStmt]
+                                      MatchedStmt(
+                                        StatDesign(
+                                          DStatementParen(
+                                            DesignatorOne(
+                                             val
+                                              DesignIdentOne(
+                                               putn
+                                              ) [DesignIdentOne]
+                                            ) [DesignatorOne]
+                                            Actuals(
+                                              ActualParamEnd(
+                                                Expr1(
+                                                  ExprTermList(
+                                                    ExprTerm(
+                                                      TermOne(
+                                                        FuncCall(
+                                                          DesignatorOne(
+                                                           val
+                                                            DesignIdentOne(
+                                                             getn
+                                                            ) [DesignIdentOne]
+                                                          ) [DesignatorOne]
+                                                          Actuals(
+                                                            ActualParamEnd(
+                                                              Expr1(
+                                                                ExprTerm(
+                                                                  TermOne(
+                                                                    FactVar(
+                                                                      DesignatorJustOne(
+                                                                       x
+                                                                      ) [DesignatorJustOne]
+                                                                    ) [FactVar]
+                                                                  ) [TermOne]
+                                                                ) [ExprTerm]
+                                                              ) [Expr1]
+                                                            ) [ActualParamEnd]
+                                                          ) [Actuals]
+                                                        ) [FuncCall]
+                                                      ) [TermOne]
+                                                    ) [ExprTerm]
+                                                    AddopPlus(
+                                                    ) [AddopPlus]
+                                                    TermOne(
+                                                      FactNum(
+                                                       1
+                                                      ) [FactNum]
+                                                    ) [TermOne]
+                                                  ) [ExprTermList]
+                                                ) [Expr1]
+                                              ) [ActualParamEnd]
+                                            ) [Actuals]
+                                          ) [DStatementParen]
+                                        ) [StatDesign]
+                                      ) [MatchedStmt]
+                                    ) [Statements]
+                                  ) [StatStat]
+                                ) [MatchedStmt]
+                              ) [UnmatchedIf]
+                            ) [UnmatchedIfElse]
+                          ) [UnmatchedStmt]
+                        ) [Statements]
+                        MatchedStmt(
+                          StatRead(
+                            DesignatorJustOne(
+                             x
+                            ) [DesignatorJustOne]
+                          ) [StatRead]
+                        ) [MatchedStmt]
+                      ) [Statements]
+                    ) [StatStat]
+                  ) [MatchedStmt]
+                  ConditionEnd(
+                    CondTermEnd(
+                      CondFactOne(
+                        ExprTerm(
+                          TermOne(
+                            FactBool(
+                             true
+                            ) [FactBool]
+                          ) [TermOne]
+                        ) [ExprTerm]
+                      ) [CondFactOne]
+                    ) [CondTermEnd]
+                  ) [ConditionEnd]
+                ) [StatWhile]
+              ) [MatchedStmt]
+            ) [Statements]
+            MatchedStmt(
+              StatPrint(
+                Expr1(
+                  ExprTermList(
+                    ExprTermMinus(
+                      TermOne(
+                        FactNum(
+                         3
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTermMinus]
+                    AddopPlus(
+                    ) [AddopPlus]
+                    TermOne(
+                      FactNum(
+                       5
+                      ) [FactNum]
+                    ) [TermOne]
+                  ) [ExprTermList]
+                ) [Expr1]
+              ) [StatPrint]
+            ) [MatchedStmt]
+          ) [Statements]
+          MatchedStmt(
+            StatPrint(
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactChar(
+                     v
+                    ) [FactChar]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [StatPrint]
+          ) [MatchedStmt]
+        ) [Statements]
+        MatchedStmt(
+          StatPrint(
+            Expr0(
+              ConditionEnd(
+                CondTermEnd(
+                  CondFactRelop(
+                    ExprTerm(
+                      TermOne(
+                        FactVar(
+                          DesignatorJustOne(
+                           x
+                          ) [DesignatorJustOne]
+                        ) [FactVar]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                    RelopLower(
+                    ) [RelopLower]
+                    ExprTerm(
+                      TermOne(
+                        FactNum(
+                         0
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [CondFactRelop]
+                ) [CondTermEnd]
+              ) [ConditionEnd]
+              ExprTerm(
+                TermOne(
+                  FactChar(
+                   -
+                  ) [FactChar]
+                ) [TermOne]
+              ) [ExprTerm]
+              ExprTerm(
+                TermOne(
+                  FactChar(
+                   +
+                  ) [FactChar]
+                ) [TermOne]
+              ) [ExprTerm]
+            ) [Expr0]
+          ) [StatPrint]
+        ) [MatchedStmt]
+      ) [Statements]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  13:54:25,640 - ===================================
+INFO  13:54:25,645 -  Print count calls = 3
+INFO  13:54:25,645 -  Deklarisanih promenljivih ima = 0

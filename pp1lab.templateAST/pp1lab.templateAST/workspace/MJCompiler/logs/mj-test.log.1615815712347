@@ -1,0 +1,37 @@
+INFO  14:39:08,357 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  14:39:08,422 - #2 program
+INFO  14:39:08,422 - #20 MJProgram
+INFO  14:39:08,422 - #20 int
+INFO  14:39:08,427 - #20 x
+INFO  14:39:08,427 - #40 ;
+INFO  14:39:08,427 - #20 int
+INFO  14:39:08,427 - #20 y
+INFO  14:39:08,427 - #40 ;
+INFO  14:39:08,427 - #47 {
+INFO  14:39:08,427 - #20 int
+INFO  14:39:08,427 - #20 k
+INFO  14:39:08,427 - #43 (
+INFO  14:39:08,432 - #44 )
+INFO  14:39:08,432 - #20 int
+INFO  14:39:08,432 - #20 c
+INFO  14:39:08,432 - #40 ;
+INFO  14:39:08,432 - #47 {
+INFO  14:39:08,432 - #20 c
+INFO  14:39:08,432 - #37 =
+INFO  14:39:08,432 - #21 1
+INFO  14:39:08,432 - #40 ;
+INFO  14:39:08,437 - #15 return
+INFO  14:39:08,437 - #20 c
+INFO  14:39:08,437 - #24 +
+INFO  14:39:08,437 - #21 2
+INFO  14:39:08,437 - #40 ;
+INFO  14:39:08,437 - #48 }
+INFO  14:39:08,437 - #20 int
+INFO  14:39:08,437 - #20 main
+INFO  14:39:08,437 - #43 (
+INFO  14:39:08,437 - #44 )
+INFO  14:39:08,437 - #47 {
+INFO  14:39:08,437 - #26 *
+ERROR 14:39:08,437 - 
+Sintaksna greska na liniji 11
+ERROR 14:39:08,437 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 11

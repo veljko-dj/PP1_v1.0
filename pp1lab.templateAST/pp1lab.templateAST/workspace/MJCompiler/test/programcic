@@ -1,7 +1,9 @@
-program p
+program Pro
 
-const int size = 10;
-class Table {
+const int size = 10; 
+int kadsad;
+class Table
+ {
 	int pos[], neg[];
 	{
 		void putp (int a, int idx) { this.pos[idx] = a; }
@@ -32,7 +34,7 @@ Table val;
 		f(c, x, i);
 		read(x);
 		do{
-			if(x <= 0) break;
+			if (x <= 0) break;
 			if (0 <= x && x < size)
 			{
 			val.putp(val.getp(x)+1);
@@ -44,6 +46,11 @@ Table val;
 			read(x);
 		}while(true);
 		
+		print(-3+5);
+		print('v');
+		
 		print(x < 0 ? '-' : '+');
+		
+		
 	}
 }

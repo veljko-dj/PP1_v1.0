@@ -153,13 +153,17 @@ VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=n
 
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
-							// Kako primetih, ovo error nije nigde definisano opet, tako da je 
-							// nesto implicitno			
+							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
+							// A kako rece onaj batica na snimku, uparuje sve do ;
+							// Analizirajuci onu gresku sa Expr kontam da ce on svakako napraviti 
+							// default klasu error i uparivace sve
+							// Ovo ne resava od problema int 13s, s1,s3; Vec to jeste greska fatalna, 
+							// A ovo nije int s1, 13s, s3;
+								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne {: RESULT=new VarDeclOneNoSquare(nameVarOne); RESULT.setLine(nameVarOneleft); :}
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE {: RESULT=new VarDeclOneSquare(nameVarOneArray); RESULT.setLine(nameVarOneArrayleft); :}
-			| 	(VarDeclERROR) error:eVar     {: parser.report_error("Syntax error, skip rest, linija: " ,eVar) ; :} {: RESULT=new VarDeclERROR(); :}  ;
-Type ::= (Type) IDENT:typeName {: RESULT=new Type(typeName); RESULT.setLine(typeNameleft); :} 
- ;
+			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , null);  :} {: RESULT=new VarDeclError(); :}	;
+Type ::= (Type) IDENT:typeName {: RESULT=new Type(typeName); RESULT.setLine(typeNameleft); :}  ;
 
 ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends:E1 LBRACE ManyVarDecl:M2 RBRACE {: RESULT=new ClassDeclNoMethod(className, E1, M2); RESULT.setLine(classNameleft); :} 
 			| (ClassDeclMethod) CLASS IDENT:className Extends:E1 LBRACE ManyVarDecl:M2 LBRACE MethodDeclList:M3 RBRACE RBRACE {: RESULT=new ClassDeclMethod(className, E1, M2, M3); RESULT.setLine(classNameleft); :}  
@@ -232,7 +236,9 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI {: RESULT=new StatReturn2(); :}
 			|	(StatPrint) PRINT LPAREN Expr:E1 RPAREN SEMI {: RESULT=new StatPrint(E1); RESULT.setLine(E1left); :} 
-			|	(StatPrint2) PRINT LPAREN Expr:E1 PrintValue:P2 RPAREN SEMI {: RESULT=new StatPrint2(E1, P2); RESULT.setLine(E1left); :} ;
+			|	(StatPrint2) PRINT LPAREN Expr:E1 PrintValue:P2 RPAREN SEMI {: RESULT=new StatPrint2(E1, P2); RESULT.setLine(E1left); :} 
+			|   (StatErrAssignment) Designator:D1 EQUAL error:gr SEMI
+			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :} {: RESULT=new StatErrAssignment(D1); RESULT.setLine(D1left); :};
 							
 							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
 							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
@@ -249,7 +255,9 @@ PrintValue ::=	(PrintValue) PrintValue:P1 COMMA NUMBER_CONST:N2 {: RESULT=new Pr
 DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 
 					|	(DStatementParen) Designator:D1 LPAREN ActPars:A2 RPAREN {: RESULT=new DStatementParen(D1, A2); RESULT.setLine(D1left); :}
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
-					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
+					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} 
+					|	(DStatementAssignError)	error SEMI:errAssign
+						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} {: RESULT=new DStatementAssignError(); :} ;
 
 
 ActPars ::= (Actuals) ActualParamList:A1 {: RESULT=new Actuals(A1); RESULT.setLine(A1left); :} 

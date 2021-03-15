@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 13:48:59
+// 15/2/2021 15:16:24
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -93,6 +93,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ActualParams ActualParams) { visit(); }
     public void visit(NoActuals NoActuals) { visit(); }
     public void visit(Actuals Actuals) { visit(); }
+    public void visit(DStatementAssignError DStatementAssignError) { visit(); }
     public void visit(DStatementDec DStatementDec) { visit(); }
     public void visit(DStatementInc DStatementInc) { visit(); }
     public void visit(DStatementParen DStatementParen) { visit(); }
@@ -101,6 +102,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(StagodDerived1 StagodDerived1) { visit(); }
     public void visit(CaseListNoElem CaseListNoElem) { visit(); }
     public void visit(CaseListt CaseListt) { visit(); }
+    public void visit(StatErrAssignment StatErrAssignment) { visit(); }
     public void visit(StatPrint2 StatPrint2) { visit(); }
     public void visit(StatPrint StatPrint) { visit(); }
     public void visit(StatReturn2 StatReturn2) { visit(); }
@@ -138,7 +140,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ClassDeclMethod ClassDeclMethod) { visit(); }
     public void visit(ClassDeclNoMethod ClassDeclNoMethod) { visit(); }
     public void visit(Type Type) { visit(); }
-    public void visit(VarDeclERROR VarDeclERROR) { visit(); }
+    public void visit(VarDeclError VarDeclError) { visit(); }
     public void visit(VarDeclOneSquare VarDeclOneSquare) { visit(); }
     public void visit(VarDeclOneNoSquare VarDeclOneNoSquare) { visit(); }
     public void visit(VarDecListOneElement VarDecListOneElement) { visit(); }

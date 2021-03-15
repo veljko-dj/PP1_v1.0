@@ -1,13 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 15:16:24
+// 15/2/2021 21:59:50
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ExtendsDerived1 extends Extends {
+public class NoExtends extends Extends {
 
-    public ExtendsDerived1 () {
+    public NoExtends () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class ExtendsDerived1 extends Extends {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ExtendsDerived1(\n");
+        buffer.append("NoExtends(\n");
 
         buffer.append(tab);
-        buffer.append(") [ExtendsDerived1]");
+        buffer.append(") [NoExtends]");
         return buffer.toString();
     }
 }

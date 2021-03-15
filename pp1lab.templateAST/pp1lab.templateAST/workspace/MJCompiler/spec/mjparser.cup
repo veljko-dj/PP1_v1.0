@@ -125,7 +125,8 @@ VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE
-			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , null);  :}	;
+			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , varErrleft);  :}	;
+
 Type ::= (Type) IDENT:typeName  ;
 
 ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl RBRACE 
@@ -195,11 +196,16 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
 			|	(StatPrint2) PRINT LPAREN Expr PrintValue RPAREN SEMI 
-			|   (StatErrAssignment) Designator EQUAL error:gr SEMI
+			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
 							
 							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
 							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+			
+			
+					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
+		
+		
 		
 CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
 			| 	(CaseListNoElem) /* epsilon */ ;	
@@ -213,11 +219,12 @@ PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST ;
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
-					|	(DStatementDec) Designator DEC 
-					|	(DStatementAssignError)	error SEMI:errAssign
+					|	(DStatementDec) Designator DEC ;
+				/*	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
 
-
+				*/ 
+				
 ActPars ::= (Actuals) ActualParamList 
 		|   (NoActuals) Epsilon  ;
 			   

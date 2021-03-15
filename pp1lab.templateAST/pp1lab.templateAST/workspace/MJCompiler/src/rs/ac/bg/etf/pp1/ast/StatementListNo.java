@@ -1,15 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 15:16:24
+// 15/2/2021 21:59:50
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class NoStmt extends StatementList {
+public class StatementListNo extends StatementList {
 
     private Epsilon Epsilon;
 
-    public NoStmt (Epsilon Epsilon) {
+    public StatementListNo (Epsilon Epsilon) {
         this.Epsilon=Epsilon;
         if(Epsilon!=null) Epsilon.setParent(this);
     }
@@ -43,7 +43,7 @@ public class NoStmt extends StatementList {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("NoStmt(\n");
+        buffer.append("StatementListNo(\n");
 
         if(Epsilon!=null)
             buffer.append(Epsilon.toString("  "+tab));
@@ -52,7 +52,7 @@ public class NoStmt extends StatementList {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [NoStmt]");
+        buffer.append(") [StatementListNo]");
         return buffer.toString();
     }
 }

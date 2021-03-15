@@ -1,21 +1,10 @@
-program MJProgram
-	int x; 
-	int 6a, 3, s;
-	int d;
+program P
+    int x;
+    int y;
 {
-	
-	int k () int c; {
-		c = 1;
-		return c+2;
-	}
-	
-	int main() {
-		 
-		y = 2;
-		x = y + 2;
-		 
-		y = k() + 3;
-		print(y);
-		return 0;
-	}
+    x = y +;
+    x = ;
+    x = +;
+    x = + y;
+    x = if (x == y) x = 2;
 }

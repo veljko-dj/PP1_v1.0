@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 15/2/2021 15:16:24
+// 15/2/2021 21:59:50
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -78,9 +78,9 @@ public interface Visitor {
     public void visit(FactVar FactVar);
     public void visit(TermOne TermOne);
     public void visit(TermMore TermMore);
+    public void visit(ExprTermList ExprTermList);
     public void visit(ExprTermMinus ExprTermMinus);
     public void visit(ExprTerm ExprTerm);
-    public void visit(ExprTermList ExprTermList);
     public void visit(Expr1 Expr1);
     public void visit(Expr0 Expr0);
     public void visit(CondFactRelop CondFactRelop);
@@ -93,7 +93,6 @@ public interface Visitor {
     public void visit(ActualParams ActualParams);
     public void visit(NoActuals NoActuals);
     public void visit(Actuals Actuals);
-    public void visit(DStatementAssignError DStatementAssignError);
     public void visit(DStatementDec DStatementDec);
     public void visit(DStatementInc DStatementInc);
     public void visit(DStatementParen DStatementParen);
@@ -116,10 +115,10 @@ public interface Visitor {
     public void visit(StatDesign StatDesign);
     public void visit(UnmatchedIfElse UnmatchedIfElse);
     public void visit(UnmatchedIf UnmatchedIf);
-    public void visit(UnmatchedStmt UnmatchedStmt);
-    public void visit(MatchedStmt MatchedStmt);
-    public void visit(NoStmt NoStmt);
-    public void visit(Statements Statements);
+    public void visit(UnmatchedStat UnmatchedStat);
+    public void visit(MatchedStat MatchedStat);
+    public void visit(StatementListNo StatementListNo);
+    public void visit(StatementListt StatementListt);
     public void visit(ArrayDerived2 ArrayDerived2);
     public void visit(ArrayDerived1 ArrayDerived1);
     public void visit(FormalParamDeclArray FormalParamDeclArray);
@@ -135,7 +134,7 @@ public interface Visitor {
     public void visit(MethodDeclarations MethodDeclarations);
     public void visit(ManyVarDeclNo ManyVarDeclNo);
     public void visit(ManyVarDeclaration ManyVarDeclaration);
-    public void visit(ExtendsDerived1 ExtendsDerived1);
+    public void visit(NoExtends NoExtends);
     public void visit(ExtendClass ExtendClass);
     public void visit(ClassDeclMethod ClassDeclMethod);
     public void visit(ClassDeclNoMethod ClassDeclNoMethod);

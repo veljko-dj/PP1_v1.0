@@ -25,3 +25,6 @@ Na taj nacin ce ti ostati normalan projekat. Neces morati da kopiras .metadata i
 sablonskog projekta pa da se jebavas
 
 Sad ovde pisem onako, da bih nesto izmenio 
+
+
+Sada sam u semnaticka_analiza

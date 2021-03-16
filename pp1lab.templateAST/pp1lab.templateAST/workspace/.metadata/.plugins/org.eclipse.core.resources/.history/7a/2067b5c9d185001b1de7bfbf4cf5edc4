@@ -1,0 +1,28 @@
+program p
+{
+    void main()
+        int x, y;
+    {
+        x = 5;
+        if (3)
+        {
+        }
+        else if (x)
+        {
+
+        }
+        if (x >= )
+        {
+        }
+        if (>)
+        {
+        }
+        if (y - x)
+        {
+        }
+        if (> && x >= 3)
+        {
+        }
+
+    }
+}

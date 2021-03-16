@@ -1,0 +1,10 @@
+program P
+    int x;
+    int y;
+{
+    x = y +;
+    x = ;
+    x = +;
+    x = + y;
+    x = if (x == y) x = 2;
+}

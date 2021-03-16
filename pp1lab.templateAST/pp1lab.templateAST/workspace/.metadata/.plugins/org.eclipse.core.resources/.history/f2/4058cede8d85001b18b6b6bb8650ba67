@@ -1,0 +1,23 @@
+INFO  12:09:32,126 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  12:09:32,186 - #2 program
+INFO  12:09:32,186 - #20 MJProgram
+INFO  12:09:32,186 - #20 int
+INFO  12:09:32,186 - #20 x
+INFO  12:09:32,191 - #40 ;
+INFO  12:09:32,191 - #20 int
+INFO  12:09:32,191 - #20 y
+INFO  12:09:32,191 - #40 ;
+INFO  12:09:32,191 - #47 {
+INFO  12:09:32,191 - #20 int
+INFO  12:09:32,191 - #20 k
+INFO  12:09:32,191 - #43 (
+INFO  12:09:32,191 - #44 )
+INFO  12:09:32,191 - #20 int
+INFO  12:09:32,191 - #20 c
+INFO  12:09:32,191 - #40 ;
+INFO  12:09:32,191 - #47 {
+INFO  12:09:32,196 - #20 x
+INFO  12:09:32,196 - #37 =
+ERROR 12:09:32,196 - 
+Sintaksna greska na liniji 6
+ERROR 12:09:32,196 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 6

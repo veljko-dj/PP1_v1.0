@@ -1,0 +1,15 @@
+INFO  15:43:07,335 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  15:43:07,400 - #2 program
+INFO  15:43:07,401 - #20 P
+INFO  15:43:07,401 - #20 int
+INFO  15:43:07,403 - #20 x
+INFO  15:43:07,404 - #40 ;
+INFO  15:43:07,404 - #20 int
+INFO  15:43:07,405 - #20 y
+INFO  15:43:07,405 - #40 ;
+INFO  15:43:07,405 - #47 {
+INFO  15:43:07,405 - #20 x
+INFO  15:43:07,405 - #37 =
+ERROR 15:43:07,405 - 
+Sintaksna greska na liniji 5
+ERROR 15:43:07,405 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 5

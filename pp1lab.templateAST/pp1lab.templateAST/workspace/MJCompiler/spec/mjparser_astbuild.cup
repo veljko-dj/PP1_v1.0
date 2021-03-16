@@ -236,6 +236,11 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 							
 							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
 							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+			
+			
+					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
+		
+		
 		
 CaseList ::= 	(CaseListt) CaseList:C1 CASE:c Stagod:S2  DOTS:d StatementList:S3 {: RESULT=new CaseListt(C1, S2, S3); RESULT.setLine(C1left); :}
 			| 	(CaseListNoElem) {: RESULT=new CaseListNoElem(); :} /* epsilon */ ;	

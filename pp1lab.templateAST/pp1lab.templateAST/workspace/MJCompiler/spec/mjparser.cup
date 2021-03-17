@@ -84,8 +84,9 @@ nonterminal OneMinus, TermsInExpr, IdentOrExpr;
 nonterminal ExprManjiProstiji, Unmatched, Matched, Epsilon, Array, RetType, Stagod;
 
 
-nonterminal Program, ProgName, Designator, MethodDecl, MethodTypeName; 
-nonterminal Type, Term, Expr, Factor, VarDeclList; 
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program; 
+nonterminal Designator, MethodDecl, MethodTypeName; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE ;
 

@@ -111,16 +111,11 @@ nonterminal RetType RetType;
 nonterminal Stagod Stagod;
 
 
-nonterminal Program Program;
-nonterminal ProgName ProgName;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program; 
 nonterminal Designator Designator;
 nonterminal MethodDecl MethodDecl;
 nonterminal MethodTypeName MethodTypeName; 
-nonterminal Type Type;
-nonterminal Term Term;
-nonterminal Expr Expr;
-nonterminal Factor Factor;
-nonterminal VarDeclList VarDeclList; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList:C1 LBRACE MethodDeclList:M2 RBRACE {: RESULT=new Program(p, C1, M2); RESULT.setLine(pleft); :} ;
 

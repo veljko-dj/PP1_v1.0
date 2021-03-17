@@ -1,21 +1,21 @@
 // generated with ast extension for cup
 // version 0.8
-// 17/2/2021 19:15:3
+// 17/2/2021 16:28:4
 
 
-package rs.ac.bg.etf.pp1.ast;
+package rs.ac.bg.etf.pp1;
 
-public class Program implements SyntaxNode {
+public class Objasnjenje_klase_koju_gen_parser implements SyntaxNode {
 
     private SyntaxNode parent;
     private int line;
-    public rs.etf.pp1.symboltable.concepts.Obj obj = null;
-
     private ProgName ProgName;
     private ConstVarClassDeclList ConstVarClassDeclList;
     private MethodDeclList MethodDeclList;
 
-    public Program (ProgName ProgName, ConstVarClassDeclList ConstVarClassDeclList, MethodDeclList MethodDeclList) {
+
+// Koliko stvari utice toliko ide u konstruktor
+    public Objasnjenje_klase_koju_gen_parser (ProgName ProgName, ConstVarClassDeclList ConstVarClassDeclList, MethodDeclList MethodDeclList) {
         this.ProgName=ProgName;
         if(ProgName!=null) ProgName.setParent(this);
         this.ConstVarClassDeclList=ConstVarClassDeclList;
@@ -64,16 +64,21 @@ public class Program implements SyntaxNode {
         this.line=line;
     }
 
+// Metod za prihvatanje posete
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
+// Metod za prosledjivanje posete onima koji zavise od nas
     public void childrenAccept(Visitor visitor) {
         if(ProgName!=null) ProgName.accept(visitor);
         if(ConstVarClassDeclList!=null) ConstVarClassDeclList.accept(visitor);
         if(MethodDeclList!=null) MethodDeclList.accept(visitor);
     }
 
+
+// rekurzivni obilazak: prvo se prihvati pa prosledi deci
+// a ova druga je kontra 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(ProgName!=null) ProgName.traverseTopDown(visitor);

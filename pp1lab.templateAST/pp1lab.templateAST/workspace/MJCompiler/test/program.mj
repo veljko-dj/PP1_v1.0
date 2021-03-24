@@ -1,7 +1,6 @@
 program Pro
 
 const int size = 10; 
-int kadsad;
 class Table
  {
 	int pos[], neg[];

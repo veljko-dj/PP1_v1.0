@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 17/2/2021 19:15:3
+// 23/2/2021 20:8:2
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -150,6 +150,7 @@ public interface Visitor {
     public void visit(ConstDeclOneElementNumber ConstDeclOneElementNumber);
     public void visit(ConstDeclList_single ConstDeclList_single);
     public void visit(ConstDeclList_nadovezivanje ConstDeclList_nadovezivanje);
+    public void visit(ConstType ConstType);
     public void visit(ConstDeclaration ConstDeclaration);
     public void visit(ConstVarClassDeclList_No ConstVarClassDeclList_No);
     public void visit(ConstVarClassDeclList_Class ConstVarClassDeclList_Class);

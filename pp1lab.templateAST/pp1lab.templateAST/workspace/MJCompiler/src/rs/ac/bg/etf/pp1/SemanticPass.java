@@ -10,6 +10,7 @@ public class SemanticPass extends VisitorAdaptor {
 	boolean errorDetected = false;
 	int printCallCount = 0;
 	Obj currentMethod = null;
+				// kada ulancavamo lokalne simbole prosledjivacemo metodu u kojoj se trenutno nalazimo
 	boolean returnFound = false;
 	int nVars;
 
@@ -17,6 +18,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	 
 	public void report_error(String message, SyntaxNode info) {
+							// Ovo nije menjano
 		errorDetected = true;
 		StringBuilder msg = new StringBuilder(message);
 		int line = (info == null) ? 0: info.getLine();
@@ -26,6 +28,7 @@ public class SemanticPass extends VisitorAdaptor {
 	}
 
 	public void report_info(String message, SyntaxNode info) {
+							// Ovo nije menjano
 		StringBuilder msg = new StringBuilder(message); 
 		int line = (info == null) ? 0: info.getLine();
 		if (line != 0)
@@ -36,17 +39,21 @@ public class SemanticPass extends VisitorAdaptor {
 	
 	
 	
-	public void visit(Program program) {		
+	public void visit(Program program) {
+		report_info("Usao sam u Program", program);
+					// Menjano	
 		nVars = Tab.currentScope.getnVars();
 		Tab.chainLocalSymbols(program.getProgName().obj);
 		Tab.closeScope(); 
 	}
 	public void visit(ProgName progName) {
+		report_info("Usao sam u ProgName", progName);
+					// Menjano	
 		progName.obj = Tab.insert(Obj.Prog, progName.getPName(), Tab.noType); 
 		Tab.openScope();      
 	}
 
-// izmena 
+/*
 //	public void visit(VarDecl varDecl) {
 	public void visit(VarDeclOneNoSquare VarDeclOneNoSquare) {
 		report_info("Deklarisana promenljiva "+ VarDeclOneNoSquare.getNameVarOne(), VarDeclOneNoSquare);
@@ -54,7 +61,10 @@ public class SemanticPass extends VisitorAdaptor {
 															// Ovde fali
 	}
 	
+*/
+	
 	public void visit(Type type) {
+				// Menjano tj. nije
 		Obj typeNode = Tab.find(type.getTypeName());
 		if (typeNode == Tab.noObj) {
 			report_error("Nije pronadjen tip " + type.getTypeName() + " u tabeli simbola", null);
@@ -70,8 +80,35 @@ public class SemanticPass extends VisitorAdaptor {
 			}
 		}  
 	}
+	
+	
+// Krecem redom po mjparser.cup, videcemo koliko ce to da traje
 
-/*
+
+	@Override
+	public void visit(ConstVarClassDeclList_Const ConstVarClassDeclList_Const) {
+		// TODO Auto-generated method stub
+		super.visit(ConstVarClassDeclList_Const);
+	}
+	 
+	@Override
+	public void visit(ConstDeclaration ConstDeclaration) {
+		// TODO Auto-generated method stub
+		super.visit(ConstDeclaration);
+	}
+
+	@Override
+	public void visit(ConstType ConstType) {
+		// TODO Auto-generated method stub
+		super.visit(ConstType);
+	}
+	 
+	@Override
+	public void visit(ConstDeclOneElementNumber ConstDeclOneElementNumber) {
+		// TODO Auto-generated method stub
+		super.visit(ConstDeclOneElementNumber);
+	}
+
 	public void visit(MethodDecl methodDecl) {
 		if (!returnFound && currentMethod.getType() != Tab.noType) {
 			report_error("Semanticka greska na liniji " + methodDecl.getLine() + ": funcija " + currentMethod.getName() + " nema return iskaz!", null);
@@ -84,13 +121,15 @@ public class SemanticPass extends VisitorAdaptor {
 		currentMethod = null;
 	}
 
+	/*
+
 	public void visit(MethodTypeName methodTypeName) {
 		currentMethod = Tab.insert(Obj.Meth, methodTypeName.getMethName(), methodTypeName.getType().struct);
 		methodTypeName.obj = currentMethod;
 		Tab.openScope();
 		report_info("Obradjuje se funkcija " + methodTypeName.getMethName(), methodTypeName);
 	}
-
+ 
 	public void visit(Assignment assignment) {
 		if (!assignment.getExpr().struct.assignableTo(assignment.getDesignator().obj.getType()))
 			report_error("Greska na liniji " + assignment.getLine() + " : " + " nekompatibilni tipovi u dodeli vrednosti ", null);
@@ -168,9 +207,10 @@ public class SemanticPass extends VisitorAdaptor {
 		designator.obj = obj;
 	}
 	
+	*/
 	public boolean passed() {
 		return !errorDetected;
 	}
-	*/
+
 }
 

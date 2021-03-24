@@ -82,11 +82,15 @@ nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
 nonterminal Extends, ManyVarDecl, CaseList, PrintValue;
 nonterminal OneMinus, TermsInExpr, IdentOrExpr;
 nonterminal ExprManjiProstiji, Unmatched, Matched, Epsilon, Array, RetType, Stagod;
+nonterminal ConstType;
 
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program; 
 nonterminal Designator, MethodDecl, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
+					// Inace Baci gresku ako stavis da je samo Type struktura
+					// Imas kod Term jos neko objasnjenje
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE ;
 
@@ -97,7 +101,10 @@ ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList Co
 						| (ConstVarClassDeclList_Class) ConstVarClassDeclList ClassDecl
 						| (ConstVarClassDeclList_No) Epsilon ;
  
-ConstDecl ::= (ConstDeclaration) CONST Type ConstDeclList SEMI ;
+ConstDecl ::= (ConstDeclaration) CONST ConstType:cType ConstDeclList SEMI ;
+
+ConstType ::= (ConstType) Type;
+// Ovo sam dodao na osnovu methodName u izvornom kodu
 
 ConstDeclList ::= 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
 				| 	(ConstDeclList_single)	ConstDeclOne ;	
@@ -111,6 +118,9 @@ ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:nName ASSIGN NUMBER_CONST:va
 
 			 
 VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI  ;
+// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
+// preko nekog drugog imena a ne Type
+// tipa typeVar ::= Type
 
 VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 			|	(VarDecListOneElement) VarDeclOne ;
@@ -275,7 +285,12 @@ ExprManjiProstiji ::= 	(ExprTerm) Term
 			
 Term ::= 	(TermMore) Term Mulop Factor:t  
 		|	(TermOne) Factor:t ;
-
+					// Faktoru t je dodeljen ovaj naziv t koji je u Expr postavljen za Term 
+					// i tako dalje ja mislim da bismo mogli sve da povezemo do krajnje stvari i nju
+					// nekako da odredimo sta je
+					// Ovo ce nam omoguciti da kod visit(term) mozemo da uradimo term.getFactor().struct;
+					// kod visit(addexpr mozes videti bolji primer ovoga sa t i te
+					
 Factor ::= 	(FactVar) Designator:designName
 		|	(FuncCall) Designator:funcName LPAREN ActPars RPAREN
 		|	(FactNum) NUMBER_CONST

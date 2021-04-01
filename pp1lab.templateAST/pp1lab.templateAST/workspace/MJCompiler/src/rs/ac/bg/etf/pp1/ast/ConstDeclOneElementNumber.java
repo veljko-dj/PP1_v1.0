@@ -1,26 +1,26 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/2/2021 20:8:2
+// 2/3/2021 0:3:2
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclOneElementNumber extends ConstDeclOne {
 
-    private String nName;
+    private String numIdent;
     private Integer val;
 
-    public ConstDeclOneElementNumber (String nName, Integer val) {
-        this.nName=nName;
+    public ConstDeclOneElementNumber (String numIdent, Integer val) {
+        this.numIdent=numIdent;
         this.val=val;
     }
 
-    public String getNName() {
-        return nName;
+    public String getNumIdent() {
+        return numIdent;
     }
 
-    public void setNName(String nName) {
-        this.nName=nName;
+    public void setNumIdent(String numIdent) {
+        this.numIdent=numIdent;
     }
 
     public Integer getVal() {
@@ -51,7 +51,7 @@ public class ConstDeclOneElementNumber extends ConstDeclOne {
         buffer.append(tab);
         buffer.append("ConstDeclOneElementNumber(\n");
 
-        buffer.append(" "+tab+nName);
+        buffer.append(" "+tab+numIdent);
         buffer.append("\n");
 
         buffer.append(" "+tab+val);

@@ -101,22 +101,17 @@ nonterminal CaseList CaseList;
 nonterminal PrintValue PrintValue;
 nonterminal OneMinus OneMinus;
 nonterminal TermsInExpr TermsInExpr;
-nonterminal IdentOrExpr IdentOrExpr;
-nonterminal ExprManjiProstiji ExprManjiProstiji;
 nonterminal Unmatched Unmatched;
 nonterminal Matched Matched;
 nonterminal Epsilon Epsilon;
 nonterminal Array Array;
-nonterminal RetType RetType;
 nonterminal Stagod Stagod;
 nonterminal ConstType ConstType;
+nonterminal DoWhile DoWhile;
 
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program; 
-nonterminal Designator Designator;
-nonterminal MethodDecl MethodDecl;
-nonterminal MethodTypeName MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
@@ -139,9 +134,9 @@ ConstDeclList ::= 	(ConstDeclList_nadovezivanje) ConstDeclList:C1 COMMA ConstDec
 				| 	(ConstDeclList_single)	ConstDeclOne:C1 {: RESULT=new ConstDeclList_single(C1); RESULT.setLine(C1left); :} ;	
 		
 							// U primeru u diplomskom radu stoji val 
-ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:nName ASSIGN NUMBER_CONST:val {: RESULT=new ConstDeclOneElementNumber(nName, val); RESULT.setLine(nNameleft); :}
-				|	(ConstDeclOneElementChar) IDENT:cName ASSIGN CHAR_CONST:val {: RESULT=new ConstDeclOneElementChar(cName, val); RESULT.setLine(cNameleft); :}
-				| 	(ConstDeclOneElementBool) IDENT:bName ASSIGN BOOL_CONST:val {: RESULT=new ConstDeclOneElementBool(bName, val); RESULT.setLine(bNameleft); :}
+ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST:val {: RESULT=new ConstDeclOneElementNumber(numIdent, val); RESULT.setLine(numIdentleft); :}
+				|	(ConstDeclOneElementChar) IDENT:charIdent ASSIGN CHAR_CONST:val {: RESULT=new ConstDeclOneElementChar(charIdent, val); RESULT.setLine(charIdentleft); :}
+				| 	(ConstDeclOneElementBool) IDENT:boolIdent ASSIGN BOOL_CONST:val {: RESULT=new ConstDeclOneElementBool(boolIdent, val); RESULT.setLine(boolIdentleft); :}
 				 ;
 				
 
@@ -150,6 +145,7 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarD
 // Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
 // preko nekog drugog imena a ne Type
 // tipa typeVar ::= Type
+// Edit: Ne mora
 
 VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=new VarDeclarations(V1, V2); RESULT.setLine(V1left); :}
 			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :} ;
@@ -185,7 +181,7 @@ MethodDeclList ::= 	(MethodDeclarations) MethodDeclList:M1 MethodDecl:M2 {: RESU
 
 MethodDecl ::= (MethodDeclaration) MethodTypeName:M1 LPAREN FormPars:F2 RPAREN ManyVarDecl:M3 LBRACE StatementList:S4 RBRACE {: RESULT=new MethodDeclaration(M1, F2, M3, S4); RESULT.setLine(M1left); :} ;   
 
-MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName {: RESULT=new MethodTypeName(rett, methodName); RESULT.setLine(rettleft); :} ;
+MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName {: RESULT=new MethodTypeName(rett, methodName); RESULT.setLine(rettleft); :} ; 
 			
 										
 RetType ::= (RetType1) Type:typeRet {: RESULT=new RetType1(typeRet); RESULT.setLine(typeRetleft); :} 
@@ -225,7 +221,7 @@ Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition:C1 RPAREN Statement:S2 {: RESUL
 Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D1); RESULT.setLine(D1left); :}
 	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
 	//		|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 		// zbog konflikata
-			|	(StatWhile) DO Statement:S1 WHILE LPAREN Condition:C2 RPAREN SEMI {: RESULT=new StatWhile(S1, C2); RESULT.setLine(S1left); :}
+			|	(StatWhile) DoWhile:D1 Statement:S2 WHILE LPAREN Condition:C3 RPAREN SEMI {: RESULT=new StatWhile(D1, S2, C3); RESULT.setLine(D1left); :}
 			|	(StatBreak) BREAK SEMI {: RESULT=new StatBreak(); :} 
 			|	(StatContinue) CONTINUE SEMI {: RESULT=new StatContinue(); :}
 			| 	(StatRead) READ LPAREN Designator:D1 RPAREN SEMI {: RESULT=new StatRead(D1); RESULT.setLine(D1left); :}
@@ -235,7 +231,7 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI {: RESULT=new StatReturn2(); :}
 			|	(StatPrint) PRINT LPAREN Expr:E1 RPAREN SEMI {: RESULT=new StatPrint(E1); RESULT.setLine(E1left); :} 
-			|	(StatPrint2) PRINT LPAREN Expr:E1 PrintValue:P2 RPAREN SEMI {: RESULT=new StatPrint2(E1, P2); RESULT.setLine(E1left); :} 
+			|	(StatPrintValue) PRINT LPAREN Expr:E1 PrintValue:P2 RPAREN SEMI {: RESULT=new StatPrintValue(E1, P2); RESULT.setLine(E1left); :} 
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :} {: RESULT=new StatErrAssignment(); :};
 							
@@ -246,14 +242,15 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
 		
 		
-		
+DoWhile ::= (DoWhile) DO {: RESULT=new DoWhile(); :} ;
+
 CaseList ::= 	(CaseListt) CaseList:C1 CASE:c Stagod:S2  DOTS:d StatementList:S3 {: RESULT=new CaseListt(C1, S2, S3); RESULT.setLine(C1left); :}
 			| 	(CaseListNoElem) {: RESULT=new CaseListNoElem(); :} /* epsilon */ ;	
 			
 Stagod ::= NUMBER_CONST:N1 {: RESULT=new StagodDerived1(N1); RESULT.setLine(N1left); :} ;				// Verovatno radi i bez ovvoga ali neka ga
 
 			
-PrintValue ::=	(PrintValue) PrintValue:P1 COMMA NUMBER_CONST:N2 {: RESULT=new PrintValue(P1, N2); RESULT.setLine(P1left); :} ;
+PrintValue ::=	(PrintValue) PrintValue:P1 COMMA NUMBER_CONST:value {: RESULT=new PrintValue(P1, value); RESULT.setLine(P1left); :} ;
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 
@@ -329,14 +326,16 @@ Factor ::= 	(FactVar) Designator:designName {: RESULT=new FactVar(designName); R
 		| 	(FactNewArray) NEW Type:T1 LSQUARE Expr:E2 RSQUARE {: RESULT=new FactNewArray(T1, E2); RESULT.setLine(T1left); :}
 		| 	(FactExpr) LPAREN Expr:E1 RPAREN {: RESULT=new FactExpr(E1); RESULT.setLine(E1left); :} ;	
 
-Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr:I1 {: RESULT=new DesignatorOne(destName, I1); RESULT.setLine(destNameleft); :}
-			| 	(DesignatorJustOne) IDENT:destNameOne {: RESULT=new DesignatorJustOne(destNameOne); RESULT.setLine(destNameOneleft); :} ;
+Designator ::= (DesignatorJustOne) IDENT:destName {: RESULT=new DesignatorJustOne(destName); RESULT.setLine(destNameleft); :} 
+			| 	(DesignatorOneDot) IDENT:destName DOT IDENT:I1 {: RESULT=new DesignatorOneDot(destName, I1); RESULT.setLine(destNameleft); :}
+			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE {: RESULT=new DesignatorOneArray(destName, exprr); RESULT.setLine(destNameleft); :} ;
 
-IdentOrExpr ::= (DesignIdentOne) DOT IDENT:I1 {: RESULT=new DesignIdentOne(I1); RESULT.setLine(I1left); :}
-			|	(DesignIdent) IdentOrExpr:I1 DOT IDENT:I2 {: RESULT=new DesignIdent(I1, I2); RESULT.setLine(I1left); :} 
-			| 	(DesignExprOne) LSQUARE Expr:E1 RSQUARE {: RESULT=new DesignExprOne(E1); RESULT.setLine(E1left); :}
-			| 	(DesignExpr) IdentOrExpr:I1 LSQUARE Expr:E2 RSQUARE {: RESULT=new DesignExpr(I1, E2); RESULT.setLine(I1left); :} ;
-
+// IdentOrExpr ::= (DesignIdentOne) DOT IDENT
+	//		|	(DesignIdent) IdentOrExpr DOT IDENT 
+	//		| 	(DesignExprOne) LSQUARE Expr RSQUARE;
+	//		| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE 
+//	Ovo je preuredjeno na osnovu onog razvrsavanja po nivoima, skinuo sam ove rekurzije neke
+//  Edit: u najnovijoj verziji sam sve ovo spojio u Designator
 
 Assignop ::= ASSIGN {: RESULT=new AssignopDerived1(); :} ;
 

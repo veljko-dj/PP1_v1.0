@@ -80,14 +80,13 @@ nonterminal FormalParamList, FormalParamDecl, FormPars, ActualParamList;
 nonterminal StatementList, Statement, Addop;
 nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
 nonterminal Extends, ManyVarDecl, CaseList, PrintValue;
-nonterminal OneMinus, TermsInExpr, IdentOrExpr;
-nonterminal ExprManjiProstiji, Unmatched, Matched, Epsilon, Array, RetType, Stagod;
-nonterminal ConstType;
+nonterminal OneMinus, TermsInExpr;
+nonterminal Unmatched, Matched, Epsilon, Array, Stagod;
+nonterminal ConstType, DoWhile;
 
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program; 
-nonterminal Designator, MethodDecl, MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
@@ -110,9 +109,9 @@ ConstDeclList ::= 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOn
 				| 	(ConstDeclList_single)	ConstDeclOne ;	
 		
 							// U primeru u diplomskom radu stoji val 
-ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:nName ASSIGN NUMBER_CONST:val
-				|	(ConstDeclOneElementChar) IDENT:cName ASSIGN CHAR_CONST:val
-				| 	(ConstDeclOneElementBool) IDENT:bName ASSIGN BOOL_CONST:val
+ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST:val
+				|	(ConstDeclOneElementChar) IDENT:charIdent ASSIGN CHAR_CONST:val
+				| 	(ConstDeclOneElementBool) IDENT:boolIdent ASSIGN BOOL_CONST:val
 				 ;
 				
 
@@ -121,6 +120,7 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI  ;
 // Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
 // preko nekog drugog imena a ne Type
 // tipa typeVar ::= Type
+// Edit: Ne mora
 
 VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 			|	(VarDecListOneElement) VarDeclOne ;
@@ -156,7 +156,7 @@ MethodDeclList ::= 	(MethodDeclarations) MethodDeclList MethodDecl
 
 MethodDecl ::= (MethodDeclaration) MethodTypeName LPAREN FormPars RPAREN ManyVarDecl LBRACE StatementList RBRACE ;   
 
-MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName ;
+MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName ; 
 			
 										
 RetType ::= (RetType1) Type:typeRet 
@@ -196,7 +196,7 @@ Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition RPAREN Statement
 Matched ::= 	(StatDesign) DesignatorStatement SEMI
 	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
 	//		|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 		// zbog konflikata
-			|	(StatWhile) DO Statement WHILE LPAREN Condition RPAREN SEMI
+			|	(StatWhile) DoWhile Statement WHILE LPAREN Condition RPAREN SEMI
 			|	(StatBreak) BREAK SEMI 
 			|	(StatContinue) CONTINUE SEMI
 			| 	(StatRead) READ LPAREN Designator RPAREN SEMI
@@ -206,7 +206,7 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
-			|	(StatPrint2) PRINT LPAREN Expr PrintValue RPAREN SEMI 
+			|	(StatPrintValue) PRINT LPAREN Expr PrintValue RPAREN SEMI 
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
 							
@@ -217,14 +217,15 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
 		
 		
-		
+DoWhile ::= (DoWhile) DO ;
+
 CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
 			| 	(CaseListNoElem) /* epsilon */ ;	
 			
 Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 
 			
-PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST ;
+PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST:value ;
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
@@ -300,14 +301,16 @@ Factor ::= 	(FactVar) Designator:designName
 		| 	(FactNewArray) NEW Type LSQUARE Expr RSQUARE
 		| 	(FactExpr) LPAREN Expr RPAREN ;	
 
-Designator ::= (DesignatorOne) IDENT:destName IdentOrExpr
-			| 	(DesignatorJustOne) IDENT:destNameOne ;
+Designator ::= (DesignatorJustOne) IDENT:destName 
+			| 	(DesignatorOneDot) IDENT:destName DOT IDENT
+			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE ;
 
-IdentOrExpr ::= (DesignIdentOne) DOT IDENT
-			|	(DesignIdent) IdentOrExpr DOT IDENT 
-			| 	(DesignExprOne) LSQUARE Expr RSQUARE
-			| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE ;
-
+// IdentOrExpr ::= (DesignIdentOne) DOT IDENT
+	//		|	(DesignIdent) IdentOrExpr DOT IDENT 
+	//		| 	(DesignExprOne) LSQUARE Expr RSQUARE;
+	//		| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE 
+//	Ovo je preuredjeno na osnovu onog razvrsavanja po nivoima, skinuo sam ove rekurzije neke
+//  Edit: u najnovijoj verziji sam sve ovo spojio u Designator
 
 Assignop ::= ASSIGN ;
 

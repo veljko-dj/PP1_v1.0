@@ -1,24 +1,31 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/2/2021 20:8:2
+// 2/3/2021 0:3:2
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class DesignIdentOne extends IdentOrExpr {
+public class DoWhile implements SyntaxNode {
 
-    private String I1;
-
-    public DesignIdentOne (String I1) {
-        this.I1=I1;
+    private SyntaxNode parent;
+    private int line;
+    public DoWhile () {
     }
 
-    public String getI1() {
-        return I1;
+    public SyntaxNode getParent() {
+        return parent;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setParent(SyntaxNode parent) {
+        this.parent=parent;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line=line;
     }
 
     public void accept(Visitor visitor) {
@@ -39,13 +46,10 @@ public class DesignIdentOne extends IdentOrExpr {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("DesignIdentOne(\n");
-
-        buffer.append(" "+tab+I1);
-        buffer.append("\n");
+        buffer.append("DoWhile(\n");
 
         buffer.append(tab);
-        buffer.append(") [DesignIdentOne]");
+        buffer.append(") [DoWhile]");
         return buffer.toString();
     }
 }

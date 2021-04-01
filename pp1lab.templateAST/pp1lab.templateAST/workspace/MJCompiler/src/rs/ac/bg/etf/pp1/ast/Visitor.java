@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/2/2021 20:8:2
+// 2/3/2021 0:3:3
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -33,14 +33,14 @@ public interface Visitor {
     public void visit(VarDeclList VarDeclList);
     public void visit(FormalParamList FormalParamList);
     public void visit(Expr Expr);
-    public void visit(Stagod Stagod);
     public void visit(ActPars ActPars);
+    public void visit(Stagod Stagod);
     public void visit(ConstVarClassDeclList ConstVarClassDeclList);
     public void visit(Epsilon Epsilon);
     public void visit(DesignatorStatement DesignatorStatement);
     public void visit(Statement Statement);
-    public void visit(VarDecl VarDecl);
     public void visit(IdentOrExpr IdentOrExpr);
+    public void visit(VarDecl VarDecl);
     public void visit(Array Array);
     public void visit(ClassDecl ClassDecl);
     public void visit(ConstDecl ConstDecl);
@@ -62,12 +62,9 @@ public interface Visitor {
     public void visit(RelopNotEqual RelopNotEqual);
     public void visit(RelopEqual RelopEqual);
     public void visit(AssignopDerived1 AssignopDerived1);
-    public void visit(DesignExpr DesignExpr);
-    public void visit(DesignExprOne DesignExprOne);
-    public void visit(DesignIdent DesignIdent);
-    public void visit(DesignIdentOne DesignIdentOne);
+    public void visit(DesignatorOneArray DesignatorOneArray);
+    public void visit(DesignatorOneDot DesignatorOneDot);
     public void visit(DesignatorJustOne DesignatorJustOne);
-    public void visit(DesignatorOne DesignatorOne);
     public void visit(FactExpr FactExpr);
     public void visit(FactNewArray FactNewArray);
     public void visit(FactNew FactNew);
@@ -101,8 +98,9 @@ public interface Visitor {
     public void visit(StagodDerived1 StagodDerived1);
     public void visit(CaseListNoElem CaseListNoElem);
     public void visit(CaseListt CaseListt);
+    public void visit(DoWhile DoWhile);
     public void visit(StatErrAssignment StatErrAssignment);
-    public void visit(StatPrint2 StatPrint2);
+    public void visit(StatPrintValue StatPrintValue);
     public void visit(StatPrint StatPrint);
     public void visit(StatReturn2 StatReturn2);
     public void visit(StatReturn StatReturn);

@@ -1,16 +1,16 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/2/2021 20:8:2
+// 2/3/2021 0:3:2
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class StatPrint2 extends Matched {
+public class StatPrintValue extends Matched {
 
     private Expr Expr;
     private PrintValue PrintValue;
 
-    public StatPrint2 (Expr Expr, PrintValue PrintValue) {
+    public StatPrintValue (Expr Expr, PrintValue PrintValue) {
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
         this.PrintValue=PrintValue;
@@ -57,7 +57,7 @@ public class StatPrint2 extends Matched {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("StatPrint2(\n");
+        buffer.append("StatPrintValue(\n");
 
         if(Expr!=null)
             buffer.append(Expr.toString("  "+tab));
@@ -72,7 +72,7 @@ public class StatPrint2 extends Matched {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [StatPrint2]");
+        buffer.append(") [StatPrintValue]");
         return buffer.toString();
     }
 }

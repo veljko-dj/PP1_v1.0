@@ -1,26 +1,26 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/2/2021 20:8:2
+// 2/3/2021 0:3:2
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclOneElementBool extends ConstDeclOne {
 
-    private String bName;
+    private String boolIdent;
     private String val;
 
-    public ConstDeclOneElementBool (String bName, String val) {
-        this.bName=bName;
+    public ConstDeclOneElementBool (String boolIdent, String val) {
+        this.boolIdent=boolIdent;
         this.val=val;
     }
 
-    public String getBName() {
-        return bName;
+    public String getBoolIdent() {
+        return boolIdent;
     }
 
-    public void setBName(String bName) {
-        this.bName=bName;
+    public void setBoolIdent(String boolIdent) {
+        this.boolIdent=boolIdent;
     }
 
     public String getVal() {
@@ -51,7 +51,7 @@ public class ConstDeclOneElementBool extends ConstDeclOne {
         buffer.append(tab);
         buffer.append("ConstDeclOneElementBool(\n");
 
-        buffer.append(" "+tab+bName);
+        buffer.append(" "+tab+boolIdent);
         buffer.append("\n");
 
         buffer.append(" "+tab+val);

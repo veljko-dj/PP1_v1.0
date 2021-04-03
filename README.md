@@ -28,3 +28,4 @@ Sad ovde pisem onako, da bih nesto izmenio
 
 
 Dodata grana semanticka_analiza_v1.0
+Kreiranje grane generisanje_koda_v1.0

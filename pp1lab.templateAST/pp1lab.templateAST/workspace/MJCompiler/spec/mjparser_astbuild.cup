@@ -112,6 +112,7 @@ nonterminal DoWhile DoWhile;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
@@ -284,10 +285,15 @@ CondFact ::= (CondFactOne) 	ExprManjiProstiji:E1 {: RESULT=new CondFactOne(E1); 
 				// Expr1 =  ["-"] Expr1 { Addop Term }.
 
 
-Expr ::=  	(Expr0) Condition:C1 QMARK ExprManjiProstiji:E2 DOTS ExprManjiProstiji:E3 {: RESULT=new Expr0(C1, E2, E3); RESULT.setLine(C1left); :}
+Expr ::=  	(Expr0) ExprCondition:E1 QMARK ExprConditionTrue:E2 DOTS ExprConditionFalse:E3 {: RESULT=new Expr0(E1, E2, E3); RESULT.setLine(E1left); :}
 		| 	(Expr1) ExprManjiProstiji:E1 {: RESULT=new Expr1(E1); RESULT.setLine(E1left); :}  ;
-		
-		
+// Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
+// Ipak moram da razbijem ovo na razlicite
+
+ExprCondition ::= (ExprCondition) ExprManjiProstiji:condition {: RESULT=new ExprCondition(condition); RESULT.setLine(conditionleft); :} ;
+ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue {: RESULT=new ExprConditionTrue(conditionTrue); RESULT.setLine(conditionTrueleft); :} ;
+ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse {: RESULT=new ExprConditionFalse(conditionFalse); RESULT.setLine(conditionFalseleft); :} ;
+	 
 			
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term:T1 {: RESULT=new ExprTerm(T1); RESULT.setLine(T1left); :} 

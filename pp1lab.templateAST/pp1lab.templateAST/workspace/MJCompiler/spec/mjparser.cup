@@ -87,6 +87,7 @@ nonterminal ConstType, DoWhile;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
@@ -259,10 +260,15 @@ CondFact ::= (CondFactOne) 	ExprManjiProstiji
 				// Expr1 =  ["-"] Expr1 { Addop Term }.
 
 
-Expr ::=  	(Expr0) Condition QMARK ExprManjiProstiji DOTS ExprManjiProstiji
+Expr ::=  	(Expr0) ExprCondition QMARK ExprConditionTrue DOTS ExprConditionFalse
 		| 	(Expr1) ExprManjiProstiji  ;
-		
-		
+// Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
+// Ipak moram da razbijem ovo na razlicite
+
+ExprCondition ::= (ExprCondition) ExprManjiProstiji:condition ;
+ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue ;
+ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse ;
+	 
 			
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term 

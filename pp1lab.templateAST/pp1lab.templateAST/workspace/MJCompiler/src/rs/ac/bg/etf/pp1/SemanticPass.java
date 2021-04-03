@@ -204,10 +204,11 @@ public class SemanticPass extends VisitorAdaptor {
 				nConst++;
 			} else {
 				report_error("Greska: " + ConstDeclOneElementChar.getLine() + ": "
-						+ ConstDeclOneElementChar.getCharIdent() + " VEC POSTOJI u tabeli simbola", null);
+						+ ConstDeclOneElementChar.getCharIdent() + " VEC POSTOJI u tabeli simbola",
+						ConstDeclOneElementChar);
 			}
 		} else {
-			report_error("Greska: " + ConstDeclOneElementChar.getLine() + ": nije CHAR", null);
+			report_error("Greska: " + ConstDeclOneElementChar.getLine() + ": nije CHAR", ConstDeclOneElementChar);
 		}
 	}
 
@@ -333,6 +334,12 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(StatReturn2 StatReturn2) {
 		returnFound = true;
+//		Struct currMethType = currentMethod.getType();
+//		if (!currMethType.compatibleWith(returnExpr.getExpr().struct)) {
+//			report_error("Greska na liniji " + returnExpr.getLine() + " : "
+//					+ "tip izraza u return naredbi ne slaze se sa tipom povratne vrednosti funkcije "
+//					+ currentMethod.getName(), null);
+//		}
 	}
 
 	@Override
@@ -342,15 +349,10 @@ public class SemanticPass extends VisitorAdaptor {
 
 	// Klasa //
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 * Za sada kako mi deluje, to nije potrebno jos. To je za C
-	 */
-
+	// Za sada kako mi deluje, to nije potrebno jos. To je za C
 	// Param funkcije //
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 * Za sada nemam to, jer mi deluje da ne treba za A. Cini mi se da je to za B
-	 */
+	// Za sada nemam to, jer mi deluje da ne treba za A. Cini mi se da je to za B
 
 	// Statement //
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -381,77 +383,6 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + StatContinue.getLine() + ": " + " Continue je pozvano van petlje ", null);
 	}
 
-	@Override
-	public void visit(PrintValue PrintValue) {
-//		Ovde za sada ne znam sta da radim
-//		PrintValue.get
-	}
-
-//	Statement := "read" "(" Designator ")" ";".
-//	Statement := "print" "(" Expr [“,” numConst] ")" ";".
-//	Designator mora označavati promenljivu, element niza ili polje unutar objekta.
-//	Designator mora biti tipa int, char ili bool. 
-
-	@Override
-	public void visit(StatRead StatRead) {
-		Obj desObj = StatRead.getDesignator().obj;
-		boolean validKindOfDesignator = (desObj.getKind() == Obj.Var || desObj.getKind() == Obj.Fld
-				|| desObj.getKind() == Obj.Elem);
-		boolean validTypeOfDesignator = (desObj.equals(boolStruct) || desObj.equals(Tab.charType)
-				|| desObj.equals(Tab.intType));
-
-		if (desObj == null || desObj == Tab.noObj) {
-			report_error("Greska: " + StatRead.getLine() + ": " + "Desginator je null ", StatRead);
-
-			// U designatoru proveri da li postoji u tabeli simbola
-
-			if (!validKindOfDesignator) {
-				report_error("Greska: " + StatRead.getLine() + ": " + " Designator nije odgovarajuceg vrste,"
-						+ " nije VAR FIELD ili ELEM ", StatRead);
-			} else {
-
-			}
-			if (!validTypeOfDesignator) {
-				report_error("Greska: " + StatRead.getLine() + ": " + " Designator nije odgovarajuceg tipa,"
-						+ " nije CHAR || BOOL || INT ", StatRead);
-			}
-		}
-		report_info("Usao si u ReadStm ", StatRead);
-	}
-
-	@Override
-	public void visit(StatPrintValue StatPrintValue) {
-//		Ovo sam pokupio od onog Pedje 
-		Struct expression = StatPrintValue.getExpr().struct;
-		if (expression == null || expression == Tab.nullType) {
-			report_error("Greska: " + StatPrintValue.getLine() + ": " + " PrintValue je null ", null);
-		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
-				|| expression.equals(boolStruct)))
-			report_error("Greska: " + StatPrintValue.getLine() + ": " + " Print nije ispisiv ", null);
-		else {
-			// ovde se nesto desava
-			// i to ovde treba da se pokupe i vrednosti iz konstanti
-			printCallCount++;
-			// Ovde bi mozda trebalo da pitas da li je boolType pa ako jeste onda da
-		}
-	}
-
-	@Override
-	public void visit(StatPrint StatPrint) {
-//	Ovo ne radi jer expr nema strukturu izgleda, valjalo bi da je izpropagiram do vrha
-//	Ovo sam pokupio od onog Pedje 
-		Struct expression = StatPrint.getExpr().struct;
-		if (expression == null || expression == Tab.nullType) {
-			report_error("Greska: " + StatPrint.getLine() + ": " + " Print je null ", null);
-		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
-				|| expression.equals(boolStruct)))
-			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", null);
-		else {
-			// ovde se nesto desava
-			printCallCount++;
-		}
-	}
-
 //			Statement := DesignatorStatement ";".
 //			DesignatorStatement := Designator "=" Expr.
 //			DesignatorStatement := Designator "++".
@@ -461,12 +392,12 @@ public class SemanticPass extends VisitorAdaptor {
 //			Statement := "print" "(" Expr [“,” numConst] ")" ";".
 //			Expr := ["‐"] Term {Addop Term} | CondFact "?" Expr ":" Expr.
 //			Term := Factor {Mulop Factor}.
-//			Factor :=Designator | numConst | charConst | "(" Expr ")" | boolConst | "new" Type "[" Expr "]".
+//			Factor := Designator | numConst | charConst | "(" Expr ")" | boolConst | "new" Type "[" Expr "]".
 //			Designator := ident [ "[" Expr "]" ].
 //			Addop := "+" | "‐" .
 //			Mulop := "*" | "/" | "%".
 
-	// Sad krecem od najmanjih elemenata
+	// Sad krecem od najmanjih elemenata, tek sam sad saznao za ovo
 
 	@Override
 	public void visit(MulopMod MulopMod) {
@@ -487,9 +418,12 @@ public class SemanticPass extends VisitorAdaptor {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void visit(DesignatorJustOne DesignatorJustOne) {
-		Obj obj = Tab.find(DesignatorJustOne.getDestName());
+		Obj obj = Tab.find(DesignatorJustOne.getDestName()); 
+		
 		if (obj == Tab.noObj) {
 			report_error("Greska: " + DesignatorJustOne.getDestName() + " nije deklarisano! ", DesignatorJustOne);
+			DesignatorJustOne.obj = obj;
+			// Trebalo bi da sve bude regularno jer je obj sada noObj, i to vrste Obj.Var a tipa Obj.noType
 		} else {
 			if (obj.getKind() == Obj.Meth) {
 				if (currentMethod == null) {
@@ -641,79 +575,239 @@ public class SemanticPass extends VisitorAdaptor {
 	}
 
 	@Override
+	public void visit(ExprConditionFalse ExprConditionFalse) {
+		ExprConditionFalse.struct = ExprConditionFalse.getExprManjiProstiji().struct;
+	}
+
+	@Override
+	public void visit(ExprConditionTrue ExprConditionTrue) {
+		ExprConditionTrue.struct = ExprConditionTrue.getExprManjiProstiji().struct;
+	}
+
+	@Override
+	public void visit(ExprCondition ExprCondition) {
+		ExprCondition.struct = ExprCondition.getExprManjiProstiji().struct;
+	}
+
+	@Override
 	public void visit(Expr0 Expr0) {
-		// TODO Auto-generated method stub
-		super.visit(Expr0);
+		// Komplikovanija verzija
+		// Drugi i treći izraz moraju biti istog tipa.
+		boolean sameType = (Expr0.getExprConditionFalse().struct.getKind() == Expr0.getExprConditionTrue().struct
+				.getKind());
+
+		if (!sameType)
+			report_error("Greska: ExprTrue nije istog tipa kao ExprFalse ", Expr0);
+		else {
+			// sve je okej, sta sad?
+		}
+
+	}
+
+	@Override
+	public void visit(ExprTerm ExprTerm) {
+		// Term mora biti tipa int.
+		ExprTerm.struct = Tab.noType; // Za svaki slucaj
+		boolean validTerm = (ExprTerm.getTerm().struct.getKind() == Tab.intType.Int);
+		if (!validTerm)
+			report_error("Greska: ExprTerm nije tipa int", ExprTerm);
+		else {
+			ExprTerm.struct = ExprTerm.getTerm().struct;
+		}
+	}
+
+	@Override
+	public void visit(ExprTermMinus ExprTerm) {
+		// Term mora biti tipa int.
+		ExprTerm.struct = Tab.noType; // Za svaki slucaj
+		boolean validTerm = (ExprTerm.getTerm().struct.getKind() == Tab.intType.Int);
+		if (!validTerm)
+			report_error("Greska: ExprTerm nije tipa int", ExprTerm);
+		else {
+			ExprTerm.struct = ExprTerm.getTerm().struct;
+		}
+	}
+
+	@Override
+	public void visit(ExprTermList ExprTermList) {
+		// Expr i Term moraju biti tipa int. U svakom slučaju, tipovi za Expr i Term
+		// moraju biti komatibilni.
+		boolean sameType = (ExprTermList.getExprManjiProstiji().struct.getKind() == ExprTermList.getTerm().struct
+				.getKind());
+		boolean validType = (ExprTermList.getTerm().struct.getKind() == Tab.intType.Int);
+		// A sta je sa
+		// nizovima????????????????????????????????????????????????????????????????
+
+		if (!sameType) {
+			report_error("Greska: ExprTermList nije istog tipa (a i mora biti int)", ExprTermList);
+		} else if (!validType) {
+			report_error("Greska: ExprTermList nije tipa int", ExprTermList);
+		} else {
+			// Sve okej.
+			ExprTermList.struct = ExprTermList.getTerm().struct;
+		}
+	}
+
+	// Statement / Read / Print //
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+//	Statement := "read" "(" Designator ")" ";".
+//	Statement := "print" "(" Expr [“,” numConst] ")" ";".
+	@Override
+	public void visit(StatRead StatRead) {
+		Obj desObj = StatRead.getDesignator().obj;
+		boolean validKindOfDesignator = (desObj.getKind() == Obj.Var || desObj.getKind() == Obj.Fld
+				|| desObj.getKind() == Obj.Elem);
+		boolean validTypeOfDesignator = (desObj.equals(boolStruct) || desObj.equals(Tab.charType)
+				|| desObj.equals(Tab.intType));
+
+		if (desObj == null || desObj == Tab.noObj) {
+			report_error("Greska: " + StatRead.getLine() + ": " + "Desginator je null ", StatRead);
+
+			// U designatoru proveri da li postoji u tabeli simbola
+
+			if (!validKindOfDesignator) {
+				report_error("Greska: " + StatRead.getLine() + ": " + " Designator nije odgovarajuceg vrste,"
+						+ " nije VAR FIELD ili ELEM ", StatRead);
+			} else {
+
+			}
+			if (!validTypeOfDesignator) {
+				report_error("Greska: " + StatRead.getLine() + ": " + " Designator nije odgovarajuceg tipa,"
+						+ " nije CHAR || BOOL || INT ", StatRead);
+			}
+		}
+		report_info("Usao si u ReadStm ", StatRead);
+	}
+
+	@Override
+	public void visit(PrintValue PrintValue) {
+//		Ovde za sada ne znam sta da radim
+//		PrintValue.get
+	}
+
+	@Override
+	public void visit(StatPrintValue StatPrintValue) {
+//		Ovo sam pokupio od onog Pedje 
+		Struct expression = StatPrintValue.getExpr().struct;
+		if (expression == null || expression == Tab.nullType) {
+			report_error("Greska: " + StatPrintValue.getLine() + ": " + " PrintValue je null ", null);
+		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
+				|| expression.equals(boolStruct)))
+			report_error("Greska: " + StatPrintValue.getLine() + ": " + " Print nije ispisiv ", null);
+		else {
+			// ovde se nesto desava
+			// i to ovde treba da se pokupe i vrednosti iz konstanti
+			printCallCount++;
+			// Ovde bi mozda trebalo da pitas da li je boolType pa ako jeste onda da
+		}
+	}
+
+	@Override
+	public void visit(StatPrint StatPrint) {
+//	Ovo ne radi jer expr nema strukturu izgleda, valjalo bi da je izpropagiram do vrha
+//	Ovo sam pokupio od onog Pedje 
+		Struct expression = StatPrint.getExpr().struct;
+		if (expression == null || expression == Tab.nullType) {
+			report_error("Greska: " + StatPrint.getLine() + ": " + " Print je null ", null);
+		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
+				|| expression.equals(boolStruct)))
+			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", null);
+		else {
+			// ovde se nesto desava
+			printCallCount++;
+		}
+	}
+
+	// Statement / DesignatorStatement //
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	// Statement := DesignatorStatement ";".
+	@Override
+	public void visit(StatDesign StatDesign) {
+		// Ovde za sada nema nikakve potrebe da bilo sta prosledjujemo
+		// Nema svrhu
+	}
+
+	// DesignatorStatement := Designator "=" Expr.
+	// DesignatorStatement := Designator "++".
+	// DesignatorStatement := Designator "--".
+
+	@Override
+	public void visit(DStatementAssign DStatementAssign) {
+		// Designator mora označavati promenljivu, element niza ili polje unutar
+		// objekta.
+		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
+		// Designator
+		boolean validKind = (DStatementAssign.getDesignator().obj.getKind() == Obj.Var
+				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Elem
+				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Fld);
+		boolean validType = (DStatementAssign.getExpr().struct
+				.assignableTo(DStatementAssign.getDesignator().obj.getType()));
+		// ili obrnuto????????????????????????????????????????????????
+		// Nije obrnuto, videh u Izvornom kodu
+
+		if (!validKind)
+			report_error("Greska: " + " Tip mora bit Var, Elem, Fld ", DStatementAssign);
+		else if (!validType)
+			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
+					DStatementAssign);
+		else {
+			// sve je okej
+			report_info("Dodela je okej", DStatementAssign);
+		}
+	}
+
+	@Override
+	public void visit(DStatementInc DStatementInc) {
+		// Designator mora označavati promenljivu, element niza ili polje objekta
+		// unutrašnje klase.
+		// Designator mora biti tipa int.
+		boolean validKind = (DStatementInc.getDesignator().obj.getKind() == Obj.Var
+				|| DStatementInc.getDesignator().obj.getKind() == Obj.Elem
+				|| DStatementInc.getDesignator().obj.getKind() == Obj.Fld);
+		// public static final int Con = 0, Var = 1, Type = 2, Meth = 3, Fld = 4,
+		// Elem=5, Prog = 6;
+		boolean validType = (DStatementInc.getDesignator().obj.getType().getKind() == Struct.Int);
+		// Kad nisi siguran samo udjes u Struct i vidis sta radi koja metoda i cemu
+		// sluzi Kind
+		if (!validKind)
+			report_error("Greska: " + " Increment mora da bude na varijabli, ementu niza ili polju klase ",
+					DStatementInc);
+		else if (!validType)
+			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementInc);
+		else {
+			// sve je okej
+			report_info("Log_info: increment", DStatementInc);
+		}
+	}
+
+	@Override
+	public void visit(DStatementDec DStatementDec) {
+		// Designator mora označavati promenljivu, element niza ili polje objekta
+		// unutrašnje klase.
+		// Designator mora biti tipa int.
+		boolean validKind = (DStatementDec.getDesignator().obj.getKind() == Obj.Var
+				|| DStatementDec.getDesignator().obj.getKind() == Obj.Elem
+				|| DStatementDec.getDesignator().obj.getKind() == Obj.Fld);
+		// public static final int Con = 0, Var = 1, Type = 2, Meth = 3, Fld = 4,
+		// Elem=5, Prog = 6;
+		boolean validType = (DStatementDec.getDesignator().obj.getType().getKind() == Struct.Int);
+		// Kad nisi siguran samo udjes u Struct i vidis sta radi koja metoda i cemu
+		// sluzi Kind
+		if (!validKind)
+			report_error("Greska: " + " Increment mora da bude na varijabli, ementu niza ili polju klase ",
+					DStatementDec);
+		else if (!validType)
+			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementDec);
+		else {
+			// sve je okej
+			report_info("Log_info: increment", DStatementDec);
+		}
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean passed() {
 		return !errorDetected;
 	}
-
-//	public void visit(Assignment assignment) {
-//		if (!assignment.getExpr().struct.assignableTo(assignment.getDesignator().obj.getType()))
-//			report_error(
-//					"Greska na liniji " + assignment.getLine() + " : " + " nekompatibilni tipovi u dodeli vrednosti ",
-//					null);
-//	}
-
-//	public void visit(ReturnExpr returnExpr) {
-//		returnFound = true;
-//		Struct currMethType = currentMethod.getType();
-//		if (!currMethType.compatibleWith(returnExpr.getExpr().struct)) {
-//			report_error("Greska na liniji " + returnExpr.getLine() + " : "
-//					+ "tip izraza u return naredbi ne slaze se sa tipom povratne vrednosti funkcije "
-//					+ currentMethod.getName(), null);
-//		}
-//	}
-
-//	public void visit(ProcCall procCall){ Obj func =
-//	  procCall.getDesignator().obj; if (Obj.Meth == func.getKind()) {
-//	  report_info("Pronadjen poziv funkcije " + func.getName() + " na liniji " +
-//	  procCall.getLine(), null); //RESULT = func.getType(); } else {
-//	  report_error("Greska na liniji " + procCall.getLine()+" : ime " +
-//	  func.getName() + " nije funkcija!", null); //RESULT = Tab.noType; } }
-
-//	public void visit(AddExpr addExpr) {
-//		Struct te = addExpr.getExpr().struct;
-//		Struct t = addExpr.getTerm().struct;
-//		if (te.equals(t) && te == Tab.intType)
-//			addExpr.struct = te;
-//		else {
-//			report_error("Greska na liniji " + addExpr.getLine() + " : nekompatibilni tipovi u izrazu za sabiranje.",
-//					null);
-//			addExpr.struct = Tab.noType;
-//		}
-//	}
-
-//	public void visit(TermExpr termExpr) {
-//		termExpr.struct = termExpr.getTerm().struct;
-//	}
-
-//	public void visit(Term term) {
-//		term.struct = term.getFactor().struct;
-//	}
-
-//	public void visit(Const cnst) {
-//		cnst.struct = Tab.intType;
-//	}
-//
-//	public void visit(Var var) {
-//		var.struct = var.getDesignator().obj.getType();
-//	}
-
-//	public void visit(FuncCall funcCall) {
-//		Obj func = funcCall.getDesignator().obj;
-//		if (Obj.Meth == func.getKind()) {
-//			report_info("Pronadjen poziv funkcije " + func.getName() + " na liniji " + funcCall.getLine(), null);
-//			funcCall.struct = func.getType();
-//		} else {
-//			report_error("Greska na liniji " + funcCall.getLine() + " : ime " + func.getName() + " nije funkcija!",
-//					null);
-//			funcCall.struct = Tab.noType;
-//		}
-//
-//	}
 
 }

@@ -14,8 +14,8 @@ const int size3 = 11;
 	
 	int k2()	 int c2;
 	 	int x;{
-		c = 2;
-		return c+2;
+		c2 = 2;
+		return c2+2;
 	}
 
 	int main() {

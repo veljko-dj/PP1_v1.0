@@ -1,47 +1,47 @@
 // generated with ast extension for cup
 // version 0.8
-// 2/3/2021 0:3:2
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class Expr0 extends Expr {
 
-    private Condition Condition;
-    private ExprManjiProstiji ExprManjiProstiji;
-    private ExprManjiProstiji ExprManjiProstiji1;
+    private ExprCondition ExprCondition;
+    private ExprConditionTrue ExprConditionTrue;
+    private ExprConditionFalse ExprConditionFalse;
 
-    public Expr0 (Condition Condition, ExprManjiProstiji ExprManjiProstiji, ExprManjiProstiji ExprManjiProstiji1) {
-        this.Condition=Condition;
-        if(Condition!=null) Condition.setParent(this);
-        this.ExprManjiProstiji=ExprManjiProstiji;
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.setParent(this);
-        this.ExprManjiProstiji1=ExprManjiProstiji1;
-        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.setParent(this);
+    public Expr0 (ExprCondition ExprCondition, ExprConditionTrue ExprConditionTrue, ExprConditionFalse ExprConditionFalse) {
+        this.ExprCondition=ExprCondition;
+        if(ExprCondition!=null) ExprCondition.setParent(this);
+        this.ExprConditionTrue=ExprConditionTrue;
+        if(ExprConditionTrue!=null) ExprConditionTrue.setParent(this);
+        this.ExprConditionFalse=ExprConditionFalse;
+        if(ExprConditionFalse!=null) ExprConditionFalse.setParent(this);
     }
 
-    public Condition getCondition() {
-        return Condition;
+    public ExprCondition getExprCondition() {
+        return ExprCondition;
     }
 
-    public void setCondition(Condition Condition) {
-        this.Condition=Condition;
+    public void setExprCondition(ExprCondition ExprCondition) {
+        this.ExprCondition=ExprCondition;
     }
 
-    public ExprManjiProstiji getExprManjiProstiji() {
-        return ExprManjiProstiji;
+    public ExprConditionTrue getExprConditionTrue() {
+        return ExprConditionTrue;
     }
 
-    public void setExprManjiProstiji(ExprManjiProstiji ExprManjiProstiji) {
-        this.ExprManjiProstiji=ExprManjiProstiji;
+    public void setExprConditionTrue(ExprConditionTrue ExprConditionTrue) {
+        this.ExprConditionTrue=ExprConditionTrue;
     }
 
-    public ExprManjiProstiji getExprManjiProstiji1() {
-        return ExprManjiProstiji1;
+    public ExprConditionFalse getExprConditionFalse() {
+        return ExprConditionFalse;
     }
 
-    public void setExprManjiProstiji1(ExprManjiProstiji ExprManjiProstiji1) {
-        this.ExprManjiProstiji1=ExprManjiProstiji1;
+    public void setExprConditionFalse(ExprConditionFalse ExprConditionFalse) {
+        this.ExprConditionFalse=ExprConditionFalse;
     }
 
     public void accept(Visitor visitor) {
@@ -49,22 +49,22 @@ public class Expr0 extends Expr {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Condition!=null) Condition.accept(visitor);
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.accept(visitor);
-        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.accept(visitor);
+        if(ExprCondition!=null) ExprCondition.accept(visitor);
+        if(ExprConditionTrue!=null) ExprConditionTrue.accept(visitor);
+        if(ExprConditionFalse!=null) ExprConditionFalse.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Condition!=null) Condition.traverseTopDown(visitor);
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseTopDown(visitor);
-        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.traverseTopDown(visitor);
+        if(ExprCondition!=null) ExprCondition.traverseTopDown(visitor);
+        if(ExprConditionTrue!=null) ExprConditionTrue.traverseTopDown(visitor);
+        if(ExprConditionFalse!=null) ExprConditionFalse.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Condition!=null) Condition.traverseBottomUp(visitor);
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseBottomUp(visitor);
-        if(ExprManjiProstiji1!=null) ExprManjiProstiji1.traverseBottomUp(visitor);
+        if(ExprCondition!=null) ExprCondition.traverseBottomUp(visitor);
+        if(ExprConditionTrue!=null) ExprConditionTrue.traverseBottomUp(visitor);
+        if(ExprConditionFalse!=null) ExprConditionFalse.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -73,20 +73,20 @@ public class Expr0 extends Expr {
         buffer.append(tab);
         buffer.append("Expr0(\n");
 
-        if(Condition!=null)
-            buffer.append(Condition.toString("  "+tab));
+        if(ExprCondition!=null)
+            buffer.append(ExprCondition.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(ExprManjiProstiji!=null)
-            buffer.append(ExprManjiProstiji.toString("  "+tab));
+        if(ExprConditionTrue!=null)
+            buffer.append(ExprConditionTrue.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(ExprManjiProstiji1!=null)
-            buffer.append(ExprManjiProstiji1.toString("  "+tab));
+        if(ExprConditionFalse!=null)
+            buffer.append(ExprConditionFalse.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

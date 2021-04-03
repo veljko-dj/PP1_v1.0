@@ -1,0 +1,341 @@
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+
+// import java.io.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+
+parser code {:
+	
+	boolean errorDetected = false;
+	
+	Logger log = Logger.getLogger(getClass());
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+      done_parsing();
+      report_error(message, info);
+    }
+  
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+  
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+    	errorDetected = true;
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+    
+    public void report_info(String message, Object info) {
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.info(msg.toString());
+    }
+    
+:}
+
+scan with {:
+	Symbol s = this.getScanner().next_token();
+	if (s != null && s.value != null) 
+		log.info(s.toString() + " " + s.value.toString());
+	return s;
+:}
+
+
+				// poredjano po redu iz pdfa mikrojava_20_21
+								// kljucne reci:
+terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
+terminal PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, CASE;
+								// Vrste tokena:
+terminal String IDENT;
+terminal Integer NUMBER_CONST;
+terminal Character CHAR_CONST;
+terminal String  BOOL_CONST;		// Primetimo da ne postoji Boolean i da je Char a ne Character
+									// I da bi ovde stavio CHAR tamo u flex sam morao da stavim CharAt(1)
+								// Operatori:
+terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
+terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal LBRACE, RBRACE, QMARK, DOTS;
+ 
+								//Dodati neterminali
+nonterminal ConstDecl, ClassDecl, DesignatorStatement;
+nonterminal ActPars, Condition, CondTerm, CondFact;
+nonterminal Assignop, Relop, Mulop;
+								// Ovi dole su vec postojali u sablon fajlu
+								
+nonterminal MethodDeclList, VarDecl;
+nonterminal FormalParamList, FormalParamDecl, FormPars, ActualParamList; 
+nonterminal StatementList, Statement, Addop;
+nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
+nonterminal Extends, ManyVarDecl, CaseList, PrintValue;
+nonterminal OneMinus, TermsInExpr;
+nonterminal Unmatched, Matched, Epsilon, Array, Stagod;
+nonterminal ConstType, DoWhile;
+
+
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
+					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
+					// Inace Baci gresku ako stavis da je samo Type struktura
+					// Imas kod Term jos neko objasnjenje
+
+Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE ;
+
+ProgName ::= (ProgName) IDENT:pName ;
+								  
+ConstVarClassDeclList ::= (ConstVarClassDeclList_Const) ConstVarClassDeclList ConstDecl
+						| (ConstVarClassDeclList_Var) ConstVarClassDeclList VarDecl
+						| (ConstVarClassDeclList_Class) ConstVarClassDeclList ClassDecl
+						| (ConstVarClassDeclList_No) Epsilon ;
+ 
+ConstDecl ::= (ConstDeclaration) CONST ConstType:cType ConstDeclList SEMI ;
+
+ConstType ::= (ConstType) Type;
+// Ovo sam dodao na osnovu methodName u izvornom kodu
+
+ConstDeclList ::= 	(ConstDeclList_nadovezivanje) ConstDeclList COMMA ConstDeclOne
+				| 	(ConstDeclList_single)	ConstDeclOne ;	
+		
+							// U primeru u diplomskom radu stoji val 
+ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST:val
+				|	(ConstDeclOneElementChar) IDENT:charIdent ASSIGN CHAR_CONST:val
+				| 	(ConstDeclOneElementBool) IDENT:boolIdent ASSIGN BOOL_CONST:val
+				 ;
+				
+
+			 
+VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI  ;
+// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
+// preko nekog drugog imena a ne Type
+// tipa typeVar ::= Type
+// Edit: Ne mora
+
+VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
+			|	(VarDecListOneElement) VarDeclOne ;
+
+
+							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
+							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
+							// A kako rece onaj batica na snimku, uparuje sve do ;
+							// Analizirajuci onu gresku sa Expr kontam da ce on svakako napraviti 
+							// default klasu error i uparivace sve
+							// Ovo ne resava od problema int 13s, s1,s3; Vec to jeste greska fatalna, 
+							// A ovo nije int s1, 13s, s3;
+								
+VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
+			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE
+			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , varErrleft);  :}	;
+
+Type ::= (Type) IDENT:typeName  ;
+
+ClassDecl ::= (ClassDeclNoMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl RBRACE 
+			| (ClassDeclMethod) CLASS IDENT:className Extends LBRACE ManyVarDecl LBRACE MethodDeclList RBRACE RBRACE   ;
+
+Extends ::= 	(ExtendClass) EXTENDS Type:extendType
+			| 	(NoExtends) /* epsilon */ ;
+									
+ManyVarDecl ::= (ManyVarDeclaration) ManyVarDecl VarDecl
+	//		|	(ManyVarDeclOne) VarDecl
+			|	(ManyVarDeclNo) Epsilon ;
+		
+									 
+MethodDeclList ::= 	(MethodDeclarations) MethodDeclList MethodDecl
+				|	(NoMethodDecl) Epsilon;
+
+MethodDecl ::= (MethodDeclaration) MethodTypeName LPAREN FormPars RPAREN ManyVarDecl LBRACE StatementList RBRACE ;   
+
+MethodTypeName ::=  (MethodTypeName) RetType:rett IDENT:methodName ; 
+			
+										
+RetType ::= (RetType1) Type:typeRet 
+		|	(RetVoid1) VOID:voidRet ;
+				/* 	Zasto je ovo moralo bas ovako pojma nemam
+					Najgore od svega je sto ne znam ni sto ne radi ni sto radi. 
+					Prvobitna verzija je bila da ne postoji ovaj RetType vec sve u jednom
+					Ali u .java klasi gresku baca 
+				*/
+		
+FormPars ::=  (FormParams) FormalParamList 
+			| (NoFormParam) Epsilon ;
+
+FormalParamList ::= (FormalParamDecls) FormalParamList COMMA FormalParamDecl
+					|(SingleFormalParamDecl) FormalParamDecl ;
+					
+FormalParamDecl ::= // 	(FormalParamDecl) Type:paramType IDENT:paramName |
+				 		(FormalParamDeclArray) Type:paramType IDENT:paramNameArry  Array;
+				 			// Ovde je bacalo gresku u .java fajlu da ne moze da nadje parent
+				 			// bla bla bla i kao lek za to sam ubacio ovaj Array koji moze da bude i null
+				
+Array ::= LSQUARE RSQUARE | Epsilon;
+
+StatementList ::= 	(StatementListt) StatementList Statement
+				|  	(StatementListNo) Epsilon ;
+
+
+		
+
+Statement ::= 	(MatchedStat) Matched
+		   |   	(UnmatchedStat) Unmatched
+		   ; 
+
+Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition RPAREN Statement
+		 	|	(UnmatchedIfElse) IF LPAREN Condition RPAREN Matched ELSE Unmatched ;
+		 	
+Matched ::= 	(StatDesign) DesignatorStatement SEMI
+	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
+	//		|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 		// zbog konflikata
+			|	(StatWhile) DoWhile Statement WHILE LPAREN Condition RPAREN SEMI
+			|	(StatBreak) BREAK SEMI 
+			|	(StatContinue) CONTINUE SEMI
+			| 	(StatRead) READ LPAREN Designator RPAREN SEMI
+			|	(StatStat) LBRACE StatementList RBRACE
+			|	(StatCase) SWITCH LPAREN Expr RPAREN LBRACE CaseList RBRACE
+			|	(StatReturn)	RETURN Expr SEMI
+									// i ovde je razdvojeno kao i za printvalue
+			|	(StatReturn2)	RETURN  SEMI
+			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
+			|	(StatPrintValue) PRINT LPAREN Expr PrintValue RPAREN SEMI 
+			|   (StatErrAssignment) error SEMI:gr
+			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
+							
+							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+			
+			
+					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
+		
+		
+DoWhile ::= (DoWhile) DO ;
+
+CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
+			| 	(CaseListNoElem) /* epsilon */ ;	
+			
+Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
+
+			
+PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST:value ;
+			
+			
+DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
+					|	(DStatementParen) Designator LPAREN ActPars RPAREN
+					| 	(DStatementInc) Designator INC
+					|	(DStatementDec) Designator DEC ;
+				/*	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
+						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
+
+				*/ 
+				
+ActPars ::= (Actuals) ActualParamList 
+		|   (NoActuals) Epsilon  ;
+			   
+ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
+				|	(ActualParamEnd) Expr ;
+			
+Condition ::=	(ConditionMulti) Condition OR CondTerm
+			|	(ConditionEnd)	CondTerm ;
+		
+
+CondTerm ::= (CondTermMulti) CondTerm AND CondFact
+		| 	 (CondTermEnd) CondFact ;
+
+CondFact ::= (CondFactOne) 	ExprManjiProstiji 
+		|	 (CondFactRelop)	ExprManjiProstiji Relop ExprManjiProstiji ;
+			
+				// Setio sam se da je Ziza slao mejl i nova gramatika je ovakva:
+				//
+				// Expr = Expr1 "?" Expr1 ":" Expr1 | Expr1.
+				// Expr1 =  ["-"] Expr1 { Addop Term }.
+
+
+Expr ::=  	(Expr0) ExprManjiProstiji:condition QMARK ExprManjiProstiji:expr111 DOTS ExprManjiProstiji:expr222
+		| 	(Expr1) ExprManjiProstiji  ;
+// Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
+// Ipak moram da razbijem ovo na razlicite
+
+ExprCondition :: = ExprManjiProstiji:condition;
+ExprConditionTrue :: = ExprManjiProstiji:condition;
+ExprConditionFalse :: = ExprManjiProstiji:condition;
+	
+		
+			
+					
+ExprManjiProstiji ::= 	(ExprTerm) Term 
+					|	(ExprTermMinus) MINUS Term
+					|	(ExprTermList) ExprManjiProstiji Addop Term ;
+			/*
+						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
+						ideja pronadjena na netu, na nekom gitu.
+						
+				ExprManjiProstiji ::= (ExprManjiProstiji)  TermsInExpr
+									| (ExprManjiProstijiMinus) MINUS TermsInExpr ;
+						
+			
+				OneMinus ::= 	(Minus) 	MINUS
+						|	(NoMinus) 	Epsilon ;
+			
+				TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term 
+						|	(TermsInExprNo) Term
+						;
+			*/
+			
+Term ::= 	(TermMore) Term Mulop Factor:t  
+		|	(TermOne) Factor:t ;
+					// Faktoru t je dodeljen ovaj naziv t koji je u Expr postavljen za Term 
+					// i tako dalje ja mislim da bismo mogli sve da povezemo do krajnje stvari i nju
+					// nekako da odredimo sta je
+					// Ovo ce nam omoguciti da kod visit(term) mozemo da uradimo term.getFactor().struct;
+					// kod visit(addexpr mozes videti bolji primer ovoga sa t i te
+					
+Factor ::= 	(FactVar) Designator:designName
+		|	(FuncCall) Designator:funcName LPAREN ActPars RPAREN
+		|	(FactNum) NUMBER_CONST
+		|	(FactChar) CHAR_CONST
+		|  	(FactBool) BOOL_CONST
+		|	(FactNew) NEW Type
+		| 	(FactNewArray) NEW Type LSQUARE Expr RSQUARE
+		| 	(FactExpr) LPAREN Expr RPAREN ;	
+
+Designator ::= (DesignatorJustOne) IDENT:destName 
+			| 	(DesignatorOneDot) IDENT:destName DOT IDENT
+			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE ;
+
+// IdentOrExpr ::= (DesignIdentOne) DOT IDENT
+	//		|	(DesignIdent) IdentOrExpr DOT IDENT 
+	//		| 	(DesignExprOne) LSQUARE Expr RSQUARE;
+	//		| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE 
+//	Ovo je preuredjeno na osnovu onog razvrsavanja po nivoima, skinuo sam ove rekurzije neke
+//  Edit: u najnovijoj verziji sam sve ovo spojio u Designator
+
+Assignop ::= ASSIGN ;
+
+Relop ::= (RelopEqual) EQUAL
+		| (RelopNotEqual) NEQUAL
+		| (RelopGreater) GT
+		| (RelopGreaterEqual) GE
+		| (RelopLower) LT
+		| (RelopLowerEqual) LE  ;
+
+Addop ::= (AddopPlus) PLUS 
+		| (AddopMinus) MINUS ; 
+
+Mulop ::= (MulopMul) MUL 
+		| (MulopDiv) DIV
+		| (MulopMod) MOD ;
+	
+	
+				// Ovo sam dodao dok sam jos pokusavao da otklonim gresku
+				// u .java fajlovima, tehnicki, uopste nije bitno ali neka ga sada	
+Epsilon ::= /* epsilon */;

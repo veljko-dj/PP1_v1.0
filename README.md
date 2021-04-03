@@ -28,3 +28,5 @@ Sad ovde pisem onako, da bih nesto izmenio
 
 
 Dodata grana semanticka_analiza_v1.0
+
+Nalazim se u generisanje_koda_v1.0

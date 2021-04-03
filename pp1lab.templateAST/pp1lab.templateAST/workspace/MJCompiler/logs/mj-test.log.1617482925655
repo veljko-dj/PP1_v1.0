@@ -1,109 +1,106 @@
-INFO  22:49:01,414 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
-INFO  22:49:01,479 - #2 program
-INFO  22:49:01,479 - #20 MJProgram
-INFO  22:49:01,480 - #7 const
-INFO  22:49:01,481 - #20 int
-INFO  22:49:01,482 - #20 size1
-INFO  22:49:01,483 - #37 =
-INFO  22:49:01,483 - #21 10
-INFO  22:49:01,483 - #41 ,
-INFO  22:49:01,484 - #20 size2
-INFO  22:49:01,484 - #37 =
-INFO  22:49:01,484 - #21 3
-INFO  22:49:01,484 - #40 ;
-INFO  22:49:01,484 - #7 const
-INFO  22:49:01,485 - #20 int
-INFO  22:49:01,485 - #20 size3
-INFO  22:49:01,485 - #37 =
-INFO  22:49:01,485 - #21 11
-INFO  22:49:01,485 - #40 ;
-INFO  22:49:01,486 - #20 int
-INFO  22:49:01,486 - #20 x
-INFO  22:49:01,486 - #40 ;
-INFO  22:49:01,487 - #20 int
-INFO  22:49:01,488 - #20 y
-INFO  22:49:01,488 - #41 ,
-INFO  22:49:01,488 - #20 xy
-INFO  22:49:01,488 - #40 ;
-INFO  22:49:01,488 - #47 {
-INFO  22:49:01,488 - #20 int
-INFO  22:49:01,489 - #20 k
-INFO  22:49:01,489 - #43 (
-INFO  22:49:01,490 - #44 )
-INFO  22:49:01,490 - #20 int
-INFO  22:49:01,491 - #20 c
-INFO  22:49:01,491 - #40 ;
-INFO  22:49:01,491 - #20 int
-INFO  22:49:01,491 - #20 x1
-INFO  22:49:01,491 - #40 ;
-INFO  22:49:01,491 - #47 {
-INFO  22:49:01,491 - #20 c
-INFO  22:49:01,492 - #37 =
-INFO  22:49:01,492 - #21 2
-INFO  22:49:01,493 - #40 ;
-INFO  22:49:01,494 - #15 return
-INFO  22:49:01,494 - #20 c
-INFO  22:49:01,494 - #24 +
-INFO  22:49:01,495 - #21 2
-INFO  22:49:01,496 - #40 ;
-INFO  22:49:01,496 - #48 }
-INFO  22:49:01,496 - #20 int
-INFO  22:49:01,497 - #20 k2
-INFO  22:49:01,497 - #43 (
-INFO  22:49:01,497 - #44 )
-INFO  22:49:01,497 - #20 int
-INFO  22:49:01,498 - #20 c2
-INFO  22:49:01,498 - #40 ;
-INFO  22:49:01,498 - #20 int
-INFO  22:49:01,498 - #20 x
-INFO  22:49:01,498 - #40 ;
-INFO  22:49:01,498 - #47 {
-INFO  22:49:01,498 - #20 c2
-INFO  22:49:01,498 - #37 =
-INFO  22:49:01,499 - #21 2
-INFO  22:49:01,499 - #40 ;
-INFO  22:49:01,499 - #15 return
-INFO  22:49:01,499 - #20 c2
-INFO  22:49:01,499 - #24 +
-INFO  22:49:01,500 - #21 2
-INFO  22:49:01,500 - #40 ;
-INFO  22:49:01,505 - #48 }
-INFO  22:49:01,505 - #20 int
-INFO  22:49:01,505 - #20 main
-INFO  22:49:01,505 - #43 (
-INFO  22:49:01,505 - #44 )
-INFO  22:49:01,505 - #47 {
-INFO  22:49:01,506 - #13 print
-INFO  22:49:01,506 - #43 (
-INFO  22:49:01,506 - #20 x
-INFO  22:49:01,506 - #44 )
-INFO  22:49:01,506 - #40 ;
-INFO  22:49:01,506 - #20 x
-INFO  22:49:01,507 - #39 --
-INFO  22:49:01,507 - #40 ;
-INFO  22:49:01,507 - #20 x
-INFO  22:49:01,507 - #37 =
-INFO  22:49:01,507 - #20 y
-INFO  22:49:01,507 - #24 +
-INFO  22:49:01,508 - #21 5
-INFO  22:49:01,508 - #24 +
-INFO  22:49:01,508 - #21 3
-INFO  22:49:01,508 - #40 ;
-INFO  22:49:01,508 - #13 print
-INFO  22:49:01,508 - #43 (
-INFO  22:49:01,509 - #21 2
-INFO  22:49:01,509 - #44 )
-INFO  22:49:01,509 - #40 ;
-INFO  22:49:01,509 - #20 k
-INFO  22:49:01,509 - #43 (
-INFO  22:49:01,509 - #44 )
-INFO  22:49:01,510 - #40 ;
-INFO  22:49:01,510 - #15 return
-INFO  22:49:01,510 - #21 1
-INFO  22:49:01,510 - #40 ;
-INFO  22:49:01,510 - #48 }
-INFO  22:49:01,510 - #48 }
-INFO  22:49:01,521 - Program(
+INFO  21:17:58,486 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  21:17:58,551 - #2 program
+INFO  21:17:58,551 - #20 MJProgram
+INFO  21:17:58,551 - #7 const
+INFO  21:17:58,556 - #20 int
+INFO  21:17:58,556 - #20 size1
+INFO  21:17:58,556 - #37 =
+INFO  21:17:58,556 - #21 10
+INFO  21:17:58,556 - #41 ,
+INFO  21:17:58,556 - #20 size2
+INFO  21:17:58,556 - #37 =
+INFO  21:17:58,556 - #21 3
+INFO  21:17:58,556 - #40 ;
+INFO  21:17:58,556 - #7 const
+INFO  21:17:58,561 - #20 int
+INFO  21:17:58,561 - #20 size3
+INFO  21:17:58,561 - #37 =
+INFO  21:17:58,561 - #21 11
+INFO  21:17:58,561 - #40 ;
+INFO  21:17:58,562 - #20 int
+INFO  21:17:58,562 - #20 x
+INFO  21:17:58,562 - #40 ;
+INFO  21:17:58,562 - #20 int
+INFO  21:17:58,562 - #20 y
+INFO  21:17:58,562 - #41 ,
+INFO  21:17:58,562 - #20 xy
+INFO  21:17:58,562 - #40 ;
+INFO  21:17:58,562 - #47 {
+INFO  21:17:58,562 - #20 int
+INFO  21:17:58,562 - #20 k
+INFO  21:17:58,562 - #43 (
+INFO  21:17:58,562 - #44 )
+INFO  21:17:58,562 - #20 int
+INFO  21:17:58,562 - #20 c
+INFO  21:17:58,562 - #40 ;
+INFO  21:17:58,562 - #20 int
+INFO  21:17:58,562 - #20 x1
+INFO  21:17:58,562 - #40 ;
+INFO  21:17:58,562 - #47 {
+INFO  21:17:58,562 - #20 c
+INFO  21:17:58,562 - #37 =
+INFO  21:17:58,562 - #21 2
+INFO  21:17:58,567 - #40 ;
+INFO  21:17:58,567 - #15 return
+INFO  21:17:58,567 - #20 c
+INFO  21:17:58,567 - #24 +
+INFO  21:17:58,567 - #21 2
+INFO  21:17:58,567 - #40 ;
+INFO  21:17:58,572 - #48 }
+INFO  21:17:58,572 - #20 int
+INFO  21:17:58,572 - #20 k2
+INFO  21:17:58,572 - #43 (
+INFO  21:17:58,572 - #44 )
+INFO  21:17:58,572 - #20 int
+INFO  21:17:58,572 - #20 c2
+INFO  21:17:58,572 - #40 ;
+INFO  21:17:58,572 - #20 int
+INFO  21:17:58,572 - #20 x
+INFO  21:17:58,572 - #40 ;
+INFO  21:17:58,572 - #47 {
+INFO  21:17:58,572 - #20 c2
+INFO  21:17:58,572 - #37 =
+INFO  21:17:58,572 - #21 2
+INFO  21:17:58,577 - #40 ;
+INFO  21:17:58,577 - #15 return
+INFO  21:17:58,577 - #20 c2
+INFO  21:17:58,577 - #24 +
+INFO  21:17:58,577 - #21 2
+INFO  21:17:58,577 - #40 ;
+INFO  21:17:58,577 - #48 }
+INFO  21:17:58,577 - #20 int
+INFO  21:17:58,577 - #20 main
+INFO  21:17:58,577 - #43 (
+INFO  21:17:58,577 - #44 )
+INFO  21:17:58,577 - #47 {
+INFO  21:17:58,577 - #13 print
+INFO  21:17:58,577 - #43 (
+INFO  21:17:58,577 - #20 x
+INFO  21:17:58,577 - #44 )
+INFO  21:17:58,577 - #40 ;
+INFO  21:17:58,577 - #20 x
+INFO  21:17:58,577 - #37 =
+INFO  21:17:58,582 - #20 y
+INFO  21:17:58,582 - #24 +
+INFO  21:17:58,582 - #21 5
+INFO  21:17:58,582 - #24 +
+INFO  21:17:58,582 - #21 3
+INFO  21:17:58,582 - #40 ;
+INFO  21:17:58,582 - #13 print
+INFO  21:17:58,582 - #43 (
+INFO  21:17:58,582 - #21 2
+INFO  21:17:58,582 - #44 )
+INFO  21:17:58,582 - #40 ;
+INFO  21:17:58,582 - #20 k
+INFO  21:17:58,582 - #43 (
+INFO  21:17:58,582 - #44 )
+INFO  21:17:58,582 - #40 ;
+INFO  21:17:58,582 - #15 return
+INFO  21:17:58,582 - #21 1
+INFO  21:17:58,582 - #40 ;
+INFO  21:17:58,582 - #48 }
+INFO  21:17:58,582 - #48 }
+INFO  21:17:58,597 - Program(
   ProgName(
    MJProgram
   ) [ProgName]
@@ -395,35 +392,24 @@ INFO  22:49:01,521 - Program(
           StatementListt(
             StatementListt(
               StatementListt(
-                StatementListt(
-                  StatementListNo(
-                    EpsilonDerived1(
-                    ) [EpsilonDerived1]
-                  ) [StatementListNo]
-                  MatchedStat(
-                    StatPrint(
-                      Expr1(
-                        ExprTerm(
-                          TermOne(
-                            FactVar(
-                              DesignatorJustOne(
-                               x
-                              ) [DesignatorJustOne]
-                            ) [FactVar]
-                          ) [TermOne]
-                        ) [ExprTerm]
-                      ) [Expr1]
-                    ) [StatPrint]
-                  ) [MatchedStat]
-                ) [StatementListt]
+                StatementListNo(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [StatementListNo]
                 MatchedStat(
-                  StatDesign(
-                    DStatementDec(
-                      DesignatorJustOne(
-                       x
-                      ) [DesignatorJustOne]
-                    ) [DStatementDec]
-                  ) [StatDesign]
+                  StatPrint(
+                    Expr1(
+                      ExprTerm(
+                        TermOne(
+                          FactVar(
+                            DesignatorJustOne(
+                             x
+                            ) [DesignatorJustOne]
+                          ) [FactVar]
+                        ) [TermOne]
+                      ) [ExprTerm]
+                    ) [Expr1]
+                  ) [StatPrint]
                 ) [MatchedStat]
               ) [StatementListt]
               MatchedStat(
@@ -512,30 +498,28 @@ INFO  22:49:01,521 - Program(
     ) [MethodDeclaration]
   ) [MethodDeclarations]
 ) [Program]
-INFO  22:49:01,522 - ===================================
-INFO  22:49:01,526 - Usao sam u ProgName na liniji 2
-INFO  22:49:01,526 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 9
-INFO  22:49:01,526 - Obradjuje se funkcija k na liniji 9
-INFO  22:49:01,526 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 9
-INFO  22:49:01,527 - Varijabla  c na liniji 11 na liniji 11
-INFO  22:49:01,527 - Dodela je okej na liniji 11
-INFO  22:49:01,527 - Varijabla  c na liniji 12 na liniji 12
-INFO  22:49:01,527 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 15
-INFO  22:49:01,527 - Obradjuje se funkcija k2 na liniji 15
-INFO  22:49:01,527 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 15
-INFO  22:49:01,527 - Varijabla  c2 na liniji 17 na liniji 17
-INFO  22:49:01,528 - Dodela je okej na liniji 17
-INFO  22:49:01,528 - Varijabla  c2 na liniji 18 na liniji 18
-INFO  22:49:01,528 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 21
-INFO  22:49:01,528 - Obradjuje se funkcija main na liniji 21
-INFO  22:49:01,528 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 21
-INFO  22:49:01,528 - Varijabla  x na liniji 23 na liniji 23
-INFO  22:49:01,528 - Varijabla  x na liniji 25 na liniji 25
-INFO  22:49:01,528 - Log_info: Decrement na liniji 25
-INFO  22:49:01,529 - Varijabla  x na liniji 27 na liniji 27
-INFO  22:49:01,529 - Varijabla  y na liniji 27 na liniji 27
-INFO  22:49:01,529 - Dodela je okej na liniji 27
-INFO  22:49:01,529 - Usao sam u Program na liniji 2
-INFO  22:49:01,529 -  Print count calls = 2
-INFO  22:49:01,529 - ===================================
-INFO  22:49:01,531 - Parsiranje uspesno zavrseno
+INFO  21:17:58,597 - ===================================
+INFO  21:17:58,607 - Usao sam u ProgName na liniji 2
+INFO  21:17:58,607 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 9
+INFO  21:17:58,607 - Obradjuje se funkcija k na liniji 9
+INFO  21:17:58,607 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 9
+INFO  21:17:58,607 - Varijabla  c na liniji 11 na liniji 11
+INFO  21:17:58,607 - Dodela je okej na liniji 11
+INFO  21:17:58,607 - Varijabla  c na liniji 12 na liniji 12
+INFO  21:17:58,607 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 15
+INFO  21:17:58,607 - Obradjuje se funkcija k2 na liniji 15
+INFO  21:17:58,607 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 15
+INFO  21:17:58,607 - Varijabla  c2 na liniji 17 na liniji 17
+INFO  21:17:58,607 - Dodela je okej na liniji 17
+INFO  21:17:58,607 - Varijabla  c2 na liniji 18 na liniji 18
+INFO  21:17:58,607 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 21
+INFO  21:17:58,607 - Obradjuje se funkcija main na liniji 21
+INFO  21:17:58,607 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 21
+INFO  21:17:58,607 - Varijabla  x na liniji 23 na liniji 23
+INFO  21:17:58,607 - Varijabla  x na liniji 25 na liniji 25
+INFO  21:17:58,607 - Varijabla  y na liniji 25 na liniji 25
+INFO  21:17:58,607 - Dodela je okej na liniji 25
+INFO  21:17:58,612 - Usao sam u Program na liniji 2
+INFO  21:17:58,612 -  Print count calls = 2
+INFO  21:17:58,612 - ===================================
+INFO  21:17:58,612 - Parsiranje uspesno zavrseno

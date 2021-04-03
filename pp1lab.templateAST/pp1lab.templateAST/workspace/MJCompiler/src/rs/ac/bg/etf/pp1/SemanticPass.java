@@ -777,7 +777,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementInc);
 		else {
 			// sve je okej
-			report_info("Log_info: increment", DStatementInc);
+			report_info("Log_info: increment je okej", DStatementInc);
 		}
 	}
 
@@ -795,13 +795,13 @@ public class SemanticPass extends VisitorAdaptor {
 		// Kad nisi siguran samo udjes u Struct i vidis sta radi koja metoda i cemu
 		// sluzi Kind
 		if (!validKind)
-			report_error("Greska: " + " Increment mora da bude na varijabli, ementu niza ili polju klase ",
+			report_error("Greska: " + " DeIncrement mora da bude na varijabli, ementu niza ili polju klase ",
 					DStatementDec);
 		else if (!validType)
-			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementDec);
+			report_error("Greska: " + " DeIncrement mora da bude na tipu INT ", DStatementDec);
 		else {
 			// sve je okej
-			report_info("Log_info: increment", DStatementDec);
+			report_info("Log_info: Decrement", DStatementDec);
 		}
 	}
 

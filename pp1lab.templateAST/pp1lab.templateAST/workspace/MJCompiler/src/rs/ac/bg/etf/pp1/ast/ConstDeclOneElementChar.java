@@ -1,26 +1,26 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2021 15:41:39
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclOneElementChar extends ConstDeclOne {
 
-    private String cName;
+    private String charIdent;
     private Character val;
 
-    public ConstDeclOneElementChar (String cName, Character val) {
-        this.cName=cName;
+    public ConstDeclOneElementChar (String charIdent, Character val) {
+        this.charIdent=charIdent;
         this.val=val;
     }
 
-    public String getCName() {
-        return cName;
+    public String getCharIdent() {
+        return charIdent;
     }
 
-    public void setCName(String cName) {
-        this.cName=cName;
+    public void setCharIdent(String charIdent) {
+        this.charIdent=charIdent;
     }
 
     public Character getVal() {
@@ -51,7 +51,7 @@ public class ConstDeclOneElementChar extends ConstDeclOne {
         buffer.append(tab);
         buffer.append("ConstDeclOneElementChar(\n");
 
-        buffer.append(" "+tab+cName);
+        buffer.append(" "+tab+charIdent);
         buffer.append("\n");
 
         buffer.append(" "+tab+val);

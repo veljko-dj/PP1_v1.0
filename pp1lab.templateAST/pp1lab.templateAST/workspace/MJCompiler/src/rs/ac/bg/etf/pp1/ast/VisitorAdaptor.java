@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2021 15:41:39
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -33,14 +33,14 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(VarDeclList VarDeclList) { }
     public void visit(FormalParamList FormalParamList) { }
     public void visit(Expr Expr) { }
-    public void visit(Stagod Stagod) { }
     public void visit(ActPars ActPars) { }
+    public void visit(Stagod Stagod) { }
     public void visit(ConstVarClassDeclList ConstVarClassDeclList) { }
     public void visit(Epsilon Epsilon) { }
     public void visit(DesignatorStatement DesignatorStatement) { }
     public void visit(Statement Statement) { }
-    public void visit(VarDecl VarDecl) { }
     public void visit(IdentOrExpr IdentOrExpr) { }
+    public void visit(VarDecl VarDecl) { }
     public void visit(Array Array) { }
     public void visit(ClassDecl ClassDecl) { }
     public void visit(ConstDecl ConstDecl) { }
@@ -62,12 +62,9 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(RelopNotEqual RelopNotEqual) { visit(); }
     public void visit(RelopEqual RelopEqual) { visit(); }
     public void visit(AssignopDerived1 AssignopDerived1) { visit(); }
-    public void visit(DesignExpr DesignExpr) { visit(); }
-    public void visit(DesignExprOne DesignExprOne) { visit(); }
-    public void visit(DesignIdent DesignIdent) { visit(); }
-    public void visit(DesignIdentOne DesignIdentOne) { visit(); }
+    public void visit(DesignatorOneArray DesignatorOneArray) { visit(); }
+    public void visit(DesignatorOneDot DesignatorOneDot) { visit(); }
     public void visit(DesignatorJustOne DesignatorJustOne) { visit(); }
-    public void visit(DesignatorOne DesignatorOne) { visit(); }
     public void visit(FactExpr FactExpr) { visit(); }
     public void visit(FactNewArray FactNewArray) { visit(); }
     public void visit(FactNew FactNew) { visit(); }
@@ -81,6 +78,9 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ExprTermList ExprTermList) { visit(); }
     public void visit(ExprTermMinus ExprTermMinus) { visit(); }
     public void visit(ExprTerm ExprTerm) { visit(); }
+    public void visit(ExprConditionFalse ExprConditionFalse) { visit(); }
+    public void visit(ExprConditionTrue ExprConditionTrue) { visit(); }
+    public void visit(ExprCondition ExprCondition) { visit(); }
     public void visit(Expr1 Expr1) { visit(); }
     public void visit(Expr0 Expr0) { visit(); }
     public void visit(CondFactRelop CondFactRelop) { visit(); }
@@ -101,8 +101,9 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(StagodDerived1 StagodDerived1) { visit(); }
     public void visit(CaseListNoElem CaseListNoElem) { visit(); }
     public void visit(CaseListt CaseListt) { visit(); }
+    public void visit(DoWhile DoWhile) { visit(); }
     public void visit(StatErrAssignment StatErrAssignment) { visit(); }
-    public void visit(StatPrint2 StatPrint2) { visit(); }
+    public void visit(StatPrintValue StatPrintValue) { visit(); }
     public void visit(StatPrint StatPrint) { visit(); }
     public void visit(StatReturn2 StatReturn2) { visit(); }
     public void visit(StatReturn StatReturn) { visit(); }
@@ -150,6 +151,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ConstDeclOneElementNumber ConstDeclOneElementNumber) { visit(); }
     public void visit(ConstDeclList_single ConstDeclList_single) { visit(); }
     public void visit(ConstDeclList_nadovezivanje ConstDeclList_nadovezivanje) { visit(); }
+    public void visit(ConstType ConstType) { visit(); }
     public void visit(ConstDeclaration ConstDeclaration) { visit(); }
     public void visit(ConstVarClassDeclList_No ConstVarClassDeclList_No) { visit(); }
     public void visit(ConstVarClassDeclList_Class ConstVarClassDeclList_Class) { visit(); }

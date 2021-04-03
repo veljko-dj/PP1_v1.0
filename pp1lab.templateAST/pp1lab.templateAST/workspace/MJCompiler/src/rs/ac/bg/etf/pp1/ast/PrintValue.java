@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2021 15:41:39
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -10,12 +10,12 @@ public class PrintValue implements SyntaxNode {
     private SyntaxNode parent;
     private int line;
     private PrintValue PrintValue;
-    private Integer N2;
+    private Integer value;
 
-    public PrintValue (PrintValue PrintValue, Integer N2) {
+    public PrintValue (PrintValue PrintValue, Integer value) {
         this.PrintValue=PrintValue;
         if(PrintValue!=null) PrintValue.setParent(this);
-        this.N2=N2;
+        this.value=value;
     }
 
     public PrintValue getPrintValue() {
@@ -26,12 +26,12 @@ public class PrintValue implements SyntaxNode {
         this.PrintValue=PrintValue;
     }
 
-    public Integer getN2() {
-        return N2;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setN2(Integer N2) {
-        this.N2=N2;
+    public void setValue(Integer value) {
+        this.value=value;
     }
 
     public SyntaxNode getParent() {
@@ -79,7 +79,7 @@ public class PrintValue implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+N2);
+        buffer.append(" "+tab+value);
         buffer.append("\n");
 
         buffer.append(tab);

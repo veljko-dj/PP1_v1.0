@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2021 15:41:39
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -33,14 +33,14 @@ public interface Visitor {
     public void visit(VarDeclList VarDeclList);
     public void visit(FormalParamList FormalParamList);
     public void visit(Expr Expr);
-    public void visit(Stagod Stagod);
     public void visit(ActPars ActPars);
+    public void visit(Stagod Stagod);
     public void visit(ConstVarClassDeclList ConstVarClassDeclList);
     public void visit(Epsilon Epsilon);
     public void visit(DesignatorStatement DesignatorStatement);
     public void visit(Statement Statement);
-    public void visit(VarDecl VarDecl);
     public void visit(IdentOrExpr IdentOrExpr);
+    public void visit(VarDecl VarDecl);
     public void visit(Array Array);
     public void visit(ClassDecl ClassDecl);
     public void visit(ConstDecl ConstDecl);
@@ -62,12 +62,9 @@ public interface Visitor {
     public void visit(RelopNotEqual RelopNotEqual);
     public void visit(RelopEqual RelopEqual);
     public void visit(AssignopDerived1 AssignopDerived1);
-    public void visit(DesignExpr DesignExpr);
-    public void visit(DesignExprOne DesignExprOne);
-    public void visit(DesignIdent DesignIdent);
-    public void visit(DesignIdentOne DesignIdentOne);
+    public void visit(DesignatorOneArray DesignatorOneArray);
+    public void visit(DesignatorOneDot DesignatorOneDot);
     public void visit(DesignatorJustOne DesignatorJustOne);
-    public void visit(DesignatorOne DesignatorOne);
     public void visit(FactExpr FactExpr);
     public void visit(FactNewArray FactNewArray);
     public void visit(FactNew FactNew);
@@ -81,6 +78,9 @@ public interface Visitor {
     public void visit(ExprTermList ExprTermList);
     public void visit(ExprTermMinus ExprTermMinus);
     public void visit(ExprTerm ExprTerm);
+    public void visit(ExprConditionFalse ExprConditionFalse);
+    public void visit(ExprConditionTrue ExprConditionTrue);
+    public void visit(ExprCondition ExprCondition);
     public void visit(Expr1 Expr1);
     public void visit(Expr0 Expr0);
     public void visit(CondFactRelop CondFactRelop);
@@ -101,8 +101,9 @@ public interface Visitor {
     public void visit(StagodDerived1 StagodDerived1);
     public void visit(CaseListNoElem CaseListNoElem);
     public void visit(CaseListt CaseListt);
+    public void visit(DoWhile DoWhile);
     public void visit(StatErrAssignment StatErrAssignment);
-    public void visit(StatPrint2 StatPrint2);
+    public void visit(StatPrintValue StatPrintValue);
     public void visit(StatPrint StatPrint);
     public void visit(StatReturn2 StatReturn2);
     public void visit(StatReturn StatReturn);
@@ -150,6 +151,7 @@ public interface Visitor {
     public void visit(ConstDeclOneElementNumber ConstDeclOneElementNumber);
     public void visit(ConstDeclList_single ConstDeclList_single);
     public void visit(ConstDeclList_nadovezivanje ConstDeclList_nadovezivanje);
+    public void visit(ConstType ConstType);
     public void visit(ConstDeclaration ConstDeclaration);
     public void visit(ConstVarClassDeclList_No ConstVarClassDeclList_No);
     public void visit(ConstVarClassDeclList_Class ConstVarClassDeclList_Class);

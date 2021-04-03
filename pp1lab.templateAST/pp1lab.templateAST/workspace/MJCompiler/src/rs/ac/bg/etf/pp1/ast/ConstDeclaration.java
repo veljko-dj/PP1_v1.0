@@ -1,28 +1,28 @@
 // generated with ast extension for cup
 // version 0.8
-// 16/2/2021 15:41:39
+// 3/3/2021 20:30:55
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclaration extends ConstDecl {
 
-    private Type Type;
+    private ConstType ConstType;
     private ConstDeclList ConstDeclList;
 
-    public ConstDeclaration (Type Type, ConstDeclList ConstDeclList) {
-        this.Type=Type;
-        if(Type!=null) Type.setParent(this);
+    public ConstDeclaration (ConstType ConstType, ConstDeclList ConstDeclList) {
+        this.ConstType=ConstType;
+        if(ConstType!=null) ConstType.setParent(this);
         this.ConstDeclList=ConstDeclList;
         if(ConstDeclList!=null) ConstDeclList.setParent(this);
     }
 
-    public Type getType() {
-        return Type;
+    public ConstType getConstType() {
+        return ConstType;
     }
 
-    public void setType(Type Type) {
-        this.Type=Type;
+    public void setConstType(ConstType ConstType) {
+        this.ConstType=ConstType;
     }
 
     public ConstDeclList getConstDeclList() {
@@ -38,18 +38,18 @@ public class ConstDeclaration extends ConstDecl {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Type!=null) Type.accept(visitor);
+        if(ConstType!=null) ConstType.accept(visitor);
         if(ConstDeclList!=null) ConstDeclList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Type!=null) Type.traverseTopDown(visitor);
+        if(ConstType!=null) ConstType.traverseTopDown(visitor);
         if(ConstDeclList!=null) ConstDeclList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Type!=null) Type.traverseBottomUp(visitor);
+        if(ConstType!=null) ConstType.traverseBottomUp(visitor);
         if(ConstDeclList!=null) ConstDeclList.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -59,8 +59,8 @@ public class ConstDeclaration extends ConstDecl {
         buffer.append(tab);
         buffer.append("ConstDeclaration(\n");
 
-        if(Type!=null)
-            buffer.append(Type.toString("  "+tab));
+        if(ConstType!=null)
+            buffer.append(ConstType.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

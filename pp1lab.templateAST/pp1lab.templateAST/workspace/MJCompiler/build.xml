@@ -10,6 +10,7 @@
 				<exclude name="SemanticPass.java"/>
 				<exclude name="Objasnjenje_klase_koju_gen_parser.txt"/>
 				<exclude name="CodeGenerator.java"/>
+				<exclude name="CounterVisitor.java"/>
 					
 			</fileset>
 		</delete>
@@ -61,4 +62,23 @@
 
 	</target>
 
-</project>
+	<target name="disasm">
+			<java classname="rs.etf.pp1.mj.runtime.disasm">
+				<arg value="test/program.obj"/>
+				<classpath>
+					<pathelement location="lib/mj-runtime.jar"/>
+				</classpath>
+			</java>
+		</target>
+
+		<target name="runObj" depends="disasm" >
+			<java classname="rs.etf.pp1.mj.runtime.Run">
+				<arg value="test/program.obj"/>
+				<classpath>
+					<pathelement location="lib/mj-runtime.jar"/>
+				</classpath>
+			</java>
+		</target>
+	</project>
+
+

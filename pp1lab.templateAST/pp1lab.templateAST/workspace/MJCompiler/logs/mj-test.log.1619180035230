@@ -1,0 +1,135 @@
+INFO  14:05:52,191 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  14:05:52,251 - #2 program
+INFO  14:05:52,256 - #20 MJProgram
+INFO  14:05:52,256 - #47 {
+INFO  14:05:52,256 - #20 int
+INFO  14:05:52,256 - #20 main
+INFO  14:05:52,256 - #43 (
+INFO  14:05:52,256 - #44 )
+INFO  14:05:52,261 - #47 {
+INFO  14:05:52,261 - #13 print
+INFO  14:05:52,261 - #43 (
+INFO  14:05:52,261 - #21 1
+INFO  14:05:52,261 - #44 )
+INFO  14:05:52,261 - #40 ;
+INFO  14:05:52,261 - #13 print
+INFO  14:05:52,261 - #43 (
+INFO  14:05:52,261 - #22 2
+INFO  14:05:52,261 - #44 )
+INFO  14:05:52,261 - #40 ;
+INFO  14:05:52,261 - #13 print
+INFO  14:05:52,261 - #43 (
+INFO  14:05:52,261 - #23 true
+INFO  14:05:52,261 - #44 )
+INFO  14:05:52,261 - #40 ;
+INFO  14:05:52,261 - #15 return
+INFO  14:05:52,261 - #21 1
+INFO  14:05:52,261 - #40 ;
+INFO  14:05:52,261 - #48 }
+INFO  14:05:52,261 - #48 }
+INFO  14:05:52,271 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclNo(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [ManyVarDeclNo]
+      StatementListt(
+        StatementListt(
+          StatementListt(
+            StatementListt(
+              StatementListNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [StatementListNo]
+              MatchedStat(
+                StatPrint(
+                  Expr1(
+                    ExprTerm(
+                      TermOne(
+                        FactNum(
+                         1
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [Expr1]
+                ) [StatPrint]
+              ) [MatchedStat]
+            ) [StatementListt]
+            MatchedStat(
+              StatPrint(
+                Expr1(
+                  ExprTerm(
+                    TermOne(
+                      FactChar(
+                       2
+                      ) [FactChar]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [Expr1]
+              ) [StatPrint]
+            ) [MatchedStat]
+          ) [StatementListt]
+          MatchedStat(
+            StatPrint(
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactBool(
+                     true
+                    ) [FactBool]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [StatPrint]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatReturn(
+            Expr1(
+              ExprTerm(
+                TermOne(
+                  FactNum(
+                   1
+                  ) [FactNum]
+                ) [TermOne]
+              ) [ExprTerm]
+            ) [Expr1]
+          ) [StatReturn]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  14:05:52,276 - ===================================
+INFO  14:05:52,281 - Usao sam u ProgName na liniji 1
+INFO  14:05:52,281 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 3
+INFO  14:05:52,281 - Obradjuje se funkcija main na liniji 3
+INFO  14:05:52,281 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 3
+INFO  14:05:52,281 - Usao sam u Program na liniji 1
+INFO  14:05:52,281 -  Print count calls = 3
+INFO  14:05:52,281 - ===================================
+INFO  14:05:52,296 - Parsiranje uspesno zavrseno!

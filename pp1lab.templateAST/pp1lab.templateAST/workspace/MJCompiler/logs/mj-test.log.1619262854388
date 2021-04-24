@@ -1,0 +1,195 @@
+INFO  16:42:33,861 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  16:42:33,931 - #2 program
+INFO  16:42:33,931 - #20 MJProgram
+INFO  16:42:33,931 - #47 {
+INFO  16:42:33,934 - #20 int
+INFO  16:42:33,934 - #20 main
+INFO  16:42:33,935 - #43 (
+INFO  16:42:33,936 - #44 )
+INFO  16:42:33,936 - #47 {
+INFO  16:42:33,936 - #13 print
+INFO  16:42:33,936 - #43 (
+INFO  16:42:33,937 - #21 1
+INFO  16:42:33,937 - #44 )
+INFO  16:42:33,938 - #40 ;
+INFO  16:42:33,939 - #13 print
+INFO  16:42:33,940 - #43 (
+INFO  16:42:33,941 - #22 2
+INFO  16:42:33,941 - #44 )
+INFO  16:42:33,941 - #40 ;
+INFO  16:42:33,942 - #13 print
+INFO  16:42:33,942 - #43 (
+INFO  16:42:33,942 - #21 3333
+INFO  16:42:33,942 - #44 )
+INFO  16:42:33,942 - #40 ;
+INFO  16:42:33,942 - #13 print
+INFO  16:42:33,942 - #43 (
+INFO  16:42:33,942 - #23 true
+INFO  16:42:33,943 - #44 )
+INFO  16:42:33,943 - #40 ;
+INFO  16:42:33,943 - #13 print
+INFO  16:42:33,943 - #43 (
+INFO  16:42:33,943 - #21 99
+INFO  16:42:33,943 - #44 )
+INFO  16:42:33,943 - #40 ;
+INFO  16:42:33,944 - #13 print
+INFO  16:42:33,944 - #43 (
+INFO  16:42:33,944 - #23 false
+INFO  16:42:33,944 - #44 )
+INFO  16:42:33,944 - #40 ;
+INFO  16:42:33,944 - #15 return
+INFO  16:42:33,944 - #21 1
+INFO  16:42:33,945 - #40 ;
+INFO  16:42:33,945 - #48 }
+INFO  16:42:33,945 - #48 }
+INFO  16:42:33,957 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclNo(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [ManyVarDeclNo]
+      StatementListt(
+        StatementListt(
+          StatementListt(
+            StatementListt(
+              StatementListt(
+                StatementListt(
+                  StatementListt(
+                    StatementListNo(
+                      EpsilonDerived1(
+                      ) [EpsilonDerived1]
+                    ) [StatementListNo]
+                    MatchedStat(
+                      StatPrint(
+                        Expr1(
+                          ExprTerm(
+                            TermOne(
+                              FactNum(
+                               1
+                              ) [FactNum]
+                            ) [TermOne]
+                          ) [ExprTerm]
+                        ) [Expr1]
+                      ) [StatPrint]
+                    ) [MatchedStat]
+                  ) [StatementListt]
+                  MatchedStat(
+                    StatPrint(
+                      Expr1(
+                        ExprTerm(
+                          TermOne(
+                            FactChar(
+                             2
+                            ) [FactChar]
+                          ) [TermOne]
+                        ) [ExprTerm]
+                      ) [Expr1]
+                    ) [StatPrint]
+                  ) [MatchedStat]
+                ) [StatementListt]
+                MatchedStat(
+                  StatPrint(
+                    Expr1(
+                      ExprTerm(
+                        TermOne(
+                          FactNum(
+                           3333
+                          ) [FactNum]
+                        ) [TermOne]
+                      ) [ExprTerm]
+                    ) [Expr1]
+                  ) [StatPrint]
+                ) [MatchedStat]
+              ) [StatementListt]
+              MatchedStat(
+                StatPrint(
+                  Expr1(
+                    ExprTerm(
+                      TermOne(
+                        FactBool(
+                         true
+                        ) [FactBool]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [Expr1]
+                ) [StatPrint]
+              ) [MatchedStat]
+            ) [StatementListt]
+            MatchedStat(
+              StatPrint(
+                Expr1(
+                  ExprTerm(
+                    TermOne(
+                      FactNum(
+                       99
+                      ) [FactNum]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [Expr1]
+              ) [StatPrint]
+            ) [MatchedStat]
+          ) [StatementListt]
+          MatchedStat(
+            StatPrint(
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactBool(
+                     false
+                    ) [FactBool]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [StatPrint]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatReturn(
+            Expr1(
+              ExprTerm(
+                TermOne(
+                  FactNum(
+                   1
+                  ) [FactNum]
+                ) [TermOne]
+              ) [ExprTerm]
+            ) [Expr1]
+          ) [StatReturn]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  16:42:33,959 - ===================================
+INFO  16:42:33,965 - Usao sam u ProgName na liniji 1
+INFO  16:42:33,965 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 3
+INFO  16:42:33,965 - Obradjuje se funkcija main na liniji 3
+INFO  16:42:33,966 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 3
+INFO  16:42:33,966 - Usao sam u Program na liniji 1
+INFO  16:42:33,966 -  Print count calls = 6
+INFO  16:42:33,966 - ===================================
+INFO  16:42:33,976 - Parsiranje uspesno zavrseno!

@@ -1,0 +1,155 @@
+INFO  14:14:55,942 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  14:14:56,015 - #2 program
+INFO  14:14:56,015 - #20 MJProgram
+INFO  14:14:56,015 - #47 {
+INFO  14:14:56,018 - #20 int
+INFO  14:14:56,019 - #20 main
+INFO  14:14:56,021 - #43 (
+INFO  14:14:56,022 - #44 )
+INFO  14:14:56,023 - #47 {
+INFO  14:14:56,024 - #13 print
+INFO  14:14:56,024 - #43 (
+INFO  14:14:56,024 - #21 1
+INFO  14:14:56,024 - #44 )
+INFO  14:14:56,025 - #40 ;
+INFO  14:14:56,025 - #13 print
+INFO  14:14:56,025 - #43 (
+INFO  14:14:56,026 - #22 2
+INFO  14:14:56,026 - #44 )
+INFO  14:14:56,026 - #40 ;
+INFO  14:14:56,027 - #13 print
+INFO  14:14:56,027 - #43 (
+INFO  14:14:56,027 - #23 true
+INFO  14:14:56,027 - #44 )
+INFO  14:14:56,028 - #40 ;
+INFO  14:14:56,028 - #13 print
+INFO  14:14:56,028 - #43 (
+INFO  14:14:56,028 - #23 false
+INFO  14:14:56,028 - #44 )
+INFO  14:14:56,028 - #40 ;
+INFO  14:14:56,029 - #15 return
+INFO  14:14:56,029 - #21 1
+INFO  14:14:56,029 - #40 ;
+INFO  14:14:56,029 - #48 }
+INFO  14:14:56,029 - #48 }
+INFO  14:14:56,039 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclNo(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [ManyVarDeclNo]
+      StatementListt(
+        StatementListt(
+          StatementListt(
+            StatementListt(
+              StatementListt(
+                StatementListNo(
+                  EpsilonDerived1(
+                  ) [EpsilonDerived1]
+                ) [StatementListNo]
+                MatchedStat(
+                  StatPrint(
+                    Expr1(
+                      ExprTerm(
+                        TermOne(
+                          FactNum(
+                           1
+                          ) [FactNum]
+                        ) [TermOne]
+                      ) [ExprTerm]
+                    ) [Expr1]
+                  ) [StatPrint]
+                ) [MatchedStat]
+              ) [StatementListt]
+              MatchedStat(
+                StatPrint(
+                  Expr1(
+                    ExprTerm(
+                      TermOne(
+                        FactChar(
+                         2
+                        ) [FactChar]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [Expr1]
+                ) [StatPrint]
+              ) [MatchedStat]
+            ) [StatementListt]
+            MatchedStat(
+              StatPrint(
+                Expr1(
+                  ExprTerm(
+                    TermOne(
+                      FactBool(
+                       true
+                      ) [FactBool]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [Expr1]
+              ) [StatPrint]
+            ) [MatchedStat]
+          ) [StatementListt]
+          MatchedStat(
+            StatPrint(
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactBool(
+                     false
+                    ) [FactBool]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [StatPrint]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatReturn(
+            Expr1(
+              ExprTerm(
+                TermOne(
+                  FactNum(
+                   1
+                  ) [FactNum]
+                ) [TermOne]
+              ) [ExprTerm]
+            ) [Expr1]
+          ) [StatReturn]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  14:14:56,041 - ===================================
+INFO  14:14:56,046 - Usao sam u ProgName na liniji 1
+INFO  14:14:56,046 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 3
+INFO  14:14:56,047 - Obradjuje se funkcija main na liniji 3
+INFO  14:14:56,047 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 3
+INFO  14:14:56,047 - Usao sam u Program na liniji 1
+INFO  14:14:56,047 -  Print count calls = 4
+INFO  14:14:56,047 - ===================================
+INFO  14:14:56,063 - Parsiranje uspesno zavrseno!

@@ -39,7 +39,6 @@ public class SemanticPass extends VisitorAdaptor {
 
 	public SemanticPass() {
 		super();
-//		Tab.insert(Obj.Type, "bool", boolStruct);
 		Tab.insert(Obj.Type, "bool", boolStruct);
 	}
 
@@ -134,8 +133,7 @@ public class SemanticPass extends VisitorAdaptor {
 	// se to odradi
 	@Override
 	public void visit(ConstDeclOneElementNumber ConstDeclOneElementNumber) {
-		// report_info("Usao sam u ConstDeclOneElementNumber",
-		// ConstDeclOneElementNumber);
+//		report_info("Usao sam u ConstDeclOneElementNumber", ConstDeclOneElementNumber);
 		//
 		boolean missMatch = (Struct.Int != currentType.getKind());
 		boolean alreadyExist = (Tab.find(ConstDeclOneElementNumber.getNumIdent()) != Tab.noObj);
@@ -157,7 +155,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(ConstDeclOneElementBool ConstDeclOneElementBool) {
-		// report_info("Usao sam u ConstDeclOneElementBool", ConstDeclOneElementBool);
+//		report_info("Usao sam u ConstDeclOneElementBool", ConstDeclOneElementBool);
 		//
 		boolean missMatch = (Struct.Char != currentType.getKind());
 		boolean alreadyExist = (Tab.find(ConstDeclOneElementBool.getBoolIdent()) != Tab.noObj);
@@ -166,6 +164,8 @@ public class SemanticPass extends VisitorAdaptor {
 		if (!missMatch) {
 			if (!alreadyExist) {
 				{
+					report_info("____ConstDeclOneElementBool.GetVal() je+ " + ConstDeclOneElementBool.getVal(),
+							ConstDeclOneElementBool);
 					if (ConstDeclOneElementBool.getVal().equals("true"))
 						boolValue = 1;
 					else if (ConstDeclOneElementBool.getVal().equals("false"))
@@ -418,12 +418,13 @@ public class SemanticPass extends VisitorAdaptor {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void visit(DesignatorJustOne DesignatorJustOne) {
-		Obj obj = Tab.find(DesignatorJustOne.getDestName()); 
-		
+		Obj obj = Tab.find(DesignatorJustOne.getDestName());
+
 		if (obj == Tab.noObj) {
 			report_error("Greska: " + DesignatorJustOne.getDestName() + " nije deklarisano! ", DesignatorJustOne);
 			DesignatorJustOne.obj = obj;
-			// Trebalo bi da sve bude regularno jer je obj sada noObj, i to vrste Obj.Var a tipa Obj.noType
+			// Trebalo bi da sve bude regularno jer je obj sada noObj, i to vrste Obj.Var a
+			// tipa Obj.noType
 		} else {
 			if (obj.getKind() == Obj.Meth) {
 				if (currentMethod == null) {
@@ -606,14 +607,15 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(ExprTerm ExprTerm) {
-		// Term mora biti tipa int.
+//		Ovo dole zakomentarisano je jer NEEE mora da bude tipa int ! 
+//		Samo minus mora da bude tipa int
 		ExprTerm.struct = Tab.noType; // Za svaki slucaj
-		boolean validTerm = (ExprTerm.getTerm().struct.getKind() == Tab.intType.Int);
-		if (!validTerm)
-			report_error("Greska: ExprTerm nije tipa int", ExprTerm);
-		else {
-			ExprTerm.struct = ExprTerm.getTerm().struct;
-		}
+//		boolean validTerm = (ExprTerm.getTerm().struct.getKind() == Tab.intType.Int);
+//		if (!validTerm)
+//			report_error("Greska: ExprTerm nije tipa int", ExprTerm);
+//		else {
+		ExprTerm.struct = ExprTerm.getTerm().struct;
+//		}
 	}
 
 	@Override
@@ -716,6 +718,7 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 			// ovde se nesto desava
 			printCallCount++;
+			//report_info("Trenutna vrednost bool je:"expression.get, StatPrint);
 		}
 	}
 

@@ -1,0 +1,10 @@
+INFO  13:14:38,196 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  13:14:38,265 - #2 program
+INFO  13:14:38,266 - #20 MJProgram
+INFO  13:14:38,266 - #47 {
+INFO  13:14:38,268 - #20 int
+INFO  13:14:38,268 - #20 x
+INFO  13:14:38,269 - #40 ;
+ERROR 13:14:38,269 - 
+Sintaksna greska na liniji 3
+ERROR 13:14:38,269 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 3

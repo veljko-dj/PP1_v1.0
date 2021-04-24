@@ -3,19 +3,18 @@ program MJProgram
 	
 	int main() int x;
 	 int y[];
-	 {
-		
-		y = new int[3];
-		
-		print(1);
-		  
-		print(99);
-		 
-		print(false);
+	 { 
+		y = new int[3];  
 		
 		x=3;
-		
+		x--; 
+		print('x');
 		print(x);
+		print(eol);
+		
+		y[1]= 123;
+		x= y[1];
+		print(y[1]);
 		return 1;
 	}
 }

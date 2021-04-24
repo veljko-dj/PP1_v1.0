@@ -272,7 +272,8 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + VarDeclOneSquare.getLine() + ": " + VarDeclOneSquare.getNameVarOneArray()
 					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", null);
 		else {
-
+//			report_info("evo me: VarDeclOneSquare.getNameVarOneArray() : " + VarDeclOneSquare.getNameVarOneArray()
+//					+ "\n tip je struct.getKind: " + currentType.getKind(), null);
 			Tab.insert(Obj.Var, VarDeclOneSquare.getNameVarOneArray(), new Struct(Struct.Array, currentType));
 			/*
 			 * Obj insertObj = Tab.insert(insideClass && currentMethod == null ? Obj.Fld :
@@ -462,10 +463,16 @@ public class SemanticPass extends VisitorAdaptor {
 	public void visit(DesignatorOneArray DesignatorOneArray) {
 		Struct exprStruct = DesignatorOneArray.getExpr().struct;
 		Obj designNode = Tab.find(DesignatorOneArray.getDestName());
+//		report_info("Info o designNode:\n" + designNode.getAdr() + "\n" + designNode.getFpPos() + "\n"
+//				+ designNode.getKind() + "\n" + designNode.getLevel() + "\n" + designNode.getClass() + "\n"
+//				+ designNode.getType().getElemType().getKind() + "\n" + designNode.getType().getKind(), null);
 
 		if (designNode == Tab.noObj) {
 			report_error("Ne postoji " + DesignatorOneArray.getDestName() + " u tabeli simbola! ", DesignatorOneArray);
-		} else if (designNode.getKind() != Struct.Array) {
+//		} else if (designNode.getKind() != Struct.Array) {
+//			Ovaj gore if ti ne valja jer getKind vraca da je lokalna varijabla
+//			Moras da dohvatis tip/ strukturu koja ce ti reci da li je array ili ne
+		} else if (designNode.getType().getKind() != Struct.Array) {
 			report_error("Promenljiva " + DesignatorOneArray.getDestName() + " nije tipa niza! ", DesignatorOneArray);
 		} else if (!exprStruct.assignableTo(Tab.intType)) {
 			report_error(" Izraz nije tipa int unutar zagrada " + DesignatorOneArray.getDestName(), DesignatorOneArray);
@@ -473,6 +480,18 @@ public class SemanticPass extends VisitorAdaptor {
 			report_info(
 					"Niz  " + DesignatorOneArray.getDestName() + "se koristi na liniji " + DesignatorOneArray.getLine(),
 					DesignatorOneArray);
+//			DesignatorOneArray.obj = designNode;
+//			Pa ovo gore ti bre nema smisla, ovo gore je itipa objekta a ti hoces da bude tipa elem niza konju jedan
+			DesignatorOneArray.obj = new Obj(Obj.Elem, "Elem", designNode.getType().getElemType());
+//			Ali pazi skontah sada da mi treba adresa niza ciji sam ja element. Gde to da smestim?
+//			Moze u fpPos jer metode ne radim svakako pa aj tu da sacuvam
+			DesignatorOneArray.obj.setFpPos(designNode.getAdr());
+//			Mozes da sacuvas i u Adr, ni to ti ne sluzi nicemu
+			DesignatorOneArray.obj.setAdr(designNode.getAdr());
+//			Po onim tvojim proverama i kreiranju onog Obj.Var posle moras da znas da li je globalna 
+//			ili ne i zato to moram da prosledim
+			DesignatorOneArray.obj.setLevel(designNode.getLevel());
+
 		}
 
 	}
@@ -718,7 +737,7 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 			// ovde se nesto desava
 			printCallCount++;
-			//report_info("Trenutna vrednost bool je:"expression.get, StatPrint);
+			// report_info("Trenutna vrednost bool je:"expression.get, StatPrint);
 		}
 	}
 
@@ -737,6 +756,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(DStatementAssign DStatementAssign) {
+		report_info("ime : " + DStatementAssign.getDesignator().obj.getName(), null);
 		// Designator mora označavati promenljivu, element niza ili polje unutar
 		// objekta.
 		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
@@ -746,12 +766,22 @@ public class SemanticPass extends VisitorAdaptor {
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Fld);
 		boolean validType = (DStatementAssign.getExpr().struct
 				.assignableTo(DStatementAssign.getDesignator().obj.getType()));
+
 		// ili obrnuto????????????????????????????????????????????????
 		// Nije obrnuto, videh u Izvornom kodu
 
+//		nisam siguran da ovo treba, po pdfu ne pise da ovo moze ali logicno je da ovo
+//		moze. Ovo sam uradio tek kada sam skontao da ne mogu da testiram nizove bez ovoga
+//		boolean exprRefType = DStatementAssign.getExpr().struct.isRefType();
+//		boolean validExprRefType = (!validType && exprRefType && DStatementAssign.getExpr().struct.getElemType()
+//				.assignableTo(DStatementAssign.getDesignator().obj.getType()));
+//
+//		boolean validType2 = !validType && !validExprRefType && (DStatementAssign.getExpr().struct
+//				.assignableTo(DStatementAssign.getDesignator().obj.getType().getElemType()));
+
 		if (!validKind)
 			report_error("Greska: " + " Tip mora bit Var, Elem, Fld ", DStatementAssign);
-		else if (!validType)
+		else if (!(validType || false || false))
 			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					DStatementAssign);
 		else {

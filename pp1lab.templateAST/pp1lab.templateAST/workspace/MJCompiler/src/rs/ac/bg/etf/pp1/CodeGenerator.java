@@ -5,6 +5,8 @@ import rs.ac.bg.etf.pp1.CounterVisitor.VarCounter;
 import rs.ac.bg.etf.pp1.ast.AddopMinus;
 import rs.ac.bg.etf.pp1.ast.AddopPlus;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
+import rs.ac.bg.etf.pp1.ast.DStatementDec;
+import rs.ac.bg.etf.pp1.ast.DStatementInc;
 import rs.ac.bg.etf.pp1.ast.DStatementParen;
 import rs.ac.bg.etf.pp1.ast.DesignatorJustOne;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneArray;
@@ -178,7 +180,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Expr ili NUM_CONST ili tako nesto, svakako bi trebalo da je vec na steku kada
 //		si prolazio kroz to
 		boolean isChar = (FactNewArray.struct.getElemType() == Tab.charType);
-		System.out.println("PROVERI: vrednost isChar je : " + isChar);
+		// System.out.println("PROVERI: vrednost isChar je : " + isChar);
 
 		int b = isChar ? 1 : 0;
 //		Ne proveravas bool jer ga isto smestas kao int
@@ -263,8 +265,25 @@ public class CodeGenerator extends VisitorAdaptor {
 //	a i prva stvar iz izvornog je assignment
 
 	public void visit(DStatementAssign DStatementAssign) {
+		if (DStatementAssign.getDesignator().obj.getKind() == 5) {
+			System.out.println("Dodela elementu niza");
+			// kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
+			{
+				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+				obj.setLevel(DStatementAssign.getDesignator().obj.getLevel());
+				obj.setAdr(DStatementAssign.getDesignator().obj.getAdr());
+				Code.load(obj);
+			}
+			Code.put(Code.dup_x2);
+			Code.put(Code.pop);
+//			Dobro si se setio ovoga, ovo je bas napravljeno zbog ovog glupog poziva
+		}
 		Code.store(DStatementAssign.getDesignator().obj);
-		// on u pozadini u mjruntime odradi store zavisno sta stavljas
+//		 on u pozadini u mjruntime odradi store zavisno sta stavljas
+
+		Obj a = DStatementAssign.getDesignator().obj;
+		System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
+				+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
 	}
 
 //	Sad je jedino logicno sto mogu da radim designator da bi mi radio DstatemntAssign
@@ -294,7 +313,19 @@ public class CodeGenerator extends VisitorAdaptor {
 //			odradi DUP_x1 POP, ubedljivo najlaksi nacin za zamenu mesta, bukvalno su zbog ovoga i dali
 //			System.out.println("Pre dupliranja, poslednjih 5 vr na steku su:" + "\n-1:" + Code.buf[Code.pc - 1] + "\n-2"
 //					+ Code.buf[Code.pc - 2] + "\n-3" + Code.buf[Code.pc - 3] + "\n-4" + Code.buf[Code.pc - 4] + "\n-5"
-//					+ Code.buf[Code.pc - 5]);
+//					+ Code.buf[Code.pc - 5]); 
+//			Code.load(DesignatorOneArray.obj);
+			{
+				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+				obj.setLevel(DesignatorOneArray.obj.getLevel());
+				obj.setAdr(DesignatorOneArray.obj.getAdr());
+				Code.load(obj);
+			}
+//			Obj a = DesignatorOneArray.obj;
+//			System.out.println("Sta se ovde desava");
+//			System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
+//					+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
+
 			Code.put(Code.dup_x1);
 			Code.put(Code.pop);
 //			Code.put(Code.aload);
@@ -354,8 +385,33 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(ExprTerm ExprTerm) {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 	}
-//	public void visit(AddExpr addExpr) {
-//		Code.put(Code.add);
-//	}
 
+//	Vracam se da odradim ono sto nisam odradio malo pre, a to je 
+//	DStatementInc i DStatementDec
+
+	public void visit(DStatementInc DStatementInc) {
+//		ovo nije tako jednostavno kako si mislio. Da bi odradio inkrement
+//		moras da dodas i koju lokalnu vrednost i za koliko increment
+//		Znaci moras da ucitas objekat koji zelis da inkrementiras
+//		Da ga inkrementiras i sacuvas opet. Ali nisam siguran
+//		da ce sve lepo raditi sa inc pa zato odradi add ako ne bude radilo		
+
+//		v1
+//		Code.load(DStatementInc.getDesignator().obj);
+//		Code.loadConst(1);
+//		Code.put(Code.add);
+//		Code.store(DStatementInc.getDesignator().obj);
+
+//		v2 Proveri radi li
+		Code.put(Code.inc);
+		Code.put(DStatementInc.getDesignator().obj.getAdr());
+		Code.put(1);// increment
+//		Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
+	}
+
+	public void visit(DStatementDec DStatementDec) {
+		Code.put(Code.inc);
+		Code.put(DStatementDec.getDesignator().obj.getAdr());
+		Code.put(-1);
+	}
 }

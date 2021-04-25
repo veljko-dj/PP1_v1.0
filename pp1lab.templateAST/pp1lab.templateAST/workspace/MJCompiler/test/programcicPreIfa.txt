@@ -1,0 +1,26 @@
+program MJProgram 
+{  
+	
+	int main() int x;
+	 int y[];
+	 int z[];
+	 { 
+		y = new int[3];  
+		z = new int [5];
+		
+		x=3;
+		x--; 
+		print('x');
+		print(x);
+		print(eol);
+		
+		z[4] = y[0];
+		z[3]= y[1];
+		y[1]= 123;
+		x= y[1];
+		z[4] = y[0];
+		z[3]= y[1];
+		print(z[4]);
+		return 1;
+	}
+}

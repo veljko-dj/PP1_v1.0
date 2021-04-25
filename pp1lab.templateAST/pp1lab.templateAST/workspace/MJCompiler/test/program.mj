@@ -3,18 +3,24 @@ program MJProgram
 	
 	int main() int x;
 	 int y[];
+	 int z[];
+	 int p,q;
 	 { 
-		y = new int[3];  
-		
-		x=3;
+		y = new int[3];
+		y[0] = 11; 
+		x=23;
+		p = 33;
 		x--; 
-		print('x');
+		print(eol); 
+		print(x);
+		//read(x);
+		//read(y[1]);
+		y[1]=x;
+		print(x);
+		x= 33-33 ? 22 :11;
 		print(x);
 		print(eol);
-		
-		y[1]= 123;
-		x= y[1];
-		print(y[1]);
+		print(3-1? 4+3: 4+5);
 		return 1;
 	}
 }

@@ -4,6 +4,8 @@ import rs.ac.bg.etf.pp1.CounterVisitor.FormParamCounter;
 import rs.ac.bg.etf.pp1.CounterVisitor.VarCounter;
 import rs.ac.bg.etf.pp1.ast.AddopMinus;
 import rs.ac.bg.etf.pp1.ast.AddopPlus;
+import rs.ac.bg.etf.pp1.ast.CondFactOne;
+import rs.ac.bg.etf.pp1.ast.CondFactRelop;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
@@ -11,6 +13,10 @@ import rs.ac.bg.etf.pp1.ast.DStatementParen;
 import rs.ac.bg.etf.pp1.ast.DesignatorJustOne;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneArray;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneDot;
+import rs.ac.bg.etf.pp1.ast.Expr0;
+import rs.ac.bg.etf.pp1.ast.ExprCondition;
+import rs.ac.bg.etf.pp1.ast.ExprConditionFalse;
+import rs.ac.bg.etf.pp1.ast.ExprConditionTrue;
 import rs.ac.bg.etf.pp1.ast.ExprTerm;
 import rs.ac.bg.etf.pp1.ast.ExprTermList;
 import rs.ac.bg.etf.pp1.ast.ExprTermMinus;
@@ -49,6 +55,46 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	private int mainPc;
 	private Struct boolStruct;
+
+	private class CodeGenerator_PCAdresses_Expr {
+
+		public int firstInstrTrue = 0;
+		public int firstInstrFalse = 0;
+		public int nextInst = 0; // sledeca posle ternarnog operatora
+		public int tmpAdr = -3; // Privremena adresa koju cu stavljati svuda za
+								// skokove pre nego sto namestim na korektnu
+		public int whereToPutFirstTrue = 0;
+		public int whereToPutFirstFalse = 0;
+		public int whereToPutFirstNext = 0;
+
+		public void clear() {
+			firstInstrFalse = 0;
+			firstInstrTrue = 0;
+			nextInst = 0;
+			whereToPutFirstTrue = 0;
+			whereToPutFirstFalse = 0;
+			whereToPutFirstNext = 0;
+		}
+
+		public void print() {
+			System.out.println("true: " + firstInstrTrue);
+			System.out.println("false: " + firstInstrFalse);
+			System.out.println("next: " + nextInst);
+			System.out.println("WhereTrue: " + whereToPutFirstTrue);
+			System.out.println("WhereFalse: " + whereToPutFirstFalse);
+			System.out.println("WhereNext: " + whereToPutFirstNext);
+		}
+
+		/**
+		 * @see Ovo ti je moj fixup koji je lepsi nego njihov,
+		 * @see tacno imas gde da upises
+		 */
+		public void fixup(int whereToWrite, int adrToWrite) {
+			Code.put2(whereToWrite, adrToWrite - whereToWrite + 1);
+		}
+	}
+
+	private CodeGenerator_PCAdresses_Expr adrExpr = new CodeGenerator_PCAdresses_Expr();
 
 	public int getMainPc() {
 		return mainPc;
@@ -111,6 +157,9 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(StatReturn returnExpr) {
 		Code.put(Code.exit);
 		Code.put(Code.return_);
+//		Zasto ovde nisam prvo na stek stavio ono sto treba da bude
+//		Mislim da je odgovor jer kad udjes u return nesto on ode u expr
+//		i tamo stavi to sto treba na stek
 	}
 
 	// izvorni
@@ -201,8 +250,8 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	public void visit(StatPrint StatPrint) {
 		if (StatPrint.getExpr().struct == Tab.intType) {
-//			Zasto je int 5?
-			Code.loadConst(5); // Ovo je width(), odnosno sirina jednog INTa
+//			Zasto je int 5? Stavio sam ipak 4 jer mi to ima smisla
+			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
 
@@ -246,6 +295,24 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(StatRead StatRead) {
 		Struct typeOfDes = StatRead.getDesignator().obj.getType();
 //		Ako je element niza onda on to sve sredi u store?
+		System.out.println("tip za read stmt" + typeOfDes.getKind());
+		if (StatRead.getDesignator().obj.getKind() == 5) {
+//			System.out.println("Dodela elementu niza");
+//			 kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
+			{
+				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+				obj.setLevel(StatRead.getDesignator().obj.getLevel());
+				obj.setAdr(StatRead.getDesignator().obj.getAdr());
+				Code.load(obj);
+			}
+			Code.put(Code.dup_x1);
+			Code.put(Code.pop);
+//			Zasto dup_x1? Zato sto trenutno imas na steku indeks, pa stavljas adresu
+//			i zarotiras i onda imas adr, index i pomocu read ce leci lepo VALUE
+
+//			Dobro si se setio ovoga, ovo je bas napravljeno zbog ovog glupog poziva
+		}
+
 		if (typeOfDes == Tab.intType) {
 			Code.put(Code.read);
 			Code.store(StatRead.getDesignator().obj);
@@ -266,8 +333,8 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	public void visit(DStatementAssign DStatementAssign) {
 		if (DStatementAssign.getDesignator().obj.getKind() == 5) {
-			System.out.println("Dodela elementu niza");
-			// kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
+//			System.out.println("Dodela elementu niza");
+//			 kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
 			{
 				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 				obj.setLevel(DStatementAssign.getDesignator().obj.getLevel());
@@ -276,14 +343,18 @@ public class CodeGenerator extends VisitorAdaptor {
 			}
 			Code.put(Code.dup_x2);
 			Code.put(Code.pop);
-//			Dobro si se setio ovoga, ovo je bas napravljeno zbog ovog glupog poziva
+
+//			Zasto bas x2? Zato sto je vrednost prvo stavljen indeks na stek,
+//			pa zatim stavljena vrednost jer dolazis iz expr
+//			i onda sada ti stavis adresu, pa odradis rotaciju
+
 		}
 		Code.store(DStatementAssign.getDesignator().obj);
 //		 on u pozadini u mjruntime odradi store zavisno sta stavljas
 
-		Obj a = DStatementAssign.getDesignator().obj;
-		System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
-				+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
+//		Obj a = DStatementAssign.getDesignator().obj;
+//		System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
+//				+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
 	}
 
 //	Sad je jedino logicno sto mogu da radim designator da bi mi radio DstatemntAssign
@@ -328,6 +399,9 @@ public class CodeGenerator extends VisitorAdaptor {
 
 			Code.put(Code.dup_x1);
 			Code.put(Code.pop);
+//			Zasto x1? Zato sto je prvo indeks dosao na stek, pa ti stavis adresu
+//			i onda zamenis mesta 
+
 //			Code.put(Code.aload);
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
@@ -414,4 +488,74 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(DStatementDec.getDesignator().obj.getAdr());
 		Code.put(-1);
 	}
+
+//	E na zalost je doslo vreme da se radi if 
+//	Hej za A nivo ti ne treba IF, samo ternarni operator                                                                                                  
+
+//	Da krenem prvo od uslova
+//	Pa brate u izmenjenom kodu ono, gde ti je
+//	expr ? expr : expr tu ti ne treba uopste 
+//	cond bilo sta
+	public void visit(CondFactOne CondFactOne) {
+	}
+
+	public void visit(CondFactRelop CondFactRelop) {
+	}
+
+	public void visit(Expr0 Expr0) {
+//		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
+//		System.out.println("Expro0" + Code.pc);
+
+//		adrExpr.print();
+		adrExpr.fixup(adrExpr.whereToPutFirstNext, adrExpr.nextInst);
+		adrExpr.fixup(adrExpr.whereToPutFirstFalse, adrExpr.firstInstrFalse);
+		adrExpr.clear();
+	}
+
+	public void visit(ExprCondition ExprCondition) {
+//		Izlaz iz uslova koji bi trebalo da je na steku
+//		System.out.println("ExprCond" + Code.pc);
+//		Ovde je na kraju pc vrednost prve instrukcije za TRUEexpr
+//		Ovde treba samo da nastavis dalje da kompajliras, ali i verovatno 
+//		da sacuvas tu adresu negde
+
+//		E konju jedan. jmp if not equal radi sa dve vrednosti na steku, moras da stavis pored expr 
+//		i drugu vrednost, tj. nulu, zato ti baca gresku 1794
+		Code.loadConst(0);
+
+//		Sada ovde kazes, ako nije true onda skoci na FALSE a tu adresu jos ne znas
+
+		adrExpr.whereToPutFirstFalse = Code.pc + 1; // Jer prvo ide JEQ pa onda adresa
+		Code.putFalseJump(Code.ne, adrExpr.tmpAdr);
+//		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
+//		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
+//		Code.ne 
+		adrExpr.firstInstrTrue = Code.pc;
+	}
+
+	public void visit(ExprConditionTrue ExprConditionTrue) {
+//		Izlaz iz prvogIzraza koji bi trebalo da je na steku
+//		System.out.println("ExprTrue" + Code.pc);
+//		Ovde je prva adresa posle ovoga adresa FALSEExpr 
+//		NJu svakako moras da sacuvas i nekako da je vratis gore u slucaju da se 
+//		radi o FALSE uslovu
+//		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
+//		prvu instrukciju posle ternarnog operatora
+
+		adrExpr.whereToPutFirstNext = Code.pc + 1;
+		Code.putJump(adrExpr.tmpAdr); // skok na sledecu instrukciju
+		adrExpr.firstInstrFalse = Code.pc;
+	}
+
+	public void visit(ExprConditionFalse ExprConditionFalse) {
+//		Izlaz iz drugogIzraza koji bi trebalo da je na steku
+//		System.out.println("ExprFalse" + Code.pc);
+//		Posle ovoga Pc ima vrednost prve instrukcije posle ternarnog operatora, tj. 
+//		to obicno biva STore ako je bila jednakost ili tako nesto
+//		Svakako je to mesto gde skaces iz TRUEexpr
+
+//		Ovde nemas gde da skaces, nastavljas dalje.
+		adrExpr.nextInst = Code.pc;
+	}
+
 }

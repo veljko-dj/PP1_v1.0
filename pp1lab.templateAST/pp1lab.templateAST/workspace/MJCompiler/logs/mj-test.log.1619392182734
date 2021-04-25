@@ -1,119 +1,119 @@
-INFO  01:11:24,540 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
-INFO  01:11:24,605 - #2 program
-INFO  01:11:24,605 - #20 MJProgram
-INFO  01:11:24,606 - #47 {
-INFO  01:11:24,608 - #20 int
-INFO  01:11:24,608 - #20 main
-INFO  01:11:24,609 - #43 (
-INFO  01:11:24,610 - #44 )
-INFO  01:11:24,610 - #20 int
-INFO  01:11:24,610 - #20 x
-INFO  01:11:24,611 - #40 ;
-INFO  01:11:24,611 - #20 int
-INFO  01:11:24,611 - #20 y
-INFO  01:11:24,611 - #45 [
-INFO  01:11:24,612 - #46 ]
-INFO  01:11:24,612 - #40 ;
-INFO  01:11:24,612 - #20 int
-INFO  01:11:24,612 - #20 z
-INFO  01:11:24,612 - #45 [
-INFO  01:11:24,612 - #46 ]
-INFO  01:11:24,613 - #40 ;
-INFO  01:11:24,613 - #20 int
-INFO  01:11:24,613 - #20 p
-INFO  01:11:24,613 - #41 ,
-INFO  01:11:24,613 - #20 q
-INFO  01:11:24,613 - #40 ;
-INFO  01:11:24,614 - #47 {
-INFO  01:11:24,614 - #20 y
-INFO  01:11:24,614 - #37 =
-INFO  01:11:24,614 - #12 new
-INFO  01:11:24,615 - #20 int
-INFO  01:11:24,616 - #45 [
-INFO  01:11:24,616 - #21 3
-INFO  01:11:24,616 - #46 ]
-INFO  01:11:24,616 - #40 ;
-INFO  01:11:24,617 - #20 y
-INFO  01:11:24,617 - #45 [
-INFO  01:11:24,618 - #21 0
-INFO  01:11:24,618 - #46 ]
-INFO  01:11:24,618 - #37 =
-INFO  01:11:24,618 - #21 11
-INFO  01:11:24,618 - #40 ;
-INFO  01:11:24,618 - #20 x
-INFO  01:11:24,618 - #37 =
-INFO  01:11:24,618 - #21 23
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,619 - #20 p
-INFO  01:11:24,619 - #37 =
-INFO  01:11:24,619 - #21 33
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,619 - #20 x
-INFO  01:11:24,619 - #39 --
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,620 - #13 print
-INFO  01:11:24,620 - #43 (
-INFO  01:11:24,620 - #20 eol
-INFO  01:11:24,620 - #44 )
-INFO  01:11:24,621 - #40 ;
-INFO  01:11:24,621 - #13 print
-INFO  01:11:24,621 - #43 (
-INFO  01:11:24,621 - #20 x
-INFO  01:11:24,621 - #44 )
-INFO  01:11:24,621 - #40 ;
-INFO  01:11:24,621 - #20 y
-INFO  01:11:24,622 - #45 [
-INFO  01:11:24,622 - #21 1
-INFO  01:11:24,622 - #46 ]
-INFO  01:11:24,622 - #37 =
-INFO  01:11:24,622 - #20 x
-INFO  01:11:24,622 - #40 ;
-INFO  01:11:24,623 - #13 print
-INFO  01:11:24,623 - #43 (
-INFO  01:11:24,623 - #20 x
-INFO  01:11:24,623 - #44 )
-INFO  01:11:24,623 - #40 ;
-INFO  01:11:24,623 - #20 x
-INFO  01:11:24,623 - #37 =
-INFO  01:11:24,624 - #21 33
-INFO  01:11:24,624 - #25 -
-INFO  01:11:24,624 - #21 33
-INFO  01:11:24,625 - #49 ?
-INFO  01:11:24,627 - #21 22
-INFO  01:11:24,627 - #50 :
-INFO  01:11:24,628 - #21 11
-INFO  01:11:24,628 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,630 - #43 (
-INFO  01:11:24,630 - #20 x
-INFO  01:11:24,630 - #44 )
-INFO  01:11:24,630 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,630 - #43 (
-INFO  01:11:24,630 - #20 eol
-INFO  01:11:24,630 - #44 )
-INFO  01:11:24,630 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,631 - #43 (
-INFO  01:11:24,631 - #21 3
-INFO  01:11:24,631 - #25 -
-INFO  01:11:24,631 - #21 1
-INFO  01:11:24,631 - #49 ?
-INFO  01:11:24,631 - #21 4
-INFO  01:11:24,631 - #24 +
-INFO  01:11:24,631 - #21 3
-INFO  01:11:24,632 - #50 :
-INFO  01:11:24,632 - #21 4
-INFO  01:11:24,632 - #24 +
-INFO  01:11:24,632 - #21 5
-INFO  01:11:24,633 - #44 )
-INFO  01:11:24,633 - #40 ;
-INFO  01:11:24,633 - #15 return
-INFO  01:11:24,633 - #21 1
-INFO  01:11:24,633 - #40 ;
-INFO  01:11:24,633 - #48 }
-INFO  01:11:24,633 - #48 }
-INFO  01:11:24,647 - Program(
+INFO  01:07:21,435 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  01:07:21,559 - #2 program
+INFO  01:07:21,559 - #20 MJProgram
+INFO  01:07:21,559 - #47 {
+INFO  01:07:21,562 - #20 int
+INFO  01:07:21,562 - #20 main
+INFO  01:07:21,563 - #43 (
+INFO  01:07:21,564 - #44 )
+INFO  01:07:21,564 - #20 int
+INFO  01:07:21,564 - #20 x
+INFO  01:07:21,564 - #40 ;
+INFO  01:07:21,565 - #20 int
+INFO  01:07:21,565 - #20 y
+INFO  01:07:21,565 - #45 [
+INFO  01:07:21,565 - #46 ]
+INFO  01:07:21,565 - #40 ;
+INFO  01:07:21,566 - #20 int
+INFO  01:07:21,566 - #20 z
+INFO  01:07:21,566 - #45 [
+INFO  01:07:21,566 - #46 ]
+INFO  01:07:21,567 - #40 ;
+INFO  01:07:21,567 - #20 int
+INFO  01:07:21,567 - #20 p
+INFO  01:07:21,567 - #41 ,
+INFO  01:07:21,567 - #20 q
+INFO  01:07:21,567 - #40 ;
+INFO  01:07:21,568 - #47 {
+INFO  01:07:21,568 - #20 y
+INFO  01:07:21,568 - #37 =
+INFO  01:07:21,568 - #12 new
+INFO  01:07:21,569 - #20 int
+INFO  01:07:21,570 - #45 [
+INFO  01:07:21,570 - #21 3
+INFO  01:07:21,570 - #46 ]
+INFO  01:07:21,570 - #40 ;
+INFO  01:07:21,571 - #20 y
+INFO  01:07:21,571 - #45 [
+INFO  01:07:21,571 - #21 0
+INFO  01:07:21,571 - #46 ]
+INFO  01:07:21,572 - #37 =
+INFO  01:07:21,572 - #21 11
+INFO  01:07:21,572 - #40 ;
+INFO  01:07:21,572 - #20 x
+INFO  01:07:21,572 - #37 =
+INFO  01:07:21,572 - #21 23
+INFO  01:07:21,573 - #40 ;
+INFO  01:07:21,573 - #20 p
+INFO  01:07:21,573 - #37 =
+INFO  01:07:21,573 - #21 33
+INFO  01:07:21,573 - #40 ;
+INFO  01:07:21,573 - #20 x
+INFO  01:07:21,573 - #39 --
+INFO  01:07:21,574 - #40 ;
+INFO  01:07:21,574 - #13 print
+INFO  01:07:21,574 - #43 (
+INFO  01:07:21,574 - #20 eol
+INFO  01:07:21,574 - #44 )
+INFO  01:07:21,575 - #40 ;
+INFO  01:07:21,575 - #13 print
+INFO  01:07:21,575 - #43 (
+INFO  01:07:21,575 - #20 x
+INFO  01:07:21,575 - #44 )
+INFO  01:07:21,575 - #40 ;
+INFO  01:07:21,576 - #20 y
+INFO  01:07:21,576 - #45 [
+INFO  01:07:21,576 - #21 1
+INFO  01:07:21,576 - #46 ]
+INFO  01:07:21,576 - #37 =
+INFO  01:07:21,576 - #20 x
+INFO  01:07:21,576 - #40 ;
+INFO  01:07:21,577 - #13 print
+INFO  01:07:21,577 - #43 (
+INFO  01:07:21,577 - #20 x
+INFO  01:07:21,577 - #44 )
+INFO  01:07:21,577 - #40 ;
+INFO  01:07:21,577 - #20 x
+INFO  01:07:21,577 - #37 =
+INFO  01:07:21,578 - #21 33
+INFO  01:07:21,578 - #25 -
+INFO  01:07:21,578 - #21 33
+INFO  01:07:21,579 - #49 ?
+INFO  01:07:21,581 - #21 22
+INFO  01:07:21,581 - #50 :
+INFO  01:07:21,583 - #21 11
+INFO  01:07:21,583 - #40 ;
+INFO  01:07:21,584 - #13 print
+INFO  01:07:21,584 - #43 (
+INFO  01:07:21,584 - #20 x
+INFO  01:07:21,584 - #44 )
+INFO  01:07:21,584 - #40 ;
+INFO  01:07:21,584 - #13 print
+INFO  01:07:21,584 - #43 (
+INFO  01:07:21,584 - #20 eol
+INFO  01:07:21,585 - #44 )
+INFO  01:07:21,585 - #40 ;
+INFO  01:07:21,585 - #13 print
+INFO  01:07:21,585 - #43 (
+INFO  01:07:21,585 - #21 3
+INFO  01:07:21,585 - #25 -
+INFO  01:07:21,585 - #21 1
+INFO  01:07:21,585 - #49 ?
+INFO  01:07:21,585 - #21 4
+INFO  01:07:21,585 - #24 +
+INFO  01:07:21,585 - #21 3
+INFO  01:07:21,586 - #50 :
+INFO  01:07:21,586 - #21 4
+INFO  01:07:21,586 - #24 +
+INFO  01:07:21,586 - #21 5
+INFO  01:07:21,587 - #44 )
+INFO  01:07:21,587 - #40 ;
+INFO  01:07:21,587 - #15 return
+INFO  01:07:21,587 - #21 1
+INFO  01:07:21,587 - #40 ;
+INFO  01:07:21,587 - #48 }
+INFO  01:07:21,587 - #48 }
+INFO  01:07:21,599 - Program(
   ProgName(
    MJProgram
   ) [ProgName]
@@ -568,38 +568,38 @@ INFO  01:11:24,647 - Program(
     ) [MethodDeclaration]
   ) [MethodDeclarations]
 ) [Program]
-INFO  01:11:24,648 - ===================================
-INFO  01:11:24,653 - Usao sam u ProgName na liniji 1
-INFO  01:11:24,653 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
-INFO  01:11:24,653 - Obradjuje se funkcija main na liniji 4
-INFO  01:11:24,654 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
-INFO  01:11:24,654 - Varijabla  y na liniji 9 na liniji 9
-INFO  01:11:24,655 - ime : y
-INFO  01:11:24,655 - Dodela je okej na liniji 9
-INFO  01:11:24,655 - Niz  yse koristi na liniji 10 na liniji 10
-INFO  01:11:24,655 - ime : Elem
-INFO  01:11:24,655 - Dodela je okej na liniji 10
-INFO  01:11:24,655 - Varijabla  x na liniji 11 na liniji 11
-INFO  01:11:24,655 - ime : x
-INFO  01:11:24,655 - Dodela je okej na liniji 11
-INFO  01:11:24,656 - Varijabla  p na liniji 12 na liniji 12
-INFO  01:11:24,656 - ime : p
-INFO  01:11:24,660 - Dodela je okej na liniji 12
-INFO  01:11:24,661 - Varijabla  x na liniji 13 na liniji 13
-INFO  01:11:24,661 - Log_info: Decrement na liniji 13
-INFO  01:11:24,661 - Konstanta  eol na liniji 14 na liniji 14
-INFO  01:11:24,661 - Varijabla  x na liniji 15 na liniji 15
-INFO  01:11:24,661 - Niz  yse koristi na liniji 18 na liniji 18
-INFO  01:11:24,661 - Varijabla  x na liniji 18 na liniji 18
-INFO  01:11:24,661 - ime : Elem
-INFO  01:11:24,661 - Dodela je okej na liniji 18
-INFO  01:11:24,661 - Varijabla  x na liniji 19 na liniji 19
-INFO  01:11:24,661 - Varijabla  x na liniji 20 na liniji 20
-INFO  01:11:24,661 - ime : x
-INFO  01:11:24,661 - Dodela je okej na liniji 20
-INFO  01:11:24,661 - Varijabla  x na liniji 21 na liniji 21
-INFO  01:11:24,661 - Konstanta  eol na liniji 22 na liniji 22
-INFO  01:11:24,661 - Usao sam u Program na liniji 1
-INFO  01:11:24,662 -  Print count calls = 6
-INFO  01:11:24,662 - ===================================
-INFO  01:11:24,680 - Parsiranje uspesno zavrseno!
+INFO  01:07:21,601 - ===================================
+INFO  01:07:21,605 - Usao sam u ProgName na liniji 1
+INFO  01:07:21,606 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
+INFO  01:07:21,606 - Obradjuje se funkcija main na liniji 4
+INFO  01:07:21,606 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
+INFO  01:07:21,606 - Varijabla  y na liniji 9 na liniji 9
+INFO  01:07:21,607 - ime : y
+INFO  01:07:21,607 - Dodela je okej na liniji 9
+INFO  01:07:21,607 - Niz  yse koristi na liniji 10 na liniji 10
+INFO  01:07:21,607 - ime : Elem
+INFO  01:07:21,607 - Dodela je okej na liniji 10
+INFO  01:07:21,607 - Varijabla  x na liniji 11 na liniji 11
+INFO  01:07:21,607 - ime : x
+INFO  01:07:21,608 - Dodela je okej na liniji 11
+INFO  01:07:21,608 - Varijabla  p na liniji 12 na liniji 12
+INFO  01:07:21,608 - ime : p
+INFO  01:07:21,613 - Dodela je okej na liniji 12
+INFO  01:07:21,613 - Varijabla  x na liniji 13 na liniji 13
+INFO  01:07:21,613 - Log_info: Decrement na liniji 13
+INFO  01:07:21,613 - Konstanta  eol na liniji 14 na liniji 14
+INFO  01:07:21,613 - Varijabla  x na liniji 15 na liniji 15
+INFO  01:07:21,613 - Niz  yse koristi na liniji 18 na liniji 18
+INFO  01:07:21,614 - Varijabla  x na liniji 18 na liniji 18
+INFO  01:07:21,614 - ime : Elem
+INFO  01:07:21,614 - Dodela je okej na liniji 18
+INFO  01:07:21,614 - Varijabla  x na liniji 19 na liniji 19
+INFO  01:07:21,614 - Varijabla  x na liniji 20 na liniji 20
+INFO  01:07:21,614 - ime : x
+INFO  01:07:21,614 - Dodela je okej na liniji 20
+INFO  01:07:21,614 - Varijabla  x na liniji 21 na liniji 21
+INFO  01:07:21,615 - Konstanta  eol na liniji 22 na liniji 22
+INFO  01:07:21,615 - Usao sam u Program na liniji 1
+INFO  01:07:21,615 -  Print count calls = 6
+INFO  01:07:21,615 - ===================================
+INFO  01:07:21,634 - Parsiranje uspesno zavrseno!

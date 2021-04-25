@@ -1,119 +1,125 @@
-INFO  01:11:24,540 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
-INFO  01:11:24,605 - #2 program
-INFO  01:11:24,605 - #20 MJProgram
-INFO  01:11:24,606 - #47 {
-INFO  01:11:24,608 - #20 int
-INFO  01:11:24,608 - #20 main
-INFO  01:11:24,609 - #43 (
-INFO  01:11:24,610 - #44 )
-INFO  01:11:24,610 - #20 int
-INFO  01:11:24,610 - #20 x
-INFO  01:11:24,611 - #40 ;
-INFO  01:11:24,611 - #20 int
-INFO  01:11:24,611 - #20 y
-INFO  01:11:24,611 - #45 [
-INFO  01:11:24,612 - #46 ]
-INFO  01:11:24,612 - #40 ;
-INFO  01:11:24,612 - #20 int
-INFO  01:11:24,612 - #20 z
-INFO  01:11:24,612 - #45 [
-INFO  01:11:24,612 - #46 ]
-INFO  01:11:24,613 - #40 ;
-INFO  01:11:24,613 - #20 int
-INFO  01:11:24,613 - #20 p
-INFO  01:11:24,613 - #41 ,
-INFO  01:11:24,613 - #20 q
-INFO  01:11:24,613 - #40 ;
-INFO  01:11:24,614 - #47 {
-INFO  01:11:24,614 - #20 y
-INFO  01:11:24,614 - #37 =
-INFO  01:11:24,614 - #12 new
-INFO  01:11:24,615 - #20 int
-INFO  01:11:24,616 - #45 [
-INFO  01:11:24,616 - #21 3
-INFO  01:11:24,616 - #46 ]
-INFO  01:11:24,616 - #40 ;
-INFO  01:11:24,617 - #20 y
-INFO  01:11:24,617 - #45 [
-INFO  01:11:24,618 - #21 0
-INFO  01:11:24,618 - #46 ]
-INFO  01:11:24,618 - #37 =
-INFO  01:11:24,618 - #21 11
-INFO  01:11:24,618 - #40 ;
-INFO  01:11:24,618 - #20 x
-INFO  01:11:24,618 - #37 =
-INFO  01:11:24,618 - #21 23
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,619 - #20 p
-INFO  01:11:24,619 - #37 =
-INFO  01:11:24,619 - #21 33
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,619 - #20 x
-INFO  01:11:24,619 - #39 --
-INFO  01:11:24,619 - #40 ;
-INFO  01:11:24,620 - #13 print
-INFO  01:11:24,620 - #43 (
-INFO  01:11:24,620 - #20 eol
-INFO  01:11:24,620 - #44 )
-INFO  01:11:24,621 - #40 ;
-INFO  01:11:24,621 - #13 print
-INFO  01:11:24,621 - #43 (
-INFO  01:11:24,621 - #20 x
-INFO  01:11:24,621 - #44 )
-INFO  01:11:24,621 - #40 ;
-INFO  01:11:24,621 - #20 y
-INFO  01:11:24,622 - #45 [
-INFO  01:11:24,622 - #21 1
-INFO  01:11:24,622 - #46 ]
-INFO  01:11:24,622 - #37 =
-INFO  01:11:24,622 - #20 x
-INFO  01:11:24,622 - #40 ;
-INFO  01:11:24,623 - #13 print
-INFO  01:11:24,623 - #43 (
-INFO  01:11:24,623 - #20 x
-INFO  01:11:24,623 - #44 )
-INFO  01:11:24,623 - #40 ;
-INFO  01:11:24,623 - #20 x
-INFO  01:11:24,623 - #37 =
-INFO  01:11:24,624 - #21 33
-INFO  01:11:24,624 - #25 -
-INFO  01:11:24,624 - #21 33
-INFO  01:11:24,625 - #49 ?
-INFO  01:11:24,627 - #21 22
-INFO  01:11:24,627 - #50 :
-INFO  01:11:24,628 - #21 11
-INFO  01:11:24,628 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,630 - #43 (
-INFO  01:11:24,630 - #20 x
-INFO  01:11:24,630 - #44 )
-INFO  01:11:24,630 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,630 - #43 (
-INFO  01:11:24,630 - #20 eol
-INFO  01:11:24,630 - #44 )
-INFO  01:11:24,630 - #40 ;
-INFO  01:11:24,630 - #13 print
-INFO  01:11:24,631 - #43 (
-INFO  01:11:24,631 - #21 3
-INFO  01:11:24,631 - #25 -
-INFO  01:11:24,631 - #21 1
-INFO  01:11:24,631 - #49 ?
-INFO  01:11:24,631 - #21 4
-INFO  01:11:24,631 - #24 +
-INFO  01:11:24,631 - #21 3
-INFO  01:11:24,632 - #50 :
-INFO  01:11:24,632 - #21 4
-INFO  01:11:24,632 - #24 +
-INFO  01:11:24,632 - #21 5
-INFO  01:11:24,633 - #44 )
-INFO  01:11:24,633 - #40 ;
-INFO  01:11:24,633 - #15 return
-INFO  01:11:24,633 - #21 1
-INFO  01:11:24,633 - #40 ;
-INFO  01:11:24,633 - #48 }
-INFO  01:11:24,633 - #48 }
-INFO  01:11:24,647 - Program(
+INFO  00:47:12,995 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  00:47:13,060 - #2 program
+INFO  00:47:13,061 - #20 MJProgram
+INFO  00:47:13,061 - #47 {
+INFO  00:47:13,063 - #20 int
+INFO  00:47:13,063 - #20 main
+INFO  00:47:13,064 - #43 (
+INFO  00:47:13,065 - #44 )
+INFO  00:47:13,065 - #20 int
+INFO  00:47:13,066 - #20 x
+INFO  00:47:13,066 - #40 ;
+INFO  00:47:13,067 - #20 int
+INFO  00:47:13,067 - #20 y
+INFO  00:47:13,067 - #45 [
+INFO  00:47:13,068 - #46 ]
+INFO  00:47:13,068 - #40 ;
+INFO  00:47:13,068 - #20 int
+INFO  00:47:13,068 - #20 z
+INFO  00:47:13,069 - #45 [
+INFO  00:47:13,069 - #46 ]
+INFO  00:47:13,069 - #40 ;
+INFO  00:47:13,070 - #20 int
+INFO  00:47:13,070 - #20 p
+INFO  00:47:13,070 - #41 ,
+INFO  00:47:13,070 - #20 q
+INFO  00:47:13,070 - #40 ;
+INFO  00:47:13,071 - #47 {
+INFO  00:47:13,071 - #20 y
+INFO  00:47:13,071 - #37 =
+INFO  00:47:13,072 - #12 new
+INFO  00:47:13,073 - #20 int
+INFO  00:47:13,073 - #45 [
+INFO  00:47:13,073 - #21 3
+INFO  00:47:13,073 - #46 ]
+INFO  00:47:13,074 - #40 ;
+INFO  00:47:13,074 - #20 y
+INFO  00:47:13,075 - #45 [
+INFO  00:47:13,075 - #21 0
+INFO  00:47:13,075 - #46 ]
+INFO  00:47:13,075 - #37 =
+INFO  00:47:13,075 - #21 11
+INFO  00:47:13,075 - #40 ;
+INFO  00:47:13,075 - #20 x
+INFO  00:47:13,076 - #37 =
+INFO  00:47:13,076 - #21 23
+INFO  00:47:13,076 - #40 ;
+INFO  00:47:13,076 - #20 p
+INFO  00:47:13,076 - #37 =
+INFO  00:47:13,076 - #21 33
+INFO  00:47:13,076 - #40 ;
+INFO  00:47:13,076 - #20 x
+INFO  00:47:13,076 - #39 --
+INFO  00:47:13,076 - #40 ;
+INFO  00:47:13,077 - #13 print
+INFO  00:47:13,077 - #43 (
+INFO  00:47:13,077 - #20 eol
+INFO  00:47:13,077 - #44 )
+INFO  00:47:13,077 - #40 ;
+INFO  00:47:13,077 - #13 print
+INFO  00:47:13,077 - #43 (
+INFO  00:47:13,077 - #20 x
+INFO  00:47:13,078 - #44 )
+INFO  00:47:13,078 - #40 ;
+INFO  00:47:13,078 - #14 read
+INFO  00:47:13,078 - #43 (
+INFO  00:47:13,078 - #20 x
+INFO  00:47:13,078 - #44 )
+INFO  00:47:13,078 - #40 ;
+INFO  00:47:13,079 - #14 read
+INFO  00:47:13,083 - #43 (
+INFO  00:47:13,083 - #20 y
+INFO  00:47:13,083 - #45 [
+INFO  00:47:13,084 - #21 1
+INFO  00:47:13,084 - #46 ]
+INFO  00:47:13,084 - #44 )
+INFO  00:47:13,084 - #40 ;
+INFO  00:47:13,084 - #13 print
+INFO  00:47:13,084 - #43 (
+INFO  00:47:13,084 - #20 x
+INFO  00:47:13,085 - #44 )
+INFO  00:47:13,085 - #40 ;
+INFO  00:47:13,085 - #20 x
+INFO  00:47:13,085 - #37 =
+INFO  00:47:13,085 - #21 33
+INFO  00:47:13,086 - #25 -
+INFO  00:47:13,086 - #21 33
+INFO  00:47:13,088 - #49 ?
+INFO  00:47:13,090 - #21 22
+INFO  00:47:13,090 - #50 :
+INFO  00:47:13,092 - #21 11
+INFO  00:47:13,092 - #40 ;
+INFO  00:47:13,093 - #13 print
+INFO  00:47:13,093 - #43 (
+INFO  00:47:13,093 - #20 x
+INFO  00:47:13,093 - #44 )
+INFO  00:47:13,094 - #40 ;
+INFO  00:47:13,094 - #13 print
+INFO  00:47:13,094 - #43 (
+INFO  00:47:13,094 - #20 eol
+INFO  00:47:13,094 - #44 )
+INFO  00:47:13,094 - #40 ;
+INFO  00:47:13,094 - #13 print
+INFO  00:47:13,095 - #43 (
+INFO  00:47:13,095 - #21 3
+INFO  00:47:13,095 - #25 -
+INFO  00:47:13,095 - #21 1
+INFO  00:47:13,095 - #49 ?
+INFO  00:47:13,095 - #21 4
+INFO  00:47:13,095 - #24 +
+INFO  00:47:13,095 - #21 3
+INFO  00:47:13,096 - #50 :
+INFO  00:47:13,097 - #21 4
+INFO  00:47:13,097 - #24 +
+INFO  00:47:13,098 - #21 5
+INFO  00:47:13,098 - #44 )
+INFO  00:47:13,098 - #40 ;
+INFO  00:47:13,099 - #15 return
+INFO  00:47:13,099 - #21 1
+INFO  00:47:13,099 - #40 ;
+INFO  00:47:13,101 - #48 }
+INFO  00:47:13,101 - #48 }
+INFO  00:47:13,117 - Program(
   ProgName(
    MJProgram
   ) [ProgName]
@@ -210,35 +216,66 @@ INFO  01:11:24,647 - Program(
                             StatementListt(
                               StatementListt(
                                 StatementListt(
-                                  StatementListNo(
-                                    EpsilonDerived1(
-                                    ) [EpsilonDerived1]
-                                  ) [StatementListNo]
+                                  StatementListt(
+                                    StatementListNo(
+                                      EpsilonDerived1(
+                                      ) [EpsilonDerived1]
+                                    ) [StatementListNo]
+                                    MatchedStat(
+                                      StatDesign(
+                                        DStatementAssign(
+                                          DesignatorJustOne(
+                                           y
+                                          ) [DesignatorJustOne]
+                                          AssignopDerived1(
+                                          ) [AssignopDerived1]
+                                          Expr1(
+                                            ExprTerm(
+                                              TermOne(
+                                                FactNewArray(
+                                                  Type(
+                                                   int
+                                                  ) [Type]
+                                                  Expr1(
+                                                    ExprTerm(
+                                                      TermOne(
+                                                        FactNum(
+                                                         3
+                                                        ) [FactNum]
+                                                      ) [TermOne]
+                                                    ) [ExprTerm]
+                                                  ) [Expr1]
+                                                ) [FactNewArray]
+                                              ) [TermOne]
+                                            ) [ExprTerm]
+                                          ) [Expr1]
+                                        ) [DStatementAssign]
+                                      ) [StatDesign]
+                                    ) [MatchedStat]
+                                  ) [StatementListt]
                                   MatchedStat(
                                     StatDesign(
                                       DStatementAssign(
-                                        DesignatorJustOne(
+                                        DesignatorOneArray(
                                          y
-                                        ) [DesignatorJustOne]
+                                          Expr1(
+                                            ExprTerm(
+                                              TermOne(
+                                                FactNum(
+                                                 0
+                                                ) [FactNum]
+                                              ) [TermOne]
+                                            ) [ExprTerm]
+                                          ) [Expr1]
+                                        ) [DesignatorOneArray]
                                         AssignopDerived1(
                                         ) [AssignopDerived1]
                                         Expr1(
                                           ExprTerm(
                                             TermOne(
-                                              FactNewArray(
-                                                Type(
-                                                 int
-                                                ) [Type]
-                                                Expr1(
-                                                  ExprTerm(
-                                                    TermOne(
-                                                      FactNum(
-                                                       3
-                                                      ) [FactNum]
-                                                    ) [TermOne]
-                                                  ) [ExprTerm]
-                                                ) [Expr1]
-                                              ) [FactNewArray]
+                                              FactNum(
+                                               11
+                                              ) [FactNum]
                                             ) [TermOne]
                                           ) [ExprTerm]
                                         ) [Expr1]
@@ -249,25 +286,16 @@ INFO  01:11:24,647 - Program(
                                 MatchedStat(
                                   StatDesign(
                                     DStatementAssign(
-                                      DesignatorOneArray(
-                                       y
-                                        Expr1(
-                                          ExprTerm(
-                                            TermOne(
-                                              FactNum(
-                                               0
-                                              ) [FactNum]
-                                            ) [TermOne]
-                                          ) [ExprTerm]
-                                        ) [Expr1]
-                                      ) [DesignatorOneArray]
+                                      DesignatorJustOne(
+                                       x
+                                      ) [DesignatorJustOne]
                                       AssignopDerived1(
                                       ) [AssignopDerived1]
                                       Expr1(
                                         ExprTerm(
                                           TermOne(
                                             FactNum(
-                                             11
+                                             23
                                             ) [FactNum]
                                           ) [TermOne]
                                         ) [ExprTerm]
@@ -280,7 +308,7 @@ INFO  01:11:24,647 - Program(
                                 StatDesign(
                                   DStatementAssign(
                                     DesignatorJustOne(
-                                     x
+                                     p
                                     ) [DesignatorJustOne]
                                     AssignopDerived1(
                                     ) [AssignopDerived1]
@@ -288,7 +316,7 @@ INFO  01:11:24,647 - Program(
                                       ExprTerm(
                                         TermOne(
                                           FactNum(
-                                           23
+                                           33
                                           ) [FactNum]
                                         ) [TermOne]
                                       ) [ExprTerm]
@@ -299,33 +327,28 @@ INFO  01:11:24,647 - Program(
                             ) [StatementListt]
                             MatchedStat(
                               StatDesign(
-                                DStatementAssign(
+                                DStatementDec(
                                   DesignatorJustOne(
-                                   p
+                                   x
                                   ) [DesignatorJustOne]
-                                  AssignopDerived1(
-                                  ) [AssignopDerived1]
-                                  Expr1(
-                                    ExprTerm(
-                                      TermOne(
-                                        FactNum(
-                                         33
-                                        ) [FactNum]
-                                      ) [TermOne]
-                                    ) [ExprTerm]
-                                  ) [Expr1]
-                                ) [DStatementAssign]
+                                ) [DStatementDec]
                               ) [StatDesign]
                             ) [MatchedStat]
                           ) [StatementListt]
                           MatchedStat(
-                            StatDesign(
-                              DStatementDec(
-                                DesignatorJustOne(
-                                 x
-                                ) [DesignatorJustOne]
-                              ) [DStatementDec]
-                            ) [StatDesign]
+                            StatPrint(
+                              Expr1(
+                                ExprTerm(
+                                  TermOne(
+                                    FactVar(
+                                      DesignatorJustOne(
+                                       eol
+                                      ) [DesignatorJustOne]
+                                    ) [FactVar]
+                                  ) [TermOne]
+                                ) [ExprTerm]
+                              ) [Expr1]
+                            ) [StatPrint]
                           ) [MatchedStat]
                         ) [StatementListt]
                         MatchedStat(
@@ -335,7 +358,7 @@ INFO  01:11:24,647 - Program(
                                 TermOne(
                                   FactVar(
                                     DesignatorJustOne(
-                                     eol
+                                     x
                                     ) [DesignatorJustOne]
                                   ) [FactVar]
                                 ) [TermOne]
@@ -345,51 +368,28 @@ INFO  01:11:24,647 - Program(
                         ) [MatchedStat]
                       ) [StatementListt]
                       MatchedStat(
-                        StatPrint(
-                          Expr1(
-                            ExprTerm(
-                              TermOne(
-                                FactVar(
-                                  DesignatorJustOne(
-                                   x
-                                  ) [DesignatorJustOne]
-                                ) [FactVar]
-                              ) [TermOne]
-                            ) [ExprTerm]
-                          ) [Expr1]
-                        ) [StatPrint]
+                        StatRead(
+                          DesignatorJustOne(
+                           x
+                          ) [DesignatorJustOne]
+                        ) [StatRead]
                       ) [MatchedStat]
                     ) [StatementListt]
                     MatchedStat(
-                      StatDesign(
-                        DStatementAssign(
-                          DesignatorOneArray(
-                           y
-                            Expr1(
-                              ExprTerm(
-                                TermOne(
-                                  FactNum(
-                                   1
-                                  ) [FactNum]
-                                ) [TermOne]
-                              ) [ExprTerm]
-                            ) [Expr1]
-                          ) [DesignatorOneArray]
-                          AssignopDerived1(
-                          ) [AssignopDerived1]
+                      StatRead(
+                        DesignatorOneArray(
+                         y
                           Expr1(
                             ExprTerm(
                               TermOne(
-                                FactVar(
-                                  DesignatorJustOne(
-                                   x
-                                  ) [DesignatorJustOne]
-                                ) [FactVar]
+                                FactNum(
+                                 1
+                                ) [FactNum]
                               ) [TermOne]
                             ) [ExprTerm]
                           ) [Expr1]
-                        ) [DStatementAssign]
-                      ) [StatDesign]
+                        ) [DesignatorOneArray]
+                      ) [StatRead]
                     ) [MatchedStat]
                   ) [StatementListt]
                   MatchedStat(
@@ -568,38 +568,38 @@ INFO  01:11:24,647 - Program(
     ) [MethodDeclaration]
   ) [MethodDeclarations]
 ) [Program]
-INFO  01:11:24,648 - ===================================
-INFO  01:11:24,653 - Usao sam u ProgName na liniji 1
-INFO  01:11:24,653 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
-INFO  01:11:24,653 - Obradjuje se funkcija main na liniji 4
-INFO  01:11:24,654 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
-INFO  01:11:24,654 - Varijabla  y na liniji 9 na liniji 9
-INFO  01:11:24,655 - ime : y
-INFO  01:11:24,655 - Dodela je okej na liniji 9
-INFO  01:11:24,655 - Niz  yse koristi na liniji 10 na liniji 10
-INFO  01:11:24,655 - ime : Elem
-INFO  01:11:24,655 - Dodela je okej na liniji 10
-INFO  01:11:24,655 - Varijabla  x na liniji 11 na liniji 11
-INFO  01:11:24,655 - ime : x
-INFO  01:11:24,655 - Dodela je okej na liniji 11
-INFO  01:11:24,656 - Varijabla  p na liniji 12 na liniji 12
-INFO  01:11:24,656 - ime : p
-INFO  01:11:24,660 - Dodela je okej na liniji 12
-INFO  01:11:24,661 - Varijabla  x na liniji 13 na liniji 13
-INFO  01:11:24,661 - Log_info: Decrement na liniji 13
-INFO  01:11:24,661 - Konstanta  eol na liniji 14 na liniji 14
-INFO  01:11:24,661 - Varijabla  x na liniji 15 na liniji 15
-INFO  01:11:24,661 - Niz  yse koristi na liniji 18 na liniji 18
-INFO  01:11:24,661 - Varijabla  x na liniji 18 na liniji 18
-INFO  01:11:24,661 - ime : Elem
-INFO  01:11:24,661 - Dodela je okej na liniji 18
-INFO  01:11:24,661 - Varijabla  x na liniji 19 na liniji 19
-INFO  01:11:24,661 - Varijabla  x na liniji 20 na liniji 20
-INFO  01:11:24,661 - ime : x
-INFO  01:11:24,661 - Dodela je okej na liniji 20
-INFO  01:11:24,661 - Varijabla  x na liniji 21 na liniji 21
-INFO  01:11:24,661 - Konstanta  eol na liniji 22 na liniji 22
-INFO  01:11:24,661 - Usao sam u Program na liniji 1
-INFO  01:11:24,662 -  Print count calls = 6
-INFO  01:11:24,662 - ===================================
-INFO  01:11:24,680 - Parsiranje uspesno zavrseno!
+INFO  00:47:13,119 - ===================================
+INFO  00:47:13,123 - Usao sam u ProgName na liniji 1
+INFO  00:47:13,124 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
+INFO  00:47:13,124 - Obradjuje se funkcija main na liniji 4
+INFO  00:47:13,124 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
+INFO  00:47:13,125 - Varijabla  y na liniji 9 na liniji 9
+INFO  00:47:13,125 - ime : y
+INFO  00:47:13,125 - Dodela je okej na liniji 9
+INFO  00:47:13,125 - Niz  yse koristi na liniji 10 na liniji 10
+INFO  00:47:13,126 - ime : Elem
+INFO  00:47:13,126 - Dodela je okej na liniji 10
+INFO  00:47:13,126 - Varijabla  x na liniji 11 na liniji 11
+INFO  00:47:13,126 - ime : x
+INFO  00:47:13,126 - Dodela je okej na liniji 11
+INFO  00:47:13,126 - Varijabla  p na liniji 12 na liniji 12
+INFO  00:47:13,126 - ime : p
+INFO  00:47:13,126 - Dodela je okej na liniji 12
+INFO  00:47:13,126 - Varijabla  x na liniji 13 na liniji 13
+INFO  00:47:13,126 - Log_info: Decrement na liniji 13
+INFO  00:47:13,127 - Konstanta  eol na liniji 14 na liniji 14
+INFO  00:47:13,127 - Varijabla  x na liniji 15 na liniji 15
+INFO  00:47:13,127 - Varijabla  x na liniji 16 na liniji 16
+INFO  00:47:13,127 - Usao si u ReadStm  na liniji 16
+INFO  00:47:13,127 - Niz  yse koristi na liniji 17 na liniji 17
+INFO  00:47:13,127 - Usao si u ReadStm  na liniji 17
+INFO  00:47:13,127 - Varijabla  x na liniji 18 na liniji 18
+INFO  00:47:13,127 - Varijabla  x na liniji 19 na liniji 19
+INFO  00:47:13,127 - ime : x
+INFO  00:47:13,128 - Dodela je okej na liniji 19
+INFO  00:47:13,128 - Varijabla  x na liniji 20 na liniji 20
+INFO  00:47:13,128 - Konstanta  eol na liniji 21 na liniji 21
+INFO  00:47:13,128 - Usao sam u Program na liniji 1
+INFO  00:47:13,128 -  Print count calls = 6
+INFO  00:47:13,128 - ===================================
+INFO  00:47:13,145 - Parsiranje uspesno zavrseno!

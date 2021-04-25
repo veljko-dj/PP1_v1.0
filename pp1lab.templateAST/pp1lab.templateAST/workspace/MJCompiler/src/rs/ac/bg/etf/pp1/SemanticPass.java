@@ -584,6 +584,9 @@ public class SemanticPass extends VisitorAdaptor {
 		}
 	}
 
+	public void visit(CondFactOne CondFactOne) {
+
+	}
 //	Expr := ["‐"] Term {Addop Term} | CondFact "?" Expr ":" Expr. 
 	// Expr //
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -620,6 +623,13 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: ExprTrue nije istog tipa kao ExprFalse ", Expr0);
 		else {
 			// sve je okej, sta sad?
+
+//			Bio si mnogo glup dok si ovo radio. Pa ti sad gresku baca u generisanju.
+//			Ovde moras da prosledis dalje strukturu, ali koju?
+//			Nisam bas siguran. Mislim da je svejedno. Bitno da su te dobre vrste,
+//			kontam da se sve vec odgovarajjuce nalazi na steku i  ovo prosledjujeem  
+//			samo zbog tipa
+			Expr0.struct = Expr0.getExprConditionTrue().struct;
 		}
 
 	}
@@ -764,6 +774,10 @@ public class SemanticPass extends VisitorAdaptor {
 		boolean validKind = (DStatementAssign.getDesignator().obj.getKind() == Obj.Var
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Elem
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Fld);
+		Struct tmp = DStatementAssign.getDesignator().obj.getType();
+		Struct tmp1 = DStatementAssign.getExpr().struct;
+		if (tmp1 == null)
+			DStatementAssign.getExpr().struct.getElemType();
 		boolean validType = (DStatementAssign.getExpr().struct
 				.assignableTo(DStatementAssign.getDesignator().obj.getType()));
 

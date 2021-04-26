@@ -1,14 +1,13 @@
 program MJProgram 
 {  
 	
-
 	int main() int x;
 	 int y[];
 	 int z[];
 	 int p,q;
 	 { 
-	 x=2;
-	 x=123#;
-	 x=3;
+	print(3<=(2+4) ? 3+4:2+0);
+	print(3<=(2+4) ? 't':'n');
+		return 1;
 	}
 }

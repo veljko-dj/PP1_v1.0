@@ -1,0 +1,172 @@
+INFO  11:11:10,279 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  11:11:10,430 - #2 program
+INFO  11:11:10,431 - #20 MJProgram
+INFO  11:11:10,431 - #47 {
+INFO  11:11:10,440 - #20 int
+INFO  11:11:10,440 - #20 main
+INFO  11:11:10,442 - #43 (
+INFO  11:11:10,443 - #44 )
+INFO  11:11:10,444 - #20 int
+INFO  11:11:10,444 - #20 x
+INFO  11:11:10,444 - #40 ;
+INFO  11:11:10,445 - #20 int
+INFO  11:11:10,446 - #20 y
+INFO  11:11:10,446 - #45 [
+INFO  11:11:10,446 - #46 ]
+INFO  11:11:10,446 - #40 ;
+INFO  11:11:10,447 - #20 int
+INFO  11:11:10,447 - #20 z
+INFO  11:11:10,447 - #45 [
+INFO  11:11:10,447 - #46 ]
+INFO  11:11:10,448 - #40 ;
+INFO  11:11:10,448 - #20 int
+INFO  11:11:10,448 - #20 p
+INFO  11:11:10,449 - #41 ,
+INFO  11:11:10,449 - #20 q
+INFO  11:11:10,449 - #40 ;
+INFO  11:11:10,449 - #47 {
+INFO  11:11:10,450 - #20 x
+INFO  11:11:10,450 - #37 =
+INFO  11:11:10,450 - #21 2
+INFO  11:11:10,452 - #40 ;
+INFO  11:11:10,453 - #40 ;
+ERROR 11:11:10,454 - 
+Sintaksna greska na liniji 11
+INFO  11:11:10,454 - #20 x
+INFO  11:11:10,454 - #37 =
+INFO  11:11:10,454 - #21 3
+DEBUG 11:11:10,455 - Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: 10
+INFO  11:11:10,457 - #40 ;
+INFO  11:11:10,457 - #48 }
+INFO  11:11:10,457 - #48 }
+INFO  11:11:10,471 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclaration(
+        ManyVarDeclaration(
+          ManyVarDeclaration(
+            ManyVarDeclaration(
+              ManyVarDeclNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ManyVarDeclNo]
+              VarDeclaration(
+                Type(
+                 int
+                ) [Type]
+                VarDecListOneElement(
+                  VarDeclOneNoSquare(
+                   x
+                  ) [VarDeclOneNoSquare]
+                ) [VarDecListOneElement]
+              ) [VarDeclaration]
+            ) [ManyVarDeclaration]
+            VarDeclaration(
+              Type(
+               int
+              ) [Type]
+              VarDecListOneElement(
+                VarDeclOneSquare(
+                 y
+                ) [VarDeclOneSquare]
+              ) [VarDecListOneElement]
+            ) [VarDeclaration]
+          ) [ManyVarDeclaration]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDecListOneElement(
+              VarDeclOneSquare(
+               z
+              ) [VarDeclOneSquare]
+            ) [VarDecListOneElement]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        VarDeclaration(
+          Type(
+           int
+          ) [Type]
+          VarDeclarations(
+            VarDecListOneElement(
+              VarDeclOneNoSquare(
+               p
+              ) [VarDeclOneNoSquare]
+            ) [VarDecListOneElement]
+            VarDeclOneNoSquare(
+             q
+            ) [VarDeclOneNoSquare]
+          ) [VarDeclarations]
+        ) [VarDeclaration]
+      ) [ManyVarDeclaration]
+      StatementListt(
+        StatementListt(
+          StatementListNo(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [StatementListNo]
+          MatchedStat(
+            StatErrAssignment(
+            ) [StatErrAssignment]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatDesign(
+            DStatementAssign(
+              DesignatorJustOne(
+               x
+              ) [DesignatorJustOne]
+              AssignopDerived1(
+              ) [AssignopDerived1]
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactNum(
+                     3
+                    ) [FactNum]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [DStatementAssign]
+          ) [StatDesign]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  11:11:16,398 - ===================================
+INFO  11:11:16,406 - Usao sam u ProgName na liniji 1
+INFO  11:11:16,407 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 5
+INFO  11:11:16,409 - Obradjuje se funkcija main na liniji 5
+INFO  11:11:16,410 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@79fc0f2f na liniji 5
+INFO  11:11:16,412 - Varijabla  x na liniji 12 na liniji 12
+INFO  11:11:16,413 - ime : x
+INFO  11:11:16,413 - Dodela je okej na liniji 12
+ERROR 11:11:16,414 - Greska: 5: main  funkcija nema return a treba da ima
+INFO  11:11:16,416 - Usao sam u Program na liniji 1
+INFO  11:11:16,416 -  Print count calls = 0
+INFO  11:11:16,416 - ===================================
+ERROR 11:11:16,418 - Parsiranje NIJE uspesno zavrseno

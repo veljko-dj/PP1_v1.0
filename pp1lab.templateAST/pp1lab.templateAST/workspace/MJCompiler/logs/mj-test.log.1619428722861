@@ -1,45 +1,45 @@
-INFO  11:18:42,866 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
-INFO  11:18:42,931 - #2 program
-INFO  11:18:42,932 - #20 MJProgram
-INFO  11:18:42,932 - #47 {
-INFO  11:18:42,934 - #20 int
-INFO  11:18:42,934 - #20 main
-INFO  11:18:42,935 - #43 (
-INFO  11:18:42,935 - #44 )
-INFO  11:18:42,936 - #20 int
-INFO  11:18:42,937 - #20 x
-INFO  11:18:42,937 - #40 ;
-INFO  11:18:42,937 - #20 int
-INFO  11:18:42,938 - #20 y
-INFO  11:18:42,938 - #45 [
-INFO  11:18:42,938 - #46 ]
-INFO  11:18:42,938 - #40 ;
-INFO  11:18:42,938 - #20 int
-INFO  11:18:42,939 - #20 z
-INFO  11:18:42,939 - #45 [
-INFO  11:18:42,939 - #46 ]
-INFO  11:18:42,940 - #40 ;
-INFO  11:18:42,940 - #20 int
-INFO  11:18:42,940 - #20 p
-INFO  11:18:42,940 - #41 ,
-INFO  11:18:42,940 - #20 q
-INFO  11:18:42,940 - #40 ;
-INFO  11:18:42,941 - #47 {
-INFO  11:18:42,941 - #20 x
-INFO  11:18:42,941 - #37 =
-INFO  11:18:42,942 - #21 2
-INFO  11:18:42,943 - #40 ;
-INFO  11:18:42,944 - #20 x
-INFO  11:18:42,945 - #37 =
-INFO  11:18:42,945 - #21 123
-INFO  11:18:42,945 - #40 ;
-INFO  11:18:42,945 - #20 x
-INFO  11:18:42,945 - #37 =
-INFO  11:18:42,945 - #21 3
-INFO  11:18:42,946 - #40 ;
-INFO  11:18:42,946 - #48 }
-INFO  11:18:42,946 - #48 }
-INFO  11:18:42,956 - Program(
+INFO  11:17:41,889 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  11:17:41,969 - #2 program
+INFO  11:17:41,969 - #20 MJProgram
+INFO  11:17:41,970 - #47 {
+INFO  11:17:41,973 - #20 int
+INFO  11:17:41,973 - #20 main
+INFO  11:17:41,974 - #43 (
+INFO  11:17:41,975 - #44 )
+INFO  11:17:41,975 - #20 int
+INFO  11:17:41,975 - #20 x
+INFO  11:17:41,976 - #40 ;
+INFO  11:17:41,976 - #20 int
+INFO  11:17:41,976 - #20 y
+INFO  11:17:41,977 - #45 [
+INFO  11:17:41,977 - #46 ]
+INFO  11:17:41,977 - #40 ;
+INFO  11:17:41,977 - #20 int
+INFO  11:17:41,977 - #20 z
+INFO  11:17:41,977 - #45 [
+INFO  11:17:41,977 - #46 ]
+INFO  11:17:41,978 - #40 ;
+INFO  11:17:41,978 - #20 int
+INFO  11:17:41,978 - #20 p
+INFO  11:17:41,978 - #41 ,
+INFO  11:17:41,978 - #20 q
+INFO  11:17:41,978 - #40 ;
+INFO  11:17:41,979 - #47 {
+INFO  11:17:41,979 - #20 x
+INFO  11:17:41,979 - #37 =
+INFO  11:17:41,980 - #21 2
+INFO  11:17:41,981 - #40 ;
+INFO  11:17:41,982 - #20 x
+INFO  11:17:41,982 - #37 =
+INFO  11:17:41,982 - #21 123
+INFO  11:17:41,982 - #40 ;
+INFO  11:17:41,983 - #20 x
+INFO  11:17:41,983 - #37 =
+INFO  11:17:41,983 - #21 3
+INFO  11:17:41,983 - #40 ;
+INFO  11:17:41,983 - #48 }
+INFO  11:17:41,983 - #48 }
+INFO  11:17:41,993 - Program(
   ProgName(
    MJProgram
   ) [ProgName]
@@ -195,22 +195,22 @@ INFO  11:18:42,956 - Program(
     ) [MethodDeclaration]
   ) [MethodDeclarations]
 ) [Program]
-INFO  11:18:42,958 - ===================================
-INFO  11:18:42,963 - Usao sam u ProgName na liniji 1
-INFO  11:18:42,964 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 5
-INFO  11:18:42,964 - Obradjuje se funkcija main na liniji 5
-INFO  11:18:42,964 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 5
-INFO  11:18:42,964 - Varijabla  x na liniji 10 na liniji 10
-INFO  11:18:42,964 - ime : x
-INFO  11:18:42,964 - Dodela je okej na liniji 10
-INFO  11:18:42,964 - Varijabla  x na liniji 11 na liniji 11
-INFO  11:18:42,965 - ime : x
-INFO  11:18:42,965 - Dodela je okej na liniji 11
-INFO  11:18:42,965 - Varijabla  x na liniji 12 na liniji 12
-INFO  11:18:42,965 - ime : x
-INFO  11:18:42,965 - Dodela je okej na liniji 12
-ERROR 11:18:42,965 - Greska: 5: main  funkcija nema return a treba da ima
-INFO  11:18:42,965 - Usao sam u Program na liniji 1
-INFO  11:18:42,966 -  Print count calls = 0
-INFO  11:18:42,966 - ===================================
-ERROR 11:18:42,967 - Parsiranje NIJE uspesno zavrseno
+INFO  11:17:41,994 - ===================================
+INFO  11:17:42,001 - Usao sam u ProgName na liniji 1
+INFO  11:17:42,001 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 5
+INFO  11:17:42,001 - Obradjuje se funkcija main na liniji 5
+INFO  11:17:42,001 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 5
+INFO  11:17:42,002 - Varijabla  x na liniji 10 na liniji 10
+INFO  11:17:42,002 - ime : x
+INFO  11:17:42,002 - Dodela je okej na liniji 10
+INFO  11:17:42,002 - Varijabla  x na liniji 11 na liniji 11
+INFO  11:17:42,003 - ime : x
+INFO  11:17:42,003 - Dodela je okej na liniji 11
+INFO  11:17:42,003 - Varijabla  x na liniji 12 na liniji 12
+INFO  11:17:42,003 - ime : x
+INFO  11:17:42,003 - Dodela je okej na liniji 12
+ERROR 11:17:42,003 - Greska: 5: main  funkcija nema return a treba da ima
+INFO  11:17:42,003 - Usao sam u Program na liniji 1
+INFO  11:17:42,004 -  Print count calls = 0
+INFO  11:17:42,004 - ===================================
+ERROR 11:17:42,005 - Parsiranje NIJE uspesno zavrseno

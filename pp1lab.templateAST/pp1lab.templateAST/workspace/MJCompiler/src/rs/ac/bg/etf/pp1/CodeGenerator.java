@@ -34,6 +34,12 @@ import rs.ac.bg.etf.pp1.ast.MulopDiv;
 import rs.ac.bg.etf.pp1.ast.MulopMod;
 import rs.ac.bg.etf.pp1.ast.MulopMul;
 import rs.ac.bg.etf.pp1.ast.PrintValue;
+import rs.ac.bg.etf.pp1.ast.RelopEqual;
+import rs.ac.bg.etf.pp1.ast.RelopGreater;
+import rs.ac.bg.etf.pp1.ast.RelopGreaterEqual;
+import rs.ac.bg.etf.pp1.ast.RelopLower;
+import rs.ac.bg.etf.pp1.ast.RelopLowerEqual;
+import rs.ac.bg.etf.pp1.ast.RelopNotEqual;
 import rs.ac.bg.etf.pp1.ast.StatPrint;
 import rs.ac.bg.etf.pp1.ast.StatPrintValue;
 import rs.ac.bg.etf.pp1.ast.StatRead;
@@ -496,10 +502,51 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Pa brate u izmenjenom kodu ono, gde ti je
 //	expr ? expr : expr tu ti ne treba uopste 
 //	cond bilo sta
+
+//	Ovo radim posle gotovog projekta, radi malo dodavanja
 	public void visit(CondFactOne CondFactOne) {
+//		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
+//		Da moze i true i false da ima uternarnom  
 	}
 
 	public void visit(CondFactRelop CondFactRelop) {
+//		Kao i sa termMore gore, trebalo bi da ti se vec
+//		obe vrednosti nalaze na steku, sada ti samo da pozoves potrebnu operaciju 
+//		i to bi trebalo da bude to
+//		Fora je sto treba da pogledas koja prva pada i za svaku mogucu od 6 
+//		logickih uslova da smislis kako odraditi to u MJ i da taj kod ispises
+//		a ne da radis neke skokove ili tako neke uslove
+		boolean isEqual = (CondFactRelop.getRelop().getClass() == RelopEqual.class);
+		boolean isNotEqual = (CondFactRelop.getRelop().getClass() == RelopNotEqual.class);
+		boolean isGreater = (CondFactRelop.getRelop().getClass() == RelopGreater.class);
+		boolean isGreaterEqual = (CondFactRelop.getRelop().getClass() == RelopGreaterEqual.class);
+		boolean isLower = (CondFactRelop.getRelop().getClass() == RelopLower.class);
+		boolean isLowerEqual = (CondFactRelop.getRelop().getClass() == RelopLowerEqual.class);
+		if (isEqual)
+			Code.putFalseJump(Code.eq, 0); // put(jeq) put put 100 101 102
+//			Code.loadConst(0);				// put					103 
+//			Code.putJump(0);				// put(jmp) put put		104 105 106
+//			Code.fixup(Code.pc-6);			//							  		PC = 107
+//			Code.loadConst(1);				// put					107 
+//			Code.fixup(Code.pc-3);//							  				PC = 108
+		else if (isNotEqual)
+			Code.putFalseJump(Code.ne, 0);
+		else if (isGreater)
+			Code.putFalseJump(Code.gt, 0);
+		else if (isGreaterEqual)
+			Code.putFalseJump(Code.ge, 0);
+		else if (isLower)
+			Code.putFalseJump(Code.lt, 0);
+		else if (isLowerEqual)
+			Code.putFalseJump(Code.le, 0);
+		else
+			System.out.println("Greska neka");
+
+		Code.loadConst(0); // put 103
+		Code.putJump(0); // put(jmp) put put 104 105 106
+		Code.fixup(Code.pc - 6); // PC = 107
+		Code.loadConst(1); // put 107
+		Code.fixup(Code.pc - 3);// PC = 108
 	}
 
 	public void visit(Expr0 Expr0) {

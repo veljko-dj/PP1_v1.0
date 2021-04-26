@@ -584,9 +584,36 @@ public class SemanticPass extends VisitorAdaptor {
 		}
 	}
 
+//	Ovo radim posle gotovog projekta, radi malo dodavanja
 	public void visit(CondFactOne CondFactOne) {
-
+//		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
+//		Da moze i true i false da ima uternarnom 
+		CondFactOne.struct = CondFactOne.getExprManjiProstiji().struct;
 	}
+
+	public void visit(CondFactRelop CondFactRelop) {
+		boolean validKind = (CondFactRelop.getExprManjiProstiji().struct
+				.getKind() == CondFactRelop.getExprManjiProstiji1().struct.getKind());
+
+//		Ovo sada je druga tacka iz definicije kompatabilnosti
+		boolean validKind2 = (CondFactRelop.getExprManjiProstiji().struct.getKind() == 5
+				&& (CondFactRelop.getExprManjiProstiji1().struct == null
+						|| CondFactRelop.getExprManjiProstiji1().struct == Tab.noType));
+		boolean validKind2Obrnuto = (CondFactRelop.getExprManjiProstiji1().struct.getKind() == 5
+				&& (CondFactRelop.getExprManjiProstiji1().struct == null
+						|| CondFactRelop.getExprManjiProstiji1().struct == Tab.noType));
+
+		if (!(validKind || validKind2 || validKind2Obrnuto))
+			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
+					CondFactRelop);
+		else {
+			// sve je okej
+			report_info("Dodela je okej", CondFactRelop);
+			CondFactRelop.struct = CondFactRelop.getExprManjiProstiji().struct;
+//			Ovo ne znam da li j dobro prosledjivanje
+		}
+	}
+
 //	Expr := ["‐"] Term {Addop Term} | CondFact "?" Expr ":" Expr. 
 	// Expr //
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -774,10 +801,6 @@ public class SemanticPass extends VisitorAdaptor {
 		boolean validKind = (DStatementAssign.getDesignator().obj.getKind() == Obj.Var
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Elem
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Fld);
-		Struct tmp = DStatementAssign.getDesignator().obj.getType();
-		Struct tmp1 = DStatementAssign.getExpr().struct;
-		if (tmp1 == null)
-			DStatementAssign.getExpr().struct.getElemType();
 		boolean validType = (DStatementAssign.getExpr().struct
 				.assignableTo(DStatementAssign.getDesignator().obj.getType()));
 

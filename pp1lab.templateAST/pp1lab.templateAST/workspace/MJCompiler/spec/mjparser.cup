@@ -71,7 +71,7 @@ terminal LBRACE, RBRACE, QMARK, DOTS;
  
 								//Dodati neterminali
 nonterminal ConstDecl, ClassDecl, DesignatorStatement;
-nonterminal ActPars, Condition, CondTerm, CondFact;
+nonterminal ActPars, Condition, CondTerm;
 nonterminal Assignop, Relop, Mulop;
 								// Ovi dole su vec postojali u sablon fajlu
 								
@@ -91,6 +91,10 @@ nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionT
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
+					
+// Dodajem da probam, da vidim da li ce praviti neke probleme i da uvedem to na taj nacin
+//						sada sam u generisanju koda, zavrsio proj
+nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList LBRACE MethodDeclList RBRACE ;
 

@@ -293,7 +293,7 @@ Expr ::=  	(Expr0) ExprCondition:E1 QMARK ExprConditionTrue:E2 DOTS ExprConditio
 // Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
 // Ipak moram da razbijem ovo na razlicite
 
-ExprCondition ::= (ExprCondition) ExprManjiProstiji:condition {: RESULT=new ExprCondition(condition); RESULT.setLine(conditionleft); :} ;
+ExprCondition ::= (ExprCondition) CondFact:condition {: RESULT=new ExprCondition(condition); RESULT.setLine(conditionleft); :} ;
 ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue {: RESULT=new ExprConditionTrue(conditionTrue); RESULT.setLine(conditionTrueleft); :} ;
 ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse {: RESULT=new ExprConditionFalse(conditionFalse); RESULT.setLine(conditionFalseleft); :} ;
 	 

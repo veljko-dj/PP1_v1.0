@@ -1,0 +1,129 @@
+INFO  10:39:55,137 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  10:39:55,233 - #2 program
+INFO  10:39:55,233 - #20 MJProgram
+INFO  10:39:55,233 - #47 {
+INFO  10:39:55,236 - #20 int
+INFO  10:39:55,237 - #20 main
+INFO  10:39:55,238 - #43 (
+INFO  10:39:55,239 - #44 )
+INFO  10:39:55,240 - #20 int
+INFO  10:39:55,241 - #20 x
+INFO  10:39:55,241 - #40 ;
+INFO  10:39:55,242 - #20 int
+INFO  10:39:55,242 - #20 y
+INFO  10:39:55,243 - #45 [
+INFO  10:39:55,243 - #46 ]
+INFO  10:39:55,243 - #40 ;
+INFO  10:39:55,243 - #20 int
+INFO  10:39:55,243 - #20 z
+INFO  10:39:55,244 - #45 [
+INFO  10:39:55,244 - #46 ]
+INFO  10:39:55,244 - #40 ;
+INFO  10:39:55,244 - #20 int
+INFO  10:39:55,245 - #20 p
+INFO  10:39:55,245 - #41 ,
+INFO  10:39:55,245 - #20 q
+INFO  10:39:55,245 - #40 ;
+INFO  10:39:55,246 - #47 {
+INFO  10:39:55,246 - #48 }
+INFO  10:39:55,247 - #48 }
+INFO  10:39:55,260 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclaration(
+        ManyVarDeclaration(
+          ManyVarDeclaration(
+            ManyVarDeclaration(
+              ManyVarDeclNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ManyVarDeclNo]
+              VarDeclaration(
+                Type(
+                 int
+                ) [Type]
+                VarDecListOneElement(
+                  VarDeclOneNoSquare(
+                   x
+                  ) [VarDeclOneNoSquare]
+                ) [VarDecListOneElement]
+              ) [VarDeclaration]
+            ) [ManyVarDeclaration]
+            VarDeclaration(
+              Type(
+               int
+              ) [Type]
+              VarDecListOneElement(
+                VarDeclOneSquare(
+                 y
+                ) [VarDeclOneSquare]
+              ) [VarDecListOneElement]
+            ) [VarDeclaration]
+          ) [ManyVarDeclaration]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDecListOneElement(
+              VarDeclOneSquare(
+               z
+              ) [VarDeclOneSquare]
+            ) [VarDecListOneElement]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        VarDeclaration(
+          Type(
+           int
+          ) [Type]
+          VarDeclarations(
+            VarDecListOneElement(
+              VarDeclOneNoSquare(
+               p
+              ) [VarDeclOneNoSquare]
+            ) [VarDecListOneElement]
+            VarDeclOneNoSquare(
+             q
+            ) [VarDeclOneNoSquare]
+          ) [VarDeclarations]
+        ) [VarDeclaration]
+      ) [ManyVarDeclaration]
+      StatementListNo(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [StatementListNo]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  10:39:55,261 - ===================================
+INFO  10:39:55,268 - Usao sam u ProgName na liniji 1
+INFO  10:39:55,269 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
+INFO  10:39:55,269 - Obradjuje se funkcija main na liniji 4
+INFO  10:39:55,269 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
+ERROR 10:39:55,270 - Greska: 4: main  funkcija nema return a treba da ima
+INFO  10:39:55,270 - Usao sam u Program na liniji 1
+INFO  10:39:55,271 -  Print count calls = 0
+INFO  10:39:55,271 - ===================================
+ERROR 10:39:55,274 - Parsiranje NIJE uspesno zavrseno

@@ -522,31 +522,34 @@ public class CodeGenerator extends VisitorAdaptor {
 		boolean isGreaterEqual = (CondFactRelop.getRelop().getClass() == RelopGreaterEqual.class);
 		boolean isLower = (CondFactRelop.getRelop().getClass() == RelopLower.class);
 		boolean isLowerEqual = (CondFactRelop.getRelop().getClass() == RelopLowerEqual.class);
+//		inverse[]={ne, eq, ge, gt, le, lt}; Prekopirano iz Code.class
+//		jumpFalse ne radi kako ti zelis! Ne koristi Code.eq jer nije lepo sortirano
+//		Koristi ovo gore
 		if (isEqual)
-			Code.putFalseJump(Code.eq, 0); // put(jeq) put put 100 101 102
+			Code.putFalseJump(1, 0); // put(jeq) put put 100 101 102
 //			Code.loadConst(0);				// put					103 
 //			Code.putJump(0);				// put(jmp) put put		104 105 106
 //			Code.fixup(Code.pc-6);			//							  		PC = 107
 //			Code.loadConst(1);				// put					107 
 //			Code.fixup(Code.pc-3);//							  				PC = 108
 		else if (isNotEqual)
-			Code.putFalseJump(Code.ne, 0);
+			Code.putFalseJump(0, 0);
 		else if (isGreater)
-			Code.putFalseJump(Code.gt, 0);
+			Code.putFalseJump(3, 0);
 		else if (isGreaterEqual)
-			Code.putFalseJump(Code.ge, 0);
+			Code.putFalseJump(2, 0);
 		else if (isLower)
-			Code.putFalseJump(Code.lt, 0);
+			Code.putFalseJump(5, 0);
 		else if (isLowerEqual)
-			Code.putFalseJump(Code.le, 0);
+			Code.putFalseJump(4, 0);
 		else
 			System.out.println("Greska neka");
 
-		Code.loadConst(0); // put 103
-		Code.putJump(0); // put(jmp) put put 104 105 106
-		Code.fixup(Code.pc - 6); // PC = 107
-		Code.loadConst(1); // put 107
-		Code.fixup(Code.pc - 3);// PC = 108
+		Code.loadConst(0);
+		Code.putJump(0);
+		Code.fixup(Code.pc - 6);
+		Code.loadConst(1);
+		Code.fixup(Code.pc - 3);
 	}
 
 	public void visit(Expr0 Expr0) {

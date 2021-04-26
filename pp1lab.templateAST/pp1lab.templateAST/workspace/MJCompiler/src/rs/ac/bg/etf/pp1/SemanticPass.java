@@ -636,7 +636,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(ExprCondition ExprCondition) {
-		ExprCondition.struct = ExprCondition.getExprManjiProstiji().struct;
+		ExprCondition.struct = ExprCondition.getCondFact().struct;
 	}
 
 	@Override
@@ -873,6 +873,14 @@ public class SemanticPass extends VisitorAdaptor {
 			// sve je okej
 			report_info("Log_info: Decrement", DStatementDec);
 		}
+	}
+
+	public void visit(RelopLower RelopLower) {
+		report_info("Log_info: Usao u RelopLower", RelopLower);
+	}
+
+	public void visit(RelopLowerEqual RelopLowerEqual) {
+		report_info("Log_info: Usao u RelopLowerEqual", RelopLowerEqual);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////

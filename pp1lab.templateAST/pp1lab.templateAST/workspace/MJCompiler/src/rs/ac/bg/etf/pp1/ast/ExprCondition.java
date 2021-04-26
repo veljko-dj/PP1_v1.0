@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 26/3/2021 1:18:30
+// 26/3/2021 11:3:24
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -11,19 +11,19 @@ public class ExprCondition implements SyntaxNode {
     private int line;
     public rs.etf.pp1.symboltable.concepts.Struct struct = null;
 
-    private ExprManjiProstiji ExprManjiProstiji;
+    private CondFact CondFact;
 
-    public ExprCondition (ExprManjiProstiji ExprManjiProstiji) {
-        this.ExprManjiProstiji=ExprManjiProstiji;
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.setParent(this);
+    public ExprCondition (CondFact CondFact) {
+        this.CondFact=CondFact;
+        if(CondFact!=null) CondFact.setParent(this);
     }
 
-    public ExprManjiProstiji getExprManjiProstiji() {
-        return ExprManjiProstiji;
+    public CondFact getCondFact() {
+        return CondFact;
     }
 
-    public void setExprManjiProstiji(ExprManjiProstiji ExprManjiProstiji) {
-        this.ExprManjiProstiji=ExprManjiProstiji;
+    public void setCondFact(CondFact CondFact) {
+        this.CondFact=CondFact;
     }
 
     public SyntaxNode getParent() {
@@ -47,16 +47,16 @@ public class ExprCondition implements SyntaxNode {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.accept(visitor);
+        if(CondFact!=null) CondFact.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseTopDown(visitor);
+        if(CondFact!=null) CondFact.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(ExprManjiProstiji!=null) ExprManjiProstiji.traverseBottomUp(visitor);
+        if(CondFact!=null) CondFact.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -65,8 +65,8 @@ public class ExprCondition implements SyntaxNode {
         buffer.append(tab);
         buffer.append("ExprCondition(\n");
 
-        if(ExprManjiProstiji!=null)
-            buffer.append(ExprManjiProstiji.toString("  "+tab));
+        if(CondFact!=null)
+            buffer.append(CondFact.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

@@ -1,0 +1,204 @@
+INFO  11:01:19,102 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  11:01:19,210 - #2 program
+INFO  11:01:19,210 - #20 MJProgram
+INFO  11:01:19,211 - #47 {
+INFO  11:01:19,214 - #20 int
+INFO  11:01:19,215 - #20 main
+INFO  11:01:19,216 - #43 (
+INFO  11:01:19,218 - #44 )
+INFO  11:01:19,218 - #20 int
+INFO  11:01:19,219 - #20 x
+INFO  11:01:19,219 - #40 ;
+INFO  11:01:19,220 - #20 int
+INFO  11:01:19,221 - #20 y
+INFO  11:01:19,221 - #45 [
+INFO  11:01:19,222 - #46 ]
+INFO  11:01:19,222 - #40 ;
+INFO  11:01:19,222 - #20 int
+INFO  11:01:19,223 - #20 z
+INFO  11:01:19,223 - #45 [
+INFO  11:01:19,224 - #46 ]
+INFO  11:01:19,224 - #40 ;
+INFO  11:01:19,225 - #20 int
+INFO  11:01:19,225 - #20 p
+INFO  11:01:19,225 - #41 ,
+INFO  11:01:19,225 - #20 q
+INFO  11:01:19,226 - #40 ;
+INFO  11:01:19,226 - #47 {
+INFO  11:01:19,226 - #13 print
+INFO  11:01:19,227 - #43 (
+INFO  11:01:19,227 - #21 3
+INFO  11:01:19,227 - #32 >=
+INFO  11:01:19,228 - #21 4
+INFO  11:01:19,229 - #49 ?
+INFO  11:01:19,231 - #22 t
+INFO  11:01:19,232 - #50 :
+INFO  11:01:19,233 - #22 n
+INFO  11:01:19,233 - #44 )
+INFO  11:01:19,234 - #40 ;
+INFO  11:01:19,234 - #15 return
+INFO  11:01:19,235 - #21 1
+INFO  11:01:19,235 - #40 ;
+INFO  11:01:19,236 - #48 }
+INFO  11:01:19,236 - #48 }
+INFO  11:01:19,260 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclaration(
+        ManyVarDeclaration(
+          ManyVarDeclaration(
+            ManyVarDeclaration(
+              ManyVarDeclNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ManyVarDeclNo]
+              VarDeclaration(
+                Type(
+                 int
+                ) [Type]
+                VarDecListOneElement(
+                  VarDeclOneNoSquare(
+                   x
+                  ) [VarDeclOneNoSquare]
+                ) [VarDecListOneElement]
+              ) [VarDeclaration]
+            ) [ManyVarDeclaration]
+            VarDeclaration(
+              Type(
+               int
+              ) [Type]
+              VarDecListOneElement(
+                VarDeclOneSquare(
+                 y
+                ) [VarDeclOneSquare]
+              ) [VarDecListOneElement]
+            ) [VarDeclaration]
+          ) [ManyVarDeclaration]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDecListOneElement(
+              VarDeclOneSquare(
+               z
+              ) [VarDeclOneSquare]
+            ) [VarDecListOneElement]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        VarDeclaration(
+          Type(
+           int
+          ) [Type]
+          VarDeclarations(
+            VarDecListOneElement(
+              VarDeclOneNoSquare(
+               p
+              ) [VarDeclOneNoSquare]
+            ) [VarDecListOneElement]
+            VarDeclOneNoSquare(
+             q
+            ) [VarDeclOneNoSquare]
+          ) [VarDeclarations]
+        ) [VarDeclaration]
+      ) [ManyVarDeclaration]
+      StatementListt(
+        StatementListt(
+          StatementListNo(
+            EpsilonDerived1(
+            ) [EpsilonDerived1]
+          ) [StatementListNo]
+          MatchedStat(
+            StatPrint(
+              Expr0(
+                ExprCondition(
+                  CondFactRelop(
+                    ExprTerm(
+                      TermOne(
+                        FactNum(
+                         3
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                    RelopGreaterEqual(
+                    ) [RelopGreaterEqual]
+                    ExprTerm(
+                      TermOne(
+                        FactNum(
+                         4
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [CondFactRelop]
+                ) [ExprCondition]
+                ExprConditionTrue(
+                  ExprTerm(
+                    TermOne(
+                      FactChar(
+                       t
+                      ) [FactChar]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [ExprConditionTrue]
+                ExprConditionFalse(
+                  ExprTerm(
+                    TermOne(
+                      FactChar(
+                       n
+                      ) [FactChar]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [ExprConditionFalse]
+              ) [Expr0]
+            ) [StatPrint]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatReturn(
+            Expr1(
+              ExprTerm(
+                TermOne(
+                  FactNum(
+                   1
+                  ) [FactNum]
+                ) [TermOne]
+              ) [ExprTerm]
+            ) [Expr1]
+          ) [StatReturn]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  11:01:19,264 - ===================================
+INFO  11:01:19,275 - Usao sam u ProgName na liniji 1
+INFO  11:01:19,276 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 4
+INFO  11:01:19,276 - Obradjuje se funkcija main na liniji 4
+INFO  11:01:19,276 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 4
+INFO  11:01:19,277 - Dodela je okej na liniji 9
+INFO  11:01:19,278 - Usao sam u Program na liniji 1
+INFO  11:01:19,278 -  Print count calls = 1
+INFO  11:01:19,278 - ===================================
+INFO  11:01:19,303 - Parsiranje uspesno zavrseno!

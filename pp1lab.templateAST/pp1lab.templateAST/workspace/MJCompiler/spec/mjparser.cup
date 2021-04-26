@@ -269,7 +269,7 @@ Expr ::=  	(Expr0) ExprCondition QMARK ExprConditionTrue DOTS ExprConditionFalse
 // Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
 // Ipak moram da razbijem ovo na razlicite
 
-ExprCondition ::= (ExprCondition) ExprManjiProstiji:condition ;
+ExprCondition ::= (ExprCondition) CondFact:condition ;
 ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue ;
 ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse ;
 	 

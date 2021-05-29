@@ -48,6 +48,7 @@ import java_cup.runtime.Symbol;
 "do"   		{ return new_symbol(sym.DO, yytext());}
 "while"   	{ return new_symbol(sym.WHILE, yytext());}
 "new"   	{ return new_symbol(sym.NEW, yytext());}
+
 					// Drugi red
 "print"  	{ return new_symbol(sym.PRINT, yytext());}
 "read"   	{ return new_symbol(sym.READ, yytext());}

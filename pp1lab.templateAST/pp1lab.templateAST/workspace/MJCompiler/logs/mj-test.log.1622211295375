@@ -1,0 +1,216 @@
+INFO  16:14:32,769 - Compiling source file: F:\Fakultet i Srednja\Elektrotehnicki\7. semestar\PP\Projekat\PP_Projekat_v1.0\pp1lab.templateAST\pp1lab.templateAST\workspace\MJCompiler\test\program.mj
+INFO  16:14:32,848 - #2 program
+INFO  16:14:32,848 - #20 MJProgram
+INFO  16:14:32,848 - #47 {
+INFO  16:14:32,851 - #20 int
+INFO  16:14:32,851 - #20 main
+INFO  16:14:32,853 - #43 (
+INFO  16:14:32,854 - #44 )
+INFO  16:14:32,854 - #20 int
+INFO  16:14:32,855 - #20 x
+INFO  16:14:32,855 - #40 ;
+INFO  16:14:32,856 - #20 int
+INFO  16:14:32,856 - #20 y
+INFO  16:14:32,856 - #45 [
+INFO  16:14:32,856 - #46 ]
+INFO  16:14:32,857 - #40 ;
+INFO  16:14:32,857 - #20 int
+INFO  16:14:32,858 - #20 z
+INFO  16:14:32,858 - #45 [
+INFO  16:14:32,858 - #46 ]
+INFO  16:14:32,859 - #40 ;
+INFO  16:14:32,859 - #20 int
+INFO  16:14:32,859 - #20 p
+INFO  16:14:32,859 - #41 ,
+INFO  16:14:32,859 - #20 q
+INFO  16:14:32,860 - #40 ;
+INFO  16:14:32,860 - #47 {
+INFO  16:14:32,861 - #20 x
+INFO  16:14:32,861 - #37 =
+INFO  16:14:32,862 - #21 2
+INFO  16:14:32,863 - #40 ;
+INFO  16:14:32,864 - #20 x
+INFO  16:14:32,864 - #37 =
+INFO  16:14:32,864 - #21 123
+INFO  16:14:32,865 - #40 ;
+INFO  16:14:32,865 - #20 x
+INFO  16:14:32,865 - #37 =
+INFO  16:14:32,865 - #21 3
+INFO  16:14:32,865 - #40 ;
+INFO  16:14:32,866 - #48 }
+INFO  16:14:32,866 - #48 }
+INFO  16:14:32,877 - Program(
+  ProgName(
+   MJProgram
+  ) [ProgName]
+  ConstVarClassDeclList_No(
+    EpsilonDerived1(
+    ) [EpsilonDerived1]
+  ) [ConstVarClassDeclList_No]
+  MethodDeclarations(
+    NoMethodDecl(
+      EpsilonDerived1(
+      ) [EpsilonDerived1]
+    ) [NoMethodDecl]
+    MethodDeclaration(
+      MethodTypeName(
+        RetType1(
+          Type(
+           int
+          ) [Type]
+        ) [RetType1]
+       main
+      ) [MethodTypeName]
+      NoFormParam(
+        EpsilonDerived1(
+        ) [EpsilonDerived1]
+      ) [NoFormParam]
+      ManyVarDeclaration(
+        ManyVarDeclaration(
+          ManyVarDeclaration(
+            ManyVarDeclaration(
+              ManyVarDeclNo(
+                EpsilonDerived1(
+                ) [EpsilonDerived1]
+              ) [ManyVarDeclNo]
+              VarDeclaration(
+                Type(
+                 int
+                ) [Type]
+                VarDecListOneElement(
+                  VarDeclOneNoSquare(
+                   x
+                  ) [VarDeclOneNoSquare]
+                ) [VarDecListOneElement]
+              ) [VarDeclaration]
+            ) [ManyVarDeclaration]
+            VarDeclaration(
+              Type(
+               int
+              ) [Type]
+              VarDecListOneElement(
+                VarDeclOneSquare(
+                 y
+                ) [VarDeclOneSquare]
+              ) [VarDecListOneElement]
+            ) [VarDeclaration]
+          ) [ManyVarDeclaration]
+          VarDeclaration(
+            Type(
+             int
+            ) [Type]
+            VarDecListOneElement(
+              VarDeclOneSquare(
+               z
+              ) [VarDeclOneSquare]
+            ) [VarDecListOneElement]
+          ) [VarDeclaration]
+        ) [ManyVarDeclaration]
+        VarDeclaration(
+          Type(
+           int
+          ) [Type]
+          VarDeclarations(
+            VarDecListOneElement(
+              VarDeclOneNoSquare(
+               p
+              ) [VarDeclOneNoSquare]
+            ) [VarDecListOneElement]
+            VarDeclOneNoSquare(
+             q
+            ) [VarDeclOneNoSquare]
+          ) [VarDeclarations]
+        ) [VarDeclaration]
+      ) [ManyVarDeclaration]
+      StatementListt(
+        StatementListt(
+          StatementListt(
+            StatementListNo(
+              EpsilonDerived1(
+              ) [EpsilonDerived1]
+            ) [StatementListNo]
+            MatchedStat(
+              StatDesign(
+                DStatementAssign(
+                  DesignatorJustOne(
+                   x
+                  ) [DesignatorJustOne]
+                  AssignopDerived1(
+                  ) [AssignopDerived1]
+                  Expr1(
+                    ExprTerm(
+                      TermOne(
+                        FactNum(
+                         2
+                        ) [FactNum]
+                      ) [TermOne]
+                    ) [ExprTerm]
+                  ) [Expr1]
+                ) [DStatementAssign]
+              ) [StatDesign]
+            ) [MatchedStat]
+          ) [StatementListt]
+          MatchedStat(
+            StatDesign(
+              DStatementAssign(
+                DesignatorJustOne(
+                 x
+                ) [DesignatorJustOne]
+                AssignopDerived1(
+                ) [AssignopDerived1]
+                Expr1(
+                  ExprTerm(
+                    TermOne(
+                      FactNum(
+                       123
+                      ) [FactNum]
+                    ) [TermOne]
+                  ) [ExprTerm]
+                ) [Expr1]
+              ) [DStatementAssign]
+            ) [StatDesign]
+          ) [MatchedStat]
+        ) [StatementListt]
+        MatchedStat(
+          StatDesign(
+            DStatementAssign(
+              DesignatorJustOne(
+               x
+              ) [DesignatorJustOne]
+              AssignopDerived1(
+              ) [AssignopDerived1]
+              Expr1(
+                ExprTerm(
+                  TermOne(
+                    FactNum(
+                     3
+                    ) [FactNum]
+                  ) [TermOne]
+                ) [ExprTerm]
+              ) [Expr1]
+            ) [DStatementAssign]
+          ) [StatDesign]
+        ) [MatchedStat]
+      ) [StatementListt]
+    ) [MethodDeclaration]
+  ) [MethodDeclarations]
+) [Program]
+INFO  16:14:32,881 - ===================================
+INFO  16:14:32,887 - Usao sam u ProgName na liniji 1
+INFO  16:14:32,887 - Usao sam u MethodTypeName, tj. pocetak metode na liniji 5
+INFO  16:14:32,887 - Obradjuje se funkcija main na liniji 5
+INFO  16:14:32,887 - Povratni tip funkcije je : rs.etf.pp1.symboltable.concepts.Struct@6f539caf na liniji 5
+INFO  16:14:32,888 - Varijabla  x na liniji 10 na liniji 10
+INFO  16:14:32,888 - ime : x
+INFO  16:14:32,888 - Dodela je okej na liniji 10
+INFO  16:14:32,888 - Varijabla  x na liniji 11 na liniji 11
+INFO  16:14:32,888 - ime : x
+INFO  16:14:32,888 - Dodela je okej na liniji 11
+INFO  16:14:32,888 - Varijabla  x na liniji 12 na liniji 12
+INFO  16:14:32,889 - ime : x
+INFO  16:14:32,889 - Dodela je okej na liniji 12
+ERROR 16:14:32,889 - Greska: 5: main  funkcija nema return a treba da ima
+INFO  16:14:32,889 - Usao sam u Program na liniji 1
+INFO  16:14:32,889 -  Print count calls = 0
+INFO  16:14:32,889 - ===================================
+ERROR 16:14:32,891 - Parsiranje NIJE uspesno zavrseno

@@ -390,12 +390,12 @@ public class SemanticPass extends VisitorAdaptor {
 //			DesignatorStatement := Designator "--".
 //			Statement := DesignatorStatement ";".
 //			Statement := "read" "(" Designator ")" ";".
-//			Statement := "print" "(" Expr [“,” numConst] ")" ";".
-//			Expr := ["‐"] Term {Addop Term} | CondFact "?" Expr ":" Expr.
+//			Statement := "print" "(" Expr ["," numConst] ")" ";".
+//			Expr := ["-"] Term {Addop Term} | CondFact "?" Expr ":" Expr.
 //			Term := Factor {Mulop Factor}.
 //			Factor := Designator | numConst | charConst | "(" Expr ")" | boolConst | "new" Type "[" Expr "]".
 //			Designator := ident [ "[" Expr "]" ].
-//			Addop := "+" | "‐" .
+//			Addop := "+" | "-".
 //			Mulop := "*" | "/" | "%".
 
 	// Sad krecem od najmanjih elemenata, tek sam sad saznao za ovo
@@ -614,7 +614,7 @@ public class SemanticPass extends VisitorAdaptor {
 		}
 	}
 
-//	Expr := ["‐"] Term {Addop Term} | CondFact "?" Expr ":" Expr. 
+//	Expr := ["-"] Term {Addop Term} | CondFact "?" Expr ":" Expr. 
 	// Expr //
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -688,7 +688,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(ExprTermList ExprTermList) {
-		// Expr i Term moraju biti tipa int. U svakom slučaju, tipovi za Expr i Term
+		// Expr i Term moraju biti tipa int. U svakom slucaju, tipovi za Expr i Term
 		// moraju biti komatibilni.
 		boolean sameType = (ExprTermList.getExprManjiProstiji().struct.getKind() == ExprTermList.getTerm().struct
 				.getKind());
@@ -710,7 +710,7 @@ public class SemanticPass extends VisitorAdaptor {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
 //	Statement := "read" "(" Designator ")" ";".
-//	Statement := "print" "(" Expr [“,” numConst] ")" ";".
+//	Statement := "print" "(" Expr ["," numConst] ")" ";".
 	@Override
 	public void visit(StatRead StatRead) {
 		Obj desObj = StatRead.getDesignator().obj;
@@ -794,7 +794,7 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(DStatementAssign DStatementAssign) {
 		report_info("ime : " + DStatementAssign.getDesignator().obj.getName(), null);
-		// Designator mora označavati promenljivu, element niza ili polje unutar
+		// Designator mora oznacavati promenljivu, element niza ili polje unutar
 		// objekta.
 		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
 		// Designator
@@ -829,7 +829,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(DStatementInc DStatementInc) {
-		// Designator mora označavati promenljivu, element niza ili polje objekta
+		// Designator mora oznacavati promenljivu, element niza ili polje objekta
 		// unutrašnje klase.
 		// Designator mora biti tipa int.
 		boolean validKind = (DStatementInc.getDesignator().obj.getKind() == Obj.Var
@@ -853,7 +853,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(DStatementDec DStatementDec) {
-		// Designator mora označavati promenljivu, element niza ili polje objekta
+		// Designator mora oznacavati promenljivu, element niza ili polje objekta
 		// unutrašnje klase.
 		// Designator mora biti tipa int.
 		boolean validKind = (DStatementDec.getDesignator().obj.getKind() == Obj.Var

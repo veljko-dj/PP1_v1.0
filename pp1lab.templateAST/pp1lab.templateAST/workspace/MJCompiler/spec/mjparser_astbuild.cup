@@ -70,6 +70,8 @@ terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
 terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
+ 
+ 
 								//Dodati neterminali
 nonterminal ConstDecl ConstDecl;
 nonterminal ClassDecl ClassDecl;
@@ -125,6 +127,10 @@ nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionT
 // Dodajem da probam, da vidim da li ce praviti neke probleme i da uvedem to na taj nacin
 //						sada sam u generisanju koda, zavrsio proj
 nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
+
+precedence  right ELSE;
+precedence  right IF;
+
 
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList:C1 LBRACE MethodDeclList:M2 RBRACE {: RESULT=new Program(p, C1, M2); RESULT.setLine(pleft); :} ;
 
@@ -223,16 +229,20 @@ StatementList ::= 	(StatementListt) StatementList:S1 Statement:S2 {: RESULT=new 
 
 
 //StatementElse ::= (STMTELSE) ELSE Statement ;
+ 
+
 
 Statement ::= 	(MatchedStat) Matched:M1 {: RESULT=new MatchedStat(M1); RESULT.setLine(M1left); :}
 		   |   	(UnmatchedStat) Unmatched:U1 {: RESULT=new UnmatchedStat(U1); RESULT.setLine(U1left); :}
 		   ;    
+		   
+
 Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 {: RESULT=new UnmatchedIf(C1, S2); RESULT.setLine(C1left); :}
-		 	|	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN MatchedTrue:M2 Elselse:E3 StatementFalse:S4 {: RESULT=new UnmatchedIfElse(C1, M2, E3, S4); RESULT.setLine(C1left); :} ;
+		 	|	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 ELSE StatementFalse:S3 {: RESULT=new UnmatchedIfElse(C1, S2, S3); RESULT.setLine(C1left); :} ;
 		 	
 StatementTrue ::= (StatementTrue) Statement:S1 {: RESULT=new StatementTrue(S1); RESULT.setLine(S1left); :} ;
 StatementFalse ::= (StatementFalse) Statement:S1 {: RESULT=new StatementFalse(S1); RESULT.setLine(S1left); :} ;
-MatchedTrue ::= (MatchedTrue) Matched:M1 {: RESULT=new MatchedTrue(M1); RESULT.setLine(M1left); :} ;
+MatchedTrue ::= (MatchedTrue) Statement:S1 {: RESULT=new MatchedTrue(S1); RESULT.setLine(S1left); :} ;
 
 Elselse ::= (Elselse) ELSE:els {: RESULT=new Elselse(); :};
  

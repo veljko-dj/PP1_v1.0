@@ -84,6 +84,9 @@ public class CodeGenerator extends VisitorAdaptor {
 		public int whereToPutFirstTrue = 0;
 		public int whereToPutFirstFalse = 0;
 		public int whereToPutFirstAfter = 0;
+		
+		
+		public boolean falseExist =false;
 
 		public void clear() {
 			firstInstrFalse = 0;
@@ -92,6 +95,7 @@ public class CodeGenerator extends VisitorAdaptor {
 			whereToPutFirstTrue = 0;
 			whereToPutFirstFalse = 0;
 			whereToPutFirstAfter= 0;
+			falseExist= false;
 		}
 
 		public void print() {
@@ -101,6 +105,7 @@ public class CodeGenerator extends VisitorAdaptor {
 			System.out.println("WhereTrue: " + whereToPutFirstTrue);
 			System.out.println("WhereFalse: " + whereToPutFirstFalse);
 			System.out.println("WhereNext: " + whereToPutFirstAfter);
+			System.out.println("falseExist: " + falseExist);
 		}
 
 		/**
@@ -519,21 +524,17 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(StatementTrue StatementTrue) { 
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-		e.afterInst		= Code.pc;
-		e.firstInstrFalse= Code.pc;
-	}
-	@Override
-	public void visit(StatementFalse StatementFalse) {
-//		Izlaz iz drugogIzraza koji bi trebalo da je na steku
-//		System.out.println("ExprFalse" + Code.pc);
-//		Posle ovoga Pc ima vrednost prve instrukcije posle ternarnog operatora, tj. 
-//		to obicno biva STore ako je bila jednakost ili tako nesto
-//		Svakako je to mesto gde skaces iz TRUEexpr
+//		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+//		e.afterInst		= Code.pc;
+//		e.firstInstrFalse= Code.pc;
+		
+		
 
-//		Ovde nemas gde da skaces, nastavljas dalje.
 		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-		e.afterInst		= Code.pc;
+
+		e.whereToPutFirstAfter= Code.pc + 1;
+		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
+		e.firstInstrFalse = Code.pc;
 		
 	}
 	@Override
@@ -552,7 +553,22 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
 		e.firstInstrFalse = Code.pc;
 	}
-	
+
+	@Override
+	public void visit(StatementFalse StatementFalse) {
+//		Izlaz iz drugogIzraza koji bi trebalo da je na steku
+//		System.out.println("ExprFalse" + Code.pc);
+//		Posle ovoga Pc ima vrednost prve instrukcije posle ternarnog operatora, tj. 
+//		to obicno biva STore ako je bila jednakost ili tako nesto
+//		Svakako je to mesto gde skaces iz TRUEexpr
+
+//		Ovde nemas gde da skaces, nastavljas dalje.
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+		e.afterInst		= Code.pc;
+		
+		e.falseExist= true;
+		
+	}
 	
 	@Override
 	public void visit(UnmatchedIf UnmatchedIf) { 
@@ -562,7 +578,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		listAdrIfElse.remove(e); 
 
 //		adrExpr.print();
-//		adrExpr.fixup(adrExpr.whereToPutFirstAfter, adrExpr.afterInst);
+		e.fixup(e.whereToPutFirstAfter, e.firstInstrFalse);
 		e.fixup(e.whereToPutFirstFalse, e.firstInstrFalse);
 		e.clear();
 	}

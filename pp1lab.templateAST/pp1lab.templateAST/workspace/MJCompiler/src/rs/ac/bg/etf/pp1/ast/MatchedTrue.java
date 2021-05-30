@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 15:3:32
+// 30/4/2021 15:55:27
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,19 +9,19 @@ public class MatchedTrue implements SyntaxNode {
 
     private SyntaxNode parent;
     private int line;
-    private Matched Matched;
+    private Statement Statement;
 
-    public MatchedTrue (Matched Matched) {
-        this.Matched=Matched;
-        if(Matched!=null) Matched.setParent(this);
+    public MatchedTrue (Statement Statement) {
+        this.Statement=Statement;
+        if(Statement!=null) Statement.setParent(this);
     }
 
-    public Matched getMatched() {
-        return Matched;
+    public Statement getStatement() {
+        return Statement;
     }
 
-    public void setMatched(Matched Matched) {
-        this.Matched=Matched;
+    public void setStatement(Statement Statement) {
+        this.Statement=Statement;
     }
 
     public SyntaxNode getParent() {
@@ -45,16 +45,16 @@ public class MatchedTrue implements SyntaxNode {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Matched!=null) Matched.accept(visitor);
+        if(Statement!=null) Statement.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Matched!=null) Matched.traverseTopDown(visitor);
+        if(Statement!=null) Statement.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Matched!=null) Matched.traverseBottomUp(visitor);
+        if(Statement!=null) Statement.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -63,8 +63,8 @@ public class MatchedTrue implements SyntaxNode {
         buffer.append(tab);
         buffer.append("MatchedTrue(\n");
 
-        if(Matched!=null)
-            buffer.append(Matched.toString("  "+tab));
+        if(Statement!=null)
+            buffer.append(Statement.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

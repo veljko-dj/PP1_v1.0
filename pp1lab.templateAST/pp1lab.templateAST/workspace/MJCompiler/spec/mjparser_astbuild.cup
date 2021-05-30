@@ -250,7 +250,7 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI {: RESULT=new StatReturn2(); :}
 			|	(StatPrint) PRINT LPAREN Expr:E1 RPAREN SEMI {: RESULT=new StatPrint(E1); RESULT.setLine(E1left); :} 
-			|	(StatPrintValue) PRINT LPAREN Expr:E1 PrintValue:P2 RPAREN SEMI {: RESULT=new StatPrintValue(E1, P2); RESULT.setLine(E1left); :} 
+			|	(StatPrintValue) PRINT LPAREN Expr:E1 COMMA NUMBER_CONST:value SEMI {: RESULT=new StatPrintValue(E1, value); RESULT.setLine(E1left); :} 
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :} {: RESULT=new StatErrAssignment(); :};
 							
@@ -269,7 +269,7 @@ CaseList ::= 	(CaseListt) CaseList:C1 CASE:c Stagod:S2  DOTS:d StatementList:S3 
 Stagod ::= NUMBER_CONST:N1 {: RESULT=new StagodDerived1(N1); RESULT.setLine(N1left); :} ;				// Verovatno radi i bez ovvoga ali neka ga
 
 			
-PrintValue ::=	(PrintValue) PrintValue:P1 COMMA NUMBER_CONST:value {: RESULT=new PrintValue(P1, value); RESULT.setLine(P1left); :} ;
+PrintValue ::=	(PrintValue)  NUMBER_CONST:value {: RESULT=new PrintValue(value); RESULT.setLine(valueleft); :} ;
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 

@@ -1,1 +1,65 @@
-program 
+program imePrograma
+
+// ConstDecl
+const int constInt = 3;
+const bool constBool = false, constBool2 = true;
+const char constChar = 'x';
+
+// VarDecl 
+int varInt, varInt2, varInt3;
+int varNiz[], varNiz2[];
+bool varBool, varBool2;
+
+// Const Var pomesano 
+const int constPomesano = 3;
+
+
+{
+
+int main()
+
+//Var Decl
+int v1, v2, v3;
+bool b1;
+int nizLok[];
+{ 
+	nizLok = new int[10];
+	v3=0;
+ 	v1= 3;
+ 	v2= 3 + 1*2*3 - 7 + 2*5;  				// 12
+ 	
+ 	v2 = v1 + 3*10+ 20 +constInt;		  	// 56
+ 	
+ 	v2 = v2- 30 ;							// v2 = 26
+ 	
+ 	varNiz = new int[10];
+ 	varNiz[7]= 31;							//31
+ 	
+ 	varInt3 = varNiz[7] +3;					//34
+ 	nizLok[0]= varNiz[7];
+ 	
+ 	varInt3++;								//35 SAD RADI
+	{
+		print(666);
+		varNiz[7]= varNiz[7]+1;		
+		print(777);
+		varNiz[7]++;						//32	NE RADI		//32	SAD RADI
+		nizLok[0]= nizLok[0]+1;
+		nizLok[0]++;
+		nizLok[0]++;
+	}
+ 	
+ 	nizLok[0]= nizLok[0];
+ 	
+ 	print(v1);
+ 	print(v2);
+ 	print(v3);
+ 	print(varNiz[7]);
+ 	print(nizLok[0]);
+ 	print(varInt3, 3);
+ 	
+ 	
+	return 1;
+}
+
+}

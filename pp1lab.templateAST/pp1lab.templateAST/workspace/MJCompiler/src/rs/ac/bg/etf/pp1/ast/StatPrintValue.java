@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 17:40:53
+// 30/4/2021 23:12:5
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,13 +8,12 @@ package rs.ac.bg.etf.pp1.ast;
 public class StatPrintValue extends Matched {
 
     private Expr Expr;
-    private PrintValue PrintValue;
+    private Integer value;
 
-    public StatPrintValue (Expr Expr, PrintValue PrintValue) {
+    public StatPrintValue (Expr Expr, Integer value) {
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
-        this.PrintValue=PrintValue;
-        if(PrintValue!=null) PrintValue.setParent(this);
+        this.value=value;
     }
 
     public Expr getExpr() {
@@ -25,12 +24,12 @@ public class StatPrintValue extends Matched {
         this.Expr=Expr;
     }
 
-    public PrintValue getPrintValue() {
-        return PrintValue;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setPrintValue(PrintValue PrintValue) {
-        this.PrintValue=PrintValue;
+    public void setValue(Integer value) {
+        this.value=value;
     }
 
     public void accept(Visitor visitor) {
@@ -39,18 +38,15 @@ public class StatPrintValue extends Matched {
 
     public void childrenAccept(Visitor visitor) {
         if(Expr!=null) Expr.accept(visitor);
-        if(PrintValue!=null) PrintValue.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Expr!=null) Expr.traverseTopDown(visitor);
-        if(PrintValue!=null) PrintValue.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Expr!=null) Expr.traverseBottomUp(visitor);
-        if(PrintValue!=null) PrintValue.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -65,10 +61,7 @@ public class StatPrintValue extends Matched {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(PrintValue!=null)
-            buffer.append(PrintValue.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
+        buffer.append(" "+tab+value);
         buffer.append("\n");
 
         buffer.append(tab);

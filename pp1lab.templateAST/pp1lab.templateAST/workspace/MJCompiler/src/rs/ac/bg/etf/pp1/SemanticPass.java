@@ -39,7 +39,7 @@ public class SemanticPass extends VisitorAdaptor {
 	Logger log = Logger.getLogger(getClass());
 
 	public SemanticPass() {
-		super();
+		super(); 
 		Tab.insert(Obj.Type, "bool", boolStruct);
 	}
 
@@ -472,7 +472,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_info("Koristim niz " + DesignatorOneArray.getDestName(),DesignatorOneArray); 
 //			DesignatorOneArray.obj = designNode;
 //			Pa ovo gore ti bre nema smisla, ovo gore je itipa objekta a ti hoces da bude tipa elem niza konju jedan
-			DesignatorOneArray.obj = new Obj(Obj.Elem, "Elem", designNode.getType().getElemType());
+			DesignatorOneArray.obj = new Obj(Obj.Elem, designNode.getName(), designNode.getType().getElemType());
 //			Ali pazi skontah sada da mi treba adresa niza ciji sam ja element. Gde to da smestim?
 //			Moze u fpPos jer metode ne radim svakako pa aj tu da sacuvam
 			DesignatorOneArray.obj.setFpPos(designNode.getAdr());
@@ -534,7 +534,7 @@ public class SemanticPass extends VisitorAdaptor {
 		else
 //			FactNewArray.struct = FactNewArray.getType().struct;
 //			Ovo nije radilo gore
-			FactNewArray.struct = new Struct(Struct.Array, FactNewArray.getType().struct);
+			FactNewArray.struct = new Struct(Struct.Array, FactNewArray.getType().struct); 
 		// Sve se plasim da ovo nece da radi lepo mada ja nemam klase i definisanje
 		// novih stvari za A nivo
 		// Sto mnogo olaksava
@@ -654,7 +654,7 @@ public class SemanticPass extends VisitorAdaptor {
 					CondTermMulti);
 		else {
 			// sve je okej
-			report_info("Dodela je okej", CondTermMulti);
+			// report_info("Dodela je okej", CondTermMulti);
 			CondTermMulti.struct = CondTermMulti.getCondTerm().struct;
 //			Ovo ne znam da li j dobro prosledjivanje
 		}
@@ -743,7 +743,7 @@ public class SemanticPass extends VisitorAdaptor {
 				.getKind());
 		boolean validType = (ExprTermList.getTerm().struct.getKind() == Struct.Int);
 		// A sta je sa
-		// nizovima????????????????????????????????????????????????????????????????
+		// nizovima??? -> RADI 
 
 		if (!sameType) {
 			report_error("Greska: ExprTermList nije istog tipa (a i mora biti int)", ExprTermList);
@@ -806,7 +806,7 @@ public class SemanticPass extends VisitorAdaptor {
 			// ovde se nesto desava
 			// i to ovde treba da se pokupe i vrednosti iz konstanti
 			printCallCount++;
-			report_info("Koristi se read ", StatPrintValue);
+			report_info("Koristi se Print ", StatPrintValue);
 		}
 	}
 
@@ -868,11 +868,14 @@ public class SemanticPass extends VisitorAdaptor {
 		if (!validKind)
 			report_error("Greska: " + " Tip mora bit Var, Elem, Fld ", DStatementAssign);
 		else if (!(validType || false || false))
-			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
+			report_error("Greska: Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					DStatementAssign);
 		else {
 			// sve je okej
-			report_info("Dodela je okej", DStatementAssign);
+			// report_info("Dodela je okej", DStatementAssign);
+			if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array )
+					report_info("NIZ JE ", DStatementAssign);
+		//	DStatementAssign.getDesignator().obj.setFpPos(DStatementAssign.getExpr().struct.);
 		}
 	}
 

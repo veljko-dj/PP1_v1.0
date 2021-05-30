@@ -228,7 +228,7 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
-			|	(StatPrintValue) PRINT LPAREN Expr PrintValue RPAREN SEMI 
+			|	(StatPrintValue) PRINT LPAREN Expr COMMA NUMBER_CONST:value SEMI 
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
 							
@@ -247,7 +247,7 @@ CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
 Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 
 			
-PrintValue ::=	(PrintValue) PrintValue COMMA NUMBER_CONST:value ;
+PrintValue ::=	(PrintValue)  NUMBER_CONST:value ;
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 

@@ -74,12 +74,13 @@ public class CodeGenerator extends VisitorAdaptor {
 	private Struct boolStruct;
 
 	private class CodeGenerator_PCAdresses_Expr {
-
+		// Ovo postoji kao klasa za krpljene adresa kod skokova
+		
 		public int firstInstrTrue = 0;
 		public int firstInstrFalse = 0;
-		public int afterInst = 0; // sledeca posle ternarnog operatora
-		public int tmpAdr = -3; // Privremena adresa koju cu stavljati svuda za
-								// skokove pre nego sto namestim na korektnu
+		public int afterInst = 0;	// sledeca posle ternarnog operatora
+		public int tmpAdr = -3; 	// Privremena adresa koju cu stavljati svuda za
+									// skokove pre nego sto namestim na korektnu
 		public int whereToPutFirstTrue = 0;
 		public int whereToPutFirstFalse = 0;
 		public int whereToPutFirstAfter = 0;
@@ -126,7 +127,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	public CodeGenerator() {
 		Obj obj = Tab.find("bool");
 		boolean foundType = obj != null || obj != Tab.noObj;
-		boolean isType = obj.getKind() == obj.Type;
+		boolean isType = obj.getKind() == Obj.Type;
 //		ovo != null mzoes svuda da sklonis jer kad pogledas kod nikada nece vratiti null ta njihova metoda
 		if (!foundType)
 			System.out.println("Ne postoji BOOL struktura u sistemu");
@@ -137,20 +138,16 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	private void generisanjeORDCHR() {
-//		Provali gde ovo da pozivas (mozes u MethTypeName)
-//		ovo ti ne treba za A jer nemas poziv metoda  ! !! ! 
-
+//		Ne treba za A 
+		// NE POSTOJI NACIN DA POZOVES OVE METODE PO GRAMATICI PODELJENOJ ZA A
 	}
 
 	@Override
-	public void visit(MethodTypeName methodTypeName) {
-//  Ovo nisam dirao i ostaje tako kako jeste
-
+	public void visit(MethodTypeName methodTypeName) {  
 		if ("main".equalsIgnoreCase(methodTypeName.getMethodName())) {
 			mainPc = Code.pc;
 		}
-		methodTypeName.obj.setAdr(Code.pc);
-		// Collect arguments and local variables
+		methodTypeName.obj.setAdr(Code.pc); 
 		SyntaxNode methodNode = methodTypeName.getParent();
 
 		VarCounter varCnt = new VarCounter();
@@ -163,9 +160,8 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(Code.enter);
 		Code.put(fpCnt.getCount()); // Ovo ce mislim biti isto kao Code.put(0)
 		Code.put(fpCnt.getCount() + varCnt.getCount()); // Ovo ce mislim biti isto kao Code.put(1)
-		// Broj formalnih parametara sa lokalnim parametrima
-
-//		ulazak u MAIN
+														// Broj formalnih parametara sa lokalnim parametrima
+ 
 
 		generisanjeORDCHR();
 	}
@@ -179,10 +175,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	public void visit(StatReturn returnExpr) {
 		Code.put(Code.exit);
-		Code.put(Code.return_);
-//		Zasto ovde nisam prvo na stek stavio ono sto treba da bude
-//		Mislim da je odgovor jer kad udjes u return nesto on ode u expr
-//		i tamo stavi to sto treba na stek
+		Code.put(Code.return_); 
 	}
 
 	// izvorni
@@ -193,9 +186,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //	Prvo hocu da odradim konstante da znam sta se tu desava
 	@Override
-	public void visit(FactNum FactNum) {
-		// Ovo je izvorni kod sa snimka
-		// if (FactNum==null )
+	public void visit(FactNum FactNum) { 
 		Obj con = Tab.insert(Obj.Con, "$", FactNum.struct);
 		con.setLevel(0);
 		con.setAdr(FactNum.getN1());
@@ -248,7 +239,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	public void visit(FactNewArray FactNewArray) {
-//		 velicina ti je vec na steku [n], to si gurnuo kada si ima nesto tipa:
+//		velicina ti je vec na steku [n], to si gurnuo kada si ima nesto tipa:
 //		Expr ili NUM_CONST ili tako nesto, svakako bi trebalo da je vec na steku kada
 //		si prolazio kroz to
 		boolean isChar = (FactNewArray.struct.getElemType() == Tab.charType);
@@ -268,8 +259,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
-
-//	U izvornom snimku imas objasnjenje ovoga
+ 
 
 	public void visit(StatPrint StatPrint) {
 		if (StatPrint.getExpr().struct == Tab.intType) {
@@ -357,7 +347,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(DStatementAssign DStatementAssign) {
 		if (DStatementAssign.getDesignator().obj.getKind() == 5) {
 //			System.out.println("Dodela elementu niza");
-//			 kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
+//			kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
 			{
 				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 				obj.setLevel(DStatementAssign.getDesignator().obj.getLevel());
@@ -366,18 +356,13 @@ public class CodeGenerator extends VisitorAdaptor {
 			}
 			Code.put(Code.dup_x2);
 			Code.put(Code.pop);
-
-//			Zasto bas x2? Zato sto je vrednost prvo stavljen indeks na stek,
-//			pa zatim stavljena vrednost jer dolazis iz expr
-//			i onda sada ti stavis adresu, pa odradis rotaciju
-
+  
 		}
+		
 		Code.store(DStatementAssign.getDesignator().obj);
 //		 on u pozadini u mjruntime odradi store zavisno sta stavljas
 
-//		Obj a = DStatementAssign.getDesignator().obj;
-//		System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
-//				+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
+//		Obj a = DStatementAssign.getDesignator().obj; 
 	}
 
 //	Sad je jedino logicno sto mogu da radim designator da bi mi radio DstatemntAssign
@@ -400,15 +385,17 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Ovo je niz, vidis tamo da na steku treba da bude adr, index
 //		pa onda kad se izvrsi ostaje val
 //		Prvo ista prica, provera da li je funkcija i tako to
+		
 		SyntaxNode parent = DesignatorOneArray.getParent();
+		
+		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
+		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na cudan 
+		// nacin iskoristis
+		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
+			Code.put(Code.dup);
+			
 		if (DStatementAssign.class != parent.getClass() && DStatementParen.class != parent.getClass()
-				&& StatRead.class != parent.getClass()) {
-//			Ne zezaj se sa ovim Code.pc pa -1 i tako to sto si hteo,
-//			odradi DUP_x1 POP, ubedljivo najlaksi nacin za zamenu mesta, bukvalno su zbog ovoga i dali
-//			System.out.println("Pre dupliranja, poslednjih 5 vr na steku su:" + "\n-1:" + Code.buf[Code.pc - 1] + "\n-2"
-//					+ Code.buf[Code.pc - 2] + "\n-3" + Code.buf[Code.pc - 3] + "\n-4" + Code.buf[Code.pc - 4] + "\n-5"
-//					+ Code.buf[Code.pc - 5]); 
-//			Code.load(DesignatorOneArray.obj);
+				&& StatRead.class != parent.getClass()) {  
 			{
 				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 				obj.setLevel(DesignatorOneArray.obj.getLevel());
@@ -536,22 +523,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		e.firstInstrFalse = Code.pc;
 		
 	}
-//	@Override
-//	public void visit(MatchedTrue MatchedTrue) {
-//
-////		Izlaz iz prvogIzraza koji bi trebalo da je na steku
-////		System.out.println("ExprTrue" + Code.pc);
-////		Ovde je prva adresa posle ovoga adresa FALSEExpr 
-////		NJu svakako moras da sacuvas i nekako da je vratis gore u slucaju da se 
-////		radi o FALSE uslovu
-////		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
-////		prvu instrukciju posle ternarnog operatora
-//		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-//
-//		e.whereToPutFirstAfter= Code.pc + 1;
-//		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
-//		e.firstInstrFalse = Code.pc;
-//	}
+ 
 
 	@Override
 	public void visit(StatementFalse StatementFalse) {
@@ -600,41 +572,67 @@ public class CodeGenerator extends VisitorAdaptor {
 //	DStatementInc i DStatementDec
 
 	public void visit(DStatementInc DStatementInc) {
-//		ovo nije tako jednostavno kako si mislio. Da bi odradio inkrement
-//		moras da dodas i koju lokalnu vrednost i za koliko increment
-//		Znaci moras da ucitas objekat koji zelis da inkrementiras
-//		Da ga inkrementiras i sacuvas opet. Ali nisam siguran
-//		da ce sve lepo raditi sa inc pa zato odradi add ako ne bude radilo		
-
-//		v1
-//		Code.load(DStatementInc.getDesignator().obj);
-//		Code.loadConst(1);
-//		Code.put(Code.add);
-//		Code.store(DStatementInc.getDesignator().obj);
-
-//		v2 Proveri radi li
-		Code.put(Code.pop);	
-		// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc postavio
-		Code.put(Code.inc);
-		Code.put(DStatementInc.getDesignator().obj.getAdr());
-		Code.put(1);// increment
-//		Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
+//		Ovde je bilo bas problema
+//		Prvo, ako je globalna stvar onda ne mozes da odradis 
+//		Code.inc jer Code.inc radi samo sa lokalnim stvarima, 
+//		Znaci to si morao da detektujes, jebi ga, hteo si lepo da odradis na pocetku
+//		Ali svakako i ako je niz imas problem sto niz nisi posecivao dva puta, jednom 
+//		za load jednom za store kao sto je slucaj kod niz[3]=niz[3]+1;
+//		Zato si u designOneSquare morao da ide Code.dup da bi duplirao indeks 3 
+//		Pa to onda ovde da iskoristis za formiranje steka za STORE i to ej to
+ 
+ 
+		if (DStatementInc.getDesignator().obj.getLevel()==1
+				&& DStatementInc.getDesignator().obj.getKind() != 5) {
+			Code.put(Code.pop);	
+			// Ovaj pop ide jer je vrednost ispod inc vec stavljena, pa ga sklonim da bi to inc postavio
+			// ovo gore je debug pokazao
+			Code.put(Code.inc);
+			Code.put(DStatementInc.getDesignator().obj.getAdr());
+			Code.put(1);// increment 
+		} else {  
+			
+			Code.loadConst(1);
+			Code.put(Code.add);
+			if (DStatementInc.getDesignator().obj.getKind()==5) { 
+				// Ovo postoji ovde ovako jer sam u DesignOneSquare ili kako vec
+				// rekao ako je njegov roditelj DstatInc ili Dec onda odradi DUP
+				// pa ces u ovom momentu na steku imati:
+				// indeks u nizu : vrednost koja treba da se postavi
+				// npr niz[7]++; (niz[7] je bio 45 npr)
+				// na steku je 7 46
+				{ // Pravim privremeno da ucita lepo to, ovo je sve kopirano gore iz 
+					// assign gde upisujem vrednosti
+					Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+					obj.setLevel(DStatementInc.getDesignator().obj.getLevel());
+					obj.setAdr(DStatementInc.getDesignator().obj.getAdr());
+					Code.load(obj);
+				}
+				Code.put(Code.dup_x2);
+				Code.put(Code.pop); 
+			}
+			Code.store(DStatementInc.getDesignator().obj);
+		}
 	}
 
 	public void visit(DStatementDec DStatementDec) {
-		Code.put(Code.pop);
-		Code.put(Code.inc);
-		Code.put(DStatementDec.getDesignator().obj.getAdr());
-		Code.put(-1);
+		if (DStatementDec.getDesignator().obj.getLevel()==1) {
+			Code.put(Code.pop);	
+			// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc postavio
+			Code.put(Code.inc);
+			Code.put(DStatementDec.getDesignator().obj.getAdr());
+			Code.put(-1);// increment
+	//		Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
+		} else {  
+			Code.loadConst(-1);
+			Code.put(Code.add);
+			Code.store(DStatementDec.getDesignator().obj);
+		}
 	}
 
 //	E na zalost je doslo vreme da se radi if 
 //	Hej za A nivo ti ne treba IF, samo ternarni operator                                                                                                  
-
-//	Da krenem prvo od uslova
-//	Pa brate u izmenjenom kodu ono, gde ti je
-//	expr ? expr : expr tu ti ne treba uopste 
-//	cond bilo sta
+ 
 
 //	Ovo radim posle gotovog projekta, radi malo dodavanja
 	public void visit(CondFactOne CondFactOne) {

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 17:40:53
+// 30/4/2021 23:12:5
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,21 +9,10 @@ public class PrintValue implements SyntaxNode {
 
     private SyntaxNode parent;
     private int line;
-    private PrintValue PrintValue;
     private Integer value;
 
-    public PrintValue (PrintValue PrintValue, Integer value) {
-        this.PrintValue=PrintValue;
-        if(PrintValue!=null) PrintValue.setParent(this);
+    public PrintValue (Integer value) {
         this.value=value;
-    }
-
-    public PrintValue getPrintValue() {
-        return PrintValue;
-    }
-
-    public void setPrintValue(PrintValue PrintValue) {
-        this.PrintValue=PrintValue;
     }
 
     public Integer getValue() {
@@ -55,16 +44,13 @@ public class PrintValue implements SyntaxNode {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(PrintValue!=null) PrintValue.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(PrintValue!=null) PrintValue.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(PrintValue!=null) PrintValue.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -72,12 +58,6 @@ public class PrintValue implements SyntaxNode {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
         buffer.append("PrintValue(\n");
-
-        if(PrintValue!=null)
-            buffer.append(PrintValue.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
 
         buffer.append(" "+tab+value);
         buffer.append("\n");

@@ -54,11 +54,14 @@ scan with {:
 :}
 
 
-terminal ERROR;
+//TERMINALI
+
 				// poredjano po redu iz pdfa mikrojava_20_21
 								// kljucne reci:
-terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
+terminal PROG, BREAK, CLASS, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
 terminal PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, CASE;
+
+ terminal ENUM; // Trenutno se ne koristi
 								// Vrste tokena:
 terminal String IDENT;
 terminal Integer NUMBER_CONST;
@@ -70,8 +73,11 @@ terminal PLUS, MINUS, MUL,DIV, MOD, EQUAL, NEQUAL, GT, GE, LT, LE, AND, OR;
 terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
+terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
  
+  
  
+ // NETERMINALI
 								//Dodati neterminali
 nonterminal ConstDecl ConstDecl;
 nonterminal ClassDecl ClassDecl;
@@ -90,7 +96,6 @@ nonterminal FormPars FormPars;
 nonterminal ActualParamList ActualParamList; 
 nonterminal StatementList StatementList;
 nonterminal Statement Statement;
-nonterminal StatementElse StatementElse;
 nonterminal Addop Addop;
 nonterminal StatementTrue StatementTrue;
 nonterminal StatementFalse StatementFalse; 
@@ -102,36 +107,32 @@ nonterminal Extends Extends;
 nonterminal ManyVarDecl ManyVarDecl;
 nonterminal CaseList CaseList;
 nonterminal PrintValue PrintValue;
-nonterminal OneMinus OneMinus;
-nonterminal TermsInExpr TermsInExpr;
 nonterminal Unmatched Unmatched;
 nonterminal Matched Matched;
-nonterminal MatchedTrue MatchedTrue;
 nonterminal Epsilon Epsilon;
 nonterminal Array Array;
 nonterminal Stagod Stagod;
 nonterminal ConstType ConstType;
 nonterminal DoWhile DoWhile;
-nonterminal Elselse Elselse;
 
 nonterminal Errorr Errorr;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
 					// Imas kod Term jos neko objasnjenje
 					
-// Dodajem da probam, da vidim da li ce praviti neke probleme i da uvedem to na taj nacin
-//						sada sam u generisanju koda, zavrsio proj
-nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
-
+					
+// PRECEDENCE 
 precedence  right ELSE;
 precedence  right IF;
 
 
+// PRAVILA
 Program ::= (Program) PROG ProgName:p ConstVarClassDeclList:C1 LBRACE MethodDeclList:M2 RBRACE {: RESULT=new Program(p, C1, M2); RESULT.setLine(pleft); :} ;
 
 ProgName ::= (ProgName) IDENT:pName {: RESULT=new ProgName(pName); RESULT.setLine(pNameleft); :} ;
@@ -158,16 +159,13 @@ ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST
 
 			 
 VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarDeclaration(varType, V1); RESULT.setLine(varTypeleft); :}  ;
-// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
-// preko nekog drugog imena a ne Type
-// tipa typeVar ::= Type
-// Edit: Ne mora
+			// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
+			// preko nekog drugog imena a ne Type
+			// tipa typeVar ::= Type
+			// Edit: Ne mora
 
 VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=new VarDeclarations(V1, V2); RESULT.setLine(V1left); :}
 			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :} ;
-	//		| 	(VarDeclError2) error:varErr COMMA {: parser.log.debug("Parser:VarDecl: Uspesan oporavak od greske pri def glob prom. Linija: "+ varErrleft); :};
-	// Ovde gore vodi racuna kad sklanjas komentar, nesto ima ; a nesto ; na kraju
-
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
 							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
@@ -226,30 +224,22 @@ Array ::= LSQUARE RSQUARE {: RESULT=new ArrayDerived1(); :} | Epsilon:E1 {: RESU
 
 StatementList ::= 	(StatementListt) StatementList:S1 Statement:S2 {: RESULT=new StatementListt(S1, S2); RESULT.setLine(S1left); :}
 				|  	(StatementListNo) Epsilon:E1 {: RESULT=new StatementListNo(E1); RESULT.setLine(E1left); :} ;
-
-
-//StatementElse ::= (STMTELSE) ELSE Statement ;
  
 
-
-Statement ::= 	(MatchedStat) Matched:M1 {: RESULT=new MatchedStat(M1); RESULT.setLine(M1left); :}
-		   |   	(UnmatchedStat) Unmatched:U1 {: RESULT=new UnmatchedStat(U1); RESULT.setLine(U1left); :}
-		   ;    
+Statement ::= 	(NonIfStatement) Matched:M1 {: RESULT=new NonIfStatement(M1); RESULT.setLine(M1left); :}
+		   |   	(IfStmt) Unmatched:U1 {: RESULT=new IfStmt(U1); RESULT.setLine(U1left); :}  ;    
 		   
 
-Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 {: RESULT=new UnmatchedIf(C1, S2); RESULT.setLine(C1left); :}
-		 	|	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 ELSE StatementFalse:S3 {: RESULT=new UnmatchedIfElse(C1, S2, S3); RESULT.setLine(C1left); :} ;
+Unmatched ::= 	(IfStatement) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 {: RESULT=new IfStatement(C1, S2); RESULT.setLine(C1left); :}
+		 	|	(IfElseStatement) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 ELSE StatementFalse:S3 {: RESULT=new IfElseStatement(C1, S2, S3); RESULT.setLine(C1left); :} ;
 		 	
 StatementTrue ::= (StatementTrue) Statement:S1 {: RESULT=new StatementTrue(S1); RESULT.setLine(S1left); :} ;
-StatementFalse ::= (StatementFalse) Statement:S1 {: RESULT=new StatementFalse(S1); RESULT.setLine(S1left); :} ;
-MatchedTrue ::= (MatchedTrue) Statement:S1 {: RESULT=new MatchedTrue(S1); RESULT.setLine(S1left); :} ;
-
-Elselse ::= (Elselse) ELSE:els {: RESULT=new Elselse(); :};
+StatementFalse ::= (StatementFalse) Statement:S1 {: RESULT=new StatementFalse(S1); RESULT.setLine(S1left); :} ; 
+ 
  
 		 	
-Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D1); RESULT.setLine(D1left); :}
-		//	|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
-		//	|	(StatIfElse) IF LPAREN Condition RPAREN Statement StatementElse 		// zbog konflikata
+// Dobar deo ovoga dole je za B ali jebi ga, ko bi na pocetku znao sta ce na kraju biti 
+Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D1); RESULT.setLine(D1left); :} 
 			|	(StatWhile) DoWhile:D1 Statement:S2 WHILE LPAREN Condition:C3 RPAREN SEMI {: RESULT=new StatWhile(D1, S2, C3); RESULT.setLine(D1left); :}
 			|	(StatBreak) BREAK SEMI {: RESULT=new StatBreak(); :}  
 			|	(StatContinue) CONTINUE SEMI {: RESULT=new StatContinue(); :}
@@ -264,8 +254,8 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :} {: RESULT=new StatErrAssignment(); :};
 							
-							// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
-							// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+					// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
+					// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
 			
 			
 					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
@@ -286,10 +276,10 @@ DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: 
 					|	(DStatementParen) Designator:D1 LPAREN ActPars:A2 RPAREN {: RESULT=new DStatementParen(D1, A2); RESULT.setLine(D1left); :}
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
 					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
-				/*	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
-						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
-
-				*/ 
+//				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
+//						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
+//
+//				  
 				
 ActPars ::= (Actuals) ActualParamList:A1 {: RESULT=new Actuals(A1); RESULT.setLine(A1left); :} 
 		|   (NoActuals) Epsilon:E1 {: RESULT=new NoActuals(E1); RESULT.setLine(E1left); :}  ;
@@ -318,7 +308,7 @@ Expr ::=  	(Expr0) ExprCondition:E1 QMARK ExprConditionTrue:E2 DOTS ExprConditio
 // Kad sam radio semanticku skontao sam da nemam ovo Condition pa ga menjam u Expr		
 // Ipak moram da razbijem ovo na razlicite
 
-ExprCondition ::= (ExprCondition) CondFact:condition {: RESULT=new ExprCondition(condition); RESULT.setLine(conditionleft); :} ;
+ExprCondition ::= (ExprCondition) CondFact:condition {: RESULT=new ExprCondition(condition); RESULT.setLine(conditionleft); :} ;		// PROMENJENO kao pretpostavka modifikacije
 ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue {: RESULT=new ExprConditionTrue(conditionTrue); RESULT.setLine(conditionTrueleft); :} ;
 ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse {: RESULT=new ExprConditionFalse(conditionFalse); RESULT.setLine(conditionFalseleft); :} ;
 	 
@@ -327,21 +317,21 @@ ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse {: 
 ExprManjiProstiji ::= 	(ExprTerm) Term:T1 {: RESULT=new ExprTerm(T1); RESULT.setLine(T1left); :} 
 					|	(ExprTermMinus) MINUS Term:T1 {: RESULT=new ExprTermMinus(T1); RESULT.setLine(T1left); :}
 					|	(ExprTermList) ExprManjiProstiji:E1 Addop:A2 Term:T3 {: RESULT=new ExprTermList(E1, A2, T3); RESULT.setLine(E1left); :} ;
-			/*
-						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
-						ideja pronadjena na netu, na nekom gitu.
-						
-				ExprManjiProstiji ::= (ExprManjiProstiji)  TermsInExpr
-									| (ExprManjiProstijiMinus) MINUS TermsInExpr ;
-						
-			
-				OneMinus ::= 	(Minus) 	MINUS
-						|	(NoMinus) 	Epsilon ;
-			
-				TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term 
-						|	(TermsInExprNo) Term
-						;
-			*/
+//		
+//						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
+//						ideja pronadjena na netu, na nekom gitu.
+//						
+//				ExprManjiProstiji ::= (ExprManjiProstiji)  TermsInExpr
+//									| (ExprManjiProstijiMinus) MINUS TermsInExpr ;
+//						
+//			
+//				OneMinus ::= 	(Minus) 	MINUS
+//						|	(NoMinus) 	Epsilon ;
+//			
+//				TermsInExpr ::= (TermsInExpr) TermsInExpr Addop Term 
+//						|	(TermsInExprNo) Term
+//						;
+//		
 			
 Term ::= 	(TermMore) Term:T1 Mulop:M2 Factor:t {: RESULT=new TermMore(T1, M2, t); RESULT.setLine(T1left); :}  
 		|	(TermOne) Factor:t {: RESULT=new TermOne(t); RESULT.setLine(tleft); :} ;
@@ -364,12 +354,12 @@ Designator ::= (DesignatorJustOne) IDENT:destName {: RESULT=new DesignatorJustOn
 			| 	(DesignatorOneDot) IDENT:destName DOT IDENT:I1 {: RESULT=new DesignatorOneDot(destName, I1); RESULT.setLine(destNameleft); :}
 			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE {: RESULT=new DesignatorOneArray(destName, exprr); RESULT.setLine(destNameleft); :} ;
 
-// IdentOrExpr ::= (DesignIdentOne) DOT IDENT
-	//		|	(DesignIdent) IdentOrExpr DOT IDENT 
-	//		| 	(DesignExprOne) LSQUARE Expr RSQUARE;
-	//		| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE 
-//	Ovo je preuredjeno na osnovu onog razvrsavanja po nivoima, skinuo sam ove rekurzije neke
-//  Edit: u najnovijoj verziji sam sve ovo spojio u Designator
+// 			IdentOrExpr ::= (DesignIdentOne) DOT IDENT
+//					|	(DesignIdent) IdentOrExpr DOT IDENT 
+//					| 	(DesignExprOne) LSQUARE Expr RSQUARE;
+//					| 	(DesignExpr) IdentOrExpr LSQUARE Expr RSQUARE 
+//			Ovo je preuredjeno na osnovu onog razvrsavanja po nivoima, skinuo sam ove rekurzije neke
+//  		Edit: u najnovijoj verziji sam sve ovo spojio u Designator
 
 Assignop ::= ASSIGN {: RESULT=new AssignopDerived1(); :} ;
 
@@ -393,6 +383,9 @@ Mulop ::= (MulopMul) MUL {: RESULT=new MulopMul(); :}
 Epsilon ::= {: RESULT=new EpsilonDerived1(); :} /* epsilon */;
 
 
+
+// Ovo apsolutno nicemu ne sluzi ali jebi ga.
+// Na ovo ce naici nikad
 Errorr ::= (Errorr) ERROR:gr {: parser.log.debug("Leksicka greska "+ grleft);
 								parser.report_error("Leksicka greska " + grleft, null);   
 								 :} {: RESULT=new Errorr(); :};

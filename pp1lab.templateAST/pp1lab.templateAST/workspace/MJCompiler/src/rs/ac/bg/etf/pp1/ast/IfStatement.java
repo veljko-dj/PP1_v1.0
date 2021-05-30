@@ -1,23 +1,20 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 15:55:27
+// 30/4/2021 17:31:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class UnmatchedIfElse extends Unmatched {
+public class IfStatement extends Unmatched {
 
     private Condition Condition;
     private StatementTrue StatementTrue;
-    private StatementFalse StatementFalse;
 
-    public UnmatchedIfElse (Condition Condition, StatementTrue StatementTrue, StatementFalse StatementFalse) {
+    public IfStatement (Condition Condition, StatementTrue StatementTrue) {
         this.Condition=Condition;
         if(Condition!=null) Condition.setParent(this);
         this.StatementTrue=StatementTrue;
         if(StatementTrue!=null) StatementTrue.setParent(this);
-        this.StatementFalse=StatementFalse;
-        if(StatementFalse!=null) StatementFalse.setParent(this);
     }
 
     public Condition getCondition() {
@@ -36,14 +33,6 @@ public class UnmatchedIfElse extends Unmatched {
         this.StatementTrue=StatementTrue;
     }
 
-    public StatementFalse getStatementFalse() {
-        return StatementFalse;
-    }
-
-    public void setStatementFalse(StatementFalse StatementFalse) {
-        this.StatementFalse=StatementFalse;
-    }
-
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -51,27 +40,24 @@ public class UnmatchedIfElse extends Unmatched {
     public void childrenAccept(Visitor visitor) {
         if(Condition!=null) Condition.accept(visitor);
         if(StatementTrue!=null) StatementTrue.accept(visitor);
-        if(StatementFalse!=null) StatementFalse.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Condition!=null) Condition.traverseTopDown(visitor);
         if(StatementTrue!=null) StatementTrue.traverseTopDown(visitor);
-        if(StatementFalse!=null) StatementFalse.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Condition!=null) Condition.traverseBottomUp(visitor);
         if(StatementTrue!=null) StatementTrue.traverseBottomUp(visitor);
-        if(StatementFalse!=null) StatementFalse.traverseBottomUp(visitor);
         accept(visitor);
     }
 
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("UnmatchedIfElse(\n");
+        buffer.append("IfStatement(\n");
 
         if(Condition!=null)
             buffer.append(Condition.toString("  "+tab));
@@ -85,14 +71,8 @@ public class UnmatchedIfElse extends Unmatched {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(StatementFalse!=null)
-            buffer.append(StatementFalse.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
-
         buffer.append(tab);
-        buffer.append(") [UnmatchedIfElse]");
+        buffer.append(") [IfStatement]");
         return buffer.toString();
     }
 }

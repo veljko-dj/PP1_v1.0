@@ -35,7 +35,8 @@ import rs.ac.bg.etf.pp1.ast.FactNewArray;
 import rs.ac.bg.etf.pp1.ast.FactNum;
 import rs.ac.bg.etf.pp1.ast.FactVar;
 import rs.ac.bg.etf.pp1.ast.FuncCall;
-import rs.ac.bg.etf.pp1.ast.MatchedTrue;
+import rs.ac.bg.etf.pp1.ast.IfElseStatement;
+import rs.ac.bg.etf.pp1.ast.IfStatement; 
 import rs.ac.bg.etf.pp1.ast.MethodDeclaration;
 import rs.ac.bg.etf.pp1.ast.MethodTypeName;
 import rs.ac.bg.etf.pp1.ast.MulopDiv;
@@ -56,9 +57,7 @@ import rs.ac.bg.etf.pp1.ast.StatReturn2;
 import rs.ac.bg.etf.pp1.ast.StatementFalse;
 import rs.ac.bg.etf.pp1.ast.StatementTrue;
 import rs.ac.bg.etf.pp1.ast.SyntaxNode;
-import rs.ac.bg.etf.pp1.ast.TermMore;
-import rs.ac.bg.etf.pp1.ast.UnmatchedIf;
-import rs.ac.bg.etf.pp1.ast.UnmatchedIfElse;
+import rs.ac.bg.etf.pp1.ast.TermMore; 
 import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
@@ -537,22 +536,22 @@ public class CodeGenerator extends VisitorAdaptor {
 		e.firstInstrFalse = Code.pc;
 		
 	}
-	@Override
-	public void visit(MatchedTrue MatchedTrue) {
-
-//		Izlaz iz prvogIzraza koji bi trebalo da je na steku
-//		System.out.println("ExprTrue" + Code.pc);
-//		Ovde je prva adresa posle ovoga adresa FALSEExpr 
-//		NJu svakako moras da sacuvas i nekako da je vratis gore u slucaju da se 
-//		radi o FALSE uslovu
-//		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
-//		prvu instrukciju posle ternarnog operatora
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-
-		e.whereToPutFirstAfter= Code.pc + 1;
-		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
-		e.firstInstrFalse = Code.pc;
-	}
+//	@Override
+//	public void visit(MatchedTrue MatchedTrue) {
+//
+////		Izlaz iz prvogIzraza koji bi trebalo da je na steku
+////		System.out.println("ExprTrue" + Code.pc);
+////		Ovde je prva adresa posle ovoga adresa FALSEExpr 
+////		NJu svakako moras da sacuvas i nekako da je vratis gore u slucaju da se 
+////		radi o FALSE uslovu
+////		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
+////		prvu instrukciju posle ternarnog operatora
+//		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+//
+//		e.whereToPutFirstAfter= Code.pc + 1;
+//		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
+//		e.firstInstrFalse = Code.pc;
+//	}
 
 	@Override
 	public void visit(StatementFalse StatementFalse) {
@@ -571,7 +570,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 	
 	@Override
-	public void visit(UnmatchedIf UnmatchedIf) { 
+	public void visit(IfStatement IfStatement) { 
 //		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
 //		System.out.println("Expro0" + Code.pc);
 		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
@@ -584,7 +583,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 	
 	@Override
-	public void visit(UnmatchedIfElse UnmatchedIfElse) { 
+	public void visit(IfElseStatement IfElseStatement) { 
 //		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
 //		System.out.println("Expro0" + Code.pc);
 		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1); 

@@ -1,15 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 15:55:27
+// 30/4/2021 17:31:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class MatchedStat extends Statement {
+public class NonIfStatement extends Statement {
 
     private Matched Matched;
 
-    public MatchedStat (Matched Matched) {
+    public NonIfStatement (Matched Matched) {
         this.Matched=Matched;
         if(Matched!=null) Matched.setParent(this);
     }
@@ -43,7 +43,7 @@ public class MatchedStat extends Statement {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("MatchedStat(\n");
+        buffer.append("NonIfStatement(\n");
 
         if(Matched!=null)
             buffer.append(Matched.toString("  "+tab));
@@ -52,7 +52,7 @@ public class MatchedStat extends Statement {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [MatchedStat]");
+        buffer.append(") [NonIfStatement]");
         return buffer.toString();
     }
 }

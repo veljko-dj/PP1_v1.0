@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 30/4/2021 15:55:28
+// 30/4/2021 17:31:45
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -14,18 +14,15 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(Relop Relop) { }
     public void visit(Assignop Assignop) { }
     public void visit(FormalParamDecl FormalParamDecl) { }
-    public void visit(StatementElse StatementElse) { }
     public void visit(StatementList StatementList) { }
     public void visit(Extends Extends) { }
     public void visit(Addop Addop) { }
-    public void visit(TermsInExpr TermsInExpr) { }
     public void visit(Factor Factor) { }
     public void visit(CondTerm CondTerm) { }
     public void visit(Designator Designator) { }
     public void visit(Term Term) { }
     public void visit(RetType RetType) { }
     public void visit(Condition Condition) { }
-    public void visit(OneMinus OneMinus) { }
     public void visit(ExprManjiProstiji ExprManjiProstiji) { }
     public void visit(CaseList CaseList) { }
     public void visit(ConstDeclList ConstDeclList) { }
@@ -34,13 +31,12 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(VarDeclList VarDeclList) { }
     public void visit(FormalParamList FormalParamList) { }
     public void visit(Expr Expr) { }
-    public void visit(Stagod Stagod) { }
     public void visit(ActPars ActPars) { }
+    public void visit(Stagod Stagod) { }
     public void visit(ConstVarClassDeclList ConstVarClassDeclList) { }
     public void visit(Epsilon Epsilon) { }
     public void visit(DesignatorStatement DesignatorStatement) { }
     public void visit(Statement Statement) { }
-    public void visit(IdentOrExpr IdentOrExpr) { }
     public void visit(VarDecl VarDecl) { }
     public void visit(Array Array) { }
     public void visit(ClassDecl ClassDecl) { }
@@ -116,14 +112,12 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(StatBreak StatBreak) { visit(); }
     public void visit(StatWhile StatWhile) { visit(); }
     public void visit(StatDesign StatDesign) { visit(); }
-    public void visit(Elselse Elselse) { visit(); }
-    public void visit(MatchedTrue MatchedTrue) { visit(); }
     public void visit(StatementFalse StatementFalse) { visit(); }
     public void visit(StatementTrue StatementTrue) { visit(); }
-    public void visit(UnmatchedIfElse UnmatchedIfElse) { visit(); }
-    public void visit(UnmatchedIf UnmatchedIf) { visit(); }
-    public void visit(UnmatchedStat UnmatchedStat) { visit(); }
-    public void visit(MatchedStat MatchedStat) { visit(); }
+    public void visit(IfElseStatement IfElseStatement) { visit(); }
+    public void visit(IfStatement IfStatement) { visit(); }
+    public void visit(IfStmt IfStmt) { visit(); }
+    public void visit(NonIfStatement NonIfStatement) { visit(); }
     public void visit(StatementListNo StatementListNo) { visit(); }
     public void visit(StatementListt StatementListt) { visit(); }
     public void visit(ArrayDerived2 ArrayDerived2) { visit(); }

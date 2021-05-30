@@ -1,0 +1,27 @@
+program MJProgram 
+{  
+	
+
+	int main() int x;
+	 int y[];
+	 int z[];
+	 int p,q;
+	 int s,s3, sad,bla, aaa, bbb, ccc;
+
+	 { 
+	 x=2;
+	 x=123;
+	 x=3; 
+	    
+	 
+	 if (x>= 3) x = x- 1;
+	 	else x = x -1;
+	 	
+	 print(x);
+	  
+	 x = x==2 ? 9 : 1;
+	 
+	 print(x);
+	 return 1;
+	}
+}

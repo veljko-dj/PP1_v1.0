@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 29/4/2021 11:26:13
+// 30/4/2021 15:3:32
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -14,6 +14,7 @@ public interface Visitor {
     public void visit(Relop Relop);
     public void visit(Assignop Assignop);
     public void visit(FormalParamDecl FormalParamDecl);
+    public void visit(StatementElse StatementElse);
     public void visit(StatementList StatementList);
     public void visit(Extends Extends);
     public void visit(Addop Addop);
@@ -33,8 +34,8 @@ public interface Visitor {
     public void visit(VarDeclList VarDeclList);
     public void visit(FormalParamList FormalParamList);
     public void visit(Expr Expr);
-    public void visit(ActPars ActPars);
     public void visit(Stagod Stagod);
+    public void visit(ActPars ActPars);
     public void visit(ConstVarClassDeclList ConstVarClassDeclList);
     public void visit(Epsilon Epsilon);
     public void visit(DesignatorStatement DesignatorStatement);
@@ -49,6 +50,7 @@ public interface Visitor {
     public void visit(MethodDeclList MethodDeclList);
     public void visit(FormPars FormPars);
     public void visit(ManyVarDecl ManyVarDecl);
+    public void visit(Errorr Errorr);
     public void visit(EpsilonDerived1 EpsilonDerived1);
     public void visit(MulopMod MulopMod);
     public void visit(MulopDiv MulopDiv);
@@ -114,6 +116,10 @@ public interface Visitor {
     public void visit(StatBreak StatBreak);
     public void visit(StatWhile StatWhile);
     public void visit(StatDesign StatDesign);
+    public void visit(Elselse Elselse);
+    public void visit(MatchedTrue MatchedTrue);
+    public void visit(StatementFalse StatementFalse);
+    public void visit(StatementTrue StatementTrue);
     public void visit(UnmatchedIfElse UnmatchedIfElse);
     public void visit(UnmatchedIf UnmatchedIf);
     public void visit(UnmatchedStat UnmatchedStat);
@@ -140,7 +146,8 @@ public interface Visitor {
     public void visit(ClassDeclMethod ClassDeclMethod);
     public void visit(ClassDeclNoMethod ClassDeclNoMethod);
     public void visit(Type Type);
-    public void visit(VarDeclError VarDeclError);
+    public void visit(VarDeclError2 VarDeclError2);
+    public void visit(VarDeclError1 VarDeclError1);
     public void visit(VarDeclOneSquare VarDeclOneSquare);
     public void visit(VarDeclOneNoSquare VarDeclOneNoSquare);
     public void visit(VarDecListOneElement VarDecListOneElement);

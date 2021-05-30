@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 29/4/2021 11:26:13
+// 30/4/2021 15:3:32
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -10,6 +10,8 @@ public abstract class CondTerm implements SyntaxNode {
     private SyntaxNode parent;
 
     private int line;
+
+    public rs.etf.pp1.symboltable.concepts.Struct struct = null;
 
     public SyntaxNode getParent() {
         return parent;

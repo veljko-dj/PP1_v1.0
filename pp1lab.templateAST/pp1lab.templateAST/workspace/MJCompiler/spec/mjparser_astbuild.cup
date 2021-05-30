@@ -54,6 +54,7 @@ scan with {:
 :}
 
 
+terminal ERROR;
 				// poredjano po redu iz pdfa mikrojava_20_21
 								// kljucne reci:
 terminal PROG, BREAK, CLASS, ENUM, ELSE, CONST, IF, SWITCH, DO, WHILE, NEW;
@@ -74,8 +75,6 @@ nonterminal ConstDecl ConstDecl;
 nonterminal ClassDecl ClassDecl;
 nonterminal DesignatorStatement DesignatorStatement;
 nonterminal ActPars ActPars;
-nonterminal Condition Condition;
-nonterminal CondTerm CondTerm;
 nonterminal Assignop Assignop;
 nonterminal Relop Relop;
 nonterminal Mulop Mulop;
@@ -89,7 +88,10 @@ nonterminal FormPars FormPars;
 nonterminal ActualParamList ActualParamList; 
 nonterminal StatementList StatementList;
 nonterminal Statement Statement;
+nonterminal StatementElse StatementElse;
 nonterminal Addop Addop;
+nonterminal StatementTrue StatementTrue;
+nonterminal StatementFalse StatementFalse; 
 nonterminal ConstVarClassDeclList ConstVarClassDeclList;
 nonterminal ConstDeclList ConstDeclList;
 nonterminal ConstDeclOne ConstDeclOne;
@@ -102,15 +104,19 @@ nonterminal OneMinus OneMinus;
 nonterminal TermsInExpr TermsInExpr;
 nonterminal Unmatched Unmatched;
 nonterminal Matched Matched;
+nonterminal MatchedTrue MatchedTrue;
 nonterminal Epsilon Epsilon;
 nonterminal Array Array;
 nonterminal Stagod Stagod;
 nonterminal ConstType ConstType;
 nonterminal DoWhile DoWhile;
+nonterminal Elselse Elselse;
 
+nonterminal Errorr Errorr;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, IdentOrExpr;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
 					// Inace Baci gresku ako stavis da je samo Type struktura
@@ -153,6 +159,8 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarD
 
 VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=new VarDeclarations(V1, V2); RESULT.setLine(V1left); :}
 			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :} ;
+	//		| 	(VarDeclError2) error:varErr COMMA {: parser.log.debug("Parser:VarDecl: Uspesan oporavak od greske pri def glob prom. Linija: "+ varErrleft); :};
+	// Ovde gore vodi racuna kad sklanjas komentar, nesto ima ; a nesto ; na kraju
 
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
@@ -164,8 +172,9 @@ VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=n
 							// A ovo nije int s1, 13s, s3;
 								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne {: RESULT=new VarDeclOneNoSquare(nameVarOne); RESULT.setLine(nameVarOneleft); :}
-			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE {: RESULT=new VarDeclOneSquare(nameVarOneArray); RESULT.setLine(nameVarOneArrayleft); :}
-			| 	(VarDeclError) error:varErr {: parser.report_error("Parser:VarDecl: Greska, oporavak do ; linija:" + varErrleft +" kolona: "+ varErrright , varErrleft);  :} {: RESULT=new VarDeclError(); :}	;
+			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE {: RESULT=new VarDeclOneSquare(nameVarOneArray); RESULT.setLine(nameVarOneArrayleft); :} 
+			| 	(VarDeclError1) error:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} {: RESULT=new VarDeclError1(); :} 
+			| 	(VarDeclError2) NUMBER_CONST:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} {: RESULT=new VarDeclError2(err); RESULT.setLine(errleft); :} ;
 
 Type ::= (Type) IDENT:typeName {: RESULT=new Type(typeName); RESULT.setLine(typeNameleft); :}  ;
 
@@ -213,20 +222,26 @@ StatementList ::= 	(StatementListt) StatementList:S1 Statement:S2 {: RESULT=new 
 				|  	(StatementListNo) Epsilon:E1 {: RESULT=new StatementListNo(E1); RESULT.setLine(E1left); :} ;
 
 
-		
+//StatementElse ::= (STMTELSE) ELSE Statement ;
 
 Statement ::= 	(MatchedStat) Matched:M1 {: RESULT=new MatchedStat(M1); RESULT.setLine(M1left); :}
 		   |   	(UnmatchedStat) Unmatched:U1 {: RESULT=new UnmatchedStat(U1); RESULT.setLine(U1left); :}
-		   ; 
+		   ;    
+Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition:C1 RPAREN StatementTrue:S2 {: RESULT=new UnmatchedIf(C1, S2); RESULT.setLine(C1left); :}
+		 	|	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN MatchedTrue:M2 Elselse:E3 StatementFalse:S4 {: RESULT=new UnmatchedIfElse(C1, M2, E3, S4); RESULT.setLine(C1left); :} ;
+		 	
+StatementTrue ::= (StatementTrue) Statement:S1 {: RESULT=new StatementTrue(S1); RESULT.setLine(S1left); :} ;
+StatementFalse ::= (StatementFalse) Statement:S1 {: RESULT=new StatementFalse(S1); RESULT.setLine(S1left); :} ;
+MatchedTrue ::= (MatchedTrue) Matched:M1 {: RESULT=new MatchedTrue(M1); RESULT.setLine(M1left); :} ;
 
-Unmatched ::= 	(UnmatchedIf) IF LPAREN Condition:C1 RPAREN Statement:S2 {: RESULT=new UnmatchedIf(C1, S2); RESULT.setLine(C1left); :}
-		 	|	(UnmatchedIfElse) IF LPAREN Condition:C1 RPAREN Matched:M2 ELSE Unmatched:U3 {: RESULT=new UnmatchedIfElse(C1, M2, U3); RESULT.setLine(C1left); :} ;
+Elselse ::= (Elselse) ELSE:els {: RESULT=new Elselse(); :};
+ 
 		 	
 Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D1); RESULT.setLine(D1left); :}
-	//		|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
-	//		|	(StatIfElse) IF LPAREN Condition RPAREN Statement ELSE Statement 		// zbog konflikata
+		//	|	(StatIf)	IF LPAREN Condition RPAREN Statement 						// Izbaceno dodavajuci Matched
+		//	|	(StatIfElse) IF LPAREN Condition RPAREN Statement StatementElse 		// zbog konflikata
 			|	(StatWhile) DoWhile:D1 Statement:S2 WHILE LPAREN Condition:C3 RPAREN SEMI {: RESULT=new StatWhile(D1, S2, C3); RESULT.setLine(D1left); :}
-			|	(StatBreak) BREAK SEMI {: RESULT=new StatBreak(); :} 
+			|	(StatBreak) BREAK SEMI {: RESULT=new StatBreak(); :}  
 			|	(StatContinue) CONTINUE SEMI {: RESULT=new StatContinue(); :}
 			| 	(StatRead) READ LPAREN Designator:D1 RPAREN SEMI {: RESULT=new StatRead(D1); RESULT.setLine(D1left); :}
 			|	(StatStat) LBRACE StatementList:S1 RBRACE {: RESULT=new StatStat(S1); RESULT.setLine(S1left); :}
@@ -366,3 +381,8 @@ Mulop ::= (MulopMul) MUL {: RESULT=new MulopMul(); :}
 				// Ovo sam dodao dok sam jos pokusavao da otklonim gresku
 				// u .java fajlovima, tehnicki, uopste nije bitno ali neka ga sada	
 Epsilon ::= {: RESULT=new EpsilonDerived1(); :} /* epsilon */;
+
+
+Errorr ::= (Errorr) ERROR:gr {: parser.log.debug("Leksicka greska "+ grleft);
+								parser.report_error("Leksicka greska " + grleft, null);   
+								 :} {: RESULT=new Errorr(); :};

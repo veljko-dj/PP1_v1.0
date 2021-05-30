@@ -28,6 +28,7 @@ public class SemanticPass extends VisitorAdaptor {
 	 * bi bilo da se koristi samo za ispis
 	 */
 	boolean returnFound = false;
+	boolean mainFound = false;
 	int nVars = 0;
 	int nConst = 0;
 	// Brojanje konstanti
@@ -63,6 +64,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(Program program) {
+		if (!mainFound) report_error("Nije pronadjena main metoda", program);
 		report_info("Usao sam u Program", program);
 		// Menjano
 		nVars = Tab.currentScope.getnVars();
@@ -311,6 +313,8 @@ public class SemanticPass extends VisitorAdaptor {
 			currentMethod = Tab.insert(Obj.Meth, MethodTypeName.getMethodName(), MethodTypeName.getRetType().struct);
 			MethodTypeName.obj = currentMethod;
 			Tab.openScope();
+			if (MethodTypeName.getMethodName().equals("main")) 
+				mainFound = true;
 		}
 		//
 		report_info("Obradjuje se funkcija " + MethodTypeName.getMethodName(), MethodTypeName);
@@ -613,6 +617,66 @@ public class SemanticPass extends VisitorAdaptor {
 //			Ovo ne znam da li j dobro prosledjivanje
 		}
 	}
+
+	public void visit(ConditionEnd ConditionEnd) {
+//		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
+//		Da moze i true i false da ima uternarnom 
+		ConditionEnd.struct = ConditionEnd.getCondTerm().struct;
+	}
+
+	public void visit(ConditionMulti ConditionMulti) {
+		boolean validKind = (ConditionMulti.getCondition().struct
+				.getKind() == ConditionMulti.getCondTerm().struct.getKind());
+
+//		Ovo sada je druga tacka iz definicije kompatabilnosti
+		boolean validKind2 = (ConditionMulti.getCondition().struct.getKind() == 5
+				&& (ConditionMulti.getCondTerm().struct == null
+						|| ConditionMulti.getCondTerm().struct == Tab.noType));
+		boolean validKind2Obrnuto = (ConditionMulti.getCondTerm().struct.getKind() == 5
+				&& (ConditionMulti.getCondition().struct == null
+						|| ConditionMulti.getCondition().struct == Tab.noType));
+
+		if (!(validKind || validKind2 || validKind2Obrnuto))
+			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
+					ConditionMulti);
+		else {
+			// sve je okej
+			report_info("Dodela je okej", ConditionMulti);
+			ConditionMulti.struct = ConditionMulti.getCondition().struct;
+//			Ovo ne znam da li j dobro prosledjivanje
+		}
+	}
+	
+
+	public void visit(CondTermEnd CondTermEnd) {
+//		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
+//		Da moze i true i false da ima uternarnom 
+		CondTermEnd.struct = CondTermEnd.getCondFact().struct;
+	}
+
+	public void visit(CondTermMulti CondTermMulti) {
+		boolean validKind = (CondTermMulti.getCondTerm().struct
+				.getKind() == CondTermMulti.getCondFact().struct.getKind());
+
+//		Ovo sada je druga tacka iz definicije kompatabilnosti
+		boolean validKind2 = (CondTermMulti.getCondTerm().struct.getKind() == 5
+				&& (CondTermMulti.getCondFact().struct == null
+						|| CondTermMulti.getCondFact().struct == Tab.noType));
+		boolean validKind2Obrnuto = (CondTermMulti.getCondFact().struct.getKind() == 5
+				&& (CondTermMulti.getCondTerm().struct == null
+						|| CondTermMulti.getCondTerm().struct == Tab.noType));
+
+		if (!(validKind || validKind2 || validKind2Obrnuto))
+			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
+					CondTermMulti);
+		else {
+			// sve je okej
+			report_info("Dodela je okej", CondTermMulti);
+			CondTermMulti.struct = CondTermMulti.getCondTerm().struct;
+//			Ovo ne znam da li j dobro prosledjivanje
+		}
+	}
+
 
 //	Expr := ["-"] Term {Addop Term} | CondFact "?" Expr ":" Expr. 
 	// Expr //

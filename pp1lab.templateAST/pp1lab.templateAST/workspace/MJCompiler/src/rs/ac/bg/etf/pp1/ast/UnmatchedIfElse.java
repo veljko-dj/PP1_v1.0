@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 29/4/2021 11:26:13
+// 30/4/2021 15:3:32
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,16 +8,19 @@ package rs.ac.bg.etf.pp1.ast;
 public class UnmatchedIfElse extends Unmatched {
 
     private Condition Condition;
-    private Matched Matched;
-    private Unmatched Unmatched;
+    private MatchedTrue MatchedTrue;
+    private Elselse Elselse;
+    private StatementFalse StatementFalse;
 
-    public UnmatchedIfElse (Condition Condition, Matched Matched, Unmatched Unmatched) {
+    public UnmatchedIfElse (Condition Condition, MatchedTrue MatchedTrue, Elselse Elselse, StatementFalse StatementFalse) {
         this.Condition=Condition;
         if(Condition!=null) Condition.setParent(this);
-        this.Matched=Matched;
-        if(Matched!=null) Matched.setParent(this);
-        this.Unmatched=Unmatched;
-        if(Unmatched!=null) Unmatched.setParent(this);
+        this.MatchedTrue=MatchedTrue;
+        if(MatchedTrue!=null) MatchedTrue.setParent(this);
+        this.Elselse=Elselse;
+        if(Elselse!=null) Elselse.setParent(this);
+        this.StatementFalse=StatementFalse;
+        if(StatementFalse!=null) StatementFalse.setParent(this);
     }
 
     public Condition getCondition() {
@@ -28,20 +31,28 @@ public class UnmatchedIfElse extends Unmatched {
         this.Condition=Condition;
     }
 
-    public Matched getMatched() {
-        return Matched;
+    public MatchedTrue getMatchedTrue() {
+        return MatchedTrue;
     }
 
-    public void setMatched(Matched Matched) {
-        this.Matched=Matched;
+    public void setMatchedTrue(MatchedTrue MatchedTrue) {
+        this.MatchedTrue=MatchedTrue;
     }
 
-    public Unmatched getUnmatched() {
-        return Unmatched;
+    public Elselse getElselse() {
+        return Elselse;
     }
 
-    public void setUnmatched(Unmatched Unmatched) {
-        this.Unmatched=Unmatched;
+    public void setElselse(Elselse Elselse) {
+        this.Elselse=Elselse;
+    }
+
+    public StatementFalse getStatementFalse() {
+        return StatementFalse;
+    }
+
+    public void setStatementFalse(StatementFalse StatementFalse) {
+        this.StatementFalse=StatementFalse;
     }
 
     public void accept(Visitor visitor) {
@@ -50,21 +61,24 @@ public class UnmatchedIfElse extends Unmatched {
 
     public void childrenAccept(Visitor visitor) {
         if(Condition!=null) Condition.accept(visitor);
-        if(Matched!=null) Matched.accept(visitor);
-        if(Unmatched!=null) Unmatched.accept(visitor);
+        if(MatchedTrue!=null) MatchedTrue.accept(visitor);
+        if(Elselse!=null) Elselse.accept(visitor);
+        if(StatementFalse!=null) StatementFalse.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Condition!=null) Condition.traverseTopDown(visitor);
-        if(Matched!=null) Matched.traverseTopDown(visitor);
-        if(Unmatched!=null) Unmatched.traverseTopDown(visitor);
+        if(MatchedTrue!=null) MatchedTrue.traverseTopDown(visitor);
+        if(Elselse!=null) Elselse.traverseTopDown(visitor);
+        if(StatementFalse!=null) StatementFalse.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Condition!=null) Condition.traverseBottomUp(visitor);
-        if(Matched!=null) Matched.traverseBottomUp(visitor);
-        if(Unmatched!=null) Unmatched.traverseBottomUp(visitor);
+        if(MatchedTrue!=null) MatchedTrue.traverseBottomUp(visitor);
+        if(Elselse!=null) Elselse.traverseBottomUp(visitor);
+        if(StatementFalse!=null) StatementFalse.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -79,14 +93,20 @@ public class UnmatchedIfElse extends Unmatched {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Matched!=null)
-            buffer.append(Matched.toString("  "+tab));
+        if(MatchedTrue!=null)
+            buffer.append(MatchedTrue.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Unmatched!=null)
-            buffer.append(Unmatched.toString("  "+tab));
+        if(Elselse!=null)
+            buffer.append(Elselse.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
+
+        if(StatementFalse!=null)
+            buffer.append(StatementFalse.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

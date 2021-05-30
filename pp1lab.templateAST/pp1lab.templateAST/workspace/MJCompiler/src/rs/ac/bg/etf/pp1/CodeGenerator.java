@@ -1,11 +1,18 @@
 package rs.ac.bg.etf.pp1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rs.ac.bg.etf.pp1.CounterVisitor.FormParamCounter;
 import rs.ac.bg.etf.pp1.CounterVisitor.VarCounter;
 import rs.ac.bg.etf.pp1.ast.AddopMinus;
 import rs.ac.bg.etf.pp1.ast.AddopPlus;
 import rs.ac.bg.etf.pp1.ast.CondFactOne;
 import rs.ac.bg.etf.pp1.ast.CondFactRelop;
+import rs.ac.bg.etf.pp1.ast.CondTermEnd;
+import rs.ac.bg.etf.pp1.ast.CondTermMulti;
+import rs.ac.bg.etf.pp1.ast.ConditionEnd;
+import rs.ac.bg.etf.pp1.ast.ConditionMulti;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
@@ -28,6 +35,7 @@ import rs.ac.bg.etf.pp1.ast.FactNewArray;
 import rs.ac.bg.etf.pp1.ast.FactNum;
 import rs.ac.bg.etf.pp1.ast.FactVar;
 import rs.ac.bg.etf.pp1.ast.FuncCall;
+import rs.ac.bg.etf.pp1.ast.MatchedTrue;
 import rs.ac.bg.etf.pp1.ast.MethodDeclaration;
 import rs.ac.bg.etf.pp1.ast.MethodTypeName;
 import rs.ac.bg.etf.pp1.ast.MulopDiv;
@@ -45,8 +53,12 @@ import rs.ac.bg.etf.pp1.ast.StatPrintValue;
 import rs.ac.bg.etf.pp1.ast.StatRead;
 import rs.ac.bg.etf.pp1.ast.StatReturn;
 import rs.ac.bg.etf.pp1.ast.StatReturn2;
+import rs.ac.bg.etf.pp1.ast.StatementFalse;
+import rs.ac.bg.etf.pp1.ast.StatementTrue;
 import rs.ac.bg.etf.pp1.ast.SyntaxNode;
 import rs.ac.bg.etf.pp1.ast.TermMore;
+import rs.ac.bg.etf.pp1.ast.UnmatchedIf;
+import rs.ac.bg.etf.pp1.ast.UnmatchedIfElse;
 import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
@@ -66,29 +78,29 @@ public class CodeGenerator extends VisitorAdaptor {
 
 		public int firstInstrTrue = 0;
 		public int firstInstrFalse = 0;
-		public int nextInst = 0; // sledeca posle ternarnog operatora
+		public int afterInst = 0; // sledeca posle ternarnog operatora
 		public int tmpAdr = -3; // Privremena adresa koju cu stavljati svuda za
 								// skokove pre nego sto namestim na korektnu
 		public int whereToPutFirstTrue = 0;
 		public int whereToPutFirstFalse = 0;
-		public int whereToPutFirstNext = 0;
+		public int whereToPutFirstAfter = 0;
 
 		public void clear() {
 			firstInstrFalse = 0;
 			firstInstrTrue = 0;
-			nextInst = 0;
+			afterInst = 0;
 			whereToPutFirstTrue = 0;
 			whereToPutFirstFalse = 0;
-			whereToPutFirstNext = 0;
+			whereToPutFirstAfter= 0;
 		}
 
 		public void print() {
 			System.out.println("true: " + firstInstrTrue);
 			System.out.println("false: " + firstInstrFalse);
-			System.out.println("next: " + nextInst);
+			System.out.println("next: " + afterInst);
 			System.out.println("WhereTrue: " + whereToPutFirstTrue);
 			System.out.println("WhereFalse: " + whereToPutFirstFalse);
-			System.out.println("WhereNext: " + whereToPutFirstNext);
+			System.out.println("WhereNext: " + whereToPutFirstAfter);
 		}
 
 		/**
@@ -101,6 +113,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	private CodeGenerator_PCAdresses_Expr adrExpr = new CodeGenerator_PCAdresses_Expr();
+	private List<CodeGenerator_PCAdresses_Expr> listAdrIfElse = new ArrayList<>();
 
 	public int getMainPc() {
 		return mainPc;
@@ -466,6 +479,108 @@ public class CodeGenerator extends VisitorAdaptor {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 	}
 
+//////// Dodao ovaj deoooooooooooooo	
+	public void visit(ConditionEnd ConditionEnd) { 
+		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
+		
+
+//		E konju jedan. jmp if not equal radi sa dve vrednosti na steku, moras da stavis pored expr 
+//		i drugu vrednost, tj. nulu, zato ti baca gresku 1794
+		Code.loadConst(0);
+
+//		Sada ovde kazes, ako nije true onda skoci na FALSE a tu adresu jos ne znas
+
+		CodeGenerator_PCAdresses_Expr e= new CodeGenerator_PCAdresses_Expr();
+		
+		e.whereToPutFirstFalse = Code.pc + 1; // Jer prvo ide JEQ pa onda adresa
+		Code.putFalseJump(Code.ne, e.tmpAdr);
+//		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
+//		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
+//		Code.ne 
+		e.firstInstrTrue = Code.pc;
+		
+		listAdrIfElse.add(e);
+	}
+
+	public void visit(ConditionMulti ConditionMulti) { 
+		Code.put(Code.add);
+		// PROVERI OVO OR je + a AND je * 
+	}
+	
+
+	public void visit(CondTermEnd CondTermEnd) { 
+		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
+	}
+
+	public void visit(CondTermMulti CondTermMulti) { 
+		Code.put(Code.mul);
+		// PROVERI OVO OR je + a AND je * 
+	}
+
+	@Override
+	public void visit(StatementTrue StatementTrue) { 
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+		e.afterInst		= Code.pc;
+		e.firstInstrFalse= Code.pc;
+	}
+	@Override
+	public void visit(StatementFalse StatementFalse) {
+//		Izlaz iz drugogIzraza koji bi trebalo da je na steku
+//		System.out.println("ExprFalse" + Code.pc);
+//		Posle ovoga Pc ima vrednost prve instrukcije posle ternarnog operatora, tj. 
+//		to obicno biva STore ako je bila jednakost ili tako nesto
+//		Svakako je to mesto gde skaces iz TRUEexpr
+
+//		Ovde nemas gde da skaces, nastavljas dalje.
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+		e.afterInst		= Code.pc;
+		
+	}
+	@Override
+	public void visit(MatchedTrue MatchedTrue) {
+
+//		Izlaz iz prvogIzraza koji bi trebalo da je na steku
+//		System.out.println("ExprTrue" + Code.pc);
+//		Ovde je prva adresa posle ovoga adresa FALSEExpr 
+//		NJu svakako moras da sacuvas i nekako da je vratis gore u slucaju da se 
+//		radi o FALSE uslovu
+//		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
+//		prvu instrukciju posle ternarnog operatora
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+
+		e.whereToPutFirstAfter= Code.pc + 1;
+		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
+		e.firstInstrFalse = Code.pc;
+	}
+	
+	
+	@Override
+	public void visit(UnmatchedIf UnmatchedIf) { 
+//		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
+//		System.out.println("Expro0" + Code.pc);
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+		listAdrIfElse.remove(e); 
+
+//		adrExpr.print();
+//		adrExpr.fixup(adrExpr.whereToPutFirstAfter, adrExpr.afterInst);
+		e.fixup(e.whereToPutFirstFalse, e.firstInstrFalse);
+		e.clear();
+	}
+	
+	@Override
+	public void visit(UnmatchedIfElse UnmatchedIfElse) { 
+//		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
+//		System.out.println("Expro0" + Code.pc);
+		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1); 
+		listAdrIfElse.remove(e);
+//		adrExpr.print();
+		e.fixup(e.whereToPutFirstAfter, e.afterInst);
+		e.fixup(e.whereToPutFirstFalse, e.firstInstrFalse);
+		e.clear();
+	}
+	
+	
+   
 //	Vracam se da odradim ono sto nisam odradio malo pre, a to je 
 //	DStatementInc i DStatementDec
 
@@ -483,6 +598,8 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Code.store(DStatementInc.getDesignator().obj);
 
 //		v2 Proveri radi li
+		Code.put(Code.pop);	
+		// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc postavio
 		Code.put(Code.inc);
 		Code.put(DStatementInc.getDesignator().obj.getAdr());
 		Code.put(1);// increment
@@ -490,6 +607,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	public void visit(DStatementDec DStatementDec) {
+		Code.put(Code.pop);
 		Code.put(Code.inc);
 		Code.put(DStatementDec.getDesignator().obj.getAdr());
 		Code.put(-1);
@@ -550,6 +668,8 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.fixup(Code.pc - 6);
 		Code.loadConst(1);
 		Code.fixup(Code.pc - 3);
+		
+		
 	}
 
 	public void visit(Expr0 Expr0) {
@@ -557,7 +677,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		System.out.println("Expro0" + Code.pc);
 
 //		adrExpr.print();
-		adrExpr.fixup(adrExpr.whereToPutFirstNext, adrExpr.nextInst);
+		adrExpr.fixup(adrExpr.whereToPutFirstAfter, adrExpr.afterInst);
 		adrExpr.fixup(adrExpr.whereToPutFirstFalse, adrExpr.firstInstrFalse);
 		adrExpr.clear();
 	}
@@ -592,7 +712,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
 //		prvu instrukciju posle ternarnog operatora
 
-		adrExpr.whereToPutFirstNext = Code.pc + 1;
+		adrExpr.whereToPutFirstAfter= Code.pc + 1;
 		Code.putJump(adrExpr.tmpAdr); // skok na sledecu instrukciju
 		adrExpr.firstInstrFalse = Code.pc;
 	}
@@ -605,7 +725,9 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Svakako je to mesto gde skaces iz TRUEexpr
 
 //		Ovde nemas gde da skaces, nastavljas dalje.
-		adrExpr.nextInst = Code.pc;
+		adrExpr.afterInst
+		
+		= Code.pc;
 	}
 
 }

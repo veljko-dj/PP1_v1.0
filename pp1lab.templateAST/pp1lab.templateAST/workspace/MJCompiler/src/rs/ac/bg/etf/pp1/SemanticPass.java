@@ -12,6 +12,8 @@ public class SemanticPass extends VisitorAdaptor {
 	boolean errorDetected = false;
 	int printCallCount = 0;
 	Obj currentMethod = null;
+	//DumpSymbolTableVisitor printObj;
+	My_DumpSymbolTableVisitor_Impl myPrintObj;
 //	
 //	 Kada ulancavamo lokalne simbole prosledjivacemo metodu u kojoj se trenutno
 //	 nalazimo
@@ -40,33 +42,38 @@ public class SemanticPass extends VisitorAdaptor {
 	Logger log = Logger.getLogger(getClass());
 
 	public SemanticPass() {
-		super();
-		Tab.insert(Obj.Type, "bool", boolStruct);
+		super(); 
+		//Tab.insert(Obj.Type, "bool", boolStruct);
+		Scope scope = Tab.currentScope();
+		scope.addToLocals(new Obj(Obj.Type, "bool", boolStruct));
 	}
 
 	public void report_error(String message, SyntaxNode info) {
 		errorDetected = true;
-		StringBuilder msg = new StringBuilder(message);
+		StringBuilder msg = new StringBuilder("Linija :");
 		int line = (info == null) ? 0 : info.getLine();
-		if (line != 0)
-			msg.append(" na liniji ").append(line);
+		msg.append(line);
+		msg.append("  ");
+		msg.append(message);
 		log.error(msg.toString());
+		System.err.println("\t\t" + msg.toString());
 
 		/////////////////////
 		MyCompilerImpl.addErrorVeljko(2, message, line);
 	}
 
 	public void report_info(String message, SyntaxNode info) {
-		StringBuilder msg = new StringBuilder(message);
+		StringBuilder msg = new StringBuilder("Linija :");
 		int line = (info == null) ? 0 : info.getLine();
-		if (line != 0)
-			msg.append(" na liniji ").append(line);
+		msg.append(line);
+		msg.append("  ");
+		msg.append(message);
 		log.info(msg.toString());
 	}
 
 	@Override
 	public void visit(Program program) {
-		report_info("Izlazim iz programa", program);
+		report_info("Kraj programa", program);
 		// Menjano
 		nVars = Tab.currentScope.getnVars();
 		Tab.chainLocalSymbols(program.getProgName().obj);
@@ -81,7 +88,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(ProgName progName) {
-		report_info("Ulazim u program" + progName.getPName(), progName);
+		report_info("(" + progName.getPName() + ") Pocetak programa", progName);
 
 		progName.obj = Tab.insert(Obj.Prog, progName.getPName(), Tab.noType);
 		Tab.openScope();
@@ -136,14 +143,16 @@ public class SemanticPass extends VisitorAdaptor {
 				numm.setAdr(ConstDeclOneElementNumber.getVal());
 				numm.setLevel(0);
 				nConst++;
-				report_info("Deklarisem konstantu: " + ConstDeclOneElementNumber.getNumIdent() + " vrednosti "
+				report_info("(" + ConstDeclOneElementNumber.getNumIdent() + ")" + " Deklarisem konstantu: vrednosti "
 						+ ConstDeclOneElementNumber.getVal(), ConstDeclOneElementNumber);
 			} else {
-				report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": nije broj", ConstDeclOneElementNumber);
+				report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": nije broj",
+						ConstDeclOneElementNumber);
 			}
 		} else {
 			report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": "
-					+ ConstDeclOneElementNumber.getNumIdent() + " VEC POSTOJI u tabeli simbola", ConstDeclOneElementNumber);
+					+ ConstDeclOneElementNumber.getNumIdent() + " VEC POSTOJI u tabeli simbola",
+					ConstDeclOneElementNumber);
 		}
 	}
 
@@ -161,20 +170,23 @@ public class SemanticPass extends VisitorAdaptor {
 				boolValue = ConstDeclOneElementBool.getVal().equals("false") ? 0 : boolValue;
 
 				if (boolValue == -1) {
-					report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": "
-							+ ConstDeclOneElementBool.getBoolIdent() + " Nit je true nit false", ConstDeclOneElementBool);
+					report_error(
+							"Greska: " + ConstDeclOneElementBool.getLine() + ": "
+									+ ConstDeclOneElementBool.getBoolIdent() + " Nit je true nit false",
+							ConstDeclOneElementBool);
 				} else {
 					Obj booll = Tab.insert(Obj.Con, ConstDeclOneElementBool.getBoolIdent(), currentType);
 					booll.setAdr(boolValue);
 					booll.setLevel(0);
 					nConst++;
 
-					report_info("Deklarisem konstantu: " + ConstDeclOneElementBool.getBoolIdent() + " vrednosti "
+					report_info("(" + ConstDeclOneElementBool.getBoolIdent() + ")" + " Deklarisem konstantu: vrednosti "
 							+ ConstDeclOneElementBool.getVal(), ConstDeclOneElementBool);
 				}
 			} else {
 				report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": "
-						+ ConstDeclOneElementBool.getBoolIdent() + " VEC POSTOJI u tabeli simbola", ConstDeclOneElementBool);
+						+ ConstDeclOneElementBool.getBoolIdent() + " VEC POSTOJI u tabeli simbola",
+						ConstDeclOneElementBool);
 			}
 		} else {
 			report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": tip nije BOOL", ConstDeclOneElementBool);
@@ -195,7 +207,7 @@ public class SemanticPass extends VisitorAdaptor {
 				charr.setLevel(0);
 				nConst++;
 
-				report_info("Deklarisem konstantu: " + ConstDeclOneElementChar.getCharIdent() + " vrednosti "
+				report_info("(" + ConstDeclOneElementChar.getCharIdent() + ")" + " Deklarisem konstantu: vrednosti "
 						+ ConstDeclOneElementChar.getVal(), ConstDeclOneElementChar);
 			} else {
 				report_error("Greska: " + ConstDeclOneElementChar.getLine() + ": "
@@ -229,8 +241,10 @@ public class SemanticPass extends VisitorAdaptor {
 					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", VarDeclOneNoSquare);
 		else {
 
-			Tab.insert(Obj.Var, VarDeclOneNoSquare.getNameVarOne(), currentType);
-			report_info("Deklarisem varijablu: " + VarDeclOneNoSquare.getNameVarOne(), VarDeclOneNoSquare);
+			Obj obj = Tab.insert(Obj.Var, VarDeclOneNoSquare.getNameVarOne(), currentType);
+			String lok = (obj.getLevel() != 0) ? " lokalnu " : "";
+			report_info("(" + VarDeclOneNoSquare.getNameVarOne() + ")" + " Deklarisem" + lok + "varijablu: ",
+					VarDeclOneNoSquare);
 		}
 	}
 
@@ -257,9 +271,12 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 //			report_info("evo me: VarDeclOneSquare.getNameVarOneArray() : " + VarDeclOneSquare.getNameVarOneArray()
 //					+ "\n tip je struct.getKind: " + currentType.getKind(), null);
-			Tab.insert(Obj.Var, VarDeclOneSquare.getNameVarOneArray(), new Struct(Struct.Array, currentType));
+			Obj obj = Tab.insert(Obj.Var, VarDeclOneSquare.getNameVarOneArray(), new Struct(Struct.Array, currentType));
 
-			report_info("Deklarisem nizovsku varijablu: " + VarDeclOneSquare.getNameVarOneArray(), VarDeclOneSquare);
+			String lok = (obj.getLevel() != 0) ? " lokalnu " : "";
+			report_info(
+					"(" + VarDeclOneSquare.getNameVarOneArray() + ")" + " Deklarisem nizovsku" + lok + "varijablu: ",
+					VarDeclOneSquare);
 
 		}
 	}
@@ -279,7 +296,8 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(MethodTypeName MethodTypeName) {
-		report_info("Usao sam u metodu " + MethodTypeName.getMethodName(), MethodTypeName);
+		report_info("(" + MethodTypeName.getMethodName() + ")" + " Usao u metodu: ", MethodTypeName);
+
 		//
 		boolean alreadyExists = Tab.find(MethodTypeName.getMethodName()) != Tab.noObj;
 		if (alreadyExists) {
@@ -411,16 +429,27 @@ public class SemanticPass extends VisitorAdaptor {
 			// Ovde mozes da stampas onaj objekat DumpTable...
 			// Nista specijlano, samo new dumptable pa onda visitObj na to
 			// i na kraju iskoristi getOutput() da pokupis to sto treba da se istampa
+			
+			//printObj = new DumpSymbolTableVisitor();
+			//printObj.visitObjNode(obj);
+
+			myPrintObj = new My_DumpSymbolTableVisitor_Impl();
+			myPrintObj.visitObjNode(obj);
+
 			if (obj.getKind() == Obj.Meth) {
 				if (currentMethod == null) {
 					// Iskucano dok sam hteo da radim B
 					report_info("Globalna metoda! Ovo ne bi smelo da se desi, radis samo A!  ", DesignatorJustOne);
 				}
 			} else if (obj.getKind() == Obj.Con) {
-				report_info("Koristim konstantu " + DesignatorJustOne.getDestName(), DesignatorJustOne);
+				report_info(
+						"(" + DesignatorJustOne.getDestName() + ")" + " Koristim konstantu: " + myPrintObj.getOutput(),
+						DesignatorJustOne);
 				// Ovde ide visitor onaj
 			} else if (obj.getKind() == Obj.Var) {
-				report_info("Koristim promenljivu " + DesignatorJustOne.getDestName(), DesignatorJustOne);
+				report_info(
+						"(" + DesignatorJustOne.getDestName() + ")" + " Koristim varijablu: " + myPrintObj.getOutput(),
+						DesignatorJustOne);
 			}
 			DesignatorJustOne.obj = obj;
 		}
@@ -451,7 +480,16 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error(" Izraz nije tipa int unutar zagrada " + DesignatorOneArray.getDestName(), DesignatorOneArray);
 		} else {
 			// i ovde moze onaj dump visitor
-			report_info("Koristim niz " + DesignatorOneArray.getDestName(), DesignatorOneArray);
+			//printObj = new DumpSymbolTableVisitor();
+			//printObj.visitObjNode(designNode);
+			
+
+			myPrintObj = new My_DumpSymbolTableVisitor_Impl();
+			myPrintObj.visitObjNode(designNode);
+			
+			report_info(
+					"(" + DesignatorOneArray.getDestName() + ")" + " Koristim nizovsku varijablu: " + myPrintObj.getOutput(),
+					DesignatorOneArray); 
 //			DesignatorOneArray.obj = designNode;
 //			Pa ovo gore ti bre nema smisla, ovo gore je itipa objekta a ti hoces da bude tipa elem niza konju jedan
 			DesignatorOneArray.obj = new Obj(Obj.Elem, designNode.getName(), designNode.getType().getElemType());
@@ -763,7 +801,7 @@ public class SemanticPass extends VisitorAdaptor {
 						+ " nije CHAR || BOOL || INT ", StatRead);
 			}
 		}
-		report_info("Koristi se read ", StatRead);
+		report_info("READ! READ! READ!", StatRead);
 	}
 
 	@Override
@@ -778,8 +816,7 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 			// ovde se nesto desava
 			// i to ovde treba da se pokupe i vrednosti iz konstanti
-			printCallCount++;
-			report_info("Koristi se Print ", StatPrintValue);
+			printCallCount++; 
 		}
 	}
 
@@ -795,8 +832,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", StatPrint);
 		else {
 			// ovde se nesto desava
-			printCallCount++;
-			report_info("Koristi se print ", StatPrint);
+			printCallCount++; 
 		}
 	}
 
@@ -834,11 +870,9 @@ public class SemanticPass extends VisitorAdaptor {
 		else if (!(validType || false || false))
 			report_error("Greska: Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					DStatementAssign);
-		else {
-			// sve je okej
-			// report_info("Dodela je okej", DStatementAssign);
-			if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
-				report_info("Dodela nizu ", DStatementAssign);
+		else { 
+			//if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
+				//report_info("Dodela nizu ", DStatementAssign);
 		}
 	}
 
@@ -862,7 +896,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementInc);
 		else {
 			// sve je okej
-			report_info("Log_info: increment je okej", DStatementInc);
+			//report_info("Log_info: increment je okej", DStatementInc);
 		}
 	}
 
@@ -886,16 +920,16 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + " DeIncrement mora da bude na tipu INT ", DStatementDec);
 		else {
 			// sve je okej
-			report_info("Log_info: Decrement", DStatementDec);
+			//report_info("Log_info: Decrement", DStatementDec);
 		}
 	}
 
 	public void visit(RelopLower RelopLower) {
-		report_info("Log_info: Usao u RelopLower", RelopLower);
+		//report_info("Log_info: Usao u RelopLower", RelopLower);
 	}
 
 	public void visit(RelopLowerEqual RelopLowerEqual) {
-		report_info("Log_info: Usao u RelopLowerEqual", RelopLowerEqual);
+		//report_info("Log_info: Usao u RelopLowerEqual", RelopLowerEqual);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////

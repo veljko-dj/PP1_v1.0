@@ -14,6 +14,7 @@
 				<exclude name="test/Compiler.java"/>
 				<exclude name="test/CompilerError.java"/>
 				<exclude name="MyCompilerImpl.java"/>
+				<exclude name="My_DumpSymbolTableVisitor_Impl.java"/>
 					
 			</fileset>
 		</delete>

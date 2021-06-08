@@ -46,14 +46,17 @@ public class MyCompilerImpl implements Compiler {
 			br = new BufferedReader(new FileReader(sourceCode));
 			Yylex lexer = new Yylex(br);
 
+			log.info("\n================Sintaksna analiza===================");
+			
 			MJParser p = new MJParser(lexer);
 			Symbol s = p.parse(); // pocetak parsiranja
 
 			Program prog = (Program) (s.value);
 			Tab.init();
 			// ispis sintaksnog stabla
-			log.info(prog.toString(""));
-			log.info("===================================");
+			log.info("\n==============Sintaksno stablo=====================");
+			//log.info(prog.toString(""));
+			log.info("\n==============Semanticka analiza=====================");
 
 			// ispis prepoznatih programskih konstrukcija
 			SemanticPass v = new SemanticPass();
@@ -66,7 +69,9 @@ public class MyCompilerImpl implements Compiler {
 			// log.info(" I to su: "+ v.varDeclString);
 
 			log.info("===================================");
-			Tab.dump();
+			////////////////////////////DODATO DODATO DODATO ! !! !  ! !  !
+			Tab.dump(new My_DumpSymbolTableVisitor_Impl());
+			//Tab.dump();
 
 			if (!p.errorDetected && v.passed()) {
 				File objFile = new File(outputFilePath);
@@ -116,11 +121,11 @@ public class MyCompilerImpl implements Compiler {
 		listError.sort(new Comparator<CompilerError>() {
 			@Override 
 			public int compare(CompilerError e1, CompilerError e2) { 
-				return (e1.getLine() > e2.getLine()) ? 1 : -1;
+				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
 			}
 		}); 
 		
-		System.out.println("ISPIS_GRESAKA\n\n");
+		System.out.println("ISPIS_GRESAKA\n");
 		StringBuilder str = new StringBuilder();
 		for (CompilerError tmp : listError) {
 			//System.out.println(tmp.toString());

@@ -9,8 +9,8 @@ public class CompilerTest {
 		MyCompilerImpl mycomp = new MyCompilerImpl();
 		
 		mycomp.compile("test/program.mj", "test/izlaz1.obj");
-
-		System.out.println("HEHE");
+ 
+		System.out.println("\n");
 		System.out.println(MyCompilerImpl.toStringVeljko());
 	}
 		

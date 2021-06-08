@@ -20,19 +20,7 @@ import rs.etf.pp1.symboltable.Tab;
 
 public class MJParserTest {
 	
-	
-	Ono najbitnije: Odradio si if else, ali nisi odradio klasu comppiler
-	Drugo, dobro pogledaj i skontaj svoj kod, ono sa nizovima je dosta zajebano
-	Cinjenica je da imas 2 problema
-		1. Problem je sto mozes da pozoves z[3] pre z= new int(5)
-		2. problem je sto ti ne radi print (x, 3)
-			Tu nemam blage veze sta je
-			A ni ovo 1. nemam nikakvo resenje za sve to.
-			Srecno sa tim
-	
-	
-	
-
+	  
 	static {
 		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
 		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
@@ -44,7 +32,7 @@ public class MJParserTest {
 
 		Reader br = null;
 		try {
-			File sourceCode = new File("test/programcicPreIfa.txt");
+			File sourceCode = new File("test/program.mj");
 			log.info("Compiling source file: " + sourceCode.getAbsolutePath());
 
 			br = new BufferedReader(new FileReader(sourceCode));

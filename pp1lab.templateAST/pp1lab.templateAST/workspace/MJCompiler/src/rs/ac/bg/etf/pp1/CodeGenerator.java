@@ -36,13 +36,12 @@ import rs.ac.bg.etf.pp1.ast.FactNum;
 import rs.ac.bg.etf.pp1.ast.FactVar;
 import rs.ac.bg.etf.pp1.ast.FuncCall;
 import rs.ac.bg.etf.pp1.ast.IfElseStatement;
-import rs.ac.bg.etf.pp1.ast.IfStatement; 
+import rs.ac.bg.etf.pp1.ast.IfStatement;
 import rs.ac.bg.etf.pp1.ast.MethodDeclaration;
 import rs.ac.bg.etf.pp1.ast.MethodTypeName;
 import rs.ac.bg.etf.pp1.ast.MulopDiv;
 import rs.ac.bg.etf.pp1.ast.MulopMod;
 import rs.ac.bg.etf.pp1.ast.MulopMul;
-import rs.ac.bg.etf.pp1.ast.PrintValue;
 import rs.ac.bg.etf.pp1.ast.RelopEqual;
 import rs.ac.bg.etf.pp1.ast.RelopGreater;
 import rs.ac.bg.etf.pp1.ast.RelopGreaterEqual;
@@ -57,12 +56,13 @@ import rs.ac.bg.etf.pp1.ast.StatReturn2;
 import rs.ac.bg.etf.pp1.ast.StatementFalse;
 import rs.ac.bg.etf.pp1.ast.StatementTrue;
 import rs.ac.bg.etf.pp1.ast.SyntaxNode;
-import rs.ac.bg.etf.pp1.ast.TermMore; 
+import rs.ac.bg.etf.pp1.ast.TermMore;
 import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
+import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
 public class CodeGenerator extends VisitorAdaptor {
 //	Snimak si odgledao, malo preleteo kraj.
@@ -75,18 +75,17 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	private class CodeGenerator_PCAdresses_Expr {
 		// Ovo postoji kao klasa za krpljene adresa kod skokova
-		
+
 		public int firstInstrTrue = 0;
 		public int firstInstrFalse = 0;
-		public int afterInst = 0;	// sledeca posle ternarnog operatora
-		public int tmpAdr = -3; 	// Privremena adresa koju cu stavljati svuda za
-									// skokove pre nego sto namestim na korektnu
+		public int afterInst = 0; // sledeca posle ternarnog operatora
+		public int tmpAdr = -3; // Privremena adresa koju cu stavljati svuda za
+								// skokove pre nego sto namestim na korektnu
 		public int whereToPutFirstTrue = 0;
 		public int whereToPutFirstFalse = 0;
 		public int whereToPutFirstAfter = 0;
-		
-		
-		public boolean falseExist =false;
+
+		public boolean falseExist = false;
 
 		public void clear() {
 			firstInstrFalse = 0;
@@ -94,8 +93,8 @@ public class CodeGenerator extends VisitorAdaptor {
 			afterInst = 0;
 			whereToPutFirstTrue = 0;
 			whereToPutFirstFalse = 0;
-			whereToPutFirstAfter= 0;
-			falseExist= false;
+			whereToPutFirstAfter = 0;
+			falseExist = false;
 		}
 
 		public void print() {
@@ -143,11 +142,11 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	@Override
-	public void visit(MethodTypeName methodTypeName) {  
+	public void visit(MethodTypeName methodTypeName) {
 		if ("main".equalsIgnoreCase(methodTypeName.getMethodName())) {
 			mainPc = Code.pc;
 		}
-		methodTypeName.obj.setAdr(Code.pc); 
+		methodTypeName.obj.setAdr(Code.pc);
 		SyntaxNode methodNode = methodTypeName.getParent();
 
 		VarCounter varCnt = new VarCounter();
@@ -161,7 +160,6 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(fpCnt.getCount()); // Ovo ce mislim biti isto kao Code.put(0)
 		Code.put(fpCnt.getCount() + varCnt.getCount()); // Ovo ce mislim biti isto kao Code.put(1)
 														// Broj formalnih parametara sa lokalnim parametrima
- 
 
 		generisanjeORDCHR();
 	}
@@ -175,7 +173,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	public void visit(StatReturn returnExpr) {
 		Code.put(Code.exit);
-		Code.put(Code.return_); 
+		Code.put(Code.return_);
 	}
 
 	// izvorni
@@ -186,7 +184,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //	Prvo hocu da odradim konstante da znam sta se tu desava
 	@Override
-	public void visit(FactNum FactNum) { 
+	public void visit(FactNum FactNum) {
 		Obj con = Tab.insert(Obj.Con, "$", FactNum.struct);
 		con.setLevel(0);
 		con.setAdr(FactNum.getN1());
@@ -250,7 +248,6 @@ public class CodeGenerator extends VisitorAdaptor {
 
 		Code.put(Code.newarray);
 		Code.put(b);
-
 	}
 
 	public void visit(FactExpr FactExpr) {
@@ -259,7 +256,6 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
- 
 
 	public void visit(StatPrint StatPrint) {
 		if (StatPrint.getExpr().struct == Tab.intType) {
@@ -271,25 +267,26 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.loadConst(1);
 			Code.put(Code.bprint);
 		} else if (StatPrint.getExpr().struct == boolStruct) {
-			Code.pc = Code.pc - 1; // skontah da moze i Code.pop
-
-			int numLetters;
-			String[] boolString = { "false", "truea" };
-			int intValue = Code.get(Code.pc);
-			if (intValue == Code.const_1)
-				numLetters = 4;
-			else
-				numLetters = 5;
-
-			int it = 0;
-			while (it < numLetters) {
-				Code.loadConst(boolString[intValue - 15].charAt(it));
-				Code.loadConst(1);
-				Code.put(Code.bprint);
-				it++;
-			}
-//			Code.loadConst(3);
-//			Code.put(Code.print);
+//			Code.pc = Code.pc - 1; // skontah da moze i Code.pop  
+//			int numLetters;
+//			String[] boolString = { "false", "truea" };
+//			int intValue = Code.get(Code.pc);
+//			int intValuePre = Code.get(Code.pc-1);
+//			int intValuePosle = Code.get(Code.pc+1);
+//			if (intValue == Code.const_1)
+//				numLetters = 4;
+//			else
+//				numLetters = 5;
+//
+//			int it = 0;
+//			while (it < numLetters) {
+//				Code.loadConst(boolString[intValue - 15].charAt(it));
+//				Code.loadConst(1);
+//				Code.put(Code.bprint);
+//				it++;
+//			}
+			Code.loadConst(4);
+			Code.put(Code.print); 
 		} else
 			System.out.println("Neka greska se desila");
 	}
@@ -297,10 +294,41 @@ public class CodeGenerator extends VisitorAdaptor {
 	@Override
 	public void visit(StatPrintValue StatPrintValue) {
 		// Kako uopste izgleda ovaj smesni print?
-	}
+		if (StatPrintValue.getExpr().struct == Tab.intType) {
+//			Zasto je int 5? Stavio sam ipak 4 jer mi to ima smisla
+			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
+			Code.put(Code.print); // Ovo je ispis INTa
+		} else if (StatPrintValue.getExpr().struct == Tab.charType) {
+//			Code.pc = Code.pc - 1; // skontah da moze i Code.pop  
+//			int numLetters;
+//			String[] boolString = { "false", "truea" };
+//			int intValue = Code.get(Code.pc);
+//			int intValuePre = Code.get(Code.pc-1);
+//			int intValuePosle = Code.get(Code.pc+1);
+//			if (intValue == Code.const_1)
+//				numLetters = 4;
+//			else
+//				numLetters = 5;
+//
+//			int it = 0;
+//			while (it < numLetters) {
+//				Code.loadConst(boolString[intValue - 15].charAt(it));
+//				Code.loadConst(1);
+//				Code.put(Code.bprint);
+//				it++;
+//			}
+			Code.loadConst(4);
+			Code.put(Code.print); 
+		} else
+			System.out.println("Neka greska se desila");
 
-	public void visit(PrintValue PrintValue) {
+// 		Dodatak za ispisivanje konstante
+		Code.loadConst(StatPrintValue.getValue());
+		Code.loadConst(4);
+		Code.put(Code.print);
+ 
 	}
+ 
 
 //	A sada StatRead, kad sam vec odradio print a to deluje lako
 
@@ -356,9 +384,9 @@ public class CodeGenerator extends VisitorAdaptor {
 			}
 			Code.put(Code.dup_x2);
 			Code.put(Code.pop);
-  
+
 		}
-		
+
 		Code.store(DStatementAssign.getDesignator().obj);
 //		 on u pozadini u mjruntime odradi store zavisno sta stavljas
 
@@ -385,17 +413,18 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Ovo je niz, vidis tamo da na steku treba da bude adr, index
 //		pa onda kad se izvrsi ostaje val
 //		Prvo ista prica, provera da li je funkcija i tako to
-		
+
 		SyntaxNode parent = DesignatorOneArray.getParent();
-		
+
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
-		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na cudan 
+		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
+		// cudan
 		// nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-			
+
 		if (DStatementAssign.class != parent.getClass() && DStatementParen.class != parent.getClass()
-				&& StatRead.class != parent.getClass()) {  
+				&& StatRead.class != parent.getClass()) {
 			{
 				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 				obj.setLevel(DesignatorOneArray.obj.getLevel());
@@ -471,9 +500,8 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 //////// Dodao ovaj deoooooooooooooo	
-	public void visit(ConditionEnd ConditionEnd) { 
+	public void visit(ConditionEnd ConditionEnd) {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
-		
 
 //		E konju jedan. jmp if not equal radi sa dve vrednosti na steku, moras da stavis pored expr 
 //		i drugu vrednost, tj. nulu, zato ti baca gresku 1794
@@ -481,49 +509,45 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //		Sada ovde kazes, ako nije true onda skoci na FALSE a tu adresu jos ne znas
 
-		CodeGenerator_PCAdresses_Expr e= new CodeGenerator_PCAdresses_Expr();
-		
+		CodeGenerator_PCAdresses_Expr e = new CodeGenerator_PCAdresses_Expr();
+
 		e.whereToPutFirstFalse = Code.pc + 1; // Jer prvo ide JEQ pa onda adresa
 		Code.putFalseJump(Code.ne, e.tmpAdr);
 //		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
 //		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
 //		Code.ne 
 		e.firstInstrTrue = Code.pc;
-		
+
 		listAdrIfElse.add(e);
 	}
 
-	public void visit(ConditionMulti ConditionMulti) { 
+	public void visit(ConditionMulti ConditionMulti) {
 		Code.put(Code.add);
-		// PROVERI OVO OR je + a AND je * 
+		// PROVERI OVO OR je + a AND je *
 	}
-	
 
-	public void visit(CondTermEnd CondTermEnd) { 
+	public void visit(CondTermEnd CondTermEnd) {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 	}
 
-	public void visit(CondTermMulti CondTermMulti) { 
+	public void visit(CondTermMulti CondTermMulti) {
 		Code.put(Code.mul);
-		// PROVERI OVO OR je + a AND je * 
+		// PROVERI OVO OR je + a AND je *
 	}
 
 	@Override
-	public void visit(StatementTrue StatementTrue) { 
+	public void visit(StatementTrue StatementTrue) {
 //		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
 //		e.afterInst		= Code.pc;
 //		e.firstInstrFalse= Code.pc;
-		
-		
 
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
+		CodeGenerator_PCAdresses_Expr e = listAdrIfElse.get(listAdrIfElse.size() - 1);
 
-		e.whereToPutFirstAfter= Code.pc + 1;
+		e.whereToPutFirstAfter = Code.pc + 1;
 		Code.putJump(e.tmpAdr); // skok na sledecu instrukciju
 		e.firstInstrFalse = Code.pc;
-		
+
 	}
- 
 
 	@Override
 	public void visit(StatementFalse StatementFalse) {
@@ -534,40 +558,38 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Svakako je to mesto gde skaces iz TRUEexpr
 
 //		Ovde nemas gde da skaces, nastavljas dalje.
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-		e.afterInst		= Code.pc;
-		
-		e.falseExist= true;
-		
+		CodeGenerator_PCAdresses_Expr e = listAdrIfElse.get(listAdrIfElse.size() - 1);
+		e.afterInst = Code.pc;
+
+		e.falseExist = true;
+
 	}
-	
+
 	@Override
-	public void visit(IfStatement IfStatement) { 
+	public void visit(IfStatement IfStatement) {
 //		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
 //		System.out.println("Expro0" + Code.pc);
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1);
-		listAdrIfElse.remove(e); 
+		CodeGenerator_PCAdresses_Expr e = listAdrIfElse.get(listAdrIfElse.size() - 1);
+		listAdrIfElse.remove(e);
 
 //		adrExpr.print();
 		e.fixup(e.whereToPutFirstAfter, e.firstInstrFalse);
 		e.fixup(e.whereToPutFirstFalse, e.firstInstrFalse);
 		e.clear();
 	}
-	
+
 	@Override
-	public void visit(IfElseStatement IfElseStatement) { 
+	public void visit(IfElseStatement IfElseStatement) {
 //		Izlazak iz ternarnog, na steku bi trebalo da se nalazi vrednost za dodelu
 //		System.out.println("Expro0" + Code.pc);
-		CodeGenerator_PCAdresses_Expr e= listAdrIfElse.get(listAdrIfElse.size()-1); 
+		CodeGenerator_PCAdresses_Expr e = listAdrIfElse.get(listAdrIfElse.size() - 1);
 		listAdrIfElse.remove(e);
 //		adrExpr.print();
 		e.fixup(e.whereToPutFirstAfter, e.afterInst);
 		e.fixup(e.whereToPutFirstFalse, e.firstInstrFalse);
 		e.clear();
 	}
-	
-	
-   
+
 //	Vracam se da odradim ono sto nisam odradio malo pre, a to je 
 //	DStatementInc i DStatementDec
 
@@ -580,28 +602,27 @@ public class CodeGenerator extends VisitorAdaptor {
 //		za load jednom za store kao sto je slucaj kod niz[3]=niz[3]+1;
 //		Zato si u designOneSquare morao da ide Code.dup da bi duplirao indeks 3 
 //		Pa to onda ovde da iskoristis za formiranje steka za STORE i to ej to
- 
- 
-		if (DStatementInc.getDesignator().obj.getLevel()==1
-				&& DStatementInc.getDesignator().obj.getKind() != 5) {
-			Code.put(Code.pop);	
-			// Ovaj pop ide jer je vrednost ispod inc vec stavljena, pa ga sklonim da bi to inc postavio
+
+		if (DStatementInc.getDesignator().obj.getLevel() == 1 && DStatementInc.getDesignator().obj.getKind() != 5) {
+			Code.put(Code.pop);
+			// Ovaj pop ide jer je vrednost ispod inc vec stavljena, pa ga sklonim da bi to
+			// inc postavio
 			// ovo gore je debug pokazao
 			Code.put(Code.inc);
 			Code.put(DStatementInc.getDesignator().obj.getAdr());
-			Code.put(1);// increment 
-		} else {  
-			
+			Code.put(1);// increment
+		} else {
+
 			Code.loadConst(1);
 			Code.put(Code.add);
-			if (DStatementInc.getDesignator().obj.getKind()==5) { 
+			if (DStatementInc.getDesignator().obj.getKind() == 5) {
 				// Ovo postoji ovde ovako jer sam u DesignOneSquare ili kako vec
 				// rekao ako je njegov roditelj DstatInc ili Dec onda odradi DUP
 				// pa ces u ovom momentu na steku imati:
 				// indeks u nizu : vrednost koja treba da se postavi
 				// npr niz[7]++; (niz[7] je bio 45 npr)
 				// na steku je 7 46
-				{ // Pravim privremeno da ucita lepo to, ovo je sve kopirano gore iz 
+				{ // Pravim privremeno da ucita lepo to, ovo je sve kopirano gore iz
 					// assign gde upisujem vrednosti
 					Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 					obj.setLevel(DStatementInc.getDesignator().obj.getLevel());
@@ -609,21 +630,22 @@ public class CodeGenerator extends VisitorAdaptor {
 					Code.load(obj);
 				}
 				Code.put(Code.dup_x2);
-				Code.put(Code.pop); 
+				Code.put(Code.pop);
 			}
 			Code.store(DStatementInc.getDesignator().obj);
 		}
 	}
 
 	public void visit(DStatementDec DStatementDec) {
-		if (DStatementDec.getDesignator().obj.getLevel()==1) {
-			Code.put(Code.pop);	
-			// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc postavio
+		if (DStatementDec.getDesignator().obj.getLevel() == 1) {
+			Code.put(Code.pop);
+			// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc
+			// postavio
 			Code.put(Code.inc);
 			Code.put(DStatementDec.getDesignator().obj.getAdr());
 			Code.put(-1);// increment
-	//		Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
-		} else {  
+			// Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
+		} else {
 			Code.loadConst(-1);
 			Code.put(Code.add);
 			Code.store(DStatementDec.getDesignator().obj);
@@ -632,7 +654,6 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //	E na zalost je doslo vreme da se radi if 
 //	Hej za A nivo ti ne treba IF, samo ternarni operator                                                                                                  
- 
 
 //	Ovo radim posle gotovog projekta, radi malo dodavanja
 	public void visit(CondFactOne CondFactOne) {
@@ -681,8 +702,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.fixup(Code.pc - 6);
 		Code.loadConst(1);
 		Code.fixup(Code.pc - 3);
-		
-		
+
 	}
 
 	public void visit(Expr0 Expr0) {
@@ -725,7 +745,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Takodje ako si dosao do ovde, ovde svakako moras da radis skok JMP na 
 //		prvu instrukciju posle ternarnog operatora
 
-		adrExpr.whereToPutFirstAfter= Code.pc + 1;
+		adrExpr.whereToPutFirstAfter = Code.pc + 1;
 		Code.putJump(adrExpr.tmpAdr); // skok na sledecu instrukciju
 		adrExpr.firstInstrFalse = Code.pc;
 	}
@@ -739,8 +759,8 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //		Ovde nemas gde da skaces, nastavljas dalje.
 		adrExpr.afterInst
-		
-		= Code.pc;
+
+				= Code.pc;
 	}
 
 }

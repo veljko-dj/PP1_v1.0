@@ -22,8 +22,11 @@ int main()
 int v1, v2, v3;
 bool b1;
 int nizLok[];
+bool nizBool1[];
+bool nizBool2[];
 { 
 	nizLok = new int[10];
+	nizBool1 = new bool[5];
 	v3=0;
  	v1= 3;
  	v2= 3 + 1*2*3 - 7 + 2*5;  				// 12
@@ -56,8 +59,41 @@ int nizLok[];
  	print(v3);
  	print(varNiz[7]);
  	print(nizLok[0]);
- 	print(varInt3, 3);
+ 	print(eol);
+ 	print(varInt3, 10);
  	
+ 	print(eol);
+ 	print(eol);
+ 	
+ 	nizBool1[0]=true;
+ 	nizBool1[1]=false;
+ 	b1 = true;
+ 	
+ 	//print(nizBool1[0]);
+ 	//print(b1);
+ 	
+ 	if (b1) print('a');
+ 	else print('b');
+ 	
+ 	b1= false;
+ 	
+ 	print(b1);
+ 	
+ 	print(eol);
+ 	print('1');
+ 	print(nizBool1[0]);
+ 	print(nizBool1[1]);
+ 	
+ 	print(b1);
+ 	print('x');
+ 	
+ 	print(eol);
+ 	
+ 	nizBool2= nizBool1;
+ 	
+ 	print('2');
+ 	print(nizBool2[0]);
+ 	print(nizBool2[1]);
  	
 	return 1;
 }

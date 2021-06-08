@@ -47,7 +47,7 @@ public class MyCompilerImpl implements Compiler {
 			Yylex lexer = new Yylex(br);
 
 			log.info("\n================Sintaksna analiza===================");
-			
+
 			MJParser p = new MJParser(lexer);
 			Symbol s = p.parse(); // pocetak parsiranja
 
@@ -55,7 +55,7 @@ public class MyCompilerImpl implements Compiler {
 			Tab.init();
 			// ispis sintaksnog stabla
 			log.info("\n==============Sintaksno stablo=====================");
-			//log.info(prog.toString(""));
+			log.info(prog.toString(""));
 			log.info("\n==============Semanticka analiza=====================");
 
 			// ispis prepoznatih programskih konstrukcija
@@ -69,9 +69,9 @@ public class MyCompilerImpl implements Compiler {
 			// log.info(" I to su: "+ v.varDeclString);
 
 			log.info("===================================");
-			////////////////////////////DODATO DODATO DODATO ! !! !  ! !  !
+			//////////////////////////// DODATO DODATO DODATO ! !! ! ! ! !
 			Tab.dump(new My_DumpSymbolTableVisitor_Impl());
-			//Tab.dump();
+			// Tab.dump();
 
 			if (!p.errorDetected && v.passed()) {
 				File objFile = new File(outputFilePath);
@@ -89,8 +89,7 @@ public class MyCompilerImpl implements Compiler {
 			}
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Ne postoji fajl koji zelis da otvoris");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,22 +112,25 @@ public class MyCompilerImpl implements Compiler {
 
 		listError.add(tmp);
 
-		//System.out.println("addErrorVeljko() " + tmp.toString());
+		// System.out.println("addErrorVeljko() " + tmp.toString());
 	}
 
-	public static String toStringVeljko() { 
+	public static String toStringVeljko() {
 
 		listError.sort(new Comparator<CompilerError>() {
-			@Override 
-			public int compare(CompilerError e1, CompilerError e2) { 
+			@Override
+			public int compare(CompilerError e1, CompilerError e2) {
 				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
 			}
-		}); 
-		
-		System.out.println("ISPIS_GRESAKA\n");
+		});
+
+		if (!listError.isEmpty())
+			System.out.println("ISPIS_GRESAKA\n");
+		else
+			System.out.println("NEMA_GRESAKA");
 		StringBuilder str = new StringBuilder();
 		for (CompilerError tmp : listError) {
-			//System.out.println(tmp.toString());
+			// System.out.println(tmp.toString());
 			str.append(tmp.toString());
 			str.append('\n');
 		}

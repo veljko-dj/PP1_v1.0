@@ -98,7 +98,7 @@ nonterminal Errorr;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm, ConditionFinal;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
@@ -143,7 +143,7 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI
 			// tipa typeVar ::= Type
 			// Edit: Ne mora
 			| (VarDeclarationNumberError) error:err2 SEMI  {:
-			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive, naisao broj",err2left );
+			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive",err2left );
 			  			parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
 				  		//parser.report_error("Deklarisanje promenljive" + err2left , null); 
 			  		:}  ;
@@ -281,8 +281,10 @@ ActPars ::= (Actuals) ActualParamList
 ActualParamList ::= (ActualParams) ActualParamList COMMA Expr
 				|	(ActualParamEnd) Expr ;
 			
-Condition ::=	(ConditionMulti) Condition OR CondTerm
-			|	(ConditionEnd)	CondTerm ;
+Condition ::=	(ConditionFinalAAA) ConditionFinal;
+
+ConditionFinal ::= 	(ConditionMulti) ConditionFinal OR CondTerm
+				|	(ConditionOne)	CondTerm ;
 		
 
 CondTerm ::= (CondTermMulti) CondTerm AND CondFact

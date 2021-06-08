@@ -1,0 +1,79 @@
+// Test301
+
+program test301
+
+	const int nula = 0;		
+	const int jedan = 1;
+	const int pet = 5;
+
+	int niz[];
+	char nizch[];
+
+//	int g1, 2, g3; 				// GRESKA: g1 i g3 ce biti u tabeli simbola
+	int g1, g2, g3;
+	
+//	int 1, g2, g3; 				// GRESKA:  
+	int g4, g5, g6; 
+	
+//	int 7;						// GRESKA
+	int g7;						// GRESKA
+		 
+{
+	void main()	
+		int bodovi;
+	{
+		bodovi = 0;
+		bodovi++;
+		
+		
+//		bodovi = bodovi + #jedan;			//GRESKA
+		bodovi = bodovi + jedan;
+		
+		
+		bodovi = bodovi * pet;
+		bodovi--;
+		print(bodovi); 
+			
+		
+//		niz = new int[3] new;				//GRESKA
+		niz = new int[3];
+		
+		
+		niz[nula] = jedan;
+		niz[1] = 2;
+		
+		
+		
+//		niz[niz[jedan]] = niz[niz[0]] * 3 + new int[3];			//GRESKA
+		niz[niz[jedan]] = niz[niz[0]] * 3;				
+		
+		
+		bodovi = niz[2]/niz[0];
+		print(bodovi); 
+		print(niz[2]);
+		
+		
+		nizch = new char[3];
+		
+		
+//		nizch[0] = 3;							//GRESKA
+		nizch[0] = 'a';						 
+		
+		
+		nizch[jedan] = 'b';
+		nizch[pet - 3] = 'c';
+		print(nizch[1]);
+		print(nizch[jedan * 2]);
+			
+		
+		bodovi = bodovi + (pet * jedan - 1) * bodovi - (3 % 2 + 3 * 2 - 3); 
+		print(bodovi);
+			
+		read(bodovi);
+		if(bodovi%2 == 0) bodovi = bodovi + 10;
+		if(false) print(bodovi + 20);
+		else print(bodovi);
+	}
+}
+
+

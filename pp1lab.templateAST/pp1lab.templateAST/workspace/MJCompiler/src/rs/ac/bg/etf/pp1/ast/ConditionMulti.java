@@ -1,28 +1,28 @@
 // generated with ast extension for cup
 // version 0.8
-// 8/5/2021 20:12:36
+// 9/5/2021 0:2:35
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ConditionMulti extends Condition {
+public class ConditionMulti extends ConditionFinal {
 
-    private Condition Condition;
+    private ConditionFinal ConditionFinal;
     private CondTerm CondTerm;
 
-    public ConditionMulti (Condition Condition, CondTerm CondTerm) {
-        this.Condition=Condition;
-        if(Condition!=null) Condition.setParent(this);
+    public ConditionMulti (ConditionFinal ConditionFinal, CondTerm CondTerm) {
+        this.ConditionFinal=ConditionFinal;
+        if(ConditionFinal!=null) ConditionFinal.setParent(this);
         this.CondTerm=CondTerm;
         if(CondTerm!=null) CondTerm.setParent(this);
     }
 
-    public Condition getCondition() {
-        return Condition;
+    public ConditionFinal getConditionFinal() {
+        return ConditionFinal;
     }
 
-    public void setCondition(Condition Condition) {
-        this.Condition=Condition;
+    public void setConditionFinal(ConditionFinal ConditionFinal) {
+        this.ConditionFinal=ConditionFinal;
     }
 
     public CondTerm getCondTerm() {
@@ -38,18 +38,18 @@ public class ConditionMulti extends Condition {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Condition!=null) Condition.accept(visitor);
+        if(ConditionFinal!=null) ConditionFinal.accept(visitor);
         if(CondTerm!=null) CondTerm.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Condition!=null) Condition.traverseTopDown(visitor);
+        if(ConditionFinal!=null) ConditionFinal.traverseTopDown(visitor);
         if(CondTerm!=null) CondTerm.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Condition!=null) Condition.traverseBottomUp(visitor);
+        if(ConditionFinal!=null) ConditionFinal.traverseBottomUp(visitor);
         if(CondTerm!=null) CondTerm.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -59,8 +59,8 @@ public class ConditionMulti extends Condition {
         buffer.append(tab);
         buffer.append("ConditionMulti(\n");
 
-        if(Condition!=null)
-            buffer.append(Condition.toString("  "+tab));
+        if(ConditionFinal!=null)
+            buffer.append(ConditionFinal.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

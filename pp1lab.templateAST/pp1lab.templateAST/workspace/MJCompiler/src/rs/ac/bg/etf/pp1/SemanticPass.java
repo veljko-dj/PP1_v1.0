@@ -12,7 +12,7 @@ public class SemanticPass extends VisitorAdaptor {
 	boolean errorDetected = false;
 	int printCallCount = 0;
 	Obj currentMethod = null;
-	//DumpSymbolTableVisitor printObj;
+	// DumpSymbolTableVisitor printObj;
 	My_DumpSymbolTableVisitor_Impl myPrintObj;
 //	
 //	 Kada ulancavamo lokalne simbole prosledjivacemo metodu u kojoj se trenutno
@@ -42,8 +42,8 @@ public class SemanticPass extends VisitorAdaptor {
 	Logger log = Logger.getLogger(getClass());
 
 	public SemanticPass() {
-		super(); 
-		//Tab.insert(Obj.Type, "bool", boolStruct);
+		super();
+		// Tab.insert(Obj.Type, "bool", boolStruct);
 		Scope scope = Tab.currentScope();
 		scope.addToLocals(new Obj(Obj.Type, "bool", boolStruct));
 	}
@@ -236,7 +236,7 @@ public class SemanticPass extends VisitorAdaptor {
 		boolean alreadyExistInThisScope = (Tab.currentScope.findSymbol(VarDeclOneNoSquare.getNameVarOne()) != null);
 //		Ovde nesto budzio pa ti ostalo 
 
-		if (alreadyExistGlobal && currentMethod == null)
+		if (alreadyExistGlobal)
 			report_error("Greska: " + VarDeclOneNoSquare.getLine() + ": " + VarDeclOneNoSquare.getNameVarOne()
 					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", VarDeclOneNoSquare);
 		else {
@@ -342,9 +342,9 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(StatReturn StatReturn) {
 		returnFound = true;
-
-		if (StatReturn.getExpr().struct.getKind() != Struct.Int)
-			report_error("Povratna vr mora biti int", StatReturn);
+		if (StatReturn.getExpr().struct != Tab.noType || StatReturn.getExpr().struct != null)
+			if (StatReturn.getExpr().struct.getKind() != Struct.Int)
+				report_error("Povratna vr mora biti int", StatReturn);
 	}
 
 	// Klasa //
@@ -429,9 +429,9 @@ public class SemanticPass extends VisitorAdaptor {
 			// Ovde mozes da stampas onaj objekat DumpTable...
 			// Nista specijlano, samo new dumptable pa onda visitObj na to
 			// i na kraju iskoristi getOutput() da pokupis to sto treba da se istampa
-			
-			//printObj = new DumpSymbolTableVisitor();
-			//printObj.visitObjNode(obj);
+
+			// printObj = new DumpSymbolTableVisitor();
+			// printObj.visitObjNode(obj);
 
 			myPrintObj = new My_DumpSymbolTableVisitor_Impl();
 			myPrintObj.visitObjNode(obj);
@@ -480,16 +480,14 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error(" Izraz nije tipa int unutar zagrada " + DesignatorOneArray.getDestName(), DesignatorOneArray);
 		} else {
 			// i ovde moze onaj dump visitor
-			//printObj = new DumpSymbolTableVisitor();
-			//printObj.visitObjNode(designNode);
-			
+			// printObj = new DumpSymbolTableVisitor();
+			// printObj.visitObjNode(designNode);
 
 			myPrintObj = new My_DumpSymbolTableVisitor_Impl();
 			myPrintObj.visitObjNode(designNode);
-			
-			report_info(
-					"(" + DesignatorOneArray.getDestName() + ")" + " Koristim nizovsku varijablu: " + myPrintObj.getOutput(),
-					DesignatorOneArray); 
+
+			report_info("(" + DesignatorOneArray.getDestName() + ")" + " Koristim nizovsku varijablu: "
+					+ myPrintObj.getOutput(), DesignatorOneArray);
 //			DesignatorOneArray.obj = designNode;
 //			Pa ovo gore ti bre nema smisla, ovo gore je itipa objekta a ti hoces da bude tipa elem niza konju jedan
 			DesignatorOneArray.obj = new Obj(Obj.Elem, designNode.getName(), designNode.getType().getElemType());
@@ -627,28 +625,33 @@ public class SemanticPass extends VisitorAdaptor {
 		}
 	}
 
-	public void visit(ConditionEnd ConditionEnd) {
+	@Override
+	public void visit(ConditionFinalAAA ConditionFinalAAA) {
+		ConditionFinalAAA.struct = ConditionFinalAAA.getConditionFinal().struct;
+	}
+
+	public void visit(ConditionOne ConditionOne) {
 //		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
 //		Da moze i true i false da ima u ternarnom 
-		ConditionEnd.struct = ConditionEnd.getCondTerm().struct;
+		ConditionOne.struct = ConditionOne.getCondTerm().struct;
 	}
 
 	public void visit(ConditionMulti ConditionMulti) {
-		boolean validKind = (ConditionMulti.getCondition().struct.getKind() == ConditionMulti.getCondTerm().struct
+		boolean validKind = (ConditionMulti.getConditionFinal().struct.getKind() == ConditionMulti.getCondTerm().struct
 				.getKind());
 
 //		Ovo sada je druga tacka iz definicije kompatabilnosti
-		boolean validKind2 = (ConditionMulti.getCondition().struct.getKind() == 5
+		boolean validKind2 = (ConditionMulti.getConditionFinal().struct.getKind() == 5
 				&& (ConditionMulti.getCondTerm().struct == null || ConditionMulti.getCondTerm().struct == Tab.noType));
 		boolean validKind2Obrnuto = (ConditionMulti.getCondTerm().struct.getKind() == 5
-				&& (ConditionMulti.getCondition().struct == null
-						|| ConditionMulti.getCondition().struct == Tab.noType));
+				&& (ConditionMulti.getConditionFinal().struct == null
+						|| ConditionMulti.getConditionFinal().struct == Tab.noType));
 
 		if (!(validKind || validKind2 || validKind2Obrnuto))
 			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					ConditionMulti);
 		else {
-			ConditionMulti.struct = ConditionMulti.getCondition().struct;
+			ConditionMulti.struct = ConditionMulti.getConditionFinal().struct;
 //			Ovo ne znam da li j dobro prosledjivanje
 		}
 	}
@@ -816,7 +819,7 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 			// ovde se nesto desava
 			// i to ovde treba da se pokupe i vrednosti iz konstanti
-			printCallCount++; 
+			printCallCount++;
 		}
 	}
 
@@ -832,7 +835,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", StatPrint);
 		else {
 			// ovde se nesto desava
-			printCallCount++; 
+			printCallCount++;
 		}
 	}
 
@@ -856,6 +859,12 @@ public class SemanticPass extends VisitorAdaptor {
 		// objekta.
 		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
 		// Designator
+		if (DStatementAssign.getDesignator().obj == Tab.noObj || DStatementAssign.getDesignator().obj == null
+				||DStatementAssign.getExpr().struct== Tab.noType || DStatementAssign.getExpr().struct== null) {
+			report_error("NullpointerException verovatno nasledjen zbog neke greske gore", DStatementAssign);
+			return;
+		}
+
 		boolean validKind = (DStatementAssign.getDesignator().obj.getKind() == Obj.Var
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Elem
 				|| DStatementAssign.getDesignator().obj.getKind() == Obj.Fld);
@@ -870,9 +879,9 @@ public class SemanticPass extends VisitorAdaptor {
 		else if (!(validType || false || false))
 			report_error("Greska: Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					DStatementAssign);
-		else { 
-			//if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
-				//report_info("Dodela nizu ", DStatementAssign);
+		else {
+			// if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
+			// report_info("Dodela nizu ", DStatementAssign);
 		}
 	}
 
@@ -896,7 +905,7 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + " Increment mora da bude na tipu INT ", DStatementInc);
 		else {
 			// sve je okej
-			//report_info("Log_info: increment je okej", DStatementInc);
+			// report_info("Log_info: increment je okej", DStatementInc);
 		}
 	}
 
@@ -920,16 +929,16 @@ public class SemanticPass extends VisitorAdaptor {
 			report_error("Greska: " + " DeIncrement mora da bude na tipu INT ", DStatementDec);
 		else {
 			// sve je okej
-			//report_info("Log_info: Decrement", DStatementDec);
+			// report_info("Log_info: Decrement", DStatementDec);
 		}
 	}
 
 	public void visit(RelopLower RelopLower) {
-		//report_info("Log_info: Usao u RelopLower", RelopLower);
+		// report_info("Log_info: Usao u RelopLower", RelopLower);
 	}
 
 	public void visit(RelopLowerEqual RelopLowerEqual) {
-		//report_info("Log_info: Usao u RelopLowerEqual", RelopLowerEqual);
+		// report_info("Log_info: Usao u RelopLowerEqual", RelopLowerEqual);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////

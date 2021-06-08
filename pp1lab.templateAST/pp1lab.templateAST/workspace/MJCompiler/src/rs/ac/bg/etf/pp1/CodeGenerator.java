@@ -11,8 +11,11 @@ import rs.ac.bg.etf.pp1.ast.CondFactOne;
 import rs.ac.bg.etf.pp1.ast.CondFactRelop;
 import rs.ac.bg.etf.pp1.ast.CondTermEnd;
 import rs.ac.bg.etf.pp1.ast.CondTermMulti;
-import rs.ac.bg.etf.pp1.ast.ConditionEnd;
+import rs.ac.bg.etf.pp1.ast.Condition;
+import rs.ac.bg.etf.pp1.ast.ConditionFinal;
+import rs.ac.bg.etf.pp1.ast.ConditionFinalAAA;
 import rs.ac.bg.etf.pp1.ast.ConditionMulti;
+import rs.ac.bg.etf.pp1.ast.ConditionOne;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
@@ -336,7 +339,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(StatRead StatRead) {
 		Struct typeOfDes = StatRead.getDesignator().obj.getType();
 //		Ako je element niza onda on to sve sredi u store?
-		System.out.println("tip za read stmt" + typeOfDes.getKind());
+		System.out.println("Koristi se READ !\n");
 		if (StatRead.getDesignator().obj.getKind() == 5) {
 //			System.out.println("Dodela elementu niza");
 //			 kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
@@ -471,8 +474,16 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.put(Code.mul);
 		else if (isDiv)
 			Code.put(Code.div);
-		else if (isMod)
-			System.out.println("Ne postoji mod, sta sad? ");
+		else if (isMod) {
+			//System.out.println("Ne postoji mod, sta sad? ");
+			// Ako ti nije jasno sta si radio, ti onda skoci na 
+			// Implementing the modulo operator as a function in C 
+			// na StackOverflow i vidi formulu
+			Code.put(Code.dup2);
+			Code.put(Code.div);
+			Code.put(Code.mul);
+			Code.put(Code.sub);
+		}
 	}
 
 	public void visit(ExprTermList ExprTermList) {
@@ -499,8 +510,9 @@ public class CodeGenerator extends VisitorAdaptor {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 	}
 
+	 
 //////// Dodao ovaj deoooooooooooooo	
-	public void visit(ConditionEnd ConditionEnd) {
+	public void visit(ConditionFinalAAA ConditionFinalAAA) {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 
 //		E konju jedan. jmp if not equal radi sa dve vrednosti na steku, moras da stavis pored expr 
@@ -524,6 +536,11 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(ConditionMulti ConditionMulti) {
 		Code.put(Code.add);
 		// PROVERI OVO OR je + a AND je *
+	}
+	
+	@Override
+	public void visit(ConditionOne ConditionOne) {
+		
 	}
 
 	public void visit(CondTermEnd CondTermEnd) {
@@ -636,21 +653,50 @@ public class CodeGenerator extends VisitorAdaptor {
 		}
 	}
 
-	public void visit(DStatementDec DStatementDec) {
-		if (DStatementDec.getDesignator().obj.getLevel() == 1) {
+	public void visit(DStatementDec DStatementDec) {  
+//		Ovde je bilo bas problema
+//		Prvo, ako je globalna stvar onda ne mozes da odradis 
+//		Code.inc jer Code.inc radi samo sa lokalnim stvarima, 
+//		Znaci to si morao da detektujes, jebi ga, hteo si lepo da odradis na pocetku
+//		Ali svakako i ako je niz imas problem sto niz nisi posecivao dva puta, jednom 
+//		za load jednom za store kao sto je slucaj kod niz[3]=niz[3]+1;
+//		Zato si u designOneSquare morao da ide Code.dup da bi duplirao indeks 3 
+//		Pa to onda ovde da iskoristis za formiranje steka za STORE i to ej to
+
+		if (DStatementDec.getDesignator().obj.getLevel() == 1 && DStatementDec.getDesignator().obj.getKind() != 5) {
 			Code.put(Code.pop);
-			// Ovaj pop ide jer je ovo ispod inc vec stavljeno, pa ga sklonim da bi to inc
-			// postavio
-			Code.put(Code.inc);
+			// Ovaj pop ide jer je vrednost ispod inc vec stavljena, pa ga sklonim da bi to
+			// inc postavio
+			// ovo gore je debug pokazao
+			Code.put(Code.inc); 
+			//ekstremno glup nacin realizacije inc (njihove realizacije), pogledaj mikrojava.pdf
 			Code.put(DStatementDec.getDesignator().obj.getAdr());
 			Code.put(-1);// increment
-			// Probaj, za niz bi bilo mozda nesto tipa getAdr+ indeks
-		} else {
+		} else { 
 			Code.loadConst(-1);
 			Code.put(Code.add);
+			if (DStatementDec.getDesignator().obj.getKind() == 5) {
+				// Ovo postoji ovde ovako jer sam u DesignOneSquare ili kako vec
+				// rekao ako je njegov roditelj DstatInc ili Dec onda odradi DUP
+				// pa ces u ovom momentu na steku imati:
+				// indeks u nizu : vrednost koja treba da se postavi
+				// npr niz[7]++; (niz[7] je bio 45 npr)
+				// na steku je 7 46
+				{ // Pravim privremeno da ucita lepo to, ovo je sve kopirano gore iz
+					// assign gde upisujem vrednosti
+					Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+					obj.setLevel(DStatementDec.getDesignator().obj.getLevel());
+					obj.setAdr(DStatementDec.getDesignator().obj.getAdr());
+					Code.load(obj);
+				}
+				Code.put(Code.dup_x2);
+				Code.put(Code.pop);
+			}
 			Code.store(DStatementDec.getDesignator().obj);
 		}
 	}
+	
+	
 
 //	E na zalost je doslo vreme da se radi if 
 //	Hej za A nivo ti ne treba IF, samo ternarni operator                                                                                                  

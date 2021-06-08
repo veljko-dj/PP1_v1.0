@@ -1,15 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 8/5/2021 20:12:36
+// 9/5/2021 0:2:35
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ConditionEnd extends Condition {
+public class ConditionOne extends ConditionFinal {
 
     private CondTerm CondTerm;
 
-    public ConditionEnd (CondTerm CondTerm) {
+    public ConditionOne (CondTerm CondTerm) {
         this.CondTerm=CondTerm;
         if(CondTerm!=null) CondTerm.setParent(this);
     }
@@ -43,7 +43,7 @@ public class ConditionEnd extends Condition {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ConditionEnd(\n");
+        buffer.append("ConditionOne(\n");
 
         if(CondTerm!=null)
             buffer.append(CondTerm.toString("  "+tab));
@@ -52,7 +52,7 @@ public class ConditionEnd extends Condition {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ConditionEnd]");
+        buffer.append(") [ConditionOne]");
         return buffer.toString();
     }
 }

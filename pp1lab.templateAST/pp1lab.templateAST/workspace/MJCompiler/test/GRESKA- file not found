@@ -1,6 +1,0 @@
-
-	Ako ti javlja gresku da ne moze da disemblira jer ne pronalazi fajl
-	Udjes u build as -> ant build... -> JRE -> stavis na same as workspace
-	I ides apply ili sta god, to ti nece raditi, pa se vratis na isto mesto 
-	i stavis specified JRE i on ce default path postaviti valjda na tvoj JRE unutar
-	projekta, tako da ce onda proraditi i sve ce biti super

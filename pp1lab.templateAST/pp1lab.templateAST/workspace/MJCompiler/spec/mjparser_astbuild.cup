@@ -119,7 +119,7 @@ nonterminal Errorr Errorr;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm, ConditionFinal;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact;
 					// Pokusao je na 46:50 da objasni zasto je sve ovo struktura ali nije uspeo 
@@ -302,8 +302,10 @@ ActPars ::= (Actuals) ActualParamList:A1 {: RESULT=new Actuals(A1); RESULT.setLi
 ActualParamList ::= (ActualParams) ActualParamList:A1 COMMA Expr:E2 {: RESULT=new ActualParams(A1, E2); RESULT.setLine(A1left); :}
 				|	(ActualParamEnd) Expr:E1 {: RESULT=new ActualParamEnd(E1); RESULT.setLine(E1left); :} ;
 			
-Condition ::=	(ConditionMulti) Condition:C1 OR CondTerm:C2 {: RESULT=new ConditionMulti(C1, C2); RESULT.setLine(C1left); :}
-			|	(ConditionEnd)	CondTerm:C1 {: RESULT=new ConditionEnd(C1); RESULT.setLine(C1left); :} ;
+Condition ::=	(ConditionFinalAAA) ConditionFinal:C1 {: RESULT=new ConditionFinalAAA(C1); RESULT.setLine(C1left); :};
+
+ConditionFinal ::= 	(ConditionMulti) ConditionFinal:C1 OR CondTerm:C2 {: RESULT=new ConditionMulti(C1, C2); RESULT.setLine(C1left); :}
+				|	(ConditionOne)	CondTerm:C1 {: RESULT=new ConditionOne(C1); RESULT.setLine(C1left); :} ;
 		
 
 CondTerm ::= (CondTermMulti) CondTerm:C1 AND CondFact:C2 {: RESULT=new CondTermMulti(C1, C2); RESULT.setLine(C1left); :}

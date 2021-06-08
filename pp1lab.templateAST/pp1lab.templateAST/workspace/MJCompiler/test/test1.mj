@@ -1,0 +1,68 @@
+program MJProgram 
+{   
+	int main()  
+	 int y[];
+	 int z[];
+	 int x;
+	 
+	 bool p[];
+	 { 
+		y = new int[3];  
+		z = new int [5];
+		p = new bool[2];
+		
+		p[0]= true;
+		
+		if (p[0]) p[1]= true;
+		else p[1]= false;
+		
+		// ili su oba true ili oba false
+		print('p'); print('[');print('0');print(']');print('='); 
+		print(p[0]);
+		print(eol);
+		
+		print('p'); print('[');print('1');print(']');print('='); 
+		print(p[1]);
+		print(eol);
+		 
+		 // GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA p=z;
+		 // GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA GRESKA z[1]= p[1];
+		
+		
+		y[1] = 52;
+		y[1]--; 
+		print('y'); print('[');print('1');print(']');print('='); 
+		print(y[1]);
+		print(eol);
+		
+		z[4]= y[1];
+		z[3] = z[4]/10;  
+		
+		print('z'); print('[');print('4');print(']');print('='); 
+		print(z[4]);
+		print(eol);
+		print('z'); print('[');print('3');print(']');print('='); 
+		print(z[3]);
+		print(eol);
+		
+		y=z; 
+		print('y'); print('[');print('4');print(']');print('='); 
+		print(y[4]);
+		print(eol);
+		print('y'); print('[');print('3');print(']');print('='); 
+		print(y[3]);
+		print(eol);
+		
+		x= z[3];
+		print('x');
+		print('=');
+		print(x);
+		print(eol);
+		
+		print('?');
+		read(z[0]);
+		print(z[0]);
+		
+		return 1;
+	}
+}

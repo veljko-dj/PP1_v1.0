@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,38 +18,26 @@ import java_cup.runtime.Symbol;
 import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.test.Compiler;
 import rs.ac.bg.etf.pp1.test.CompilerError;
+import rs.ac.bg.etf.pp1.test.CompilerError.CompilerErrorType;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
-public class MyCompiler implements Compiler{
+public class MyCompilerImpl implements Compiler {
 
-	private File getLatestFilefromDir(String dirPath){
-	    File dir = new File(dirPath);
-	    File[] files = dir.listFiles();
-	    if (files == null || files.length == 0) {
-	        return null;
-	    }
+	private static List<CompilerError> listError = new ArrayList<CompilerError>();
 
-	    File lastModifiedFile = files[0];
-	    for (int i = 1; i < files.length; i++) { 
-	       if (lastModifiedFile.lastModified() < files[i].lastModified()) {
-	           lastModifiedFile = files[i];
-	       }
-	    }
-	    return lastModifiedFile;
-	}
-	
-	static {
-		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
-		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
-	}
 	@Override
 	public List<CompilerError> compile(String sourceFilePath, String outputFilePath) {
+		listError.clear();
 
-		Logger log = Logger.getLogger(MyCompiler.class);
+		// static. Ovo ovde je sve bilo static
+		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
+		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
 
-		
+		// a odavde je kretao main
+		Logger log = Logger.getLogger(MyCompilerImpl.class);
+
 		Reader br = null;
 		try {
 			File sourceCode = new File(sourceFilePath);
@@ -57,10 +47,8 @@ public class MyCompiler implements Compiler{
 			Yylex lexer = new Yylex(br);
 
 			MJParser p = new MJParser(lexer);
-			log.info("====YYYYYYYYYYYYYYYY===");
 			Symbol s = p.parse(); // pocetak parsiranja
 
-			log.info("====XXXXXXXXXXXX===");
 			Program prog = (Program) (s.value);
 			Tab.init();
 			// ispis sintaksnog stabla
@@ -82,8 +70,9 @@ public class MyCompiler implements Compiler{
 
 			if (!p.errorDetected && v.passed()) {
 				File objFile = new File(outputFilePath);
-				if(objFile.exists()) objFile.delete();
-				
+				if (objFile.exists())
+					objFile.delete();
+
 				CodeGenerator codeGenerator = new CodeGenerator();
 				prog.traverseBottomUp(codeGenerator);
 				Code.dataSize = v.nVars;
@@ -93,9 +82,7 @@ public class MyCompiler implements Compiler{
 			} else {
 				log.error("Parsiranje NIJE uspesno zavrseno");
 			}
-			
-  
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,10 +97,37 @@ public class MyCompiler implements Compiler{
 					log.error(e1.getMessage(), e1);
 				}
 		}
-		return null;
+
+		return listError;
+	}
+
+	public static void addErrorVeljko(int type, String message, int line) {
+
+		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
+				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
+
+		listError.add(tmp);
+
+		//System.out.println("addErrorVeljko() " + tmp.toString());
+	}
+
+	public static String toStringVeljko() { 
+
+		listError.sort(new Comparator<CompilerError>() {
+			@Override 
+			public int compare(CompilerError e1, CompilerError e2) { 
+				return (e1.getLine() > e2.getLine()) ? 1 : -1;
+			}
+		}); 
+		
+		System.out.println("ISPIS_GRESAKA\n\n");
+		StringBuilder str = new StringBuilder();
+		for (CompilerError tmp : listError) {
+			//System.out.println(tmp.toString());
+			str.append(tmp.toString());
+			str.append('\n');
+		}
+		return str.toString();
 	}
 
 }
- 
-
- 

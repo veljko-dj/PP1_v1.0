@@ -18,7 +18,7 @@ parser code {:
      
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
-      report_error(message, info);
+      report_error(message, info); 
     }
   
     public void syntax_error(Symbol cur_token) {
@@ -35,6 +35,7 @@ parser code {:
     	if (info instanceof Symbol)
             msg.append (" na liniji ").append(((Symbol)info).left);
         log.error(msg.toString());
+        
     }
     
     public void report_info(String message, Object info) {
@@ -157,14 +158,19 @@ ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST
 				
 
 			 
-VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarDeclaration(varType, V1); RESULT.setLine(varTypeleft); :}  ;
+VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarDeclaration(varType, V1); RESULT.setLine(varTypeleft); :} 
 			// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
 			// preko nekog drugog imena a ne Type
 			// tipa typeVar ::= Type
 			// Edit: Ne mora
+			| (VarDeclarationNumberError) error:err2 SEMI  {:
+			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive, naisao broj",err2left );
+			  			parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
+				  		//parser.report_error("Deklarisanje promenljive" + err2left , null); 
+			  		:} {: RESULT=new VarDeclarationNumberError(); :}  ;
 
 VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=new VarDeclarations(V1, V2); RESULT.setLine(V1left); :}
-			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :} ;
+			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :}  ;
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
 							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
@@ -176,8 +182,12 @@ VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=n
 								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne {: RESULT=new VarDeclOneNoSquare(nameVarOne); RESULT.setLine(nameVarOneleft); :}
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE {: RESULT=new VarDeclOneSquare(nameVarOneArray); RESULT.setLine(nameVarOneArrayleft); :} 
-			| 	(VarDeclError1) error:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} {: RESULT=new VarDeclError1(); :} 
-			| 	(VarDeclError2) NUMBER_CONST:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} {: RESULT=new VarDeclError2(err); RESULT.setLine(errleft); :} ;
+			| 	(VarDeclError1) error:err1  
+					{: 
+				  		MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive",err1left );
+				  		parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
+				  		//parser.report_error("Deklarisanje promenljive" + err1left , null);  
+				  	:} {: RESULT=new VarDeclError1(); :}  ;  
 
 Type ::= (Type) IDENT:typeName {: RESULT=new Type(typeName); RESULT.setLine(typeNameleft); :}  ;
 
@@ -251,7 +261,11 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 			|	(StatPrint) PRINT LPAREN Expr:E1 RPAREN SEMI {: RESULT=new StatPrint(E1); RESULT.setLine(E1left); :} 
 			|	(StatPrintValue) PRINT LPAREN Expr:E1 COMMA NUMBER_CONST:value RPAREN SEMI {: RESULT=new StatPrintValue(E1, value); RESULT.setLine(E1left); :} 
 			|   (StatErrAssignment) error SEMI:gr
-			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :} {: RESULT=new StatErrAssignment(); :};
+			  	{: 	
+			  		MyCompilerImpl.addErrorVeljko(1, "Pogresno napisana instrukcija dodele",grleft );
+			  		parser.log.debug("Parser: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft);
+				  	//parser.report_error("Pogresno napisana instrukcija dodele" + grleft , null); 
+			   	:} {: RESULT=new StatErrAssignment(); :};
 							
 					// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValuae RPAREN SEMI ;
 					// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValuae ::= ... ili epsilon
@@ -275,7 +289,10 @@ DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: 
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
 					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
-//						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
+//						{: 	
+//							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
+//			  				MyCompilerImpl.addErrorVeljko(1, "Greska pri dodeli",errAssignleft );
+//			  		 	:} ;
 //
 //				  
 				
@@ -384,6 +401,8 @@ Epsilon ::= {: RESULT=new EpsilonDerived1(); :} /* epsilon */;
 
 // Ovo apsolutno nicemu ne sluzi ali jebi ga.
 // Na ovo ce naici nikad
-Errorr ::= (Errorr) ERROR:gr {: parser.log.debug("Leksicka greska "+ grleft);
-								parser.report_error("Leksicka greska " + grleft, null);   
+Errorr ::= (Errorr) ERROR:gr {:
+			  					MyCompilerImpl.addErrorVeljko(1, "Ovo se nikad nece desiti",grleft );
+			  					parser.log.debug("Leksicka greska "+ grleft);
+								//parser.report_error("Leksicka greska " + grleft, null);   
 								 :} {: RESULT=new Errorr(); :};

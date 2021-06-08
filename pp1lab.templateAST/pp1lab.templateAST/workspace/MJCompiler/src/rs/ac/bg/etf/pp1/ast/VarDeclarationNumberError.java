@@ -1,24 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 8/5/2021 15:8:38
+// 8/5/2021 20:12:36
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class VarDeclError2 extends VarDeclOne {
+public class VarDeclarationNumberError extends VarDecl {
 
-    private Integer err;
-
-    public VarDeclError2 (Integer err) {
-        this.err=err;
-    }
-
-    public Integer getErr() {
-        return err;
-    }
-
-    public void setErr(Integer err) {
-        this.err=err;
+    public VarDeclarationNumberError () {
     }
 
     public void accept(Visitor visitor) {
@@ -39,13 +28,10 @@ public class VarDeclError2 extends VarDeclOne {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("VarDeclError2(\n");
-
-        buffer.append(" "+tab+err);
-        buffer.append("\n");
+        buffer.append("VarDeclarationNumberError(\n");
 
         buffer.append(tab);
-        buffer.append(") [VarDeclError2]");
+        buffer.append(") [VarDeclarationNumberError]");
         return buffer.toString();
     }
 }

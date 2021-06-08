@@ -50,7 +50,10 @@ public class SemanticPass extends VisitorAdaptor {
 		int line = (info == null) ? 0 : info.getLine();
 		if (line != 0)
 			msg.append(" na liniji ").append(line);
-		log.error(msg.toString()); 
+		log.error(msg.toString());
+
+		/////////////////////
+		MyCompilerImpl.addErrorVeljko(2, message, line);
 	}
 
 	public void report_info(String message, SyntaxNode info) {
@@ -71,7 +74,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 		if (!mainFound)
 			report_error("Nije pronadjena main metoda", program);
-			
+
 		// Ovo ti nece lepo raditi u slucajevima kada
 		// imas grananja, nece ti sve putanje imati return
 	}
@@ -97,7 +100,7 @@ public class SemanticPass extends VisitorAdaptor {
 		// Proveri validnost ove linije gore
 		Obj typeNode = Tab.find(type.getTypeName());
 		if (typeNode == Tab.noObj) {
-			report_error("Nije pronadjen tip " + type.getTypeName() + " u tabeli simbola! ", null);
+			report_error("Nije pronadjen tip " + type.getTypeName() + " u tabeli simbola! ", type);
 			type.struct = Tab.noType;
 		} else {
 			if (Obj.Type == typeNode.getKind()) {
@@ -136,11 +139,11 @@ public class SemanticPass extends VisitorAdaptor {
 				report_info("Deklarisem konstantu: " + ConstDeclOneElementNumber.getNumIdent() + " vrednosti "
 						+ ConstDeclOneElementNumber.getVal(), ConstDeclOneElementNumber);
 			} else {
-				report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": nije broj", null);
+				report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": nije broj", ConstDeclOneElementNumber);
 			}
 		} else {
 			report_error("Greska: " + ConstDeclOneElementNumber.getLine() + ": "
-					+ ConstDeclOneElementNumber.getNumIdent() + " VEC POSTOJI u tabeli simbola", null);
+					+ ConstDeclOneElementNumber.getNumIdent() + " VEC POSTOJI u tabeli simbola", ConstDeclOneElementNumber);
 		}
 	}
 
@@ -159,7 +162,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 				if (boolValue == -1) {
 					report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": "
-							+ ConstDeclOneElementBool.getBoolIdent() + " Nit je true nit false", null);
+							+ ConstDeclOneElementBool.getBoolIdent() + " Nit je true nit false", ConstDeclOneElementBool);
 				} else {
 					Obj booll = Tab.insert(Obj.Con, ConstDeclOneElementBool.getBoolIdent(), currentType);
 					booll.setAdr(boolValue);
@@ -171,10 +174,10 @@ public class SemanticPass extends VisitorAdaptor {
 				}
 			} else {
 				report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": "
-						+ ConstDeclOneElementBool.getBoolIdent() + " VEC POSTOJI u tabeli simbola", null);
+						+ ConstDeclOneElementBool.getBoolIdent() + " VEC POSTOJI u tabeli simbola", ConstDeclOneElementBool);
 			}
 		} else {
-			report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": tip nije BOOL", null);
+			report_error("Greska: " + ConstDeclOneElementBool.getLine() + ": tip nije BOOL", ConstDeclOneElementBool);
 		}
 	}
 
@@ -223,7 +226,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 		if (alreadyExistGlobal && currentMethod == null)
 			report_error("Greska: " + VarDeclOneNoSquare.getLine() + ": " + VarDeclOneNoSquare.getNameVarOne()
-					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", null);
+					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", VarDeclOneNoSquare);
 		else {
 
 			Tab.insert(Obj.Var, VarDeclOneNoSquare.getNameVarOne(), currentType);
@@ -250,7 +253,7 @@ public class SemanticPass extends VisitorAdaptor {
 
 		if (alreadyExistInThisScope && currentMethod == null)
 			report_error("Greska: " + VarDeclOneSquare.getLine() + ": " + VarDeclOneSquare.getNameVarOneArray()
-					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", null);
+					+ " VEC je deklarisano u tabeli simbola. U ovom Scopeu ", VarDeclOneSquare);
 		else {
 //			report_info("evo me: VarDeclOneSquare.getNameVarOneArray() : " + VarDeclOneSquare.getNameVarOneArray()
 //					+ "\n tip je struct.getKind: " + currentType.getKind(), null);
@@ -281,7 +284,7 @@ public class SemanticPass extends VisitorAdaptor {
 		boolean alreadyExists = Tab.find(MethodTypeName.getMethodName()) != Tab.noObj;
 		if (alreadyExists) {
 			report_error("Greska: " + MethodTypeName.getLine() + ": " + MethodTypeName.getMethodName()
-					+ " Metoda vec postoji ili mozda prom sa istim imenom ", null);
+					+ " Metoda vec postoji ili mozda prom sa istim imenom ", MethodTypeName);
 		} else {
 			currentMethod = Tab.insert(Obj.Meth, MethodTypeName.getMethodName(), MethodTypeName.getRetType().struct);
 			MethodTypeName.obj = currentMethod;
@@ -301,7 +304,7 @@ public class SemanticPass extends VisitorAdaptor {
 	public void visit(MethodDeclaration MethodDeclaration) {
 		if (!returnFound && currentMethod.getType() != Tab.noType) {
 			report_error("Greska: " + MethodDeclaration.getLine() + ": " + currentMethod.getName()
-					+ "  funkcija nema return a treba da ima", null);
+					+ "  funkcija nema return a treba da ima", MethodDeclaration);
 		}
 
 		Tab.chainLocalSymbols(currentMethod);
@@ -472,7 +475,13 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(FactVar FactVar) {
-		FactVar.struct = FactVar.getDesignator().obj.getType();
+		if (FactVar.getDesignator().obj != Tab.noObj && FactVar.getDesignator().obj != null)
+			FactVar.struct = FactVar.getDesignator().obj.getType();
+		else {
+			FactVar.struct = Tab.noType;
+			report_error("Neuspesno prosledjivanje strukture, nullPointerException", FactVar);
+		}
+
 	}
 
 	@Override
@@ -762,10 +771,10 @@ public class SemanticPass extends VisitorAdaptor {
 //		Ovo sam pokupio od onog Pedje 
 		Struct expression = StatPrintValue.getExpr().struct;
 		if (expression == null || expression == Tab.nullType) {
-			report_error("Greska: " + StatPrintValue.getLine() + ": " + " PrintValue je null ", null);
+			report_error("Greska: " + StatPrintValue.getLine() + ": " + " PrintValue je null ", StatPrintValue);
 		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
 				|| expression.equals(boolStruct)))
-			report_error("Greska: " + StatPrintValue.getLine() + ": " + " Print nije ispisiv ", null);
+			report_error("Greska: " + StatPrintValue.getLine() + ": " + " Print nije ispisiv ", StatPrintValue);
 		else {
 			// ovde se nesto desava
 			// i to ovde treba da se pokupe i vrednosti iz konstanti
@@ -780,10 +789,10 @@ public class SemanticPass extends VisitorAdaptor {
 //	Ovo sam pokupio od onog Pedje 
 		Struct expression = StatPrint.getExpr().struct;
 		if (expression == null || expression == Tab.nullType) {
-			report_error("Greska: " + StatPrint.getLine() + ": " + " Print je null ", null);
+			report_error("Greska: " + StatPrint.getLine() + ": " + " Print je null ", StatPrint);
 		} else if (!(expression.equals(Tab.intType) || expression.equals(Tab.charType)
 				|| expression.equals(boolStruct)))
-			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", null);
+			report_error("Greska: " + StatPrint.getLine() + ": " + " Print nije ispisiv ", StatPrint);
 		else {
 			// ovde se nesto desava
 			printCallCount++;
@@ -819,7 +828,6 @@ public class SemanticPass extends VisitorAdaptor {
 
 		// ili obrnuto????????????????????????????????????????????????
 		// Nije obrnuto, videh u Izvornom kodu
- 
 
 		if (!validKind)
 			report_error("Greska: " + " Tip mora bit Var, Elem, Fld ", DStatementAssign);
@@ -829,8 +837,8 @@ public class SemanticPass extends VisitorAdaptor {
 		else {
 			// sve je okej
 			// report_info("Dodela je okej", DStatementAssign);
-			 if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
-				report_info("Dodela nizu ", DStatementAssign); 
+			if (DStatementAssign.getDesignator().obj.getType().getKind() == Struct.Array)
+				report_info("Dodela nizu ", DStatementAssign);
 		}
 	}
 

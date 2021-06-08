@@ -23,7 +23,9 @@ int v1, v2, v3;
 bool b1;
 int nizLok[];
 bool nizBool1[];
-bool nizBool2[];
+bool nizBool2#[]; 
+int a23, 4sss2, sas2; 
+int x232;
 { 
 	nizLok = new int[10];
 	nizBool1 = new bool[5];

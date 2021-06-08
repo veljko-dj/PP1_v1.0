@@ -1,15 +1,17 @@
 package rs.ac.bg.etf.pp1;
-
-import rs.ac.bg.etf.pp1.MyCompiler;
+ 
 
 public class CompilerTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		MyCompiler mycomp = new MyCompiler();
+		MyCompilerImpl mycomp = new MyCompilerImpl();
 		
-		mycomp.compile("test/program.mj", "test/izlaz.obj");
-	}
+		mycomp.compile("test/program.mj", "test/izlaz1.obj");
 
+		System.out.println("HEHE");
+		System.out.println(MyCompilerImpl.toStringVeljko());
+	}
+		
 }

@@ -18,7 +18,7 @@ parser code {:
      
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
-      report_error(message, info);
+      report_error(message, info); 
     }
   
     public void syntax_error(Symbol cur_token) {
@@ -35,6 +35,7 @@ parser code {:
     	if (info instanceof Symbol)
             msg.append (" na liniji ").append(((Symbol)info).left);
         log.error(msg.toString());
+        
     }
     
     public void report_info(String message, Object info) {
@@ -136,14 +137,19 @@ ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST
 				
 
 			 
-VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI  ;
+VarDecl ::= (VarDeclaration) Type:varType VarDeclList SEMI 
 			// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
 			// preko nekog drugog imena a ne Type
 			// tipa typeVar ::= Type
 			// Edit: Ne mora
+			| (VarDeclarationNumberError) error:err2 SEMI  {:
+			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive, naisao broj",err2left );
+			  			parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
+				  		//parser.report_error("Deklarisanje promenljive" + err2left , null); 
+			  		:}  ;
 
 VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
-			|	(VarDecListOneElement) VarDeclOne ;
+			|	(VarDecListOneElement) VarDeclOne  ;
 
 							// Ovo sa greskom pronadjeno na www2.cs.tum.edu..cup..examples	
 							// Kako primetih, ovo error nije nigde definisano opet, tako da je  	
@@ -155,8 +161,12 @@ VarDeclList ::= (VarDeclarations) VarDeclList COMMA VarDeclOne
 								
 VarDeclOne ::= 	(VarDeclOneNoSquare) IDENT:nameVarOne
 			|	(VarDeclOneSquare) IDENT:nameVarOneArray LSQUARE RSQUARE 
-			| 	(VarDeclError1) error:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} 
-			| 	(VarDeclError2) NUMBER_CONST:err  {: parser.log.debug("Uspesan oporavak od greske pri def glob prom."); :} ;
+			| 	(VarDeclError1) error:err1  
+					{: 
+				  		MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive",err1left );
+				  		parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
+				  		//parser.report_error("Deklarisanje promenljive" + err1left , null);  
+				  	:}  ;  
 
 Type ::= (Type) IDENT:typeName  ;
 
@@ -230,7 +240,11 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
 			|	(StatPrintValue) PRINT LPAREN Expr COMMA NUMBER_CONST:value RPAREN SEMI 
 			|   (StatErrAssignment) error SEMI:gr
-			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
+			  	{: 	
+			  		MyCompilerImpl.addErrorVeljko(1, "Pogresno napisana instrukcija dodele",grleft );
+			  		parser.log.debug("Parser: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft);
+				  	//parser.report_error("Pogresno napisana instrukcija dodele" + grleft , null); 
+			   	:};
 							
 					// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValuae RPAREN SEMI ;
 					// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValuae ::= ... ili epsilon
@@ -254,7 +268,10 @@ DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr
 					| 	(DStatementInc) Designator INC
 					|	(DStatementDec) Designator DEC ;
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
-//						{: parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null);  :} ;
+//						{: 	
+//							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
+//			  				MyCompilerImpl.addErrorVeljko(1, "Greska pri dodeli",errAssignleft );
+//			  		 	:} ;
 //
 //				  
 				
@@ -363,6 +380,8 @@ Epsilon ::= /* epsilon */;
 
 // Ovo apsolutno nicemu ne sluzi ali jebi ga.
 // Na ovo ce naici nikad
-Errorr ::= (Errorr) ERROR:gr {: parser.log.debug("Leksicka greska "+ grleft);
-								parser.report_error("Leksicka greska " + grleft, null);   
+Errorr ::= (Errorr) ERROR:gr {:
+			  					MyCompilerImpl.addErrorVeljko(1, "Ovo se nikad nece desiti",grleft );
+			  					parser.log.debug("Leksicka greska "+ grleft);
+								//parser.report_error("Leksicka greska " + grleft, null);   
 								 :};

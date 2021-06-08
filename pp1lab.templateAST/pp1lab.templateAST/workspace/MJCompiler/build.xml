@@ -11,6 +11,9 @@
 				<exclude name="Objasnjenje_klase_koju_gen_parser.txt"/>
 				<exclude name="CodeGenerator.java"/>
 				<exclude name="CounterVisitor.java"/>
+				<exclude name="test/Compiler.java"/>
+				<exclude name="test/CompilerError.java"/>
+				<exclude name="MyCompilerImpl.java"/>
 					
 			</fileset>
 		</delete>

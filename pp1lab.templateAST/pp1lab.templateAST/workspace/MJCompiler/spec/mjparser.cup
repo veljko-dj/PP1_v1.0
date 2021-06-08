@@ -89,7 +89,7 @@ nonterminal FormalParamList, FormalParamDecl, FormPars, ActualParamList;
 nonterminal StatementList, Statement, Addop;
 nonterminal StatementTrue, StatementFalse; 
 nonterminal ConstVarClassDeclList, ConstDeclList, ConstDeclOne, VarDeclOne;
-nonterminal Extends, ManyVarDecl, CaseList, PrintValue;
+nonterminal Extends, ManyVarDecl, CaseList;
 nonterminal Unmatched, Matched, Epsilon, Array, Stagod;
 nonterminal ConstType, DoWhile;
 
@@ -228,12 +228,12 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 									// i ovde je razdvojeno kao i za printvalue
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
-			|	(StatPrintValue) PRINT LPAREN Expr COMMA NUMBER_CONST:value SEMI 
+			|	(StatPrintValue) PRINT LPAREN Expr COMMA NUMBER_CONST:value RPAREN SEMI 
 			|   (StatErrAssignment) error SEMI:gr
 			  {: parser.log.debug("Parser:MatchedStat: Uspesan oporavak od greske pri dodeli vrednosti. Linija: "+ grleft); :};
 							
-					// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValue RPAREN SEMI ;
-					// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValue ::= ... ili epsilon
+					// Problem ovde postoji, ne radi :(StatPrint) PRINT LPAREN Expr PrintValuae RPAREN SEMI ;
+					// pa sam razdvojio na dva dela. Ne radi jer baca gresku u .java fajlu, pre je bilo PrintValuae ::= ... ili epsilon
 			
 			
 					// Ovo je u sutiji oporavak od svake greske, a ne samo od ASSIGN greske, sta god dodje pogresno, oporavice do;
@@ -246,8 +246,7 @@ CaseList ::= 	(CaseListt) CaseList CASE:c Stagod  DOTS:d StatementList
 			
 Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 
-			
-PrintValue ::=	(PrintValue)  NUMBER_CONST:value ;
+			 
 			
 			
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 

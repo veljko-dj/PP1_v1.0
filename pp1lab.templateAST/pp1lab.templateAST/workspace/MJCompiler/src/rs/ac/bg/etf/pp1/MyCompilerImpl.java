@@ -55,7 +55,7 @@ public class MyCompilerImpl implements Compiler {
 			Tab.init();
 			// ispis sintaksnog stabla
 			log.info("\n==============Sintaksno stablo=====================");
-			log.info(prog.toString(""));
+			//log.info(prog.toString(""));
 			log.info("\n==============Semanticka analiza=====================");
 
 			// ispis prepoznatih programskih konstrukcija

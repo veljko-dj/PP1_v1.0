@@ -164,7 +164,7 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarD
 			// tipa typeVar ::= Type
 			// Edit: Ne mora
 			| (VarDeclarationNumberError) error:err2 SEMI  {:
-			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive, naisao broj",err2left );
+			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive",err2left );
 			  			parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
 				  		//parser.report_error("Deklarisanje promenljive" + err2left , null); 
 			  		:} {: RESULT=new VarDeclarationNumberError(); :}  ;

@@ -7,7 +7,9 @@ public class CompilerTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		MyCompilerImpl mycomp= new MyCompilerImpl(); ; 
+		MyCompilerImpl mycomp= new MyCompilerImpl(); 
+		//list<error
+		//boolean postojiGreska= false;
 		
 		/****TEST301***
 		Javni test

@@ -3,6 +3,7 @@ const int size = 10;
 const bool trueFalse = false; 
 const char constCHAR = 'a'; 
 int k;
+bool b1;
 {  
 	
 
@@ -33,6 +34,9 @@ int k;
 	 p = p==5 ? 9 : 1;
 	 
 	 print(p);
+	 
+	 print(eol);
+	 print(b);
 	 return 1;
 	}
 }

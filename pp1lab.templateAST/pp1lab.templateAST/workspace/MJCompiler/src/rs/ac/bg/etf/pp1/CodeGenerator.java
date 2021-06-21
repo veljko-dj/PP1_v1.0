@@ -270,10 +270,10 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.loadConst(1);
 			Code.put(Code.bprint);
 		} else if (StatPrint.getExpr().struct == boolStruct) {
-//			Code.pc = Code.pc - 1; // skontah da moze i Code.pop  
+			Code.pc = Code.pc - 1; // skontah da moze i Code.pop  
 //			int numLetters;
 //			String[] boolString = { "false", "truea" };
-//			int intValue = Code.get(Code.pc);
+			int intValue = Code.get(Code.pc-1);
 //			int intValuePre = Code.get(Code.pc-1);
 //			int intValuePosle = Code.get(Code.pc+1);
 //			if (intValue == Code.const_1)

@@ -4,7 +4,7 @@ import java_cup.runtime.*;
 import org.apache.log4j.*;
 
 // import java.io.*;
-import rs.ac.bg.etf.pp1.ast.*;
+import rs.ac.bg.etf.pp1.ast.*;  
 
 
 parser code {:
@@ -49,8 +49,8 @@ parser code {:
 
 scan with {:
 	Symbol s = this.getScanner().next_token();
-	if (s != null && s.value != null) 
-		log.info(s.toString() + " " + s.value.toString());
+//	if (s != null && s.value != null) 
+//		log.info(s.toString() + " " + s.value.toString());
 	return s;
 :}
 

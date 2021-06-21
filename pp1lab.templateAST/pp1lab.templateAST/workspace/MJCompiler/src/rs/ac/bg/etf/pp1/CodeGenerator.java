@@ -72,7 +72,6 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Sad citam pdfove
 
 //	U Code klasi put 0123 oznacava koliko bajtova ucitava
-
 	private int mainPc;
 	private Struct boolStruct;
 
@@ -97,7 +96,7 @@ public class CodeGenerator extends VisitorAdaptor {
 			whereToPutFirstTrue = 0;
 			whereToPutFirstFalse = 0;
 			whereToPutFirstAfter = 0;
-			falseExist = false;
+			falseExist = false; 
 		}
 
 		public void print() {

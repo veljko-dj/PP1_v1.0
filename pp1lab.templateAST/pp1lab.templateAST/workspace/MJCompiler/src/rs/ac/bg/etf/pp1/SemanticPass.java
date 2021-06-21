@@ -8,6 +8,9 @@ import rs.etf.pp1.symboltable.concepts.*;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
 public class SemanticPass extends VisitorAdaptor {
+	
+	// LINIJA ZA ISPIS, UTICE jedino na report_info();
+	static final boolean ispisInformacija = false;
 
 	boolean errorDetected = false;
 	int printCallCount = 0;
@@ -68,7 +71,7 @@ public class SemanticPass extends VisitorAdaptor {
 		msg.append(line);
 		msg.append("  ");
 		msg.append(message);
-		log.info(msg.toString());
+		if (ispisInformacija) log.info(msg.toString());
 	}
 
 	@Override
@@ -515,7 +518,7 @@ public class SemanticPass extends VisitorAdaptor {
 			FactVar.struct = FactVar.getDesignator().obj.getType();
 		else {
 			FactVar.struct = Tab.noType;
-			report_error("Neuspesno prosledjivanje strukture, nullPointerException", FactVar);
+			report_error("Neuspesno prosledjivanje strukture, nullPointerExceptionn", FactVar);
 		}
 
 	}
@@ -861,7 +864,7 @@ public class SemanticPass extends VisitorAdaptor {
 		// Designator
 		if (DStatementAssign.getDesignator().obj == Tab.noObj || DStatementAssign.getDesignator().obj == null
 				||DStatementAssign.getExpr().struct== Tab.noType || DStatementAssign.getExpr().struct== null) {
-			report_error("NullpointerException verovatno nasledjen zbog neke greske gore", DStatementAssign);
+			report_error("NullpointerExceptionn verovatno nasledjen zbog neke greske gore", DStatementAssign);
 			return;
 		}
 

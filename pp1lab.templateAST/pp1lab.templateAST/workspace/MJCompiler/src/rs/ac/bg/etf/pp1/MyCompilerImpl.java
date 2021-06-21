@@ -24,6 +24,8 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
 public class MyCompilerImpl implements Compiler {
+	static final boolean ispisStabla = false;
+	static final boolean ispisTabeleSimbola = false;
 
 	private static List<CompilerError> listError = new ArrayList<CompilerError>();
 
@@ -47,6 +49,7 @@ public class MyCompilerImpl implements Compiler {
 			Yylex lexer = new Yylex(br);
 
 			log.info("\n================Sintaksna analiza===================");
+//			 Za ispis sintaksnih simbola ono redom. Odkomentarisi 53 liniju u mjparser.cup
 
 			MJParser p = new MJParser(lexer);
 			Symbol s = p.parse(); // pocetak parsiranja
@@ -55,10 +58,12 @@ public class MyCompilerImpl implements Compiler {
 			Tab.init();
 			// ispis sintaksnog stabla
 			log.info("\n==============Sintaksno stablo=====================");
-			//log.info(prog.toString(""));
+			if (ispisStabla)
+				log.info(prog.toString(""));
 			log.info("\n==============Semanticka analiza=====================");
 
 			// ispis prepoznatih programskih konstrukcija
+//			Za ispis semantickih informacija. Odkomentarisati liniju 13 SemanticPass.java
 			SemanticPass v = new SemanticPass();
 			prog.traverseBottomUp(v);
 
@@ -70,7 +75,8 @@ public class MyCompilerImpl implements Compiler {
 
 			log.info("===================================");
 			//////////////////////////// DODATO DODATO DODATO ! !! ! ! ! !
-			Tab.dump(new My_DumpSymbolTableVisitor_Impl());
+			if (ispisTabeleSimbola)
+				Tab.dump(new My_DumpSymbolTableVisitor_Impl());
 			// Tab.dump();
 
 			if (!p.errorDetected && v.passed()) {
@@ -124,17 +130,20 @@ public class MyCompilerImpl implements Compiler {
 			}
 		});
 
-		if (!listError.isEmpty())
-			System.out.println("ISPIS_GRESAKA\n");
-		else
-			System.out.println("NEMA_GRESAKA");
-		StringBuilder str = new StringBuilder();
-		for (CompilerError tmp : listError) {
-			// System.out.println(tmp.toString());
-			str.append(tmp.toString());
-			str.append('\n');
+		if (!listError.isEmpty()) {
+			System.out.println("\n\tISPIS_GRESAKA\n");
+			StringBuilder str = new StringBuilder();
+			for (CompilerError tmp : listError) {
+				// System.out.println(tmp.toString());
+				str.append(tmp.toString());
+				str.append('\n');
+				return str.toString();
+			}
 		}
-		return str.toString();
+
+		System.out.println("\n\tNEMA_GRESAKA");
+		return "";
+
 	}
 
 }

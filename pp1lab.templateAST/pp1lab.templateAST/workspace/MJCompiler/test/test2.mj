@@ -36,7 +36,7 @@ bool b1;
 	 print(p);
 	 
 	 print(eol);
-	 print(b);
+	 print(b1);
 	 return 1;
 	}
 }

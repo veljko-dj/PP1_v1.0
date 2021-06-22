@@ -10,12 +10,12 @@ public class CompilerTest {
 	// Ispih sintaksnog stabla : MyCompilerImpl.java -> prva bool promenljiva = true
 	// Ispis semantickih informacija:  SemanticPass.java -> prva bool promenljiva = true
 	// Ispis tabele simbola:  MyCompilerImpl.java -> druga bool promenljiva = true
-	private static boolean test301 = true;
-	private static boolean test1 = true;
-	private static boolean test2 = true;
-	private static boolean test3 = true;
-	private static boolean test4 = true;
-	private static boolean test5 = true;
+	private static boolean test301 = false;
+	private static boolean test1 = false;
+	private static boolean test2 = false;
+	private static boolean test3 = false;
+	private static boolean test4 = false;
+	private static boolean test5 = false;
 	private static boolean test6 = true;
 	
 	

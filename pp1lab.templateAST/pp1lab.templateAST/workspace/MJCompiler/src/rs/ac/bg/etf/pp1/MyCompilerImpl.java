@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import java_cup.runtime.Symbol;
+import rs.ac.bg.etf.pp1.CounterVisitor.FormParamCounter;
 import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.test.Compiler;
 import rs.ac.bg.etf.pp1.test.CompilerError;
@@ -24,8 +25,9 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
 public class MyCompilerImpl implements Compiler {
-	static final boolean ispisStabla = false;
+	static final boolean ispisStabla = true;
 	static final boolean ispisTabeleSimbola = false;
+	static final boolean ispisStatistike = true;
 
 	private static List<CompilerError> listError = new ArrayList<CompilerError>();
 
@@ -78,6 +80,12 @@ public class MyCompilerImpl implements Compiler {
 			if (ispisTabeleSimbola)
 				Tab.dump(new My_DumpSymbolTableVisitor_Impl());
 			// Tab.dump();
+			if (ispisStatistike) {
+				CounterVisitor cntVst = new CounterVisitor();
+				prog.traverseTopDown(cntVst);
+				cntVst.printStatistics();
+
+			}
 
 			if (!p.errorDetected && v.passed()) {
 				File objFile = new File(outputFilePath);
@@ -117,10 +125,10 @@ public class MyCompilerImpl implements Compiler {
 		// Kopirano iz Code.class
 		Code.buf = new byte[8192]; // prostor za smestanje prevedenog programskog koda
 //		private static final int bufSize = 8192;  
-		Code.pc = 0; 			// tekuca adresa za smestanje prevedene instrukcije
-		Code.mainPc = -1; 		// adresa main rutine
-		Code.dataSize = 0; 		// velicina oblasti globalnih podataka
-		Code.greska = false; 	// flag da li je prijavljena neka greske
+		Code.pc = 0; // tekuca adresa za smestanje prevedene instrukcije
+		Code.mainPc = -1; // adresa main rutine
+		Code.dataSize = 0; // velicina oblasti globalnih podataka
+		Code.greska = false; // flag da li je prijavljena neka greske
 	}
 
 	public static void addErrorVeljko(int type, String message, int line) {

@@ -10,7 +10,7 @@ import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 public class SemanticPass extends VisitorAdaptor {
 	
 	// LINIJA ZA ISPIS, UTICE jedino na report_info();
-	static final boolean ispisInformacija = true;
+	static final boolean ispisInformacija = false;
 
 	boolean errorDetected = false;
 	int printCallCount = 0;

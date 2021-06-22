@@ -1,8 +1,9 @@
 program test6
  	 
-
+	const int nula = 0, dva = 2;
 	int niz[];
 	char nizch[];
+	const int jedan = 1;
  
 	int g1, g2, g3;
 	   

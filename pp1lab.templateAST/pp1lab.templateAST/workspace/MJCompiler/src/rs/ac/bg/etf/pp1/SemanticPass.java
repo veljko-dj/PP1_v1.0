@@ -463,7 +463,7 @@ public class SemanticPass extends VisitorAdaptor {
 		report_error("Ovo ti je za B nivo", DesignatorOneDot);
 	}
 
-	@Override
+	@Override 
 	public void visit(DesignatorOneArray DesignatorOneArray) {
 		Struct exprStruct = DesignatorOneArray.getExpr().struct;
 		Obj designNode = Tab.find(DesignatorOneArray.getDestName());

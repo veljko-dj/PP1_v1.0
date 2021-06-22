@@ -461,7 +461,7 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(DesignatorOneDot DesignatorOneDot) {
 		report_error("Ovo ti je za B nivo", DesignatorOneDot);
-	}
+	} 
 
 	@Override
 	public void visit(DesignatorOneArray DesignatorOneArray) {

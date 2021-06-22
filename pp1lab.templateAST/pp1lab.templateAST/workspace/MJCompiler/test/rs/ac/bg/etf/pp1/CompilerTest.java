@@ -10,13 +10,14 @@ public class CompilerTest {
 	// Ispih sintaksnog stabla : MyCompilerImpl.java -> prva bool promenljiva = true
 	// Ispis semantickih informacija:  SemanticPass.java -> prva bool promenljiva = true
 	// Ispis tabele simbola:  MyCompilerImpl.java -> druga bool promenljiva = true
-	private static boolean test301 = true;
-	private static boolean test1 = true;
-	private static boolean test2 = true;
-	private static boolean test3 = true;
-	private static boolean test4 = true;
-	private static boolean test5 = true;
-	private static boolean test6 = true;
+	private static boolean test301 = false;
+	private static boolean test1 = false;
+	private static boolean test2 = false;
+	private static boolean test3 = false;
+	private static boolean test4 = false;
+	private static boolean test5 = false;
+	private static boolean test6 = false;
+	private static boolean test7 = true;
 	
 	
 	public static void main(String[] args) {
@@ -112,6 +113,18 @@ public class CompilerTest {
 		System.out.println("####################################################################################"); 
 		System.out.println("\t\t***TEST6***");
 		tmpErrorList = mycomp.compile("test/test6.mj", "test/test6.obj");
+		System.out.println("\n" + MyCompilerImpl.toStringVeljko());
+		if (!tmpErrorList.isEmpty())
+			postojiGreska = true;}
+		/************/
+
+		/****
+		 * TEST7*** Dorada:
+		 *************/
+		if (test7) {
+		System.out.println("####################################################################################"); 
+		System.out.println("\t\t***TEST7***");
+		tmpErrorList = mycomp.compile("test/test7.mj", "test/test7.obj");
 		System.out.println("\n" + MyCompilerImpl.toStringVeljko());
 		if (!tmpErrorList.isEmpty())
 			postojiGreska = true;}

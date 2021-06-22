@@ -76,7 +76,7 @@ terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
  
-  
+ terminal HASHTAG;
  
  // NETERMINALI
 								//Dodati neterminali
@@ -117,7 +117,7 @@ nonterminal DoWhile DoWhile;
 
 nonterminal Errorr Errorr;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl;  
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, DesignatorOneArray;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm, ConditionFinal;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
@@ -287,7 +287,10 @@ Stagod ::= NUMBER_CONST:N1 {: RESULT=new StagodDerived1(N1); RESULT.setLine(N1le
 DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 
 					|	(DStatementParen) Designator:D1 LPAREN ActPars:A2 RPAREN {: RESULT=new DStatementParen(D1, A2); RESULT.setLine(D1left); :}
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
-					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
+					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :}
+					| 	(DStatementModif) 
+								DesignatorOneArray:D1 HASHTAG NUMBER_CONST:val {: RESULT=new DStatementModif(D1, val); RESULT.setLine(D1left); :}
+					;
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
@@ -369,7 +372,9 @@ Factor ::= 	(FactVar) Designator:designName {: RESULT=new FactVar(designName); R
 
 Designator ::= (DesignatorJustOne) IDENT:destName {: RESULT=new DesignatorJustOne(destName); RESULT.setLine(destNameleft); :} 
 			| 	(DesignatorOneDot) IDENT:destName DOT IDENT:I1 {: RESULT=new DesignatorOneDot(destName, I1); RESULT.setLine(destNameleft); :}
-			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE {: RESULT=new DesignatorOneArray(destName, exprr); RESULT.setLine(destNameleft); :} ;
+			|	(DesignatorOneArrayProsledjivanje) DesignatorOneArray:D1 {: RESULT=new DesignatorOneArrayProsledjivanje(D1); RESULT.setLine(D1left); :}
+			;
+DesignatorOneArray ::= (DesignatorOneArray1) IDENT:destName LSQUARE Expr:exprr RSQUARE {: RESULT=new DesignatorOneArray1(destName, exprr); RESULT.setLine(destNameleft); :} ;
 
 // 			IdentOrExpr ::= (DesignIdentOne) DOT IDENT
 //					|	(DesignIdent) IdentOrExpr DOT IDENT 

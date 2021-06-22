@@ -8,7 +8,7 @@ import rs.etf.pp1.symboltable.concepts.*;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
 public class SemanticPass extends VisitorAdaptor {
-	
+
 	// LINIJA ZA ISPIS, UTICE jedino na report_info();
 	static final boolean ispisInformacija = true;
 
@@ -71,7 +71,8 @@ public class SemanticPass extends VisitorAdaptor {
 		msg.append(line);
 		msg.append("  ");
 		msg.append(message);
-		if (ispisInformacija) log.info(msg.toString());
+		if (ispisInformacija)
+			log.info(msg.toString());
 	}
 
 	@Override
@@ -463,10 +464,10 @@ public class SemanticPass extends VisitorAdaptor {
 		report_error("Ovo ti je za B nivo", DesignatorOneDot);
 	}
 
-	@Override 
-	public void visit(DesignatorOneArray DesignatorOneArray) {
+	@Override
+	public void visit(DesignatorOneArray1 DesignatorOneArray) {
 		Struct exprStruct = DesignatorOneArray.getExpr().struct;
-		Obj designNode = Tab.find(DesignatorOneArray.getDestName());
+		Obj designNode = Tab.find(DesignatorOneArray.getDestName()); 
 
 		boolean found = designNode != Tab.noObj;
 		boolean typeArray = designNode.getType().getKind() == Struct.Array;
@@ -863,7 +864,7 @@ public class SemanticPass extends VisitorAdaptor {
 		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
 		// Designator
 		if (DStatementAssign.getDesignator().obj == Tab.noObj || DStatementAssign.getDesignator().obj == null
-				||DStatementAssign.getExpr().struct== Tab.noType || DStatementAssign.getExpr().struct== null) {
+				|| DStatementAssign.getExpr().struct == Tab.noType || DStatementAssign.getExpr().struct == null) {
 			report_error("NullpointerExceptionn verovatno nasledjen zbog neke greske gore", DStatementAssign);
 			return;
 		}
@@ -949,4 +950,12 @@ public class SemanticPass extends VisitorAdaptor {
 		return !errorDetected;
 	}
 
+	///// MODIFIKACIIJAAA
+
+
+	@Override
+	public void visit(DesignatorOneArrayProsledjivanje DesignatorOneArrayProsledjivanje) {
+		DesignatorOneArrayProsledjivanje.obj = DesignatorOneArrayProsledjivanje.getDesignatorOneArray().obj;
+	}
+	  
 }

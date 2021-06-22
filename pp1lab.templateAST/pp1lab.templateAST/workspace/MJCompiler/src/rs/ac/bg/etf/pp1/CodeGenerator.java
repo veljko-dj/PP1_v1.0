@@ -19,9 +19,12 @@ import rs.ac.bg.etf.pp1.ast.ConditionOne;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
+import rs.ac.bg.etf.pp1.ast.DStatementModif;
 import rs.ac.bg.etf.pp1.ast.DStatementParen;
 import rs.ac.bg.etf.pp1.ast.DesignatorJustOne;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneArray;
+import rs.ac.bg.etf.pp1.ast.DesignatorOneArray1;
+import rs.ac.bg.etf.pp1.ast.DesignatorOneArrayProsledjivanje;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneDot;
 import rs.ac.bg.etf.pp1.ast.Expr0;
 import rs.ac.bg.etf.pp1.ast.ExprCondition;
@@ -68,8 +71,7 @@ import rs.etf.pp1.symboltable.concepts.Struct;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
 public class CodeGenerator extends VisitorAdaptor {
-//	Snimak si odgledao, malo preleteo kraj.
-//	Sad citam pdfove
+	public static boolean testAllocAndLenOfArray = false;
 
 //	U Code klasi put 0123 oznacava koliko bajtova ucitava
 	private int mainPc;
@@ -260,7 +262,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) { 
+		if (StatPrint.getExpr().struct == Tab.intType) {
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -436,29 +438,31 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	}
 
-	public void visit(DesignatorOneArray DesignatorOneArray) {
-		SyntaxNode parent = DesignatorOneArray.getParent(); 
+	public void visit(DesignatorOneArray1 DesignatorOneArray) {
+		SyntaxNode parent = DesignatorOneArray.getParent();
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
 		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-		{ 
+		{
 //			Ovde ce obezbediti da se adresa niza pojavi lepo
 			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 			obj.setLevel(DesignatorOneArray.obj.getLevel());
 			obj.setAdr(DesignatorOneArray.obj.getAdr());
 			Code.load(obj);
-		}  
-		checkIfAllocatedArray();
-		checkElemIndex();
-		
-		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
-		Code.put(Code.pop);  
-		
+		}
+		if (testAllocAndLenOfArray) {
+			checkIfAllocatedArray();
+			checkElemIndex();
+		}
+		Code.put(Code.dup_x1); // zamena mesta indeksu i adresi niza
+		Code.put(Code.pop);
+
 		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
-		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
-		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok
+		if (DStatementAssign.class != parent.getParent().getClass() && StatRead.class != parent.getParent().getClass()
+				&& parent.getClass() != DStatementModif.class)
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
 
@@ -819,6 +823,25 @@ public class CodeGenerator extends VisitorAdaptor {
 		adrExpr.afterInst
 
 				= Code.pc;
+	}
+
+	//////////////// MODIF
+
+	@Override
+	public void visit(DStatementModif DStatementModif) {
+		int num_const = DStatementModif.getVal();
+		Code.put(Code.dup2); 
+		Code.loadConst(num_const);
+		Code.put(Code.add);
+		Code.put(Code.dup2);
+		Code.put(Code.pop); 
+		Code.put(Code.arraylength);
+		Code.put(Code.div);
+		
+		Code.put(Code.aload);
+		Code.put(Code.astore);
+
+		
 	}
 
 }

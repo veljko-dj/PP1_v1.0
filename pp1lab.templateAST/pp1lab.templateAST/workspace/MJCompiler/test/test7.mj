@@ -1,0 +1,33 @@
+ program test7
+ 	 
+	int k;
+	int niz[];
+	char nizch[]; 
+	   
+{
+	void main()	
+		int bodovi;
+		int nizLok[];
+	{ 
+	
+	niz = new int[10];
+	
+	niz[3] = 55;
+	niz[4]= 19;
+	
+	
+	print(niz[3]);
+	
+	print('b');
+	
+	niz[3]#40;   
+	
+	print(niz[3]);
+	   
+	  
+	  
+	}
+}
+
+
+ 

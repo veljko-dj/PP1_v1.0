@@ -76,7 +76,7 @@ terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
  
-  
+ terminal HASHTAG;
  
  // NETERMINALI
 								//Dodati neterminali
@@ -96,7 +96,7 @@ nonterminal ConstType, DoWhile;
 
 nonterminal Errorr;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl;  
+nonterminal rs.etf.pp1.symboltable.concepts.Obj  ProgName, Program, MethodTypeName, Designator, MethodDecl, DesignatorOneArray;  
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, RetType, ExprManjiProstiji; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition,CondTerm, ConditionFinal;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprCondition ,ExprConditionTrue ,ExprConditionFalse;
@@ -266,7 +266,10 @@ Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
-					|	(DStatementDec) Designator DEC ;
+					|	(DStatementDec) Designator DEC
+					| 	(DStatementModif) 
+								DesignatorOneArray HASHTAG NUMBER_CONST:val
+					;
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
@@ -348,7 +351,9 @@ Factor ::= 	(FactVar) Designator:designName
 
 Designator ::= (DesignatorJustOne) IDENT:destName 
 			| 	(DesignatorOneDot) IDENT:destName DOT IDENT
-			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE ;
+			|	(DesignatorOneArrayProsledjivanje) DesignatorOneArray
+			;
+DesignatorOneArray ::= (DesignatorOneArray1) IDENT:destName LSQUARE Expr:exprr RSQUARE ;
 
 // 			IdentOrExpr ::= (DesignIdentOne) DOT IDENT
 //					|	(DesignIdent) IdentOrExpr DOT IDENT 

@@ -96,7 +96,7 @@ public class CodeGenerator extends VisitorAdaptor {
 			whereToPutFirstTrue = 0;
 			whereToPutFirstFalse = 0;
 			whereToPutFirstAfter = 0;
-			falseExist = false; 
+			falseExist = false;
 		}
 
 		public void print() {
@@ -260,8 +260,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) {
-//			Zasto je int 5? Stavio sam ipak 4 jer mi to ima smisla
+		if (StatPrint.getExpr().struct == Tab.intType) { 
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -269,10 +268,10 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.loadConst(1);
 			Code.put(Code.bprint);
 		} else if (StatPrint.getExpr().struct == boolStruct) {
-			Code.pc = Code.pc - 1; // skontah da moze i Code.pop  
+//			Code.pc = Code.pc - 1; // skontah da moze i Code.pop
 //			int numLetters;
 //			String[] boolString = { "false", "truea" };
-			int intValue = Code.get(Code.pc-1);
+//			int intValue = Code.get(Code.pc - 1);
 //			int intValuePre = Code.get(Code.pc-1);
 //			int intValuePosle = Code.get(Code.pc+1);
 //			if (intValue == Code.const_1)
@@ -288,7 +287,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //				it++;
 //			}
 			Code.loadConst(4);
-			Code.put(Code.print); 
+			Code.put(Code.print);
 		} else
 			System.out.println("Neka greska se desila");
 	}
@@ -320,7 +319,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //				it++;
 //			}
 			Code.loadConst(4);
-			Code.put(Code.print); 
+			Code.put(Code.print);
 		} else
 			System.out.println("Neka greska se desila");
 
@@ -328,9 +327,8 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.loadConst(StatPrintValue.getValue());
 		Code.loadConst(4);
 		Code.put(Code.print);
- 
+
 	}
- 
 
 //	A sada StatRead, kad sam vec odradio print a to deluje lako
 
@@ -340,20 +338,17 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Ako je element niza onda on to sve sredi u store?
 		System.out.println("Koristi se READ !\n");
 		if (StatRead.getDesignator().obj.getKind() == 5) {
-//			System.out.println("Dodela elementu niza");
-//			 kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
-			{
-				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
-				obj.setLevel(StatRead.getDesignator().obj.getLevel());
-				obj.setAdr(StatRead.getDesignator().obj.getAdr());
-				Code.load(obj);
-			}
-			Code.put(Code.dup_x1);
-			Code.put(Code.pop);
-//			Zasto dup_x1? Zato sto trenutno imas na steku indeks, pa stavljas adresu
-//			i zarotiras i onda imas adr, index i pomocu read ce leci lepo VALUE
+//			 Ovo sve ovde je postojalo dok nisam skontao da to mogu isto da odradim
+//			samo u designatorOne i to je to , aovde samo dodam read komandu
+//			{
+//				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+//				obj.setLevel(StatRead.getDesignator().obj.getLevel());
+//				obj.setAdr(StatRead.getDesignator().obj.getAdr());
+//				Code.load(obj);
+//			}
+//			Code.put(Code.dup_x1);
+//			Code.put(Code.pop);  
 
-//			Dobro si se setio ovoga, ovo je bas napravljeno zbog ovog glupog poziva
 		}
 
 		if (typeOfDes == Tab.intType) {
@@ -376,17 +371,18 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	public void visit(DStatementAssign DStatementAssign) {
 		if (DStatementAssign.getDesignator().obj.getKind() == 5) {
-//			System.out.println("Dodela elementu niza");
-//			kreiram objekat koji ce biti konstanta koja oznacava adresu niza mog
-			{
-				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
-				obj.setLevel(DStatementAssign.getDesignator().obj.getLevel());
-				obj.setAdr(DStatementAssign.getDesignator().obj.getAdr());
-				Code.load(obj);
-			}
-			Code.put(Code.dup_x2);
-			Code.put(Code.pop);
+//			{ 
+//				Ovo sve ovde je zakomentarisano dok si u DesignatorOneArray imao onaj 
+//				if gde kazes, ako je assign odradi mi sve ovo sto ovde radim,
+//				pa covece nema potrebe da to 2 puta radis
 
+//				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+//				obj.setLevel(DStatementAssign.getDesignator().obj.getLevel());
+//				obj.setAdr(DStatementAssign.getDesignator().obj.getAdr());
+//				Code.load(obj);
+//			}
+			// Code.put(Code.dup_x2);
+			// Code.put(Code.pop);
 		}
 
 		Code.store(DStatementAssign.getDesignator().obj);
@@ -411,43 +407,62 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Ovo je za klase, ovo nikad nece da se desi ako radis za A
 	}
 
+	private void checkIfAllocatedArray() {
+		// Na steku je je 10(indeks) 2(niz)
+		Code.put(Code.dup);
+		// Sada je 10 2 2
+		Code.loadConst(0);
+		// Sada je 10 2 2 0
+		Code.putFalseJump(0, 0); // 5 je kod not eq
+		// znaci ako je razlicito od nule znaci postoji neka adresa
+		// i onda ne bacaj gresku
+		Code.put(Code.trap);
+		Code.put(101); // Ovo je valjda kod greske koji ne razumem
+		Code.fixup(Code.pc - 4);// Eksperimentalno pomocu disasm sam odredio kolika je razlika
+	}
+
+	private void checkElemIndex() {
+		// Ovo ovde ce da sluzi da proveris da li je indeks dobar.
+		// Ako nije onda greska nekako
+		// Na steku je 10(indeks) 2(niz)
+		Code.put(Code.dup2);
+		// Sada je 10 2 10 2
+		Code.put(Code.arraylength);
+		// Sada je 10 2 10 3(duzina)
+		Code.putFalseJump(5, 0); // 5 je kod za lower
+		Code.put(Code.trap);
+		Code.put(102); // Ovo je valjda kod greske koji ne razumem
+		Code.fixup(Code.pc - 4);// Eksperimentalno pomocu disasm sam odredio kolika je razlika
+
+	}
+
 	public void visit(DesignatorOneArray DesignatorOneArray) {
-//		Ovo je niz, vidis tamo da na steku treba da bude adr, index
-//		pa onda kad se izvrsi ostaje val
-//		Prvo ista prica, provera da li je funkcija i tako to
-
-		SyntaxNode parent = DesignatorOneArray.getParent();
-
+		SyntaxNode parent = DesignatorOneArray.getParent(); 
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
-		// cudan
-		// nacin iskoristis
+		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-
-		if (DStatementAssign.class != parent.getClass() && DStatementParen.class != parent.getClass()
-				&& StatRead.class != parent.getClass()) {
-			{
-				Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
-				obj.setLevel(DesignatorOneArray.obj.getLevel());
-				obj.setAdr(DesignatorOneArray.obj.getAdr());
-				Code.load(obj);
-			}
-//			Obj a = DesignatorOneArray.obj;
-//			System.out.println("Sta se ovde desava");
-//			System.out.println("Dstatementassign : \n" + a.getType() + "\n" + a.getType().getElemType() + "\n"
-//					+ a.getType().getKind() + "\n" + a.getName() + "\n" + a.getKind() + "\n" + a.getAdr() + "\n");
-
-			Code.put(Code.dup_x1);
-			Code.put(Code.pop);
-//			Zasto x1? Zato sto je prvo indeks dosao na stek, pa ti stavis adresu
-//			i onda zamenis mesta 
-
-//			Code.put(Code.aload);
+		{ 
+//			Ovde ce obezbediti da se adresa niza pojavi lepo
+			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+			obj.setLevel(DesignatorOneArray.obj.getLevel());
+			obj.setAdr(DesignatorOneArray.obj.getAdr());
+			Code.load(obj);
+		}  
+		checkIfAllocatedArray();
+		checkElemIndex();
+		
+		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
+		Code.put(Code.pop);  
+		
+		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
+		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
 
-		}
+//		}
 	}
 
 	public void visit(DStatementParen DStatementParen) {
@@ -474,9 +489,9 @@ public class CodeGenerator extends VisitorAdaptor {
 		else if (isDiv)
 			Code.put(Code.div);
 		else if (isMod) {
-			//System.out.println("Ne postoji mod, sta sad? ");
-			// Ako ti nije jasno sta si radio, ti onda skoci na 
-			// Implementing the modulo operator as a function in C 
+			// System.out.println("Ne postoji mod, sta sad? ");
+			// Ako ti nije jasno sta si radio, ti onda skoci na
+			// Implementing the modulo operator as a function in C
 			// na StackOverflow i vidi formulu
 			Code.put(Code.dup2);
 			Code.put(Code.div);
@@ -509,7 +524,6 @@ public class CodeGenerator extends VisitorAdaptor {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
 	}
 
-	 
 //////// Dodao ovaj deoooooooooooooo	
 	public void visit(ConditionFinalAAA ConditionFinalAAA) {
 		// Ovde nista ne radis, samo se u semantici odradi prosledjivanje na gore
@@ -536,10 +550,10 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.put(Code.add);
 		// PROVERI OVO OR je + a AND je *
 	}
-	
+
 	@Override
 	public void visit(ConditionOne ConditionOne) {
-		
+
 	}
 
 	public void visit(CondTermEnd CondTermEnd) {
@@ -652,7 +666,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		}
 	}
 
-	public void visit(DStatementDec DStatementDec) {  
+	public void visit(DStatementDec DStatementDec) {
 //		Ovde je bilo bas problema
 //		Prvo, ako je globalna stvar onda ne mozes da odradis 
 //		Code.inc jer Code.inc radi samo sa lokalnim stvarima, 
@@ -667,11 +681,12 @@ public class CodeGenerator extends VisitorAdaptor {
 			// Ovaj pop ide jer je vrednost ispod inc vec stavljena, pa ga sklonim da bi to
 			// inc postavio
 			// ovo gore je debug pokazao
-			Code.put(Code.inc); 
-			//ekstremno glup nacin realizacije inc (njihove realizacije), pogledaj mikrojava.pdf
+			Code.put(Code.inc);
+			// ekstremno glup nacin realizacije inc (njihove realizacije), pogledaj
+			// mikrojava.pdf
 			Code.put(DStatementDec.getDesignator().obj.getAdr());
 			Code.put(-1);// increment
-		} else { 
+		} else {
 			Code.loadConst(-1);
 			Code.put(Code.add);
 			if (DStatementDec.getDesignator().obj.getKind() == 5) {
@@ -694,8 +709,6 @@ public class CodeGenerator extends VisitorAdaptor {
 			Code.store(DStatementDec.getDesignator().obj);
 		}
 	}
-	
-	
 
 //	E na zalost je doslo vreme da se radi if 
 //	Hej za A nivo ti ne treba IF, samo ternarni operator                                                                                                  

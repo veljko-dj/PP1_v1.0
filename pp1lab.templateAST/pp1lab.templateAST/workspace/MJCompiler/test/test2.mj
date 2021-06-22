@@ -9,32 +9,35 @@ bool b1;
 
 	int main() 
 		int p,q;  
-	 {  
-	 k=0; 
+	 {   
+	 print(k);
 	 p=123; 
 	 q= 1;
+	 b1=false;
 	     
 	   
-	 p = 2 + 2* q;	
+	p = 2 + q*2;	
 	 
-	 //p = 11;
+	p = 11;
 	  
 	 
 	 if (p<= 3 || p>=10 && p<=20) p = p- 1;
 	 	else if (p==4)  { p++; k++;}
- 			else if (p==3) p = p+2;
+			else if (p==3) p = p+2;
 
 	if (p==2 ) p = 2;
-	//else  {p=6;}
+		else  {p=6;}
 	
 		 	
 	print(k);
 	 print(p);
 	  
-	 p = p==5 ? 9 : 1;
+ 	 p = p==5 ? 9 : 1;
 	 
 	 print(p);
 	 
+	 if (b1) print('k');
+	 	else print('n');
 	 print(eol);
 	 print(b1);
 	 return 1;

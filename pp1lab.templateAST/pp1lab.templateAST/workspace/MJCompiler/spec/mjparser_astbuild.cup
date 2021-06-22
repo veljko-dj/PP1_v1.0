@@ -34,7 +34,7 @@ parser code {:
     	StringBuilder msg = new StringBuilder(message); 
     	if (info instanceof Symbol)
             msg.append (" na liniji ").append(((Symbol)info).left);
-        log.error(msg.toString());
+        log.error(msg.toString()); 
         
     }
     

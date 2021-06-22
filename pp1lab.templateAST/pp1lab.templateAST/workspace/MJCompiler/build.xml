@@ -68,7 +68,7 @@
 
 	<target name="disasm">
 			<java classname="rs.etf.pp1.mj.runtime.disasm">
-				<arg value="test/program.obj"/>
+				<arg value="test/test6.obj"/>
 				<classpath>
 					<pathelement location="lib/mj-runtime-1.1.jar"/>
 				</classpath>

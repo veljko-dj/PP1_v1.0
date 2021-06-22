@@ -90,6 +90,9 @@ public class MyCompilerImpl implements Compiler {
 				Code.mainPc = codeGenerator.getMainPc();
 				Code.write(new FileOutputStream(objFile));
 				log.info("Parsiranje uspesno zavrseno!");
+
+				// MOJA METODAAA
+				resetCodeVeljko();
 			} else {
 				log.error("Parsiranje NIJE uspesno zavrseno");
 			}
@@ -107,8 +110,17 @@ public class MyCompilerImpl implements Compiler {
 					log.error(e1.getMessage(), e1);
 				}
 		}
-
 		return listError;
+	}
+
+	private void resetCodeVeljko() {
+		// Kopirano iz Code.class
+		Code.buf = new byte[8192]; // prostor za smestanje prevedenog programskog koda
+//		private static final int bufSize = 8192;  
+		Code.pc = 0; 			// tekuca adresa za smestanje prevedene instrukcije
+		Code.mainPc = -1; 		// adresa main rutine
+		Code.dataSize = 0; 		// velicina oblasti globalnih podataka
+		Code.greska = false; 	// flag da li je prijavljena neka greske
 	}
 
 	public static void addErrorVeljko(int type, String message, int line) {
@@ -131,8 +143,8 @@ public class MyCompilerImpl implements Compiler {
 		});
 
 		if (!listError.isEmpty()) {
-			System.out.println("\n\tISPIS_GRESAKA\n");
 			StringBuilder str = new StringBuilder();
+			str.append("\n\tISPIS_GRESAKA:\n");
 			for (CompilerError tmp : listError) {
 				// System.out.println(tmp.toString());
 				str.append(tmp.toString());
@@ -141,8 +153,7 @@ public class MyCompilerImpl implements Compiler {
 			}
 		}
 
-		System.out.println("\n\tNEMA_GRESAKA");
-		return "";
+		return "\tNEMA_GRESAKA\n";
 
 	}
 

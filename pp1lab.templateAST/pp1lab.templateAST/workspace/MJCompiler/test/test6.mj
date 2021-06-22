@@ -1,0 +1,48 @@
+program test6
+ 	 
+
+	int niz[];
+	char nizch[];
+ 
+	int g1, g2, g3;
+	   
+{
+	void main()	
+		int bodovi;
+		int nizLok[];
+	  {
+	  nizLok = new int[4];
+	  niz = new int [10];
+	  niz[9]= 5;
+	  nizLok[3] = 10;
+	  
+	  bodovi = 22;
+	  bodovi = niz[3] + niz[2]+ niz[9];
+	   
+	  print(bodovi);
+	  
+	  niz[9] = 3;
+	  print(niz[9]);
+	  
+	  read(niz[3]);
+	  print(niz[3]);
+	  
+	  print(eol);
+	  print('L');
+	  print(nizLok[3]);
+	  read(nizLok[2]);
+	  print(nizLok[2]);
+	  
+	  
+	  nizLok[1] = niz[3];
+	  print(nizLok[1]);
+	  
+	  niz[3]= nizLok[2];
+	  print(niz[3]);
+	  
+	  
+	}
+}
+
+
+ 

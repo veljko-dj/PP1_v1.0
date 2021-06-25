@@ -107,6 +107,8 @@ public class CompilerTest {
 		
 		/****
 		 * TEST6*** Dorada:
+		 * Ubacena greska kod koriscenja nedeklarisanog niza
+		 * Ubacena greska kod indexOutOfBound exception
 		 *************/
 		if (test6) {
 		System.out.println("####################################################################################"); 

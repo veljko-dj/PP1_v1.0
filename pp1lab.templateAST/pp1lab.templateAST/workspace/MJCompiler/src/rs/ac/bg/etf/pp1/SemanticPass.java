@@ -323,6 +323,8 @@ public class SemanticPass extends VisitorAdaptor {
 
 	@Override
 	public void visit(MethodDeclaration MethodDeclaration) {
+		// Ovo ne radi lepo ! ! ! Radi samo ako naidje na return, a tebi
+		// treba u runtime-u da proveris to! 
 		if (!returnFound && currentMethod.getType() != Tab.noType) {
 			report_error("Greska: " + MethodDeclaration.getLine() + ": " + currentMethod.getName()
 					+ "  funkcija nema return a treba da ima", MethodDeclaration);

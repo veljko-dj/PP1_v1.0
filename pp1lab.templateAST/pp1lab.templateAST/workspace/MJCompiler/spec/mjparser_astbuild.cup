@@ -76,7 +76,7 @@ terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
  
-  
+terminal FINAL;
  
  // NETERMINALI
 								//Dodati neterminali
@@ -114,6 +114,8 @@ nonterminal Array Array;
 nonterminal Stagod Stagod;
 nonterminal ConstType ConstType;
 nonterminal DoWhile DoWhile;
+nonterminal Finalno Finalno;
+nonterminal KrajFinal KrajFinal;
 
 nonterminal Errorr Errorr;
 
@@ -159,6 +161,7 @@ ConstDeclOne ::= 	(ConstDeclOneElementNumber) IDENT:numIdent ASSIGN NUMBER_CONST
 
 			 
 VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarDeclaration(varType, V1); RESULT.setLine(varTypeleft); :} 
+			| (VarDeclarationFINAL) Finalno:F1 Type:varType VarDeclList:V2 KrajFinal:K3 {: RESULT=new VarDeclarationFINAL(F1, varType, V2, K3); RESULT.setLine(F1left); :} 
 			// Ovde si se ti pravio pametan pa spojio u jedno Type i ostatak ali tip moras da odvojis i sacuvas
 			// preko nekog drugog imena a ne Type
 			// tipa typeVar ::= Type
@@ -167,7 +170,10 @@ VarDecl ::= (VarDeclaration) Type:varType VarDeclList:V1 SEMI {: RESULT=new VarD
 			  			MyCompilerImpl.addErrorVeljko(1, "Lose deklarisanje promenljive",err2left );
 			  			parser.log.debug("Uspesan oporavak od greske pri def glob prom."); 
 				  		//parser.report_error("Deklarisanje promenljive" + err2left , null); 
-			  		:} {: RESULT=new VarDeclarationNumberError(); :}  ;
+			  		:} {: RESULT=new VarDeclarationNumberError(); :} ;
+			  		
+Finalno ::= (Finalno) FINAL {: RESULT=new Finalno(); :};
+KrajFinal ::= (KrajFinal) SEMI {: RESULT=new KrajFinal(); :}; 
 
 VarDeclList ::= (VarDeclarations) VarDeclList:V1 COMMA VarDeclOne:V2 {: RESULT=new VarDeclarations(V1, V2); RESULT.setLine(V1left); :}
 			|	(VarDecListOneElement) VarDeclOne:V1 {: RESULT=new VarDecListOneElement(V1); RESULT.setLine(V1left); :}  ;

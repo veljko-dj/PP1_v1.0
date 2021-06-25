@@ -260,7 +260,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) { 
+		if (StatPrint.getExpr().struct == Tab.intType) {
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -383,8 +383,14 @@ public class CodeGenerator extends VisitorAdaptor {
 //			}
 			// Code.put(Code.dup_x2);
 			// Code.put(Code.pop);
+		} 
+		if (KlasaFinal.daLiJeFinal(DStatementAssign.getDesignator().obj.getName())) {
+			System.out.println("JesteFinal"+ DStatementAssign.getDesignator().obj.getName());
+			if (KlasaFinal.daLiJeDodeljanaVrednost(DStatementAssign.getDesignator().obj.getName()))
+				Code.error("Vec dodeljena vrednost");
+			else
+				KlasaFinal.dodelioVrednost(DStatementAssign.getDesignator().obj.getName());
 		}
-
 		Code.store(DStatementAssign.getDesignator().obj);
 //		 on u pozadini u mjruntime odradi store zavisno sta stavljas
 
@@ -437,27 +443,27 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	public void visit(DesignatorOneArray DesignatorOneArray) {
-		SyntaxNode parent = DesignatorOneArray.getParent(); 
+		SyntaxNode parent = DesignatorOneArray.getParent();
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
 		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-		{ 
+		{
 //			Ovde ce obezbediti da se adresa niza pojavi lepo
 			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 			obj.setLevel(DesignatorOneArray.obj.getLevel());
 			obj.setAdr(DesignatorOneArray.obj.getAdr());
 			Code.load(obj);
-		}  
+		}
 		checkIfAllocatedArray();
 		checkElemIndex();
-		
-		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
-		Code.put(Code.pop);  
-		
+
+		Code.put(Code.dup_x1); // zamena mesta indeksu i adresi niza
+		Code.put(Code.pop);
+
 		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
-		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok
 		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza

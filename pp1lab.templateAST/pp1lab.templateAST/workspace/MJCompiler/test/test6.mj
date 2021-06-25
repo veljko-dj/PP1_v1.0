@@ -6,7 +6,7 @@ program test6
 	const int jedan = 1;
  
 	int g1, g2, g3;
-	   
+	final int f;   
 {
 	void main()	
 		int bodovi;
@@ -19,7 +19,7 @@ program test6
 	  
 	  bodovi = 22;
 	  bodovi = niz[3] + niz[2]+ niz[9];
-	   
+	   f= 3;
 	  print(bodovi);
 	  
 	  niz[9] = 3;

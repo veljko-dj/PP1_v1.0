@@ -791,7 +791,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
 //		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
 //		Code.ne 
-		adrExpr.firstInstrTrue = Code.pc;
+		adrExpr.firstInstrTrue = Code.pc; 
 	}
 
 	public void visit(ExprConditionTrue ExprConditionTrue) {

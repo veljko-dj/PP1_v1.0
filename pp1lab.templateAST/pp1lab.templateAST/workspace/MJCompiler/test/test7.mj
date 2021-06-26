@@ -1,0 +1,34 @@
+program test6
+ 	  int k;
+	bool niz[]; 
+	char rez;
+  
+	   
+{
+	void main()	
+		int bodovi;
+		int nizLok[];
+	  {
+	  nizLok = new int[4];
+	  niz = new bool [8];
+	  niz[0]= true;
+	  niz[1]= false;
+	  niz[2]= false;
+	  niz[3]= false;
+	  niz[4]= false;
+	  niz[5]= false;
+	  niz[6]= true;
+	  niz[7]= false;
+	  
+	  rez = 
+	  niz toChar ;
+	  
+	  print(rez);
+
+	  
+	  
+	}
+}
+
+
+ 

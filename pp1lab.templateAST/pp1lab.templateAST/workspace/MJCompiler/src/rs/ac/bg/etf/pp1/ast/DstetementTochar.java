@@ -5,11 +5,11 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class FactVar extends Factor {
+public class DstetementTochar extends ExprManjiProstiji {
 
     private Designator Designator;
 
-    public FactVar (Designator Designator) {
+    public DstetementTochar (Designator Designator) {
         this.Designator=Designator;
         if(Designator!=null) Designator.setParent(this);
     }
@@ -43,7 +43,7 @@ public class FactVar extends Factor {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("FactVar(\n");
+        buffer.append("DstetementTochar(\n");
 
         if(Designator!=null)
             buffer.append(Designator.toString("  "+tab));
@@ -52,7 +52,7 @@ public class FactVar extends Factor {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [FactVar]");
+        buffer.append(") [DstetementTochar]");
         return buffer.toString();
     }
 }

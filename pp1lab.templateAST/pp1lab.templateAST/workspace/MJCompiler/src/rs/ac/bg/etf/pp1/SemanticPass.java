@@ -605,6 +605,9 @@ public class SemanticPass extends VisitorAdaptor {
 //		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
 //		Da moze i true i false da ima uternarnom 
 		CondFactOne.struct = CondFactOne.getExprManjiProstiji().struct;
+		if (CondFactOne.struct != boolStruct) report_error("Da li je ovde potreban "
+				+ "ovaj uslov, u Javi ovo mora biti tipa BOOL, u C-u ne, a u mikroJavi?\n"
+				+ "Radi sa i bez ovog uslova, samo ga ukloni", CondFactOne);
 	}
 
 	public void visit(CondFactRelop CondFactRelop) {
@@ -622,12 +625,11 @@ public class SemanticPass extends VisitorAdaptor {
 		if (!(validKind || validKind2 || validKind2Obrnuto))
 			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					CondFactRelop);
-		else {
-			// sve je okej
-			// report_info("Dodela je okej", CondFactRelop);
+		else { 
 			CondFactRelop.struct = CondFactRelop.getExprManjiProstiji().struct;
 //			Ovo ne znam da li j dobro prosledjivanje
 		}
+		 
 	}
 
 	@Override

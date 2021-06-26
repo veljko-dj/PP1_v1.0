@@ -6,22 +6,24 @@ program test6
 		int nizLok[];
 		int l;
 	  { 
-	  niz = new int[10];
+	  niz = new int[9];
 	  
-	  nizLok= new int[10];
+	  nizLok= new int[9];
+	  
+	  niz[9]= 35;
 	  
 	  niz[3]= 13;
 	  nizLok[2]= 12;
-	  niz[0]= 35;
-	  niz[1]= 30; 
+	  niz[0]= 30;
+	  niz[1]= 35; 
 	  niz[5] = 40;
 	  niz[2]=16;
 	  niz[8]= 99;
-	  niz[9]= 23;
-	  niz[3]= max niz; 
+	  niz[4]= 23;
+	  l= max niz; 
 	  
 	  print(niz[3]);
-	  print(nizLok[2]);
+	  print(l);
 	  
 	  
 	  

@@ -807,7 +807,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.putJump(adrExpr.tmpAdr); // skok na sledecu instrukciju
 		adrExpr.firstInstrFalse = Code.pc;
 	}
-
+  
 	public void visit(ExprConditionFalse ExprConditionFalse) {
 //		Izlaz iz drugogIzraza koji bi trebalo da je na steku
 //		System.out.println("ExprFalse" + Code.pc);

@@ -263,7 +263,7 @@ Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 			 
 			
 			
-DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
+DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr  
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
 					|	(DStatementDec) Designator DEC ; 

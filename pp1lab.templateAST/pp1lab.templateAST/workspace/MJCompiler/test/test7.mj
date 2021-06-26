@@ -1,0 +1,32 @@
+program test6
+ 	  
+	int niz[];   
+{
+	void main()	 
+		int nizLok[];
+		int l;
+	  { 
+	  niz = new int[10];
+	  
+	  nizLok= new int[10];
+	  
+	  niz[3]= 13;
+	  nizLok[2]= 12;
+	  niz[0]= 35;
+	  niz[1]= 30; 
+	  niz[5] = 40;
+	  niz[2]=16;
+	  niz[8]= 99;
+	  niz[9]= 23;
+	  niz[3]= max niz; 
+	  
+	  print(niz[3]);
+	  print(nizLok[2]);
+	  
+	  
+	  
+	}
+}
+
+
+ 

@@ -25,8 +25,8 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
 public class MyCompilerImpl implements Compiler {
-	static final boolean ispisStabla = true;
-	static final boolean ispisTabeleSimbola = false;
+	static final boolean ispisStabla = false;
+	static final boolean ispisTabeleSimbola = true;
 	static final boolean ispisStatistike = true;
 
 	private static List<CompilerError> listError = new ArrayList<CompilerError>();

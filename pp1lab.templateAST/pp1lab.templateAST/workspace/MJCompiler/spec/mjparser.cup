@@ -75,7 +75,7 @@ terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
- 
+terminal MAX;
   
  
  // NETERMINALI
@@ -266,7 +266,7 @@ Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr 
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
-					|	(DStatementDec) Designator DEC ;
+					|	(DStatementDec) Designator DEC  ;
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
@@ -312,7 +312,8 @@ ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse ;
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term 
 					|	(ExprTermMinus) MINUS Term
-					|	(ExprTermList) ExprManjiProstiji Addop Term ;
+					|	(ExprTermList) ExprManjiProstiji Addop Term 
+					|   (ExprMAX) MAX Designator:des2;
 //		
 //						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
 //						ideja pronadjena na netu, na nekom gitu.

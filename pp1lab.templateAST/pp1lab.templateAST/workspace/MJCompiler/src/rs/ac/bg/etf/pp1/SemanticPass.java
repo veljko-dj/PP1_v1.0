@@ -314,6 +314,8 @@ public class SemanticPass extends VisitorAdaptor {
 				mainFound = true;
 			returnFound = false; // Ova linija nije proverena
 		}
+		
+		Obj obj = Tab.insert(Obj.Var, "MAX", Tab.intType); 
 		//
 		// report_info("Obradjuje se funkcija " + MethodTypeName.getMethodName(),
 		// MethodTypeName);
@@ -951,6 +953,20 @@ public class SemanticPass extends VisitorAdaptor {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean passed() {
 		return !errorDetected;
+	}
+	
+	//////MODIF
+
+	@Override
+	public void visit(ExprMAX DStatementMAX) {
+//		System.out.println(DStatementMAX.getDesignator().obj.getName());
+//		System.out.println(DStatementMAX.getDesignator().obj.getType().getKind());
+		if (DStatementMAX.getDesignator().obj.getType().getKind()!= Struct.Array)
+			report_error("Ovo sluzi samo za nizove", DStatementMAX);
+			 
+		DStatementMAX.struct = Tab.intType;
+//		if (dStatementMAX.getParent().getClass()!= DesignatorOneArray.class)
+//			report_error("Ovo sluzi samo za nizove", dStatementMAX);
 	}
 
 }

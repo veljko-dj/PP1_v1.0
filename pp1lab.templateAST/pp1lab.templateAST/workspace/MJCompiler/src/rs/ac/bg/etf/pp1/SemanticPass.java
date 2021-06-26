@@ -1,5 +1,8 @@
 package rs.ac.bg.etf.pp1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
@@ -968,32 +971,20 @@ public class SemanticPass extends VisitorAdaptor {
 				&& StatLabel.getDesignator().getClass() == DesignatorOneArray.class)
 			report_error("labela mora biti jedna rec", StatLabel);
 
-		Obj objF = Tab.find(StatLabel.getDesignator().obj.getName());
-		if (objF == Tab.noObj || objF == null) {
-			Obj obj = Tab.insert(Obj.Var, StatLabel.getDesignator().obj.getName(), Tab.intType);
-			obj.setAdr(0);
-			obj.setFpPos(0);
-			obj.setLevel(0);
-			StatLabel.getDesignator().obj = obj;
-		} else {
-			StatLabel.getDesignator().obj = objF;
+		if (!Labele.listaLabela.contains(StatLabel.getDesignator().obj.getName())) {
+			Labele.listaLabela.add(StatLabel.getDesignator().obj.getName());
+			Labele.listaKoriscenjaUnapred.add(new ArrayList<Integer>());
+			Labele.listaAdresa.add(-1);
 		}
 	}
 
 	@Override
 	public void visit(StatGoTo StatGoTo) {
-		Obj obj1 = Tab.find(StatGoTo.getDesignator().obj.getName());
-
-		if (obj1 == Tab.noObj || obj1 == null) {
-			Obj obj = Tab.insert(Obj.Var, StatGoTo.getDesignator().obj.getName(), Tab.intType);
-			obj1 = obj;
-
+		if (!Labele.listaLabela.contains(StatGoTo.getDesignator().obj.getName())) {
+			Labele.listaLabela.add(StatGoTo.getDesignator().obj.getName());
+			Labele.listaKoriscenjaUnapred.add(new ArrayList<Integer>());
+			Labele.listaAdresa.add(-1);
 		}
-
-		obj1.setAdr(0);
-		obj1.setFpPos(0);
-		obj1.setLevel(0);
-		StatGoTo.getDesignator().obj = obj1;
 	}
 
 }

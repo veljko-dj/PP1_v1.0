@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class Labele {
 
-	public static List<String> listaKoriscenjaUnapred = new ArrayList<String>();
-	public static List<List<Integer>> listaPC = new ArrayList<>();
+	public static List<String> listaLabela = new ArrayList<String>();
+	public static List<List<Integer>> listaKoriscenjaUnapred= new ArrayList<>();
+	public static List<Integer> listaAdresa = new ArrayList<>();
 }

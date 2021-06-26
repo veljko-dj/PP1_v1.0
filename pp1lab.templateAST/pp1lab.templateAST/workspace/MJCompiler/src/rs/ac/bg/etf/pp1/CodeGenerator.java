@@ -828,36 +828,22 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(StatLabel StatLabel) {
-		System.out.println(StatLabel.getDesignator().obj.getLevel());
-		StatLabel.getDesignator().obj.setFpPos(Code.pc);
-		if (StatLabel.getDesignator().obj.getLevel() == 1) {
-			int k = Labele.listaKoriscenjaUnapred.lastIndexOf(StatLabel.getDesignator().obj.getName());
-			Labele.listaKoriscenjaUnapred.remove(k);
-			List<Integer> l = Labele.listaPC.get(k);
-			Labele.listaPC.remove(k);
-			while (!l.isEmpty()) {
-				Code.fixup(l.get(0));
-				l.remove(0);
-			}
-			Code.fixup(StatLabel.getDesignator().obj.getLevel());
+		int k = Labele.listaLabela.indexOf((StatLabel.getDesignator().obj.getName()));
+		List<Integer> l = Labele.listaKoriscenjaUnapred.get(k);
+		Labele.listaAdresa.set(k, Code.pc);
+		while (!l.isEmpty()) {
+			Code.fixup(l.get(0));
+			l.remove(0);
 		}
 	}
 
 	@Override
 	public void visit(StatGoTo StatGoTo) {
-		System.out.println("adresa" + StatGoTo.getDesignator().obj.getFpPos());
-		Code.putJump(StatGoTo.getDesignator().obj.getFpPos());
-		if (StatGoTo.getDesignator().obj.getFpPos() == 0) {
-			if (Labele.listaKoriscenjaUnapred.contains(StatGoTo.getDesignator().obj.getName())) {
-				int k = Labele.listaKoriscenjaUnapred.indexOf(StatGoTo.getDesignator().obj.getName());
-				Labele.listaPC.get(k).add(Code.pc - 2);
-			} else {
-				Labele.listaKoriscenjaUnapred.add(StatGoTo.getDesignator().obj.getName());
-				List<Integer> l = new ArrayList<>();
-				l.add(Code.pc - 2);
-				Labele.listaPC.add(l);
-			}
-			StatGoTo.getDesignator().obj.setLevel(1);
+		int k = Labele.listaLabela.indexOf((StatGoTo.getDesignator().obj.getName()));
+		Code.putJump(Labele.listaAdresa.get(k));
+		if (Labele.listaAdresa.get(k) == -1) {
+			List<Integer> l = Labele.listaKoriscenjaUnapred.get(k);
+			l.add(Code.pc - 2);
 		}
 	}
 }

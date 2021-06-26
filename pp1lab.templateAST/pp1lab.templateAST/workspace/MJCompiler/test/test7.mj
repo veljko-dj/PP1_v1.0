@@ -6,7 +6,7 @@
 		int nizLok[];
 	  { 
 	  
-	  bodovi = 0;
+	  bodovi = 2;
 
 	  bodovi = bodovi+1;
 	  

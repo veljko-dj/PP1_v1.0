@@ -938,7 +938,7 @@ public class SemanticPass extends VisitorAdaptor {
 			// sve je okej
 			// report_info("Log_info: Decrement", DStatementDec);
 		}
-	}
+	} 
 
 	public void visit(RelopLower RelopLower) {
 		// report_info("Log_info: Usao u RelopLower", RelopLower);

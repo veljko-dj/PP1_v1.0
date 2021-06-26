@@ -75,7 +75,7 @@ terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
- 
+terminal GOTO;  
   
  
  // NETERMINALI
@@ -260,6 +260,8 @@ Matched ::= 	(StatDesign) DesignatorStatement:D1 SEMI {: RESULT=new StatDesign(D
 			|	(StatReturn2)	RETURN  SEMI {: RESULT=new StatReturn2(); :}
 			|	(StatPrint) PRINT LPAREN Expr:E1 RPAREN SEMI {: RESULT=new StatPrint(E1); RESULT.setLine(E1left); :} 
 			|	(StatPrintValue) PRINT LPAREN Expr:E1 COMMA NUMBER_CONST:value RPAREN SEMI {: RESULT=new StatPrintValue(E1, value); RESULT.setLine(E1left); :} 
+			| 	(StatLabel) Designator:D1 DOTS {: RESULT=new StatLabel(D1); RESULT.setLine(D1left); :} 
+			| 	(StatGoTo)	GOTO Designator:D1 SEMI {: RESULT=new StatGoTo(D1); RESULT.setLine(D1left); :}
 			|   (StatErrAssignment) error SEMI:gr
 			  	{: 	
 			  		MyCompilerImpl.addErrorVeljko(1, "Pogresno napisana instrukcija dodele",grleft );
@@ -287,7 +289,7 @@ Stagod ::= NUMBER_CONST:N1 {: RESULT=new StagodDerived1(N1); RESULT.setLine(N1le
 DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 
 					|	(DStatementParen) Designator:D1 LPAREN ActPars:A2 RPAREN {: RESULT=new DStatementParen(D1, A2); RESULT.setLine(D1left); :}
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
-					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
+					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ; 
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 

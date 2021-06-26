@@ -75,7 +75,7 @@ terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
- 
+terminal GOTO;  
   
  
  // NETERMINALI
@@ -239,6 +239,8 @@ Matched ::= 	(StatDesign) DesignatorStatement SEMI
 			|	(StatReturn2)	RETURN  SEMI
 			|	(StatPrint) PRINT LPAREN Expr RPAREN SEMI 
 			|	(StatPrintValue) PRINT LPAREN Expr COMMA NUMBER_CONST:value RPAREN SEMI 
+			| 	(StatLabel) Designator DOTS 
+			| 	(StatGoTo)	GOTO Designator SEMI
 			|   (StatErrAssignment) error SEMI:gr
 			  	{: 	
 			  		MyCompilerImpl.addErrorVeljko(1, "Pogresno napisana instrukcija dodele",grleft );

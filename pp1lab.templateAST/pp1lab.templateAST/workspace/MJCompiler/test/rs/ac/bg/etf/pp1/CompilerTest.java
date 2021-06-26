@@ -16,7 +16,8 @@ public class CompilerTest {
 	private static boolean test3 = false;
 	private static boolean test4 = false;
 	private static boolean test5 = false;
-	private static boolean test6 = true;
+	private static boolean test6 = false;
+	private static boolean test7 = true;
 	
 	
 	public static void main(String[] args) {
@@ -118,7 +119,18 @@ public class CompilerTest {
 		if (!tmpErrorList.isEmpty())
 			postojiGreska = true;}
 		/************/
-		
+
+		/****
+		 * TEST7*** Dorada: 
+		 *************/
+		if (test7) {
+		System.out.println("####################################################################################"); 
+		System.out.println("\t\t***TEST7***");
+		tmpErrorList = mycomp.compile("test/test7.mj", "test/test7.obj");
+		System.out.println("\n" + MyCompilerImpl.toStringVeljko());
+		if (!tmpErrorList.isEmpty())
+			postojiGreska = true;}
+		/************/
 		
 		
 		

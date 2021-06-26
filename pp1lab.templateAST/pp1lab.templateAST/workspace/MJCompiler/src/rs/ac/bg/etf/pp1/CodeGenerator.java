@@ -51,6 +51,8 @@ import rs.ac.bg.etf.pp1.ast.RelopGreaterEqual;
 import rs.ac.bg.etf.pp1.ast.RelopLower;
 import rs.ac.bg.etf.pp1.ast.RelopLowerEqual;
 import rs.ac.bg.etf.pp1.ast.RelopNotEqual;
+import rs.ac.bg.etf.pp1.ast.StatGoTo;
+import rs.ac.bg.etf.pp1.ast.StatLabel;
 import rs.ac.bg.etf.pp1.ast.StatPrint;
 import rs.ac.bg.etf.pp1.ast.StatPrintValue;
 import rs.ac.bg.etf.pp1.ast.StatRead;
@@ -260,7 +262,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) { 
+		if (StatPrint.getExpr().struct == Tab.intType) {
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -398,7 +400,8 @@ public class CodeGenerator extends VisitorAdaptor {
 //		Ovo je iz izvornog koda i kazem ako nije dodela(poziv met ili read poziv) onda samo pokupi vrednost 
 //		te prom i stavi na stek a ako jeste onda je druga prica
 		if (DStatementAssign.class != parent.getClass() && DStatementParen.class != parent.getClass()
-				&& StatRead.class != parent.getClass()) {
+				&& StatRead.class != parent.getClass() && StatGoTo.class != parent.getClass()
+				&& StatLabel.class != parent.getClass()) {
 			Code.load(DesignatorJustOne.obj);
 		}
 	}
@@ -437,27 +440,27 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	public void visit(DesignatorOneArray DesignatorOneArray) {
-		SyntaxNode parent = DesignatorOneArray.getParent(); 
+		SyntaxNode parent = DesignatorOneArray.getParent();
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
 		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-		{ 
+		{
 //			Ovde ce obezbediti da se adresa niza pojavi lepo
 			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 			obj.setLevel(DesignatorOneArray.obj.getLevel());
 			obj.setAdr(DesignatorOneArray.obj.getAdr());
 			Code.load(obj);
-		}  
+		}
 		checkIfAllocatedArray();
 		checkElemIndex();
-		
-		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
-		Code.put(Code.pop);  
-		
+
+		Code.put(Code.dup_x1); // zamena mesta indeksu i adresi niza
+		Code.put(Code.pop);
+
 		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
-		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok
 		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
@@ -821,4 +824,40 @@ public class CodeGenerator extends VisitorAdaptor {
 				= Code.pc;
 	}
 
+	/// modif
+
+	@Override
+	public void visit(StatLabel StatLabel) {
+		System.out.println(StatLabel.getDesignator().obj.getLevel());
+		StatLabel.getDesignator().obj.setFpPos(Code.pc);
+		if (StatLabel.getDesignator().obj.getLevel() == 1) {
+			int k = Labele.listaKoriscenjaUnapred.lastIndexOf(StatLabel.getDesignator().obj.getName());
+			Labele.listaKoriscenjaUnapred.remove(k);
+			List<Integer> l = Labele.listaPC.get(k);
+			Labele.listaPC.remove(k);
+			while (!l.isEmpty()) {
+				Code.fixup(l.get(0));
+				l.remove(0);
+			}
+			Code.fixup(StatLabel.getDesignator().obj.getLevel());
+		}
+	}
+
+	@Override
+	public void visit(StatGoTo StatGoTo) {
+		System.out.println("adresa" + StatGoTo.getDesignator().obj.getFpPos());
+		Code.putJump(StatGoTo.getDesignator().obj.getFpPos());
+		if (StatGoTo.getDesignator().obj.getFpPos() == 0) {
+			if (Labele.listaKoriscenjaUnapred.contains(StatGoTo.getDesignator().obj.getName())) {
+				int k = Labele.listaKoriscenjaUnapred.indexOf(StatGoTo.getDesignator().obj.getName());
+				Labele.listaPC.get(k).add(Code.pc - 2);
+			} else {
+				Labele.listaKoriscenjaUnapred.add(StatGoTo.getDesignator().obj.getName());
+				List<Integer> l = new ArrayList<>();
+				l.add(Code.pc - 2);
+				Labele.listaPC.add(l);
+			}
+			StatGoTo.getDesignator().obj.setLevel(1);
+		}
+	}
 }

@@ -1,0 +1,40 @@
+ program test6 
+	int niz[];   
+{
+	void main()	
+		int bodovi;
+		int nizLok[];
+	  { 
+	  
+	  bodovi = 0;
+
+	  bodovi = bodovi+1;
+	  
+	  if (bodovi==3){
+	  	print(bodovi);
+	  	goto labela; 
+	  	} else {
+	  		print('f');
+	  		goto labela;
+	  	}
+	  	  
+	  
+	  bodovi = 10;
+	  
+	  labela:
+	  
+	  print(bodovi);
+	  
+	  if (bodovi ==1){
+	  	bodovi = 2;
+	   goto labela; 
+	  }
+	  print(eol);
+	  print('k');
+	  
+	  
+	}
+}
+
+
+ 

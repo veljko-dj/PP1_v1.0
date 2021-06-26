@@ -308,7 +308,7 @@ ExprCondition ::= (ExprCondition) CondFact:condition ;		// PROMENJENO kao pretpo
 ExprConditionTrue ::= (ExprConditionTrue) ExprManjiProstiji:conditionTrue ;
 ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse ;
 	 
-			
+			 
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term 
 					|	(ExprTermMinus) MINUS Term

@@ -86,6 +86,7 @@ import java_cup.runtime.Symbol;
 "]" 		{ return new_symbol(sym.RSQUARE, yytext()); }
 "?" 		{ return new_symbol(sym.QMARK, yytext()); }
 ":" 		{ return new_symbol(sym.DOTS, yytext()); }
+"#" 		{ return new_symbol(sym.HASHTAG, yytext()); }
 
 <YYINITIAL> "//" 		    { yybegin(COMMENT); }
 <COMMENT> .      			{ yybegin(COMMENT); }

@@ -5,11 +5,11 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class DStatementDec extends DesignatorStatement {
+public class DStatementCount extends ExprManjiProstiji {
 
     private Designator Designator;
 
-    public DStatementDec (Designator Designator) {
+    public DStatementCount (Designator Designator) {
         this.Designator=Designator;
         if(Designator!=null) Designator.setParent(this);
     }
@@ -43,7 +43,7 @@ public class DStatementDec extends DesignatorStatement {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("DStatementDec(\n");
+        buffer.append("DStatementCount(\n");
 
         if(Designator!=null)
             buffer.append(Designator.toString("  "+tab));
@@ -52,7 +52,7 @@ public class DStatementDec extends DesignatorStatement {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [DStatementDec]");
+        buffer.append(") [DStatementCount]");
         return buffer.toString();
     }
 }

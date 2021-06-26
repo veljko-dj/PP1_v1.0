@@ -17,6 +17,7 @@ import rs.ac.bg.etf.pp1.ast.ConditionFinalAAA;
 import rs.ac.bg.etf.pp1.ast.ConditionMulti;
 import rs.ac.bg.etf.pp1.ast.ConditionOne;
 import rs.ac.bg.etf.pp1.ast.DStatementAssign;
+import rs.ac.bg.etf.pp1.ast.DStatementCount;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
 import rs.ac.bg.etf.pp1.ast.DStatementParen;
@@ -245,6 +246,9 @@ public class CodeGenerator extends VisitorAdaptor {
 		boolean isChar = (FactNewArray.struct.getElemType() == Tab.charType);
 		// System.out.println("PROVERI: vrednost isChar je : " + isChar);
 
+		Code.loadConst(2);
+		Code.put(Code.mul);
+
 		int b = isChar ? 1 : 0;
 //		Ne proveravas bool jer ga isto smestas kao int
 
@@ -260,7 +264,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) { 
+		if (StatPrint.getExpr().struct == Tab.intType) {
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -436,29 +440,48 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	}
 
+	private void countVisit() {
+		Code.put(Code.dup2);
+		Code.put(Code.dup2);
+		Code.put(Code.pop);
+		Code.put(Code.arraylength);
+		Code.loadConst(2);
+		Code.put(Code.div);
+		Code.put(Code.add);
+		Code.put(Code.dup2);
+		Code.put(Code.aload);
+		Code.loadConst(1);
+		Code.put(Code.add);
+		Code.put(Code.astore);
+
+	}
+
 	public void visit(DesignatorOneArray DesignatorOneArray) {
-		SyntaxNode parent = DesignatorOneArray.getParent(); 
+		SyntaxNode parent = DesignatorOneArray.getParent();
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
 		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-		{ 
+		{
 //			Ovde ce obezbediti da se adresa niza pojavi lepo
 			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 			obj.setLevel(DesignatorOneArray.obj.getLevel());
 			obj.setAdr(DesignatorOneArray.obj.getAdr());
 			Code.load(obj);
-		}  
-		checkIfAllocatedArray();
-		checkElemIndex();
-		
-		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
-		Code.put(Code.pop);  
-		
+		}
+//		checkIfAllocatedArray();
+//		checkElemIndex();
+
+		Code.put(Code.dup_x1); // zamena mesta indeksu i adresi niza
+		Code.put(Code.pop);
+
+		if (DStatementCount.class != parent.getClass())
+			countVisit();
 		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
-		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
-		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok
+		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass()
+				&& DStatementCount.class != parent.getClass())
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
 
@@ -791,7 +814,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
 //		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
 //		Code.ne 
-		adrExpr.firstInstrTrue = Code.pc; 
+		adrExpr.firstInstrTrue = Code.pc;
 	}
 
 	public void visit(ExprConditionTrue ExprConditionTrue) {
@@ -819,6 +842,33 @@ public class CodeGenerator extends VisitorAdaptor {
 		adrExpr.afterInst
 
 				= Code.pc;
+	}
+
+	///// modif
+
+	@Override
+	public void visit(DStatementCount DStatementCount) {
+		// Ovo je samo kopirano radi lakse realizacije i na kraju prilagodjeno brzo i
+		// efikasno
+		Code.put(Code.dup2);
+		Code.put(Code.dup2);
+		Code.put(Code.pop);
+		Code.put(Code.arraylength);
+		Code.loadConst(2);
+		Code.put(Code.div);
+		Code.put(Code.add);
+		Code.put(Code.dup2);
+		Code.put(Code.aload);
+		// Ovo dole je sad efikasno. Poslednja vrednost na steku je br. pojavljivanja
+		Code.put(Code.dup_x2);
+		Code.put(Code.pop);
+		Code.put(Code.pop);
+		Code.put(Code.pop);
+		Code.put(Code.dup_x2);
+		Code.put(Code.pop);
+		Code.put(Code.pop); 
+		Code.put(Code.pop); 
+ 
 	}
 
 }

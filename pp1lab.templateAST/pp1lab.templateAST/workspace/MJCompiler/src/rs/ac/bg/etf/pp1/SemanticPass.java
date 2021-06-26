@@ -8,7 +8,7 @@ import rs.etf.pp1.symboltable.concepts.*;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
 public class SemanticPass extends VisitorAdaptor {
-	
+
 	// LINIJA ZA ISPIS, UTICE jedino na report_info();
 	static final boolean ispisInformacija = false;
 
@@ -71,7 +71,8 @@ public class SemanticPass extends VisitorAdaptor {
 		msg.append(line);
 		msg.append("  ");
 		msg.append(message);
-		if (ispisInformacija) log.info(msg.toString());
+		if (ispisInformacija)
+			log.info(msg.toString());
 	}
 
 	@Override
@@ -324,7 +325,7 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(MethodDeclaration MethodDeclaration) {
 		// Ovo ne radi lepo ! ! ! Radi samo ako naidje na return, a tebi
-		// treba u runtime-u da proveris to! 
+		// treba u runtime-u da proveris to!
 		if (!returnFound && currentMethod.getType() != Tab.noType) {
 			report_error("Greska: " + MethodDeclaration.getLine() + ": " + currentMethod.getName()
 					+ "  funkcija nema return a treba da ima", MethodDeclaration);
@@ -463,7 +464,7 @@ public class SemanticPass extends VisitorAdaptor {
 	@Override
 	public void visit(DesignatorOneDot DesignatorOneDot) {
 		report_error("Ovo ti je za B nivo", DesignatorOneDot);
-	} 
+	}
 
 	@Override
 	public void visit(DesignatorOneArray DesignatorOneArray) {
@@ -605,9 +606,11 @@ public class SemanticPass extends VisitorAdaptor {
 //		Ovo jos nije potrebno ali radim jer zelim da izmenim malo parser
 //		Da moze i true i false da ima uternarnom 
 		CondFactOne.struct = CondFactOne.getExprManjiProstiji().struct;
-		if (CondFactOne.struct != boolStruct) report_error("Da li je ovde potreban "
-				+ "ovaj uslov, u Javi ovo mora biti tipa BOOL, u C-u ne, a u mikroJavi?\n"
-				+ "Radi sa i bez ovog uslova, samo ga ukloni", CondFactOne);
+		if (CondFactOne.struct != boolStruct)
+			report_error(
+					"Da li je ovde potreban " + "ovaj uslov, u Javi ovo mora biti tipa BOOL, u C-u ne, a u mikroJavi?\n"
+							+ "Radi sa i bez ovog uslova, samo ga ukloni",
+					CondFactOne);
 	}
 
 	public void visit(CondFactRelop CondFactRelop) {
@@ -625,11 +628,11 @@ public class SemanticPass extends VisitorAdaptor {
 		if (!(validKind || validKind2 || validKind2Obrnuto))
 			report_error("Greska: " + " Tip za dodelu nije odgovaajuci, nisu kompetabilne leva i desna strana = ",
 					CondFactRelop);
-		else { 
+		else {
 			CondFactRelop.struct = CondFactRelop.getExprManjiProstiji().struct;
 //			Ovo ne znam da li j dobro prosledjivanje
 		}
-		 
+
 	}
 
 	@Override
@@ -867,7 +870,7 @@ public class SemanticPass extends VisitorAdaptor {
 		// Tip neterminala Expr mora biti kompatibilan pri dodeli sa tipom neterminala
 		// Designator
 		if (DStatementAssign.getDesignator().obj == Tab.noObj || DStatementAssign.getDesignator().obj == null
-				||DStatementAssign.getExpr().struct== Tab.noType || DStatementAssign.getExpr().struct== null) {
+				|| DStatementAssign.getExpr().struct == Tab.noType || DStatementAssign.getExpr().struct == null) {
 			report_error("NullpointerExceptionn verovatno nasledjen zbog neke greske gore", DStatementAssign);
 			return;
 		}
@@ -953,4 +956,13 @@ public class SemanticPass extends VisitorAdaptor {
 		return !errorDetected;
 	}
 
+	///// modif
+
+	@Override
+	public void visit(DStatementCount DStatementCount) {
+		if (DStatementCount.getDesignator().getClass() != DesignatorOneArray.class) {
+			report_error("GREKSAAAKAKAKKA", DStatementCount);
+		}
+		DStatementCount.struct = Tab.intType;
+	}
 }

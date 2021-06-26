@@ -75,7 +75,7 @@ terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
- 
+ terminal HASHTAG;
   
  
  // NETERMINALI
@@ -284,10 +284,10 @@ Stagod ::= NUMBER_CONST:N1 {: RESULT=new StagodDerived1(N1); RESULT.setLine(N1le
 			 
 			
 			
-DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :} 
+DesignatorStatement ::= (DStatementAssign) Designator:D1 Assignop:A2 Expr:E3 {: RESULT=new DStatementAssign(D1, A2, E3); RESULT.setLine(D1left); :}  
 					|	(DStatementParen) Designator:D1 LPAREN ActPars:A2 RPAREN {: RESULT=new DStatementParen(D1, A2); RESULT.setLine(D1left); :}
 					| 	(DStatementInc) Designator:D1 INC {: RESULT=new DStatementInc(D1); RESULT.setLine(D1left); :}
-					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :} ;
+					|	(DStatementDec) Designator:D1 DEC {: RESULT=new DStatementDec(D1); RESULT.setLine(D1left); :}  ; 
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
@@ -333,7 +333,8 @@ ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse {: 
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term:T1 {: RESULT=new ExprTerm(T1); RESULT.setLine(T1left); :} 
 					|	(ExprTermMinus) MINUS Term:T1 {: RESULT=new ExprTermMinus(T1); RESULT.setLine(T1left); :}
-					|	(ExprTermList) ExprManjiProstiji:E1 Addop:A2 Term:T3 {: RESULT=new ExprTermList(E1, A2, T3); RESULT.setLine(E1left); :} ;
+					|	(ExprTermList) ExprManjiProstiji:E1 Addop:A2 Term:T3 {: RESULT=new ExprTermList(E1, A2, T3); RESULT.setLine(E1left); :} 
+					|	(DStatementCount) Designator:D1 HASHTAG {: RESULT=new DStatementCount(D1); RESULT.setLine(D1left); :};
 //		
 //						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
 //						ideja pronadjena na netu, na nekom gitu.

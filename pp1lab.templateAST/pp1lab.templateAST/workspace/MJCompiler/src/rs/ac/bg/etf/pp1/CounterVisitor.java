@@ -35,7 +35,16 @@ public class CounterVisitor extends VisitorAdaptor {
 	}
 
 	public static class VarCounter extends CounterVisitor {
+		// ove dve metode su naknadno dodate. Nisu nesto spec proveravane
+		@Override
+		public void visit(VarDeclOneNoSquare VarDeclOne) {
+			count++;
+		}
 
+		@Override
+		public void visit(VarDeclOneSquare VarDeclOne) {
+			count++;
+		}
 		public void visit(VarDecl varDecl) {
 			count++;
 		}

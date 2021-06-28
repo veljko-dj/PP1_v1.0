@@ -75,13 +75,13 @@ public class MyCompilerImpl implements Compiler {
 			v.dodeliCompilerSemantickoj(this);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			prog.traverseBottomUp(v);
 
-			log.info(" Print count calls = " + v.printCallCount);
+//			log.info(" Print count calls = " + v.printCallCount);
 
 			// log.info(" Deklarisanih promenljivih ima = " + v.varDeclCount);
 
 			// log.info(" I to su: "+ v.varDeclString);
 
-			log.info("===================================");
+//			log.info("===================================");
 			//////////////////////////// DODATO DODATO DODATO ! !! ! ! ! !
 			if (ispisTabeleSimbola)
 				Tab.dump(new My_DumpSymbolTableVisitor_Impl());

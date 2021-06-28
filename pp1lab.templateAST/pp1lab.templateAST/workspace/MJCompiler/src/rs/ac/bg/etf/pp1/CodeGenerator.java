@@ -336,7 +336,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(StatRead StatRead) {
 		Struct typeOfDes = StatRead.getDesignator().obj.getType();
 //		Ako je element niza onda on to sve sredi u store?
-		System.out.println("Koristi se READ !\n");
+		System.out.println("\n\tKORISTI SE READ !\n");
 		if (StatRead.getDesignator().obj.getKind() == 5) {
 //			 Ovo sve ovde je postojalo dok nisam skontao da to mogu isto da odradim
 //			samo u designatorOne i to je to , aovde samo dodam read komandu

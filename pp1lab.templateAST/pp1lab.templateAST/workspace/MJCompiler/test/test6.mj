@@ -3,17 +3,17 @@ program test6
 	const int nula = 0, dva = 2;
 	int niz[];
 	char nizch[];
-	const int jedan = 1; #
+	const int jedan = 1;  
 	int g1, g2, g3; 
 {
 	void main()	
-		int bo#dovi;
+		int bodovi;
 		int nizLok[];
 	  {
 	  nizLok = new int[4];
 	  niz = new int [10];
 	  niz[9]= 5;
-	  nizLook[3] = 10;
+	  nizLok[3] = 10;
 	  
 	  bodovi = 22;
 	  bodovi = niz[3] + niz[2]+ niz[9];

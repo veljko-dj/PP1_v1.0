@@ -15,6 +15,11 @@ import java_cup.runtime.Symbol;
 	private Symbol new_symbol(int type, Object value) {
 		return new Symbol(type, yyline+1, yycolumn, value);
 	}
+	private MyCompilerImpl myCompiler;
+	
+	public void dodeliCompilerLekseru( MyCompilerImpl a){
+		myCompiler = a;
+	}
 	 
 
 %}
@@ -98,9 +103,9 @@ import java_cup.runtime.Symbol;
 "'"."'"											{ return new_symbol(sym.CHAR_CONST, yytext().charAt(1)); }
 
 . {
-	MyCompilerImpl.addErrorVeljko(0, "Nepoznati karakter ("+yytext()+")" , (yyline+1)); 
+	myCompiler.addErrorVeljkoNonStatic(0, "Nepoznati karakter ("+yytext()+")" , (yyline+1)); 
 
-	System.err.println("ERROR Leksicka greska:  ("+yytext()+") u liniji "+(yyline+1) + " : " + (yycolumn) );
+	System.err.println("\t\t" +"ERROR Leksicka greska:  ("+yytext()+") u liniji "+(yyline+1) + " : " + (yycolumn) );
 	return new_symbol(sym.ERROR, yytext()); }
 	// Ovo nije najbolje resenje, jer svaku gresku prijavljuje u istom redu
 

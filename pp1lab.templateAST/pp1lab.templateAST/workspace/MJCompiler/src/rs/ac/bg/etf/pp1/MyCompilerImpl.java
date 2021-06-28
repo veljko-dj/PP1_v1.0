@@ -25,17 +25,18 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
 public class MyCompilerImpl implements Compiler {
+	static final boolean ispisLeksickihInfo = false;
+	static final boolean ispisSemantickihInfo= false;
 	static final boolean ispisStabla = false;
 	static final boolean ispisTabeleSimbola = false;
 	static final boolean ispisStatistike = false;
-	static final boolean koristiNeStatickuListuStatickogKompajlera = false;
 
-	private static List<CompilerError> listError = new ArrayList<CompilerError>(); 
+//	private static List<CompilerError> listError = new ArrayList<CompilerError>();
 	private List<CompilerError> listErrorNonStatic = new ArrayList<CompilerError>();
 
 	@Override
 	public List<CompilerError> compile(String sourceFilePath, String outputFilePath) {
-		listError.clear();
+//		listError.clear();
 		this.listErrorNonStatic.clear();
 
 		// static. Ovo ovde je sve bilo static
@@ -52,11 +53,12 @@ public class MyCompilerImpl implements Compiler {
 
 			br = new BufferedReader(new FileReader(sourceCode));
 			Yylex lexer = new Yylex(br);
+			lexer.dodeliCompilerLekseru(this);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 			log.info("\n================Sintaksna analiza===================");
-//			 Za ispis sintaksnih simbola ono redom. Odkomentarisi 53 liniju u mjparser.cup
 
 			MJParser p = new MJParser(lexer);
+			p.dodeliCompilerParseru(this); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			Symbol s = p.parse(); // pocetak parsiranja
 
 			Program prog = (Program) (s.value);
@@ -70,6 +72,7 @@ public class MyCompilerImpl implements Compiler {
 			// ispis prepoznatih programskih konstrukcija
 //			Za ispis semantickih informacija. Odkomentarisati liniju 13 SemanticPass.java
 			SemanticPass v = new SemanticPass();
+			v.dodeliCompilerSemantickoj(this);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			prog.traverseBottomUp(v);
 
 			log.info(" Print count calls = " + v.printCallCount);
@@ -121,10 +124,7 @@ public class MyCompilerImpl implements Compiler {
 					log.error(e1.getMessage(), e1);
 				}
 		}
-		if (koristiNeStatickuListuStatickogKompajlera)
-			return CompilerTest.compiler.listErrorNonStatic;
-		// U suprotnom ce se ovo dole desiti
-		return listError;
+		return this.listErrorNonStatic;
 	}
 
 	private void resetCodeVeljko() {
@@ -135,56 +135,6 @@ public class MyCompilerImpl implements Compiler {
 		Code.mainPc = -1; // adresa main rutine
 		Code.dataSize = 0; // velicina oblasti globalnih podataka
 		Code.greska = false; // flag da li je prijavljena neka greske
-	}
-
-	public static void addErrorVeljko(int type, String message, int line) {
-
-		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
-				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
-
-		listError.add(tmp);
-
-		if (koristiNeStatickuListuStatickogKompajlera)
-			CompilerTest.compiler.listErrorNonStatic.add(tmp);
-		// System.out.println("addErrorVeljko() " + tmp.toString());
-	}
-
-	public void addErrorVeljkoNonStatic(int type, String message, int line) {
-
-		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
-				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
-
-		this.listErrorNonStatic.add(tmp);
-		System.out.println("TU SAM BRE ");
-	}
-
-	public static String toStringVeljko() {
-		List<CompilerError> tmpList;
-		if (koristiNeStatickuListuStatickogKompajlera)
-			tmpList = CompilerTest.compiler.listErrorNonStatic;
-		else
-			tmpList = listError;
-
-		tmpList.sort(new Comparator<CompilerError>() {
-			@Override
-			public int compare(CompilerError e1, CompilerError e2) {
-				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
-			}
-		});
-
-		if (!tmpList.isEmpty()) {
-			StringBuilder str = new StringBuilder();
-			str.append("\n\tISPIS_GRESAKA:\n");
-			for (CompilerError tmp : tmpList) {
-				// System.out.println(tmp.toString());
-				str.append(tmp.toString());
-				str.append('\n');
-			}
-			return str.toString();
-		}
-
-		return "\tNEMA_GRESAKA\n";
-
 	}
 
 	public String toStringVeljkoNonStatic() {
@@ -210,5 +160,50 @@ public class MyCompilerImpl implements Compiler {
 		return "\tNEMA_GRESAKA\n";
 
 	}
+
+	public void addErrorVeljkoNonStatic(int type, String message, int line) {
+
+		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
+				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
+
+		this.listErrorNonStatic.add(tmp);
+
+	}
+
+//	public static void addErrorVeljko(int type, String message, int line) {
+//		System.out.println("POZVANA");
+//		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
+//				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
+//
+//		listError.add(tmp);
+//
+////		if (koristiNeStatickuListuStatickogKompajlera)
+////			CompilerTest.compiler.listErrorNonStatic.add(tmp);
+//		// System.out.println("addErrorVeljko() " + tmp.toString());
+//	}
+
+//	public static String toStringVeljko(List<CompilerError> listError) {
+//
+//		listError.sort(new Comparator<CompilerError>() {
+//			@Override
+//			public int compare(CompilerError e1, CompilerError e2) {
+//				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
+//			}
+//		});
+//
+//		if (!listError.isEmpty()) {
+//			StringBuilder str = new StringBuilder();
+//			str.append("\n\tISPIS_GRESAKA:\n");
+//			for (CompilerError tmp : listError) {
+//				// System.out.println(tmp.toString());
+//				str.append(tmp.toString());
+//				str.append('\n');
+//			}
+//			return str.toString();
+//		}
+//
+//		return "\tNEMA_GRESAKA\n";
+//
+//	}
 
 }

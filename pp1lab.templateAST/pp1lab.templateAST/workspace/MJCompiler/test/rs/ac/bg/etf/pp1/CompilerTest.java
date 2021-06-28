@@ -10,6 +10,7 @@ public class CompilerTest {
 	// Ispih sintaksnog stabla : MyCompilerImpl.java -> prva bool promenljiva = true
 	// Ispis semantickih informacija:  SemanticPass.java -> prva bool promenljiva = true
 	// Ispis tabele simbola:  MyCompilerImpl.java -> druga bool promenljiva = true
+	// Koriscenje Statickog kompajlera sa nestatickom listom:  MyCompilerImpl.java -> poslednja bool promenljiva = true
 	private static boolean test301 = false;
 	private static boolean test1 = false;
 	private static boolean test2 = false;
@@ -18,6 +19,12 @@ public class CompilerTest {
 	private static boolean test5 = false;
 	private static boolean test6 = true;
 	
+//	Staticki kompajler u slucaju da je porebno koristiti ga. 
+//	U slucaju da nije. Mozes obrisati ali u MyCopilerImpl.java izbrisi gde god se pojavljuje
+//	javljace ti greske
+	public static MyCompilerImpl compiler = new MyCompilerImpl();
+//	Ovo gore ti na kraju i nema mnogo smisla ali neka ga
+//	Ako se na modifikaciji bude tu nesto cackalo, samo izbrisi svako pojavljivanje ovoga
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -110,11 +117,25 @@ public class CompilerTest {
 		 * Ubacena greska kod koriscenja nedeklarisanog niza
 		 * Ubacena greska kod indexOutOfBound exception
 		 *************/
-		if (test6) {
+		if (!test6) {
 		System.out.println("####################################################################################"); 
 		System.out.println("\t\t***TEST6***");
 		tmpErrorList = mycomp.compile("test/test6.mj", "test/test6.obj");
 		System.out.println("\n" + MyCompilerImpl.toStringVeljko());
+		if (!tmpErrorList.isEmpty())
+			postojiGreska = true;}
+		/************/
+		
+		
+
+		/****
+		 * TEST6***  STATIC COMPILER
+		 *************/
+		if (test6) {
+		System.out.println("####################################################################################"); 
+		System.out.println("\t\t***TEST6***");
+		tmpErrorList = compiler.compile("test/test6.mj", "test/test6.obj");
+		System.out.println("\n" + compiler.toStringVeljkoNonStatic());
 		if (!tmpErrorList.isEmpty())
 			postojiGreska = true;}
 		/************/

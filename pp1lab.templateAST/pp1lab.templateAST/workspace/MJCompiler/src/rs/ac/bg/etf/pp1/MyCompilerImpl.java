@@ -25,15 +25,18 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 
 public class MyCompilerImpl implements Compiler {
-	static final boolean ispisStabla = true;
+	static final boolean ispisStabla = false;
 	static final boolean ispisTabeleSimbola = false;
-	static final boolean ispisStatistike = true;
+	static final boolean ispisStatistike = false;
+	static final boolean koristiNeStatickuListuStatickogKompajlera = false;
 
-	private static List<CompilerError> listError = new ArrayList<CompilerError>();
+	private static List<CompilerError> listError = new ArrayList<CompilerError>(); 
+	private List<CompilerError> listErrorNonStatic = new ArrayList<CompilerError>();
 
 	@Override
 	public List<CompilerError> compile(String sourceFilePath, String outputFilePath) {
 		listError.clear();
+		this.listErrorNonStatic.clear();
 
 		// static. Ovo ovde je sve bilo static
 		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
@@ -118,6 +121,9 @@ public class MyCompilerImpl implements Compiler {
 					log.error(e1.getMessage(), e1);
 				}
 		}
+		if (koristiNeStatickuListuStatickogKompajlera)
+			return CompilerTest.compiler.listErrorNonStatic;
+		// U suprotnom ce se ovo dole desiti
 		return listError;
 	}
 
@@ -138,27 +144,67 @@ public class MyCompilerImpl implements Compiler {
 
 		listError.add(tmp);
 
+		if (koristiNeStatickuListuStatickogKompajlera)
+			CompilerTest.compiler.listErrorNonStatic.add(tmp);
 		// System.out.println("addErrorVeljko() " + tmp.toString());
 	}
 
-	public static String toStringVeljko() {
+	public void addErrorVeljkoNonStatic(int type, String message, int line) {
 
-		listError.sort(new Comparator<CompilerError>() {
+		CompilerError tmp = new CompilerError(line, message, type == 0 ? CompilerErrorType.LEXICAL_ERROR
+				: (type == 1 ? CompilerErrorType.SYNTAX_ERROR : CompilerErrorType.SEMANTIC_ERROR));
+
+		this.listErrorNonStatic.add(tmp);
+		System.out.println("TU SAM BRE ");
+	}
+
+	public static String toStringVeljko() {
+		List<CompilerError> tmpList;
+		if (koristiNeStatickuListuStatickogKompajlera)
+			tmpList = CompilerTest.compiler.listErrorNonStatic;
+		else
+			tmpList = listError;
+
+		tmpList.sort(new Comparator<CompilerError>() {
 			@Override
 			public int compare(CompilerError e1, CompilerError e2) {
 				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
 			}
 		});
 
-		if (!listError.isEmpty()) {
+		if (!tmpList.isEmpty()) {
 			StringBuilder str = new StringBuilder();
 			str.append("\n\tISPIS_GRESAKA:\n");
-			for (CompilerError tmp : listError) {
+			for (CompilerError tmp : tmpList) {
 				// System.out.println(tmp.toString());
 				str.append(tmp.toString());
 				str.append('\n');
-				return str.toString();
 			}
+			return str.toString();
+		}
+
+		return "\tNEMA_GRESAKA\n";
+
+	}
+
+	public String toStringVeljkoNonStatic() {
+
+		this.listErrorNonStatic.sort(new Comparator<CompilerError>() {
+			@Override
+			public int compare(CompilerError e1, CompilerError e2) {
+				return (e1.getLine() >= e2.getLine()) ? 1 : -1;
+			}
+		});
+
+		if (!this.listErrorNonStatic.isEmpty()) {
+			StringBuilder str = new StringBuilder();
+			str.append("\n\tISPIS_GRESAKA:\n");
+			for (CompilerError tmp : this.listErrorNonStatic) {
+				// System.out.println(tmp.toString());
+				str.append(tmp.toString());
+				str.append('\n');
+			}
+			return str.toString();
 		}
 
 		return "\tNEMA_GRESAKA\n";

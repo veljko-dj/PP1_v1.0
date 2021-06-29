@@ -846,7 +846,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.loadConst(DesignatorModif.getN1());
 		Code.put(Code.aload);
 
-		
+		 
 		Code.loadConst(DesignatorModif.getN2());
 		Code.load(DesignatorModif.obj);
 		Code.put(Code.dup_x2);

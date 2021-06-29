@@ -247,9 +247,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		// System.out.println("PROVERI: vrednost isChar je : " + isChar);
 
 		int b = isChar ? 1 : 0;
-//		Ne proveravas bool jer ga isto smestas kao int
-		Code.loadConst(1);
-		Code.put(Code.add);
+//		Ne proveravas bool jer ga isto smestas kao int 
 		Code.put(Code.newarray);
 		Code.put(b);
 	}
@@ -826,87 +824,47 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	@Override
 	public void visit(ExprMAX dStatementMAX) {
-//		Code.put(Code.dup);
-//		Code.loadConst(0);
-//		Code.put(Code.aload);
-//		Code.put(Code.store);
-//		Code.loadConst(0);
-//		Code.put(Code.dup);
-//		Code.loadConst(1);
-//
-////		loop:
-//		Code.put(Code.dup2);
-//		Code.put(Code.aload);
-//		Code.put(Code.dup);
-//		Code.put(Code.load);
-//		Code.loadConst(0);
-//		Code.putFalseJump(5, Code.pc + 6);
-//		Code.put(Code.dup);
-//		Code.put(Code.store);
-//		Code.loadConst(0);
-//		Code.put(Code.pop);
-//		// ne menja se maks:
-//		Code.loadConst(1);
-//		Code.put(Code.add);
-//
-//		Code.put(Code.dup2);
-//		Code.put(Code.dup_x1);
-//		Code.put(Code.pop);
-//		Code.put(Code.arraylength);
-//		Code.putFalseJump(5, Code.pc - 18);
-//
-//		Code.put(Code.pop);
-//		Code.put(Code.pop);
-//		Code.put(Code.load);
-//		Code.loadConst(0);
+		// Na steku je 2
 
-//		Verzija bez lokalne promenljive, sa dodatnim elementom u nizu
 		Code.loadConst(0);
-		Code.put(Code.dup2);
-		Code.put(Code.dup2);
-		Code.put(Code.pop);
-		Code.put(Code.dup_x1);
-		Code.put(Code.dup);
-		Code.put(Code.arraylength);
-		Code.loadConst(1);
-		Code.put(Code.sub);
 		Code.put(Code.aload);
-		Code.put(Code.dup_x2);
-		Code.put(Code.pop);
-		Code.put(Code.aload);
-		Code.put(Code.dup_x1);
-		Code.putFalseJump(3, Code.pc + 12);
-		// ako je vece preskoci promenu poslednjeg elementa
-		Code.put(Code.dup2);
-		Code.put(Code.pop);
-		Code.put(Code.arraylength);
 		Code.loadConst(1);
-		Code.put(Code.sub);
-		Code.put(Code.dup_x1);
-		Code.put(Code.pop);
-		Code.put(Code.astore);
-		Code.put(Code.dup2); // ovo dupliram samo da bi posle imao sta da skinem ako nije bilo skoka
 
-		// Nastavak u oba slucaja
+// LOOP
+		// MAX index
+		Code.put(Code.dup_x1);
+		Code.load(dStatementMAX.getDesignator().obj);
+		Code.put(Code.dup_x1);
 		Code.put(Code.pop);
+		Code.put(Code.aload);
+		// 1 30 35
+		Code.put(Code.dup2);
+		// 1 30 35 30 35
+
+		Code.putFalseJump(3, Code.pc + 9);
+//TRUE
+		Code.put(Code.dup_x1);
+		Code.put(Code.pop);
+		Code.put(Code.pop);
+		Code.putJump(Code.pc + 4);
+//FALSE 	
+		Code.put(Code.pop);
+//KRAJ
+		Code.put(Code.dup_x1);
 		Code.put(Code.pop);
 		Code.loadConst(1);
 		Code.put(Code.add);
-		Code.put(Code.dup2);
-		Code.put(Code.dup2);
-		Code.put(Code.dup_x1);
-		Code.put(Code.pop);
+		// MAX index
+		Code.put(Code.dup);
+
+		Code.load(dStatementMAX.getDesignator().obj);
 		Code.put(Code.arraylength);
-		Code.putFalseJump(5, Code.pc -33);
-		 
+		// MAX index index n.length
+		Code.putFalseJump(5, Code.pc - 27);
 
+		 // MAX indeks
 		Code.put(Code.pop);
-		Code.put(Code.pop);
-		
-		Code.loadConst(1);
-		Code.put(Code.sub);
-		Code.put(Code.aload);
-
+		//MAX
 
 	}
 

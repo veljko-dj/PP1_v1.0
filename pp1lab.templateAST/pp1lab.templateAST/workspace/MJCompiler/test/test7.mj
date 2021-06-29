@@ -1,5 +1,6 @@
 program test6
- 	  
+ 	  int d;
+ 	  int e;
 	int niz[];   
 {
 	void main()	 
@@ -9,16 +10,15 @@ program test6
 	  niz = new int[9];
 	  
 	  nizLok= new int[9];
-	  
-	  niz[9]= 35;
+	   
 	  
 	  niz[3]= 13;
-	  nizLok[2]= 12;
+	  nizLok[8]= 12;
 	  niz[0]= 30;
 	  niz[1]= 35; 
 	  niz[5] = 40;
 	  niz[2]=16;
-	  niz[8]= 99;
+	  niz[6]= 99;
 	  niz[4]= 23;
 	  l= max niz; 
 	  

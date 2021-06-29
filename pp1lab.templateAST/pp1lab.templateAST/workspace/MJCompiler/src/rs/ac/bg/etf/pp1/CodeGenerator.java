@@ -73,7 +73,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 //	U Code klasi put 0123 oznacava koliko bajtova ucitava
 	private int mainPc;
-	private Struct boolStruct;
+	private Struct boolStruct; 
 
 	private class CodeGenerator_PCAdresses_Expr {
 		// Ovo postoji kao klasa za krpljene adresa kod skokova

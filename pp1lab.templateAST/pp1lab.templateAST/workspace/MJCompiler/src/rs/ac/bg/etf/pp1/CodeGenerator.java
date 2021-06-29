@@ -20,7 +20,7 @@ import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
 import rs.ac.bg.etf.pp1.ast.DStatementParen;
-import rs.ac.bg.etf.pp1.ast.DesignatorJustOne;
+import rs.ac.bg.etf.pp1.ast.DesignatorJustOne; 
 import rs.ac.bg.etf.pp1.ast.DesignatorOneArray;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneDot;
 import rs.ac.bg.etf.pp1.ast.Expr0;

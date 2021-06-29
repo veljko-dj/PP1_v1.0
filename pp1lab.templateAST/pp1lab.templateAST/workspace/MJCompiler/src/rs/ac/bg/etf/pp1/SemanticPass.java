@@ -7,7 +7,7 @@ import rs.etf.pp1.symboltable.*;
 import rs.etf.pp1.symboltable.concepts.*;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
-public class SemanticPass extends VisitorAdaptor { 
+public class SemanticPass extends VisitorAdaptor {
 
 	MyCompilerImpl myCompiler;
 
@@ -74,7 +74,7 @@ public class SemanticPass extends VisitorAdaptor {
 		int line = (info == null) ? 0 : info.getLine();
 		msg.append(line);
 		msg.append("  ");
-		msg.append(message); 
+		msg.append(message);
 		if (MyCompilerImpl.ispisSemantickihInfo)
 			log.info(msg.toString());
 	}
@@ -958,6 +958,13 @@ public class SemanticPass extends VisitorAdaptor {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean passed() {
 		return !errorDetected;
+	}
+
+	/// modfi
+
+	@Override
+	public void visit(ExprModif ExprModif) {
+		ExprModif.struct = Tab.intType; 
 	}
 
 }

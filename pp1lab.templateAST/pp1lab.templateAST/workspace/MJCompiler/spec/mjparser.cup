@@ -89,7 +89,7 @@ terminal ASSIGN, INC, DEC, SEMI, COMMA, DOT, LPAREN, RPAREN, LSQUARE, RSQUARE;
 terminal LBRACE, RBRACE, QMARK, DOTS;
  
 terminal ERROR;	// Kasnije dodat, na kraju ne sluzi nicemu ali aj
- 
+ terminal AT;
   
  
  // NETERMINALI
@@ -329,7 +329,8 @@ ExprConditionFalse ::= (ExprConditionFalse) ExprManjiProstiji:conditionFalse ;
 					
 ExprManjiProstiji ::= 	(ExprTerm) Term 
 					|	(ExprTermMinus) MINUS Term
-					|	(ExprTermList) ExprManjiProstiji Addop Term ;
+					|	(ExprTermList) ExprManjiProstiji Addop Term 
+					|	(ExprModif) Designator:x AT Designator:y;
 //		
 //						Jedva sam dosao do ove (^^^) kombinacije koja radi. Greska bila u .java
 //						ideja pronadjena na netu, na nekom gitu.

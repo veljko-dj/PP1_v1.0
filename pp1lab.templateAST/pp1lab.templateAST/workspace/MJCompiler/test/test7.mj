@@ -1,0 +1,22 @@
+program test6
+ 	  int y;
+	int niz[]; 
+{
+	void main()	
+		int bodovi;
+		int x; 
+		int nizLok[];
+	  {
+	  nizLok = new int[4];
+	  niz = new int [10]; 
+	  
+	  
+	  x=2;
+	  y= 3;
+	 bodovi = x@y;
+	  
+	}
+}
+
+
+ 

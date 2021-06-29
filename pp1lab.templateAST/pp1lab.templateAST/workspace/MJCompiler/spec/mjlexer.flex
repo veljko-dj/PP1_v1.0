@@ -64,6 +64,7 @@ import java_cup.runtime.Symbol;
 "continue"  { return new_symbol(sym.CONTINUE, yytext());}
 "case"   	{ return new_symbol(sym.CASE, yytext());}
 
+"@" 		{ return new_symbol(sym.AT, yytext()); }
 "+" 		{ return new_symbol(sym.PLUS, yytext()); }
 "-" 		{ return new_symbol(sym.MINUS, yytext()); }
 "*" 		{ return new_symbol(sym.MUL, yytext()); }

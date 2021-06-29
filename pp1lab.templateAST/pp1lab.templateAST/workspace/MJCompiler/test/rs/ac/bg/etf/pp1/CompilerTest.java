@@ -7,13 +7,14 @@ import rs.ac.bg.etf.pp1.test.CompilerError;
 
 public class CompilerTest {
 //	Sve BOOLEAN za ispis je u MyCompilerImpl
-	private static boolean test301 = true;
+	private static boolean test301 = false;
 	private static boolean test1 = false;
 	private static boolean test2 = false;
 	private static boolean test3 = false;
 	private static boolean test4 = false;
 	private static boolean test5 = false;
 	private static boolean test6 = false;
+	private static boolean test7 = true;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -113,6 +114,20 @@ public class CompilerTest {
 			System.out.println("####################################################################################");
 			System.out.println("\t\t***TEST6***");
 			tmpErrorList = mycomp.compile("test/test6.mj", "test/test6.obj");
+			System.out.println("\n" + mycomp.toStringVeljkoNonStatic());
+			if (!tmpErrorList.isEmpty())
+				postojiGreska = true;
+		}
+		/************/
+		
+
+		/****
+		 * TEST7***  Modif
+		 *************/
+		if (test7) {
+			System.out.println("####################################################################################");
+			System.out.println("\t\t***TEST7***");
+			tmpErrorList = mycomp.compile("test/test7.mj", "test/test7.obj");
 			System.out.println("\n" + mycomp.toStringVeljkoNonStatic());
 			if (!tmpErrorList.isEmpty())
 				postojiGreska = true;

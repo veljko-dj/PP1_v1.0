@@ -20,7 +20,9 @@ import rs.ac.bg.etf.pp1.ast.DStatementAssign;
 import rs.ac.bg.etf.pp1.ast.DStatementDec;
 import rs.ac.bg.etf.pp1.ast.DStatementInc;
 import rs.ac.bg.etf.pp1.ast.DStatementParen;
+import rs.ac.bg.etf.pp1.ast.DStetemrntDesignatorModif;
 import rs.ac.bg.etf.pp1.ast.DesignatorJustOne;
+import rs.ac.bg.etf.pp1.ast.DesignatorModif;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneArray;
 import rs.ac.bg.etf.pp1.ast.DesignatorOneDot;
 import rs.ac.bg.etf.pp1.ast.Expr0;
@@ -66,6 +68,7 @@ import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
+import sun.security.krb5.internal.crypto.Des;
 
 public class CodeGenerator extends VisitorAdaptor {
 //	Snimak si odgledao, malo preleteo kraj.
@@ -260,7 +263,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //	Krecem sad printStmt jer je u izvornom kodu prvo to radio pa da sklonim taj kod
 
 	public void visit(StatPrint StatPrint) {
-		if (StatPrint.getExpr().struct == Tab.intType) { 
+		if (StatPrint.getExpr().struct == Tab.intType) {
 			Code.loadConst(4); // Ovo je width(), odnosno sirina jednog INTa
 			Code.put(Code.print); // Ovo je ispis INTa
 		} else if (StatPrint.getExpr().struct == Tab.charType) {
@@ -437,27 +440,27 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 
 	public void visit(DesignatorOneArray DesignatorOneArray) {
-		SyntaxNode parent = DesignatorOneArray.getParent(); 
+		SyntaxNode parent = DesignatorOneArray.getParent();
 		// Ovo je dodato jer kod inc nemas levu stranu kao sto je niz[3]= ...
 		// pa zato moras da odradis dup da sacuvas indeks 3, da ga dupliras i posle na
 		// cudan nacin iskoristis
 		if (DStatementInc.class == parent.getClass() || DStatementDec.class == parent.getClass())
 			Code.put(Code.dup);
-		{ 
+		{
 //			Ovde ce obezbediti da se adresa niza pojavi lepo
 			Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
 			obj.setLevel(DesignatorOneArray.obj.getLevel());
 			obj.setAdr(DesignatorOneArray.obj.getAdr());
 			Code.load(obj);
-		}  
-		checkIfAllocatedArray();
-		checkElemIndex();
-		
-		Code.put(Code.dup_x1);	// zamena mesta indeksu i adresi niza 
-		Code.put(Code.pop);  
-		
+		}
+//		checkIfAllocatedArray();
+//		checkElemIndex();
+
+		Code.put(Code.dup_x1); // zamena mesta indeksu i adresi niza
+		Code.put(Code.pop);
+
 		// Ako ovo nije designator iz assign ili read onda ucitaj koja je to vrednost
-		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok	
+		// ako jeste onda kad dodje do ovih klasa ono ce ucitati nekaok
 		if (DStatementAssign.class != parent.getClass() && StatRead.class != parent.getClass())
 			Code.put((DesignatorOneArray.obj.getType() == Tab.charType) ? Code.baload : Code.aload);
 //			I posle ovoga na steku ce se naci vrednost iz niza
@@ -791,7 +794,7 @@ public class CodeGenerator extends VisitorAdaptor {
 //		E mislim da im ovo lepo  ne radi, logicno mi da stavis, if equal 0 skoci
 //		tj. if false skoci ali ako stavis Code.eq onda ne radi lepo, pa zato stavljam
 //		Code.ne 
-		adrExpr.firstInstrTrue = Code.pc; 
+		adrExpr.firstInstrTrue = Code.pc;
 	}
 
 	public void visit(ExprConditionTrue ExprConditionTrue) {
@@ -807,7 +810,7 @@ public class CodeGenerator extends VisitorAdaptor {
 		Code.putJump(adrExpr.tmpAdr); // skok na sledecu instrukciju
 		adrExpr.firstInstrFalse = Code.pc;
 	}
-  
+
 	public void visit(ExprConditionFalse ExprConditionFalse) {
 //		Izlaz iz drugogIzraza koji bi trebalo da je na steku
 //		System.out.println("ExprFalse" + Code.pc);
@@ -819,6 +822,52 @@ public class CodeGenerator extends VisitorAdaptor {
 		adrExpr.afterInst
 
 				= Code.pc;
+	}
+
+	////// modif
+
+	@Override
+	public void visit(DesignatorModif DesignatorModif) { 
+//		Ovo je sve kopirano jer nisam koristio designator vec direktno da
+//		bih uspeo da sacuvam sve vrednosti, da se ne mucim sa stekom
+		SyntaxNode parent = DesignatorModif.getParent();
+
+		// Moskva ovaj deo  ovde sve zavisi kako si ti radio projekat i na koji
+		// nacin dobijes indeks niza
+		Obj obj = new Obj(Obj.Var, "nebitno", Tab.intType);
+		obj.setLevel(DesignatorModif.obj.getLevel());
+		obj.setAdr(DesignatorModif.obj.getAdr());
+		
+		Code.load(DesignatorModif.obj);
+		Code.loadConst(DesignatorModif.getN2());
+		Code.put(Code.aload);
+
+		Code.load(DesignatorModif.obj);
+		Code.loadConst(DesignatorModif.getN1());
+		Code.put(Code.aload);
+
+		
+		Code.loadConst(DesignatorModif.getN2());
+		Code.load(DesignatorModif.obj);
+		Code.put(Code.dup_x2);
+		Code.put(Code.pop);
+		Code.put(Code.dup_x1);
+		Code.put(Code.pop);
+		Code.put(Code.astore);
+		
+
+		Code.loadConst(DesignatorModif.getN1());
+		Code.load(DesignatorModif.obj);
+		Code.put(Code.dup_x2);
+		Code.put(Code.pop);
+		Code.put(Code.dup_x1);
+		Code.put(Code.pop);
+		Code.put(Code.astore);
+ 
+	}
+
+	@Override
+	public void visit(DStetemrntDesignatorModif designatorDStetemrntDesignatorModif) {
 	}
 
 }

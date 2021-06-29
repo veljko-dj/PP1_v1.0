@@ -7,7 +7,7 @@ import rs.etf.pp1.symboltable.*;
 import rs.etf.pp1.symboltable.concepts.*;
 import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 
-public class SemanticPass extends VisitorAdaptor { 
+public class SemanticPass extends VisitorAdaptor {
 
 	MyCompilerImpl myCompiler;
 
@@ -74,7 +74,7 @@ public class SemanticPass extends VisitorAdaptor {
 		int line = (info == null) ? 0 : info.getLine();
 		msg.append(line);
 		msg.append("  ");
-		msg.append(message); 
+		msg.append(message);
 		if (MyCompilerImpl.ispisSemantickihInfo)
 			log.info(msg.toString());
 	}
@@ -960,4 +960,51 @@ public class SemanticPass extends VisitorAdaptor {
 		return !errorDetected;
 	}
 
+	////// modif
+
+	@Override
+	public void visit(DesignatorModif DesignatorModif) {
+		Obj designNode = Tab.find(DesignatorModif.getDestName());
+
+		boolean found = designNode != Tab.noObj;
+		boolean typeArray = designNode.getType().getKind() == Struct.Array;
+
+		if (!found) {
+			report_error("Ne postoji " + DesignatorModif.getDestName() + " u tabeli simbola! ", DesignatorModif);
+//		} else if (designNode.getKind() != Struct.Array) {
+//			Ovaj gore if ti ne valja jer getKind vraca da je lokalna varijabla
+//			Moras da dohvatis tip/ strukturu koja ce ti reci da li je array ili ne
+		} else if (!typeArray) {
+			report_error("Promenljiva " + DesignatorModif.getDestName() + " nije tipa niza! ", DesignatorModif);
+		} else {
+			// i ovde moze onaj dump visitor
+			// printObj = new DumpSymbolTableVisitor();
+			// printObj.visitObjNode(designNode);
+
+			myPrintObj = new My_DumpSymbolTableVisitor_Impl();
+			myPrintObj.visitObjNode(designNode);
+
+			report_info("(" + DesignatorModif.getDestName() + ")" + " Koristim nizovsku varijablu: "
+					+ myPrintObj.getOutput(), DesignatorModif);
+//			DesignatorOneArray.obj = designNode;
+//			Pa ovo gore ti bre nema smisla, ovo gore je itipa objekta a ti hoces da bude tipa elem niza konju jedan
+			DesignatorModif.obj = new Obj(Obj.Elem, designNode.getName(), designNode.getType().getElemType());
+//			Ali pazi skontah sada da mi treba adresa niza ciji sam ja element. Gde to da smestim?
+//			Moze u fpPos jer metode ne radim svakako pa aj tu da sacuvam
+			DesignatorModif.obj.setFpPos(designNode.getAdr());
+//			Mozes da sacuvas i u Adr, ni to ti ne sluzi nicemu
+			DesignatorModif.obj.setAdr(designNode.getAdr());
+//			Po onim tvojim proverama i kreiranju onog Obj.Var posle moras da znas da li je globalna 
+//			ili ne i zato to moram da prosledim
+			DesignatorModif.obj.setLevel(designNode.getLevel());
+
+		}
+	}
+
+	@Override
+	public void visit(DStetemrntDesignatorModif designatorDStetemrntDesignatorModif) {
+		if (designatorDStetemrntDesignatorModif.getDesignator().getClass() != DesignatorModif.class) {
+			report_error("GRESKAAAAA", designatorDStetemrntDesignatorModif);
+		}
+	}
 }

@@ -283,7 +283,8 @@ Stagod ::= NUMBER_CONST ;				// Verovatno radi i bez ovvoga ali neka ga
 DesignatorStatement ::= (DStatementAssign) Designator Assignop Expr  
 					|	(DStatementParen) Designator LPAREN ActPars RPAREN
 					| 	(DStatementInc) Designator INC
-					|	(DStatementDec) Designator DEC ; 
+					|	(DStatementDec) Designator DEC 
+					|	(DStetemrntDesignatorModif) Designator; 
 //				 	|	(DStatementAssignError) Designator Assignop error SEMI:errAssign
 //						{: 	
 //							parser.report_error("Parser:AssignError: Greska, oporavak do ;, linija:" + errAssignleft +" kolona: "+ errAssignright , null); 
@@ -365,7 +366,8 @@ Factor ::= 	(FactVar) Designator:designName
 
 Designator ::= (DesignatorJustOne) IDENT:destName 
 			| 	(DesignatorOneDot) IDENT:destName DOT IDENT
-			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE ;
+			|	(DesignatorOneArray) IDENT:destName LSQUARE Expr:exprr RSQUARE
+			| 	(DesignatorModif) IDENT:destName LSQUARE NUMBER_CONST COMMA NUMBER_CONST RSQUARE ;
 
 // 			IdentOrExpr ::= (DesignIdentOne) DOT IDENT
 //					|	(DesignIdent) IdentOrExpr DOT IDENT 

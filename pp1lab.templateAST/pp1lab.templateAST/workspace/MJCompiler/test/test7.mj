@@ -1,0 +1,29 @@
+program test6
+ 	  
+	int niz[]; 
+{
+	void main()	
+		int bodovi;
+		int nizLok[];
+	  { 
+	  niz = new int[10];
+	  nizLok = new int[20];
+	  
+	  niz[3]=9;
+	  niz[5]= 11;	
+	  print(niz[3]);
+	  print(niz[5]);
+	    
+	  niz[3,5];
+	  
+	  
+	  print(niz[3]);
+	  print(niz[5]);
+	   
+	  
+	  
+	}
+}
+
+
+ 
